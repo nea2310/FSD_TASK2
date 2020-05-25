@@ -98,7 +98,7 @@ module.exports = {
 	devtool: isDev ? 'source-map' : '',
 	plugins: [
 		new HTMLWebpackPlugin({
-			 template: './views/ui.pug',
+			 template: './pug/ui.pug',
 			 }),
 		new CleanWebpackPlugin(),
 		new CopyWebpackPlugin({
