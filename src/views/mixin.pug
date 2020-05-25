@@ -1,2 +1,10 @@
-mixin button(classlist)
-	div(class!=attributes.class)= classlist
+mixin button(options)
+  if !options
+    - options = {}
+  -
+    var classes = ''
+    classes += options.color ? ' btn-' + options.color : ''
+    classes += options.length ? ' btn-' + options.length : ''
+  a.btn(class=classes)(
+    href = options.href || "/mock-address/change-me"
+  )= options.text || 'Button'

@@ -1,13 +1,9 @@
 extends index.pug
-block variables
 include mixin.pug
 block variables
-	-var type1 = "button button__purple"
-	-var type2 = "button button__white"
-	-var type3 = "button button__purple button__purple-opaque"
-	-var type4 = "button button__white button__white-opaque"
+  -var type1 = "btn btn-purple"
 block content
-	+button('CLICK ME')(class=type1)
-	+button('CLICK ME')(class=type2)
-	+button('CLICK ME')(class=type3)
-	+button('CLICK ME')(class=type4)
+  +button({text: 'click me', color: 'white', length: 'short'})
+  +button({text: 'click me', color: 'white', length: 'long'})
+  +button({text: 'click me', color: 'purple', length: 'short'})
+  +button({text: 'click me', color: 'purple', length: 'long'})
