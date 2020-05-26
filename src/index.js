@@ -5,6 +5,7 @@ import './babel'
 //import xml from './assets/data.xml'
 //import csv from './assets/data.csv'
 import './styles/styles.css'
+import './styles/twidget_style.css'
 import './styles/less.less'
 import WebpackLogo from '@/assets/webpack-logo.png'
 
@@ -16,3 +17,6 @@ $('pre').html(post.toString())
 //console.log('JSON: ', json)
 //console.log('XML: ', xml)
 //console.log('CSV: ', csv)
+//require("imports-loader?$=jquery!./twidget_instance.js");
+
+import * as WidgetInstance from '@models/widget_instance';
