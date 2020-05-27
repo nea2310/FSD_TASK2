@@ -19,4 +19,6 @@ $('pre').html(post.toString())
 //console.log('CSV: ', csv)
 //require("imports-loader?$=jquery!./twidget_instance.js");
 
-import * as WidgetInstance from '@models/widget_instance';
+
+import * as dropdown from '@/components/dropdown/dropdown';
+import * as dropdown1 from '@/components/dropdown1/dropdown1';
