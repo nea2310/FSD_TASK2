@@ -1,5 +1,5 @@
 import '../../widget.js'
-const dropdown = $('#twidget1').widget({
+const dropdown = $('#twidget').widget({
 					locale: 'en',
 					marker: 1234,
 					default_origin: 'SVO',
@@ -7,4 +7,4 @@ const dropdown = $('#twidget1').widget({
 					default_hotel_location: 'rio'
 				});
 				
-export { dropdown }				
+export { dropdown }

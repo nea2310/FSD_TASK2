@@ -1,10 +1,7 @@
-import '../../widget.js'
-const dropdown1 = $('#twidget2').widget({
-					locale: 'en',
-					marker: 1234,
-					default_origin: 'SVO',
-					default_destination: 'ekat',
-					default_hotel_location: 'rio'
-				});
-				
+//import './dropdown1.css';
+import '../../plugins/item-quantity-dropdown/item-quantity-dropdown.min.css';
+import $ from 'jquery';
+
+const dropdown1 = $('.iqdropdown').iqDropdown({});
+
 export { dropdown1 }				

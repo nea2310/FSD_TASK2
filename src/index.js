@@ -1,11 +1,14 @@
 import * as $ from 'jquery'
 import Post from '@models/post'
 import './babel'
+import './plugins/item-quantity-dropdown/item-quantity-dropdown.min.js'
 //import json from './assets/json'
 //import xml from './assets/data.xml'
 //import csv from './assets/data.csv'
 import './styles/styles.css'
 import './styles/twidget_style.css'
+//import './plugins/item-quantity-dropdown/item-quantity-dropdown.min.css'
+
 import './styles/less.less'
 import WebpackLogo from '@/assets/webpack-logo.png'
 
@@ -22,3 +25,4 @@ $('pre').html(post.toString())
 
 import * as dropdown from '@/components/dropdown/dropdown';
 import * as dropdown1 from '@/components/dropdown1/dropdown1';
+
