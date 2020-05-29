@@ -43,8 +43,8 @@
                 avia_passengers_select_adults: 'Item type 1',
                 avia_passengers_select_children: 'Item type 2',
                 avia_passengers_select_infants: 'Item type 3',
-                avia_passengers_select_ready_button: 'Done',
-                avia_passengers_clean_button: 'Clean',
+                avia_passengers_select_ready_button: 'применить',
+                avia_passengers_clean_button: 'очистить',
             }
         },
         // globals
@@ -61,6 +61,30 @@
         // is generally empty as we don't want to alter the default options for
         // future instances of the plugin
         this.settings = $.extend( {}, defaults, options );
+        if(this.settings.locale == 'guests'){
+            this.settings.localization = {
+                avia_passengers_caption_1: 'гость',
+                avia_passengers_caption_2: 'гостя',
+                avia_passengers_caption_5: 'гостей',
+                avia_passengers_select_adults: 'взрослые',
+                avia_passengers_select_children: 'дети',
+                avia_passengers_select_infants: 'младенцы',
+                avia_passengers_select_ready_button: 'применить',
+                avia_passengers_clean_button: 'очистить',
+            };
+        }
+         if(this.settings.locale == 'rooms'){
+            this.settings.localization = {
+                avia_passengers_caption_1: 'гость',
+                avia_passengers_caption_2: 'гостя',
+                avia_passengers_caption_5: 'гостей',
+                avia_passengers_select_adults: 'спальни',
+                avia_passengers_select_children: 'кровати',
+                avia_passengers_select_infants: 'ванные комнаты',
+                avia_passengers_select_ready_button: 'применить',
+                avia_passengers_clean_button: 'очистить',
+            };
+        }
         this._defaults = defaults;
         this._name = pluginName;
         this.init();
@@ -262,7 +286,6 @@
             '                        </li>'+
             '                    </ul>'+
             '                </form>'+
-            '                <div class="twidget-tab-bottom">'+
             '                </div>'+
             '            </div>'+
 
