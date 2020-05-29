@@ -1,7 +1,5 @@
 /* HTML5 display-role reset for older browsers */
 .twidget-container{
-
-  width: 266px; 
   box-sizing:border-box;
   text-transform: uppercase;
 }
@@ -94,7 +92,7 @@ twidget-form-list li .twidget-passengers-detail.active
 #twidget-passenger-form {
 	position:absolute; 
 	left:0; top:44px; 
-	width:266px; 
+	/* width:266px;  */
 	background:#fff; 
 	border: 1px solid black;
 	z-index:999;
