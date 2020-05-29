@@ -1,5 +1,6 @@
 @import "~normalize.css";
 @import "roboto.css";
+@import "../plugins/widget_dropdown/widget_dropdown.css";
 
 body{
 	font-family: 'Roboto', sans-serif;

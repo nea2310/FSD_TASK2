@@ -22,17 +22,6 @@ div, span, p, ol, ul, li, table, tbody, tfoot, thead, tr, th, td{
 .twidget-container input[type="text"], .twidget-container input[type="email"],  .twidget-container input[type="date"]{border:none; outline:none; background-color:#fff; color:#424242; font-family:'Open Sans', arial, sans-serif; font-size: 14px; }
 .twidget-container input::-ms-clear {display: none;}
 .twidget-tab-content button{font-family:'Open Sans', arial, sans-serif; font-weight:600; outline:none; cursor:pointer; font-size:18px; border:none; background:none; }
-/*tab links*/
-.twidget-tab-links{ position:relative; z-index:9;}
-.twidget-tab-links ul {height:51px; }
-.twidget-tab-links ul li{background-color:#0098be; position:relative; display:inline-block; float:left; box-shadow: rgba(0, 0, 0, 0.1) 0 -3px 0 0 inset;}
-.twidget-tab-links ul li:first-child{box-shadow: inset -3px -3px 0 rgba(0,0,0,.1); border-top-left-radius: 3px;}
-.twidget-tab-links ul li:last-child{box-shadow: inset 3px -3px 0 rgba(0,0,0,.1); border-top-right-radius: 3px;}
-.twidget-tab-links ul li.active{background-color:#00b1dd; box-shadow:none; -webkit-box-shadow:none; -moz-box-shadow:none;}
-.twidget-tab-links ul li a:before{content:''; position:absolute; height:25px; left:0; display:block; background: 50% 0 no-repeat; width:50px; background-size:50px 25px; top:50%; margin-top:-12px;}
-/*.twidget-tab-links ul li#twidget-flight-li a:before{background-image:url(./images/plane.png); background-size:auto 25px;}
-.twidget-tab-links ul li#twidget-hotel-li a:before{background-image:url(./images/bed.png); background-size:auto 20px;}*/
-.twidget-tab-links a{color:#fff; font-size:16px; font-weight:600; display:block; text-transform:uppercase; padding:0 20px 0 50px; line-height:51px;}
 
 /*tab content*/
 .twidget-tab-content{padding:20px 15px 0; background-color:#00b1dd; border-radius:0 3px 3px 3px; }
@@ -40,7 +29,7 @@ div, span, p, ol, ul, li, table, tbody, tfoot, thead, tr, th, td{
 .twidget-tab-content .twidget-tab{display:none;}
 .twidget-tab-content .twidget-tab.active{display:block;}
 .twidget-tab-content .twidget-header{display: block; font-family:'Open Sans', arial, sans-serif; height: 30px; line-height: 30px; font-size: 18px; margin-bottom: 5px; margin-top: -5px;}
-#twidget-tab2 .twidget-header {margin-bottom: 15px;}
+/* #twidget-tab2 .twidget-header {margin-bottom: 15px;} */
 .twidget-tab-content .twidget-header .twidget-logo{font-size: 28px; color: white; float: left; font-weight: 300; line-height: 26px;}
 .twidget-tab-content .twidget-header .twidget-logo .twidget-logo-image{display: inline-block; float: left; margin-right: 10px; width: 30px; height: 30px; background-repeat: no-repeat;}
 .twidget-tab-content .twidget-header .twidget-logo .twidget-logo-image.twidget-jetradar-logo-img {
@@ -72,8 +61,8 @@ div, span, p, ol, ul, li, table, tbody, tfoot, thead, tr, th, td{
 .twidget-form-list li.twidget-flight-dates .twidget-dep-date .twidget-input-box input:focus,
 .twidget-form-list li.twidget-hotel-dates .twidget-start-date .twidget-input-box input:focus{border-right-color:#fdd835;}
 .twidget-form-list li.input-daterange .twidget-input-box{position:relative;}
-/*.twidget-form-list li.input-daterange .twidget-input-box .twidget-icon-cal{background:url(./images/calendar.png) no-repeat 50% 50%; position:absolute; right:0; top:12px; height:50px; width:40px; background-size:14px; cursor: pointer;}
-.twidget-form-list li.input-daterange .twidget-input-box .twidget-icon-delete{background:url(./images/icon-delete.png) no-repeat 50% 50%; position:absolute; right:0; top:12px; height:50px; width:40px; background-size:13px; cursor:pointer;}*/
+.twidget-form-list li.input-daterange .twidget-input-box .twidget-icon-cal{background:url(./images/calendar.png) no-repeat 50% 50%; position:absolute; right:0; top:12px; height:50px; width:40px; background-size:14px; cursor: pointer;}
+.twidget-form-list li.input-daterange .twidget-input-box .twidget-icon-delete{background:url(./images/icon-delete.png) no-repeat 50% 50%; position:absolute; right:0; top:12px; height:50px; width:40px; background-size:13px; cursor:pointer;}
 .twidget-form-list li .twidget-passengers-detail,
 .twidget-form-list li .twidget-guest-detail{height:50px; padding:7px 14px; border:1px solid #fff; cursor:pointer; position:relative; background-color:#fff;}
 .twidget-form-list li .twidget-passengers-detail.active,
@@ -82,7 +71,7 @@ div, span, p, ol, ul, li, table, tbody, tfoot, thead, tr, th, td{
 .twidget-form-list li .twidget-guest-detail .twidget-guest-no{line-height:36px;}
 .twidget-form-list li .twidget-passengers-detail .twidget-class{color:#999; font-size:13px; line-height:18px;}
 .twidget-form-list li .twidget-passengers-detail:after,
-/*.twidget-form-list li .twidget-guest-detail:after{background-image:url('./images/arrow-down.png'); background-repeat:no-repeat; width:15px; height:8px; background-position:0 0; content:""; top:20px; right:7px; position:absolute; background-size:15px;}*/
+.twidget-form-list li .twidget-guest-detail:after{background-image:url('./images/arrow-down.png'); background-repeat:no-repeat; width:15px; height:8px; background-position:0 0; content:""; top:20px; right:7px; position:absolute; background-size:15px;}
 .twidget-form-list li .twidget-passengers-detail.active:after,
 .twidget-form-list li .twidget-guest-detail.active:after{transform:rotate(180deg); -webkit-transform:rotate(180deg); -moz-transform:rotate(180deg);}
 .twidget-tab-content .twidget-tab-bottom{height:30px;}
@@ -92,42 +81,21 @@ div, span, p, ol, ul, li, table, tbody, tfoot, thead, tr, th, td{
 .twidget-form-list li.twidget-input-locked .twidget-pseudo-country-name, 
 .twidget-form-list li.twidget-input-locked .twidget-destination-iata { color: white!important; font-weight: 600;} 
 
-/*datepicker*/
-.datepicker {border-radius: 0!important;}
-.datepicker-dropdown { padding: 5px 10px 0 10px; height: 260px; }
-.datepicker-days {font-family: 'Open Sans', arial, sans-serif}
-.twidget-container .input-daterange input{text-align:left; font-size: 0; z-index:1;}
-.input-daterange input:first-child {border-radius: 0;}
-.datepicker table tr td.disabled, .datepicker table tr td.disabled:hover, .datepicker table tr td.disabled.new {color: #a9a9a9;}
-.twidget-date-text{position:absolute; left:12px; top:31px;}
-.datepicker .datepicker-switch { width: 160px;}
-.datepicker .datepicker-switch:hover, .datepicker .prev:hover, .datepicker .next:hover, .datepicker tfoot tr th:hover { background-color: transparent;}
-.datepicker .prev, .datepicker .next, .datepicker .prev:hover, .datepicker .next:hover {color: transparent; background: url("data:image/svg+xml,%3Csvg%20version%3D'1.2'%20baseProfile%3D'tiny'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2030.6%2024.6'%3E%3Cpath%20fill%3D'%2300B9FF'%20d%3D'M.6%2010.8l.2-.2%209.9-10c.8-.8%202.2-.8%203%200l.3.2c.8.8.8%202.2%200%203L7.9%2010h20.6c1.2%200%202.1%201%202.1%202.1v.3c0%201.2-1%202.1-2.1%202.1H7.9l6.2%206.2c.8.8.8%202.2%200%203l-.3.3c-.8.8-2.2.8-3%200L.8%2014l-.2-.2c-.8-.8-.8-2.2%200-3z'%2F%3E%3C%2Fsvg%3E") no-repeat 8px 6px; background-size: 16px;}
-.datepicker .next {-webkit-transform: rotate(180deg) !important; -ms-transform: rotate(180deg) !important; -o-transform: rotate(180deg) !important; transform: rotate(180deg) !important;}
-.datepicker thead tr:last-child {text-transform: uppercase; font-size: 10px;}
-.datepicker table tr td, .datepicker table tr th {border-radius: 0;width: 32px; height: 25px; line-height: 24px; display: inline-block; padding: 0!important;}
-.datepicker table tr td, .datepicker table tr td.new, .datepicker table tr td.range {color: #00B9FF;}
-.datepicker table tr td.day:hover, .datepicker table tr td.focused {color: black;}
-.datepicker-days tr {border-bottom: 3px solid white;}
-.datepicker-days .day.range-end {background: url("data:image/svg+xml,%3Csvg%20version%3D'1.2'%20baseProfile%3D'tiny'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2026%2022'%3E%3Cpath%20fill%3D'%2300B9FF'%20d%3D'M4.3%2022H26V0H4.3L0%2011z'%2F%3E%3C%2Fsvg%3E") no-repeat right; background-color: #f5f5f5; color: white;}
-.datepicker-days .day.range-start {background: url("data:image/svg+xml,%3Csvg%20version%3D'1.2'%20baseProfile%3D'tiny'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2026%2022'%3E%3Cpath%20fill%3D'%2300B9FF'%20d%3D'M21.7%2022H0V0h21.7L26%2011z'%2F%3E%3C%2Fsvg%3E") no-repeat; background-color: #f5f5f5; padding-right: 3px!important; color: white;}
-.datepicker table tr td.active:active, .datepicker table tr td.active.highlighted:active, .datepicker table tr td.active.active, .datepicker table tr td.active.highlighted.active { background-color: #f5f5f5; }
-.datepicker table tr td.selected:hover, .datepicker table tr td.selected.highlighted:hover {background-color: #00B9FF;}
-.datepicker table tr td.range { background-color: #f5f5f5;}
-.datepicker table tr td.active:active:hover, .datepicker table tr td.active.highlighted:active:hover, .datepicker table tr td.active.active:hover, .datepicker table tr td.active.highlighted.active:hover, .datepicker table tr td.active:active:focus, .datepicker table tr td.active.highlighted:active:focus, .datepicker table tr td.active.active:focus, .datepicker table tr td.active.highlighted.active:focus, .datepicker table tr td.active:active.focus, .datepicker table tr td.active.highlighted:active.focus, .datepicker table tr td.active.active.focus, .datepicker table tr td.active.highlighted.active.focus { background-color: #00B9FF;}
-.datepicker-cancel-return-date {color: #ffaf1a!important; position: absolute; display: block!important; margin-top: 0; left: 43px; width: 160px!important; line-height: 17px; border: 1px solid #ffa600!important; border-radius: 40px!important; text-align: center!important; font-size: 11px; cursor: pointer;}
-/*passenger slection*/
-#twidget-passenger-form, #twidget-guest-form{position:absolute; left:0; top:51px; width:270px; padding-top:7px; background:#fff; box-shadow:0 0 15px 0 rgba(0,0,0,0.3); z-index:999;}
+
+
+
+/*passenger selection*/
+#twidget-passenger-form {position:absolute; left:0; top:51px; width:270px; padding-top:7px; background:#fff; box-shadow:0 0 15px 0 rgba(0,0,0,0.3); z-index:999;}
 .twidget-age-group{display:table; width:100%;}
 .twidget-age-group li{display:table-row;}
 .twidget-age-group li .twidget-cell{display:table-cell; height:44px; vertical-align:middle;}
 .twidget-age-group li .twidget-age-name{padding-left:20px; width:50%;}
 .twidget-age-group li  .twidget-age-select{padding-right:10px; width:40%;}
-/*.twidget-age-select .twidget-dec{width:35px; height:35px; display:inline-block; text-indent:-9999px;cursor:pointer; border-radius:25px; line-height:35px; background:#fff 50% 50%/14px no-repeat; background-image:url('./images/minus.png');}*/
+.twidget-age-select .twidget-dec{width:35px; height:35px; display:inline-block; text-indent:-9999px;cursor:pointer; border-radius:25px; line-height:35px; background:#fff 50% 50%/14px no-repeat; background-image:url('./images/minus.png');}
 .twidget-age-select .twidget-dec:hover{background-color:#e0e0e0; }
 .twidget-age-select .twidget-num{width:30%; text-align:center; line-height:1.4; display:inline-block;}
 .twidget-age-select .twidget-num input{width:100%; padding:0; text-align:center;}
-/*.twidget-age-select .twidget-inc{width:35px; height:35px; display:inline-block; text-indent:-9999px;cursor:pointer; border-radius:25px; line-height:35px; background:#fff 50% 50%/14px no-repeat; background-image:url('./images/plus.png');} */
+.twidget-age-select .twidget-inc{width:35px; height:35px; display:inline-block; text-indent:-9999px;cursor:pointer; border-radius:25px; line-height:35px; background:#fff 50% 50%/14px no-repeat; background-image:url('./images/plus.png');}
 .twidget-age-select .twidget-inc:hover{background-color:#e0e0e0; }
 .twidget-age-select input{-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
 .twidget-age-select input::selection {color:currentColor;background:transparent}
@@ -140,29 +108,7 @@ div, span, p, ol, ul, li, table, tbody, tfoot, thead, tr, th, td{
 .twidget-passengers-ready-button-wrapper { vertical-align: middle; text-align: center; display: block!important; margin-top: 5px; margin-bottom: 20px; }
 .twidget-passengers-ready-button {display: inline-block; padding: 0 30px; font-size: 13px; line-height: 43px; border: 1px solid #ffa600!important; border-radius: 40px; text-align: center; margin: 0 auto; color: #ffa600; cursor: pointer; clear: both; }
 .twidget-passengers-ready-button:hover { border-color: #ffaf1a; color: #ffaf1a;}
-/*hotel*/
-#twidget-tab2 .twidget-form-list li.twidget-city-hotel{width:39%;}
-#twidget-tab2 .twidget-form-list li.twidget-hotel-dates{width:27%;}
-#twidget-tab2 .twidget-form-list li.twidget-hotel-guest{width:13%;}
-#twidget-tab2 .twidget-form-list li.twidget-submit-button{width:18%;}
-/*.twidget-icon-hotel{width:40px; height:50px; background:url(./images/hotel.png) no-repeat 50% 50%; background-size:20px; position:absolute; top:12px; right:0;} */
-/*city hotel autofill*/
-.twidget-auto-fill-wrapper{position:absolute; z-index:99; top:50px; left:0; width:100%; box-shadow: 0 0 15px 0 rgba(0,0,0,.3); overflow:hidden; background:#fff;max-height:315px;}
-.twidget-auto-fill-wrapper ul li{height:45px; padding:4px 20px; position:relative; overflow:hidden; cursor:pointer; color:#424242; white-space: nowrap;}
-.twidget-city-hotel .twidget-auto-fill-wrapper ul li{padding:4px 26px;}
-.twidget-auto-fill-wrapper ul li:hover{background-color:#00b1dd; color:#fff;}
-.twidget-auto-fill-wrapper ul li > span.twidget-city-name{display:block; line-height:37px; width: 85%; overflow: hidden; text-overflow: ellipsis;}
-.twidget-auto-fill-wrapper ul li:before{position: absolute; top: 13px; left: 0; display: block; width: 26px; background-position: center; background-repeat: no-repeat; content: ''; height: 20px; background-size: 13px;}
-.twidget-auto-fill-wrapper ul li.main-city:before{background-image: url('data:image/svg+xml,%3Csvg%20width%3D%2210%22%20height%3D%2210%22%20viewBox%3D%220%200%2010%2010%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cg%20fill%3D%22%2300B9FF%22%20fill-rule%3D%22evenodd%22%3E%3Cpath%20d%3D%22M3.758%204.984c0%20.686.556%201.243%201.242%201.243.686%200%201.242-.557%201.242-1.243%200-.685-.556-1.242-1.242-1.242-.686%200-1.242.557-1.242%201.242z%22%2F%3E%3Cpath%20d%3D%22M9.66%204.44h-.45C8.957%202.553%207.48%201.064%205.6.795V.3c0-.165-.135-.3-.3-.3h-.6c-.165%200-.3.135-.3.3v.495C2.518%201.065%201.042%202.553.79%204.44H.3c-.165%200-.3.135-.3.3v.6c0%20.165.135.3.3.3h.5c.28%201.85%201.745%203.3%203.6%203.565V9.7c0%20.165.135.3.3.3h.6c.165%200%20.3-.135.3-.3v-.495C7.455%208.94%208.92%207.49%209.2%205.64h.46c.165%200%20.3-.135.3-.3v-.6c0-.165-.135-.3-.3-.3zM5.6%208.21c0-.165-.135-.3-.3-.3h-.6c-.165%200-.3.135-.3.3v.26c-1.452-.25-2.6-1.383-2.867-2.83h.257c.165%200%20.3-.135.3-.3v-.6c0-.165-.135-.3-.3-.3h-.265c.24-1.484%201.397-2.656%202.875-2.91v.26c0%20.165.135.3.3.3h.6c.165%200%20.3-.135.3-.3v-.26c1.478.254%202.636%201.426%202.875%202.91H8.17c-.165%200-.3.135-.3.3v.6c0%20.165.135.3.3.3h.297C8.2%207.087%207.052%208.22%205.6%208.47v-.26z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E');}
-.twidget-auto-fill-wrapper ul li.main-hotel:before{background-image: url('data:image/svg+xml,%3Csvg%20width%3D%2210%22%20height%3D%2210%22%20viewBox%3D%220%200%2010%2010%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cg%20fill%3D%22%2300B9FF%22%20fill-rule%3D%22evenodd%22%3E%3Cpath%20d%3D%22M5.313%200L0%202.51V10h10V3.812L5.312%202.04V0zm4.062%204.23v4.997h-.938v-5.35l.938.353zM4.687.965v8.262h-2.5V2.142l2.5-1.177zm-3.125%201.47v6.792H.625v-6.35l.938-.44zm6.25%201.207v5.585h-2.5V2.7l2.5.942z%22%2F%3E%3Cpath%20d%3D%22M2.9%202.66h1.2v.6H2.9v-.6zM2.9%204.34h1.2v.6H2.9v-.6zM2.9%206.04h1.2v.6H2.9v-.6zM2.9%207.72h1.2v.6H2.9v-.6zM6.1%204.34h1v.6h-1v-.6zM6.1%206.04h1v.6h-1v-.6zM6.1%207.72h1v.6h-1v-.6z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E'); top: 11px;}
-.twidget-auto-fill-wrapper[data-type="avia"] ul li > span.twidget-city-name{line-height:25px;}
-.twidget-auto-fill-wrapper ul li > span.twidget-city-name span{color:#999; font-size:13px;}
-.twidget-auto-fill-wrapper ul li > span.twidget-city-airport-name{color:#999; font-size:11px;position: absolute; margin-top: -16px; width: 70%; height: 14px; overflow: hidden; text-overflow: ellipsis;}
-.twidget-auto-fill-wrapper ul li > span.twidget-num-hotel{position:absolute; top:11px; right:15px; color:#999; line-height:26px; font-size: 11px;}
-.twidget-auto-fill-wrapper[data-type="avia"] ul li > span.twidget-num-hotel{top: 5px}
-.twidget-auto-fill-wrapper ul li:hover .twidget-num-hotel,
-.twidget-auto-fill-wrapper ul li:hover .twidget-city-airport-name,
-.twidget-auto-fill-wrapper ul li:hover .twidget-city-name span {color:#fff !important;}
+
 @media (max-width: 1920px){
 .twidget-container{width:980px;}
 #twidget-tab1 .twidget-form-list li.twidget-origin, #twidget-tab1 .twidget-form-list li.twidget-destination{width:49.5%; margin-bottom:15px;}
@@ -175,10 +121,6 @@ div, span, p, ol, ul, li, table, tbody, tfoot, thead, tr, th, td{
 }
 @media (max-width: 1920px){
 .twidget-container{width:900px;}
-#twidget-tab2 .twidget-form-list li.twidget-city-hotel{width:100%; margin-right:0; margin-bottom:15px;}
-#twidget-tab2 .twidget-form-list li.twidget-hotel-dates{width:43%;}
-#twidget-tab2 .twidget-form-list li.twidget-hotel-guest{width:25%;}
-#twidget-tab2 .twidget-form-list li.twidget-submit-button{width:30%;}
 }
 @media (max-width: 900px){
 .twidget-container{width:800px;}
@@ -201,27 +143,14 @@ div, span, p, ol, ul, li, table, tbody, tfoot, thead, tr, th, td{
 #twidget-tab1 .twidget-form-list li.twidget-submit-button{width:100%; margin-top:10px;}
 .twidget-form-list li .twidget-passengers-detail .twidget-pas-no{display:inline-block; line-height:36px;}
 .twidget-form-list li .twidget-passengers-detail .twidget-class{display:inline-block; line-height:36px;}
-
-#twidget-tab2 .twidget-form-list li.twidget-hotel-dates{width:49%; margin-bottom:15px; margin-right:2%;}
-#twidget-tab2 .twidget-form-list li.twidget-hotel-guest{width:49%; margin-right:0; margin-bottom:15px;}
-#twidget-tab2 .twidget-form-list li.twidget-submit-button{width:100%;}
 }
 @media (max-width: 550px){
 .twidget-tab-content .twidget-title{display: none;}
 #twidget-tab1 .twidget-form-list > li{width:100% !important; margin-bottom:15px;  margin-right:0 !important;}
 #twidget-tab1 .twidget-form-list > li:last-child{margin-bottom:0; margin-top:0;}
-#twidget-tab2 .twidget-form-list li.twidget-hotel-dates{width:100%; margin-right:0;}
-#twidget-tab2 .twidget-form-list li.twidget-hotel-dates .twidget-form-item{width:100%; margin-bottom:15px;}
-#twidget-tab2 .twidget-form-list li.twidget-hotel-dates .twidget-form-item:last-child{margin-bottom:0;}
-#twidget-tab2 .twidget-form-list li.twidget-hotel-guest{width:100%;}
 }
 @media (max-width: 320px){
 .twidget-dep-date {margin-bottom: 15px;}
-.twidget-tab-links{display:table; width:100%;}
-.twidget-tab-links ul{display:table-row;}
-.twidget-tab-links ul li{display:table-cell; width:50%;}
-.twidget-tab-links ul li a{padding:0; text-indent:-9999px;}
-.twidget-tab-links ul li a:before{left: calc(50% - 25px);}
 .twidget-form-list li.twidget-flight-dates > div{width:100%;}
 .twidget-form-list li.twidget-flight-dates .twidget-dep-date .twidget-input-box input{border-right-color:#fff; border-bottom:1px solid #cfd8dc;}
 }
