@@ -37,13 +37,14 @@
             default_hotel_location: '',
             localization: {
                 avia_passengers_select_caption: 'Passengers/Class',
-                avia_passengers_caption_1: 'passenger',
-                avia_passengers_caption_2: 'passengers',
-                avia_passengers_caption_5: 'passengers',
-                avia_passengers_select_adults: 'Adults',
-                avia_passengers_select_children: 'Children to 12<br>years',
-                avia_passengers_select_infants: 'Infants to 2<br>years',
+                avia_passengers_caption_1: 'item',
+                avia_passengers_caption_2: 'item',
+                avia_passengers_caption_5: 'item',
+                avia_passengers_select_adults: 'Item type 1',
+                avia_passengers_select_children: 'Item type 2',
+                avia_passengers_select_infants: 'Item type 3',
                 avia_passengers_select_ready_button: 'Done',
+                avia_passengers_clean_button: 'Clean',
             }
         },
         // globals
@@ -251,6 +252,7 @@
             '                                    </ul>'+
             '                                    <ul class="twidget-age-group">'+
             '                                        <li class="twidget-passengers-ready-button-wrapper">'+
+            '                                            <div class="twidget-clean-button">' + _this.settings.localization.avia_passengers_clean_button + '</div>'+
             '                                            <div class="twidget-passengers-ready-button">' + _this.settings.localization.avia_passengers_select_ready_button + '</div>'+
             '                                        </li>'+
             '                                    </ul>'+
