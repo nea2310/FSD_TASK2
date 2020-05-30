@@ -1,0 +1,71 @@
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Travel Form Test</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--adding css files-->
+  <!-- <link rel="stylesheet" type="text/css" href="./reset.css">
+    <link rel="stylesheet prefetch" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker3.standalone.css">-->
+  <link rel="stylesheet" type="text/css" href="no_widget.css">
+
+
+</head>
+
+<body style="margin: 0;background: #a6691d">
+  <div class="twidget-container guests-container" id="twidget">
+    <!-- start widget-->
+    <div class="twidget-tabs">
+      <!--select tabs-->
+      <!-- tabs -->
+      <div class="twidget-tab-content">
+        <!--flight tab content-->
+        <div id="twidget-tab1" class="twidget-tab active">
+          <div> </div>
+          <div class="clearfix"></div>
+          <form>
+            <ul class="twidget-form-list clearfix">
+              <!-- flight passengers -->
+              <li class="twidget-passengers">
+                <div class="twidget-passengers-detail active">
+                  <div class="twidget-pas-no"><span id="twidget-pas">1</span> <span class="twidget-pas-caption">гость</span></div>
+                </div>
+                <!--start passenger selection-->
+                <div id="twidget-passenger-form" style="">
+                  <div class="twidget-passenger-form-wrapper">
+                    <ul class="twidget-age-group">
+                      <li>
+                        <div class="twidget-cell twidget-age-name">взрослые</div>
+                        <div class="twidget-cell twidget-age-select"> <span class="twidget-dec twidget-q-btn" data-age="adults">-</span><span class="twidget-num"><input type="text" name="adults" value="1"></span><span class="twidget-inc twidget-q-btn" data-age="adults">+</span> </div>
+                      </li>
+                      <li>
+                        <div class="twidget-cell twidget-age-name">дети</div>
+                        <div class="twidget-cell twidget-age-select"> <span class="twidget-dec twidget-q-btn" data-age="children">-</span><span class="twidget-num"><input type="text" name="children" value="0"></span><span class="twidget-inc twidget-q-btn" data-age="children">+</span> </div>
+                      </li>
+                      <li>
+                        <div class="twidget-cell twidget-age-name">младенцы</div>
+                        <div class="twidget-cell twidget-age-select"> <span class="twidget-dec twidget-q-btn" data-age="infants">-</span><span class="twidget-num"><input type="text" name="infants" value="0"></span><span class="twidget-inc twidget-q-btn" data-age="infants">+</span> </div>
+                      </li>
+                    </ul>
+                    <ul class="twidget-age-group">
+                      <li class="twidget-passengers-ready-button-wrapper">
+                        <div class="twidget-clean-button">очистить</div>
+                        <div class="twidget-passengers-ready-button">применить</div>
+                      </li>
+                    </ul>
+                  </div>
+                </div> <!-- end passenger selection-->
+              </li>
+            </ul>
+          </form>
+        </div>
+      </div>
+      <!--end tab content-->
+    </div>
+    <!--end widget -->
+  </div>
+<script type="text/javascript" src="no_widget.js"></script>
+</body>
+
+</html>

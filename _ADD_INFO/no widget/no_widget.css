@@ -2,6 +2,7 @@
 
 /* HTML5 display-role reset for older browsers */
 .twidget-container{
+  width: 266px; 
   box-sizing:border-box;
   text-transform: uppercase;
   font-family: "Montserrat Bold", Arial, sans-serif;
@@ -79,6 +80,7 @@
 	position:absolute; 
 	left:0; top:44px; 
 	background:#fff; 
+	border: 1px solid @color_grey_opaque;
 	z-index:999;
 	box-sizing: border-box;
 	border-bottom-left-radius: 5px;

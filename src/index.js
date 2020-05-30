@@ -2,10 +2,10 @@ import * as $ from 'jquery'
 import Post from '@models/post'
 import './babel'
 
-
+import './styles/styles.less'
 import './styles/styles.css'
 
-import './styles/styles.less'
+
 import WebpackLogo from '@/assets/webpack-logo.png'
 
 
