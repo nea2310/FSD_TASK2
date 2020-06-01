@@ -8,10 +8,7 @@
 	</head>
 	<body>
 	<div>
-<span class='minus'>-</span><span>1</span> <span class='plus'>+</span> 
-<span class='minus'>-</span><span>1</span> <span class='plus'>+</span> <a href='/id/12/qtv/1'>добавить</a>
 
-<span class='minus'>-</span><span>1</span> <span class='plus'>+</span> <a href='/id/12/qtv/1'>добавить</a>
 
 </div>
  <div class="twidget-container guests-container" id="twidget">
@@ -29,7 +26,12 @@
               <!-- flight passengers -->
               <li class="twidget-passengers">
                 <div class="twidget-passengers-detail active">
-                  <div class="twidget-pas-no"><span id="twidget-pas">1</span> <span class="twidget-pas-caption">гость</span></div>
+                  <!-- <div class="twidget-pas-no"><span id="twidget-pas">1</span> <span class="twidget-pas-caption">гость</span></div> -->
+                   <div class="twidget-pas-no">
+                    <span class="adults_count">0</span><span>взрослый</span>
+                    <span class="children_count">0</span><span>ребенок</span>
+                    <span class="infants_count">0</span><span>младенец</span>
+                  </div>
                 </div>
                 <!--start passenger selection-->
                 <div id="twidget-passenger-form" style="">
@@ -37,15 +39,15 @@
                     <ul class="twidget-age-group">
                       <li>
                         <div class="twidget-cell twidget-age-name">взрослые</div>
-                        <div class="twidget-cell twidget-age-select"> <span class='minus'>-</span><span>1</span> <span class='plus'>+</span> </div>
+                        <div class="twidget-cell twidget-age-select"> <span class='minus plus_minus' data-type="minus" data-name="adults">-</span><span data-name="adults">1</span> <span class='plus plus_minus' data-type="plus" data-name="adults">+</span> </div>
                       </li>
                       <li>
                         <div class="twidget-cell twidget-age-name">дети</div>
-                        <div class="twidget-cell twidget-age-select"> <span class="twidget-dec twidget-q-btn minus" data-age="children">-</span><span class="twidget-num"><input type="text" name="children" value="0"></span><span class="twidget-inc twidget-q-btn plus" data-age="children">+</span> </div>
+                         <div class="twidget-cell twidget-age-select"> <span class='minus plus_minus' data-type="minus" data-name="children">-</span><span data-name="children">0</span> <span class='plus plus_minus' data-type="plus" data-name="children">+</span> </div>
                       </li>
                       <li>
                         <div class="twidget-cell twidget-age-name">младенцы</div>
-                        <div class="twidget-cell twidget-age-select"> <span class="twidget-dec twidget-q-btn minus" data-age="infants">-</span><span class="twidget-num"><input type="text" name="infants" value="0"></span><span class="twidget-inc twidget-q-btт plus" data-age="infants">+</span> </div>
+                         <div class="twidget-cell twidget-age-select"> <span class='minus plus_minus' data-type="minus" data-name="infants">-</span><span data-name="infants">0</span> <span class='plus plus_minus' data-type="plus" data-name="infants">+</span> </div>
                       </li>
                     </ul>
                     <ul class="twidget-age-group">
