@@ -7,66 +7,50 @@
 		<link href="no_widget.css" rel="stylesheet">
 	</head>
 	<body>
-	<div>
 
 
-</div>
- <div class="twidget-container guests-container" id="twidget">
-    <!-- start widget-->
-    <div class="twidget-tabs">
-      <!--select tabs-->
-      <!-- tabs -->
-      <div class="twidget-tab-content">
-        <!--flight tab content-->
-        <div id="twidget-tab1" class="twidget-tab active">
-          <div> </div>
-          <div class="clearfix"></div>
-          <form>
-            <ul class="twidget-form-list clearfix">
-              <!-- flight passengers -->
-              <li class="twidget-passengers">
-                <div class="twidget-passengers-detail active">
-                  <!-- <div class="twidget-pas-no"><span id="twidget-pas">1</span> <span class="twidget-pas-caption">гость</span></div> -->
-                   <div class="twidget-pas-no">
-                    <span class="adults_count">0</span><span>взрослый</span>
-                    <span class="children_count">0</span><span>ребенок</span>
-                    <span class="infants_count">0</span><span>младенец</span>
+              <div class="dropdown-wrapper">
+                   <div class="dropdown-header">
+                    <span class="category-one-count">0</span><span>взрослый</span>
+                    <span class="category-two-count">0</span><span>ребенок</span>
+                    <span class="category-three-count">0</span><span>младенец</span>
+                    <div class="dropdown-toggle"></div>
                   </div>
-                </div>
-                <!--start passenger selection-->
-                <div id="twidget-passenger-form" style="">
-                  <div class="twidget-passenger-form-wrapper">
-                    <ul class="twidget-age-group">
-                      <li>
-                        <div class="twidget-cell twidget-age-name">взрослые</div>
-                        <div class="twidget-cell twidget-age-select"> <span class='minus plus_minus' data-type="minus" data-name="adults">-</span><span data-name="adults">1</span> <span class='plus plus_minus' data-type="plus" data-name="adults">+</span> </div>
-                      </li>
-                      <li>
-                        <div class="twidget-cell twidget-age-name">дети</div>
-                         <div class="twidget-cell twidget-age-select"> <span class='minus plus_minus' data-type="minus" data-name="children">-</span><span data-name="children">0</span> <span class='plus plus_minus' data-type="plus" data-name="children">+</span> </div>
-                      </li>
-                      <li>
-                        <div class="twidget-cell twidget-age-name">младенцы</div>
-                         <div class="twidget-cell twidget-age-select"> <span class='minus plus_minus' data-type="minus" data-name="infants">-</span><span data-name="infants">0</span> <span class='plus plus_minus' data-type="plus" data-name="infants">+</span> </div>
-                      </li>
-                    </ul>
-                    <ul class="twidget-age-group">
-                      <li class="twidget-passengers-ready-button-wrapper">
-                        <div class="twidget-clean-button">очистить</div>
-                        <div class="twidget-passengers-ready-button">применить</div>
-                      </li>
-                    </ul>
-                  </div>
-                </div> <!-- end passenger selection-->
-              </li>
-            </ul>
-          </form>
-        </div>
-      </div>
-      <!--end tab content-->
-    </div>
-    <!--end widget -->
-  </div>
+                    <div class="dropdown-categories">
+                      <div class="dropdown-category">
+                        <div class="category-type">взрослые</div>
+                        <div class="category-counter"> 
+                          <span class='dropdown-minus' data-name="category-one">-</span>
+                          <span>1</span> 
+                          <span class='dropdown-plus' data-name="category-one">+</span> 
+                        </div>
+                      </div>
+
+                      <div  class="dropdown-category">
+                        <div class="category-type">дети</div>
+                         <div class="category-counter"> 
+                          <span class='dropdown-minus' data-name="category-two">-</span>
+                          <span>0</span> 
+                          <span class='dropdown-plus' data-name="category-two">+</span> 
+                        </div>
+                      </div>
+
+                      <div  class="dropdown-category">
+                        <div class="category-type">младенцы</div>
+                         <div class="category-counter"> 
+                          <span class='dropdown-minus' data-name="category-three">-</span>
+                          <span>0</span> 
+                          <span class='dropdown-plus' data-name="category-three">+</span> 
+                        </div>
+                      </div>
+
+                    </div>
+                      <div class="dropdown-footer">
+                        <div class="button-clean">очистить</div>
+                        <div class="button-ready">применить</div>
+                      </div>
+              </div>
+
 
 		<script src="js/jquery-3.4.1.min.js"></script>
 		<script src="js/scripts.js"></script>
