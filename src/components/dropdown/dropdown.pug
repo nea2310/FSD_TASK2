@@ -1,0 +1,28 @@
+mixin dropdown(options)
+  div(class="dropdown-wrapper")
+    div(class="dropdown-header")
+      span(class="category-one-count")
+      span(class="category-two-count")
+      span(class="category-three-count")
+    div(class="dropdown-categories")
+      div(class="dropdown-category")
+        div(class="category-type") Взрослые
+          div(class="category-counter")
+            span(class='dropdown-minus' data-name="category-one") -
+            span 1
+            span(class='dropdown-plus' data-name="category-one") +
+      div(class="dropdown-category")
+        div(class="category-type") дети
+          div(class="category-counter")
+            span(class='dropdown-minus' data-name="category-two") -
+            span 0
+            span(class='dropdown-plus' data-name="category-two") +
+      div(class="dropdown-category")
+        div(class="category-type") дети
+          div(class="category-counter")
+            span(class='dropdown-minus' data-name="category-three") -
+            span 0
+            span(class='dropdown-plus' data-name="category-three") +
+    div(class="dropdown-footer")
+      div(class="button-clean") очистить
+      div(class="button-ready") применить

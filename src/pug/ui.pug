@@ -1,5 +1,6 @@
 extends index.pug
 include ../components/btn/btn.pug
+include ../components/dropdown/dropdown.pug
 block variables
   -var type1 = "btn btn-purple"
 block content
@@ -7,23 +8,5 @@ block content
   +button({text: 'click me', color: 'white', length: 'long'})
   +button({text: 'click me', color: 'purple', length: 'short'})
   +button({text: 'click me', color: 'purple', length: 'long'})
-  include ../components/dropdown_guests/dropdown_guests.pug
-  br
-  br
-  br
-  br
-  br
-  br
-  br
-  br
-  br
-  br
-  br
-  br
-  br
-  br
-  br
-  br
-  br
-  br
-  include ../components/dropdown_rooms/dropdown_rooms.pug
+  +dropdown()
+  +dropdown()
