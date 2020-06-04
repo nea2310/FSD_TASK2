@@ -76,7 +76,6 @@ module.exports = {
 	context: path.resolve(__dirname, 'src'),
 	mode: 'development',
 	entry: {
-		widget: './plugins/widget_dropdown/widget_dropdown.js',
 		main: ['@babel/polyfill', './index.js'],
 		analytics: './analytics.ts',
 		},

@@ -8,13 +8,13 @@ const dropdown =jQuery('document').ready(function($) {
 	span.text(--span_numb);
 		switch($(this).attr('data-name')){
 			case 'category-one':
-				$(".category-one-count").text(span.text());
+				$(this).parent().parent().parent().parent().parent().children(".dropdown-header").children(".category-one-count").text(span.text());
 				break;
 			case 'category-two':
-				$(".category-two-count").text(span.text());
+				$(this).parent().parent().parent().parent().parent().children(".dropdown-header").children(".category-two-count").text(span.text());
 				break;
 			case 'category-three':
-				$(".category-three-count").text(span.text());
+				$(this).parent().parent().parent().parent().parent().children(".dropdown-header").children(".category-three-count").text(span.text());
 				break;		
 			}
 		}
@@ -28,13 +28,13 @@ const dropdown =jQuery('document').ready(function($) {
 
 	switch($(this).attr('data-name')){
 			case 'category-one':
-				$(".category-one-count").text(span.text());
+				$(this).parent().parent().parent().parent().parent().children(".dropdown-header").children(".category-one-count").text(span.text());
 				break;
 			case 'category-two':
-				$(".category-two-count").text(span.text());
+				$(this).parent().parent().parent().parent().parent().children(".dropdown-header").children(".category-two-count").text(span.text());
 				break;	
 			case 'category-three':
-				$(".category-three-count").text(span.text());
+				$(this).parent().parent().parent().parent().parent().children(".dropdown-header").children(".category-three-count").text(span.text());
 				break;		
 			}
 		}

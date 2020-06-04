@@ -1,4 +1,4 @@
-mixin dropdown(options)
+mixin dropdown(cat1, cat2, cat3)
   div(class="dropdown-wrapper")
     div(class="dropdown-header")
       span(class="category-one-count")
@@ -6,19 +6,19 @@ mixin dropdown(options)
       span(class="category-three-count")
     div(class="dropdown-categories")
       div(class="dropdown-category")
-        div(class="category-type") Взрослые
+        div(class="category-type")= cat1
           div(class="category-counter")
             span(class='dropdown-minus' data-name="category-one") -
             span 1
             span(class='dropdown-plus' data-name="category-one") +
       div(class="dropdown-category")
-        div(class="category-type") дети
+        div(class="category-type")= cat2
           div(class="category-counter")
             span(class='dropdown-minus' data-name="category-two") -
             span 0
             span(class='dropdown-plus' data-name="category-two") +
       div(class="dropdown-category")
-        div(class="category-type") дети
+        div(class="category-type")= cat3
           div(class="category-counter")
             span(class='dropdown-minus' data-name="category-three") -
             span 0
