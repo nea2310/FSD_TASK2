@@ -1,31 +1,73 @@
 
 
 /* HTML5 display-role reset for older browsers */
-.dropdown-wrapper{
+.datastorage{
+	display: none;
+}
+
+div[data-width="320"]{
+	width: 320px;
+}
+
+div[data-width="266"]{
 	width: 266px;
+}
+
+.dropdown-wrapper{
 	box-sizing:border-box;
-	border: 1px solid red;
-	border-radius: 5px;
+	border: 1px solid @color_grey_opaque;
+	border-radius: 3px;
+	padding: 0 10px 0 15px;
+	text-transform: uppercase;
+	font-size: 12px;
+  	font-family: "Montserrat Bold", Arial, sans-serif;
 
 }
 
 .dropdown-header{
 	height: 44px;
 	display: flex;
+	//justify-content: space-between;
 	align-items: center;
 	cursor: pointer;
+	font-family: "Montserrat", Arial, sans-serif;
+	text-transform: lowercase;
+	color: @color_grey_opaque;
+}
+
+.toggle-wrapper{
+	border: 1px solid black;
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.dropdown-toggle{
+	background-image:url('./images/arrow-down.svg'); 
+	background-repeat:no-repeat; 
+	width:12px; 
+	height:8px;
+	
+	border: 1px solid orange;
+
+
 }
 
 .dropdown-categories{
 	border: 1px solid blue;
 }
 
-.dropdown-footer {
-	border: 1px solid  green;
+.category-type{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
-.dropdown-category{
+.category-counter{
+	border: 1px solid red;
+	width: 90px;
 	display: flex;
+	align-items: center;
 	justify-content: space-between;
 }
 
@@ -40,82 +82,19 @@
 	border: 1px solid rgba(31, 32, 65, 0.25);
 	color: rgba(31, 32, 65, 0.25);
 	font-size: 18px;
+	font-family: "Montserrat", Arial, sans-serif;
 }
 
-.dropdown-toggle{
-	background-image:url('./images/arrow-down.svg'); 
-	background-repeat:no-repeat; 
-	 width:35px; 
-	height:18px;  
-}
-
-/* .twidget-container{
-  width: 266px; 
-  box-sizing:border-box;
-  text-transform: uppercase;
-  font-family: "Montserrat Bold", Arial, sans-serif;
-  font-size: 12px;
-}
-
-
-.twidget-container ul { 
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-
-.twidget-container input[type="text"] {
-	border:none; 
-} 
-
-.twidget-tab form {
-	margin: 0;
-} 
-.twidget-form-list > li{
-	float:left; 
-	margin-right:1%; 
-	position:relative;
-}
-
-
-
-#twidget-tab1 .twidget-form-list li.twidget-passengers{
-	width:100%;
+.dropdown-footer {
+	border: 1px solid  green;
 	height: 44px;
 }
 
-.twidget-passengers-detail {
-	height:100%;
-	border:1px solid red; 
-	cursor:pointer; 
-	background-color:#fff;
+.button-wrapper{
 	display: flex;
-	align-items: center;
-	padding-left: 20px;
-	border-top-left-radius: 5px;
-	border-top-right-radius: 5px;
-}
+	justify-content: space-between;
+	margin-top: 15px;
 
-
-
-
-.twidget-pas-no{
-	font-family: "Montserrat", Arial, sans-serif;
-	font-size: 14px;
-	text-transform: none;
-}
-
-
-.twidget-passengers-detail:after {
-	background-image:url('./images/arrow-down.svg'); 
-	background-repeat:no-repeat; width:15px; 
-	height:8px; 
-	background-position:0 0; 
-	content:""; 
-	top:20px; 
-	right:10px; 
-	position:absolute; 
-	background-size:12px;
 }
 
 
@@ -123,107 +102,4 @@
 
 
 
-
-#twidget-passenger-form {
-	position:absolute; 
-	left:0; top:44px; 
-	background:#fff; 
-	border: 1px solid @color_grey_opaque;
-	z-index:999;
-	box-sizing: border-box;
-	border-bottom-left-radius: 5px;
-	border-bottom-right-radius: 5px;
-}
-
-#twidget-passenger-form, .twidget-passengers-detail {
-
-border: 1px solid rgba(31, 32, 65, 0.5);
-}
-
-
-
-
-.twidget-age-group{
-	display:table; width:100%;
-}
-
-.twidget-age-group li{
-	display:table-row;
-}
-
-.twidget-cell{
-	display:table-cell; 
-	height:44px; 
-	vertical-align:middle;
-}
-
-.twidget-age-name{
-	padding-left:20px; 
-	width:50%;
-	text-align: left;
-} 
-
-.twidget-age-select{
-	
-	width:50%;
-	text-align: right;
-	padding-right: 10px;
-}
-
-
-.twidget-age-select .twidget-dec, .twidget-age-select .twidget-inc {
-	width:30px; 
-	height:30px;  
-	display:inline-flex; 
-	align-items: center;
-	justify-content: center;
-	cursor:pointer; 
-	border-radius:50%; 
-	border: 1px solid rgba(31, 32, 65, 0.25);
-	color: rgba(31, 32, 65, 0.25);
-	font-size: 18px;
-}
-
-.twidget-num{
-	width:30%; 
-	text-align:center; 
-	line-height:1.4; 
-	display:inline-block;
-}
-.twidget-age-select .twidget-num input{
-	width:100%; 
-	padding:0; 
-	text-align:center;
-	  font-family: "Montserrat Bold", Arial, sans-serif;
-	  font-size: 12px;
-}
-
-
-
-
-.twidget-passengers-ready-button-wrapper {
- vertical-align: middle; 
- text-align: center; 
- display: flex!important; 
- justify-content: space-between;
- margin-top: 5px; 
- margin-bottom: 20px; }
-
-
-
-.twidget-passengers-ready-button, .twidget-clean-button {
-padding-top: 10px;
-cursor: pointer;
-}
-
-.twidget-passengers-ready-button {
-	margin-right: 10px;
-	color: #BC9CFF;
-}
-
-.twidget-clean-button {
-	margin-left: 10px;
-	color: rgba(31, 32, 65, 0.5)
-}
- */
 

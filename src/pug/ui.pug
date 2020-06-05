@@ -4,9 +4,11 @@ include ../components/dropdown/dropdown.pug
 block variables
   -var type1 = "btn btn-purple"
 block content
-  +button({text: 'click me', color: 'white', length: 'short'})
-  +button({text: 'click me', color: 'white', length: 'long'})
-  +button({text: 'click me', color: 'purple', length: 'short'})
-  +button({text: 'click me', color: 'purple', length: 'long'})
-  +dropdown('взрослые', 'дети', 'младенцы')
-  +dropdown('спальни', 'кровати', 'ванные комнаты')
+  +button({text: 'click me', backgroundcolor: 'whitebackground', length: 'short'})
+  +button({text: 'click me', backgroundcolor: 'whitebackground', length: 'long'})
+  +button({text: 'click me', backgroundcolor: 'purplebackground', length: 'short'})
+  +button({text: 'click me', backgroundcolor: 'purplebackground', length: 'long'})
+  +button({text: 'click me', isplain: 'plain', color: 'purple'})
+  +button({text: 'click me', isplain: 'plain', color: 'grey'})
+  +dropdown('взрослые', 'дети', 'младенцы', 'взрослый', 'взрослых', 'взрослых', 'ребенок', 'ребенка', 'детей', 'младенец', 'младенца', 'младенцев', '320', 'buttons')
+  +dropdown('спальни', 'кровати', 'ванные комнаты', 'спальня', 'спальни', 'спален', 'кровать', 'кровати', 'кроватей', 'ванная комната', 'ванные комнаты', 'ванных комнат', '266')
