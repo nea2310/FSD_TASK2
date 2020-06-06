@@ -1,3 +1,4 @@
+include ../../components/arrow/arrow.pug
 mixin button(options)
   if !options
     - options = {}
@@ -7,6 +8,9 @@ mixin button(options)
     classes += options.length ? ' btn-' + options.length : ''
     classes += options.isplain ? ' btn-' + options.isplain : ''
     classes += options.color ? ' btn-' + options.color : ''
-  a.btn(class=classes)(
+  div.btn(class=classes)(
     href = options.href || "/mock-address/change-me"
   )= options.text || 'Button'
+    if options.arrow
+      div(class="arrow-wrapper")
+        +arrow()
