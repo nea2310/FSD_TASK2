@@ -14,5 +14,7 @@ $('pre').html(post.toString())
 
 
 import * as dropdown from '@/components/dropdown/dropdown';
+import * as pagination from '@/components/pagination/pagination';
+
 
 
