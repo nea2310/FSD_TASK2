@@ -1,0 +1,10 @@
+mixin slider({ type='double', min=0, max=100, step=1, from=10, to=20, isMinMaxHidden=true, isFromToHidden=true, headerTitle, }={})
+  .range-slider.js-range-slider
+    .r-title
+      if headerTitle
+        +header-block({
+          title: headerTitle,
+        })
+      input(type='text' readonly class='range-slider__price js-range-slider__price')
+    .r-slider
+      input.range-slider__slider.js-range-slider__slider(type='text' data-type=`${type}` data-min=`${min}` data-max=`${max}` data-step=`${step}` data-from=`${from}` data-to=`${to}` data-hide-min-max=`${isMinMaxHidden}` data-hide-from-to=`${isFromToHidden}`)
