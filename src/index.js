@@ -15,17 +15,8 @@ $('pre').html(post.toString())
 
 import * as dropdown from '@/components/dropdown/dropdown';
 import * as pagination from '@/components/pagination/pagination';
-
-
-import RangeSlider from '@/plugins/rangeslider/rangeslider';
-
-$(() => {
-    const $sliders = $('.js-range-slider');
-
-    $sliders.each((i, val) => {
-        new RangeSlider(val);
-    });
-});
+import * as sliderinstance from '@/components/rangeslider/rangeslider';
+import * as calendarinstance from '@/components/calendar/calendar';
 
 
 

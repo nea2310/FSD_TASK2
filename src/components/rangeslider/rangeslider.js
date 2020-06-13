@@ -29,4 +29,15 @@ class RangeSlider {
   } 
 };
 
-export default RangeSlider
+
+
+const sliderinstance = jQuery('document').ready(function($) {
+    const $sliders = $('.js-range-slider');
+
+    $sliders.each((i, val) => {
+        new RangeSlider(val);
+    });
+});
+
+
+export { sliderinstance }
