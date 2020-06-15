@@ -1,4 +1,4 @@
-.calendar {
+ .calendar {
   overflow: hidden;
   border-radius: 0.3rem;
   width: 320px;
@@ -128,4 +128,84 @@
     background-color: @color_purple;
     }
   }
+} 
+
+
+/*================================================*/
+
+.datepicker{
+  width: 320px;
+
+
+
+&-input {
+  width: 266px;
+  height: 44px;
+  overflow: hidden;
+  border-radius: 0.3rem;
+  border: 1px solid green;
+  padding-right: 10px;
+  padding-left: 10px;
+  box-sizing: border-box;
+}
+
+
+
+&--button{
+/*   &::after {
+      display: block;
+      content: '1';
+      color: transparent;
+      background: url(./img/left.svg) no-repeat center center;
+      background-size: contain;
+    } */
+}
+
+
+&--cell{
+
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     height: 42px;
+    // width:30px;
+     margin-left:auto;
+     margin-right:auto;
+     text-align: center;
+     color: #868686;
+     border-radius: 50%;
+     font-family:  "Montserrat", Arial, sans-serif;
+     font-size: 12px;
+     //border: 1px solid blue;
+
+       &:hover{
+        background-color: @color_purple_opaque;
+       }
+
+       &::selection{
+    background-color: @color_light_green;
+    }
+}
+
+&--day-name{
+  color: @color_purple;
+}
+
+}
+
+
+
+
+
+
+
+
+.-current-{
+  background-color: @color_light_green;
+  color: @color_white!important;
+}
+
+.-selected-{
+  background-color: @color_purple!important;
+  color: @color_white!important;
 }

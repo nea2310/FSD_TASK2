@@ -1,10 +1,6 @@
-mixin calendar(buttons)
-  .calendar.js-calendar
-    input.calendar__day.js-calendar__day(readonly = true)
-    .calendar__widget.js-calendar__widget
-    .calendar__btn-today today
-    if buttons
-      div(class="dropdown-footer")
-        div(class="button-wrapper")
-          +button({text: 'очистить', isplain: 'plain', color: 'grey'})
-          +button({text: 'применить', isplain: 'plain', color: 'purple'})
+include ../../components/input/input.pug
+mixin calendar(options)
+  if !options
+    - options = {}
+  -
+  +input({calendar: 'calendar'})

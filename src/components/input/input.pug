@@ -1,0 +1,8 @@
+mixin input(options)
+  if !options
+    - options = {}
+  -
+    var classes = ''
+    classes += options.calendar ? ' datepicker-input' : ''
+    classes += options.dropdown ? ' dropdown' : ''
+  input(class=classes)

@@ -2,4 +2,5 @@
 @import "roboto.css";
 @import "montserrat-bold.css";
 @import "montserrat.css";
+@import "../plugins/airdatepicker/datepicker.min.css";
 
