@@ -1,4 +1,4 @@
-include ../../components/arrow/arrow.pug
+include ../../components/materialicons/materialicons.pug
 mixin button(options)
   if !options
     - options = {}
@@ -13,4 +13,8 @@ mixin button(options)
   )= options.text || 'Button'
     if options.arrow
       div(class="arrow-wrapper")
-        +arrow()
+        +materialicons({
+                    type: 'arrow_forward',
+                    color: 'white',
+                    size: 'base',
+                })

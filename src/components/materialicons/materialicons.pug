@@ -1,0 +1,19 @@
+mixin materialicons({ type, color, size, }={})
+    - let colorModifier = ''
+    - let sizeModifier = ''
+    case color
+        when 'dark-shade-lighten'
+            - colorModifier = ' material-icons__color-dark-shade-lighten'
+        when 'purple-gradient'
+            - colorModifier = ' material-icons__color-gradient'
+        when 'purple'
+            - colorModifier = ' material-icons__color-purple'
+        when 'white'
+            - colorModifier = ' material-icons__color-white'
+    case size
+        when 'base'
+            - sizeModifier = ' material-icons__size-base'
+        when 'small'
+            - sizeModifier = ' material-icons__size-small'
+        
+    i.material-icons(class=`${colorModifier}${sizeModifier}`)= type

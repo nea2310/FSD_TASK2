@@ -1,4 +1,4 @@
-include ../../components/arrow/arrow.pug
+include ../../components/materialicons/materialicons.pug
 mixin pagination(options)
   if !options
     - options = {}
@@ -6,7 +6,11 @@ mixin pagination(options)
   div(class="content_detail__pagination cdp" actpage="1")
     div(href="#!-1" class="cdp_i")
       div(class="cdp__arrow cdp__arrow-forward")
-        +arrow()
+        +materialicons({
+                    type: 'arrow_forward',
+                    color: 'white',
+                    size: 'base',
+                })
     a(href="#!1" class="cdp_i") 1
     a(href="#!2" class="cdp_i") 2
     a(href="#!3" class="cdp_i") 3
@@ -24,4 +28,8 @@ mixin pagination(options)
     a(href="#!15" class="cdp_i") 15
     div(href="#!+1" class="cdp_i")
       div(class="cdp__arrow cdp__arrow-back")
-        +arrow()
+        +materialicons({
+                    type: 'arrow_forward',
+                    color: 'white',
+                    size: 'base',
+                })
