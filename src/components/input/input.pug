@@ -2,7 +2,16 @@ mixin input(options)
   if !options
     - options = {}
   -
-    var classes = ''
-    classes += options.calendar ? ' datepicker-input' : ''
-    classes += options.dropdown ? ' dropdown' : ''
-  input(class=classes)
+    var divclass = ''
+    var inpclass = ''
+    divclass += options.type === 'counter' ? 'dropdown-header' : ''
+    inpclass += options.type === 'calendar' ? 'datepicker-input' : ''
+
+  div(class=divclass)
+    input(class=inpclass)
+    if options.icon === 'tip'
+      +materialicons({
+                    type: 'keyboard_arrow_down',
+                    color: 'purple',
+                    size: 'base',
+                })
