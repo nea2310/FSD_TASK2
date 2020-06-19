@@ -1,9 +1,10 @@
 extends index.pug
 include ../components/button/button.pug
-include ../components/dropdown/dropdown.pug
+include ../components/counter/counter.pug
 include ../components/pagination/pagination.pug
 include ../components/rangeslider/rangeslider.pug
 include ../components/calendar/calendar.pug
+include ../components/input/input.pug
 block variables
   -var type1 = "btn btn-purple"
 block content
@@ -13,8 +14,11 @@ block content
   +button({text: 'click me', backgroundcolor: 'purplebackground', length: 'long', arrow: 'arrow'})
   +button({text: 'click me', isplain: 'plain', color: 'purple'})
   +button({text: 'click me', isplain: 'plain', color: 'grey'})
-  +dropdown('взрослые', 'дети', 'младенцы', 'взрослый', 'взрослых', 'взрослых', 'ребенок', 'ребенка', 'детей', 'младенец', 'младенца', 'младенцев', '320', 'buttons')
-  +dropdown('спальни', 'кровати', 'ванные комнаты', 'спальня', 'спальни', 'спален', 'кровать', 'кровати', 'кроватей', 'ванная комната', 'ванные комнаты', 'ванных комнат', '266')
+  +counter({type: 'guests', cattype1: 'взрослые', cattype2: 'дети', cattype3: 'младенцы', counter1: 1, counter2: 0, counter3: 0, buttons: true, width: '320', text: 'Сколько гостей'})
+  +counter({type: 'rooms', cattype1: 'спальни', cattype2: 'кровати', cattype3: 'ванные комнаты', counter1: 2, counter2: 2, counter3: 0, width: '266'})
   +pagination()
   +rangeslider({type: 'double', min: 1000, max: 15000, step: 1, from: 5000, to: 10000})
-  +calendar('abc')
+  +calendar({type: 'date'})
+  +calendar({type: 'datefilter'})
+  +input({type: 'subscription', icon: 'arrow', length: 'medium', text: 'E-mail'})
+  +input({type: 'text', length: 'long', text: 'This is pretty awesome'})

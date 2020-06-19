@@ -1,6 +1,35 @@
-.input-wrapper {
+input{
+  border: none;
+  }
+
+.inpwrapper {
+  height: 44px;
+  border-radius: 5px;
+  border: 1px solid @color_grey_opaque;
   display: flex;
-  background-color: black;
+  position: relative;
+  //border: 1px solid blue;
+  overflow: hidden;
+    &-short{
+      max-width: 150px;
+      }
+    &-medium{
+      max-width: 266px;
+      }  
+    &-long{
+      max-width: 320px;
+      }
+
+}
+
+.inpwrapper i {
+  position: absolute;
+  right: 5px;
+  top: 10px;
+}
+.inp{
+//border: 1px solid red;
+width: 100%
 }
 
 /* .input {

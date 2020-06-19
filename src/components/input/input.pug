@@ -4,14 +4,30 @@ mixin input(options)
   -
     var divclass = ''
     var inpclass = ''
-    divclass += options.type === 'counter' ? 'dropdown-header' : ''
-    inpclass += options.type === 'calendar' ? 'datepicker-input' : ''
+    var text = options.text
+    divclass += options.type === 'calendar' ? ' calendar-inpwrapper' : ''
+    divclass += options.type === 'counter' ? ' counter-inpwrapper' : ''
+    divclass += options.type === 'subscription' ? ' subscription-inpwrapper' : ''
+    divclass += options.type === 'text' ? ' text-inpwrapper' : ''
 
-  div(class=divclass)
-    input(class=inpclass)
+    divclass += options.length ? ' inpwrapper-' + options.length : ''
+
+    inpclass += options.type === 'calendar' ? ' datepicker-input' : ''
+    inpclass += options.type === 'counter' ? ' counter-input' : ''
+    inpclass += options.type === 'subscription' ? ' subscription-input' : ''
+    inpclass += options.type === 'text' ? ' text-input' : ''
+
+  div.inpwrapper(class=divclass)
+    input.inp(class=inpclass value=text)
     if options.icon === 'tip'
       +materialicons({
                     type: 'keyboard_arrow_down',
+                    color: 'grey',
+                    size: 'base',
+                })
+    else if options.icon === 'arrow'
+      +materialicons({
+                    type: 'arrow_forward',
                     color: 'purple',
                     size: 'base',
                 })

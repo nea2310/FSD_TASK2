@@ -3,4 +3,7 @@ mixin calendar(options)
   if !options
     - options = {}
   -
-  + input({type: 'calendar', icon: 'tip'})
+  if(options.type=='date')
+    + input({type: 'calendar', icon: 'tip', length: 'short', text: 'ДД.ММ.ГГГГ'})
+  else if(options.type=='datefilter')
+    + input({type: 'calendar', icon: 'tip', length: 'medium'})

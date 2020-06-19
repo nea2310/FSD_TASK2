@@ -16,7 +16,7 @@ const post = new Post('Webpack Post Title', WebpackLogo)
 $('pre').html(post.toString())
 
 
-import * as dropdown from '@/components/dropdown/dropdown';
+import * as counter from '@/components/counter/counter';
 import * as pagination from '@/components/pagination/pagination';
 import * as sliderinstance from '@/components/rangeslider/rangeslider';
 import * as calendar from '@/components/calendar/calendar';

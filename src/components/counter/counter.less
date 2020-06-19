@@ -1,6 +1,5 @@
 
 
-/* HTML5 display-role reset for older browsers */
 .datastorage{
 	display: none;
 }
@@ -13,18 +12,29 @@ div[data-width="266"]{
 	width: 266px;
 }
 
-.dropdown-wrapper{
+ div[data-abswidth="320"]{
+	width: 293px;
+}
+
+div[data-abswidth="266"]{
+	width: 239px;
+} 
+.counter-inpwrapper{
+	border: none!important;
+}
+
+ .counter-wrapper{
 	box-sizing:border-box;
 	border: 1px solid @color_grey_opaque;
 	border-radius: 3px;
-	padding: 0 10px 0 15px;
 	text-transform: uppercase;
 	font-size: 12px;
   	font-family: "Montserrat Bold", Arial, sans-serif;
+  	position: relative;
 
-}
+} 
 
-.dropdown-header{
+/* .counter-header{
 	height: 44px;
 	display: flex;
 	//justify-content: space-between;
@@ -33,16 +43,16 @@ div[data-width="266"]{
 	font-family: "Montserrat", Arial, sans-serif;
 	text-transform: lowercase;
 	color: @color_grey_opaque;
-}
+} */
 
-.toggle-wrapper{
+/* .toggle-wrapper{
 	border: 1px solid black;
 	width: 100%;
 	display: flex;
 	justify-content: flex-end;
-}
+} */
 
-.dropdown-toggle{
+/* .counter-toggle{
 	background-image:url('./images/arrow-down.svg'); 
 	background-repeat:no-repeat; 
 	width:12px; 
@@ -51,10 +61,17 @@ div[data-width="266"]{
 	border: 1px solid orange;
 
 
-}
+} */
 
-.dropdown-categories{
-	border: 1px solid blue;
+.counter-categories{
+//	border: 1px solid blue;
+    padding: 0 10px 0 15px;
+	display: none;
+	border: 1px solid @color_grey_opaque;
+	position: absolute;
+	background-color: @color_white;
+	z-index: 1;
+	left: -1px;
 }
 
 .category-type{
@@ -64,14 +81,14 @@ div[data-width="266"]{
 }
 
 .category-counter{
-	border: 1px solid red;
+//	border: 1px solid red;
 	width: 90px;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 }
 
-.dropdown-minus, .dropdown-plus {
+.counter-minus, .counter-plus {
 	width:30px; 
 	height:30px;  
 	display:inline-flex; 
@@ -85,8 +102,8 @@ div[data-width="266"]{
 	font-family: "Montserrat", Arial, sans-serif;
 }
 
-.dropdown-footer {
-	border: 1px solid  green;
+.counter-footer {
+//	border: 1px solid  green;
 	height: 44px;
 }
 
@@ -97,7 +114,10 @@ div[data-width="266"]{
 
 }
 
-
+.category-wrapper {
+display: flex;
+justify-content: space-between;
+}
 
 
 

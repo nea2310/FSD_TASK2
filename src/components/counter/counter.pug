@@ -1,0 +1,36 @@
+include ../../components/button/button.pug
+include ../../components/input/input.pug
+mixin counter(options)
+  if !options
+    - options = {}
+  -
+    var type = 'counter-wrapper'
+    var text = options.text
+    type += options.type === 'rooms' ? ' counter-rooms' : ''
+    type += options.type === 'guests' ? ' counter-guests' : ''
+  div(class=type data-width=options.width) 
+    + input({type: 'counter', icon: 'tip', text: text})
+    div(class="counter-categories" data-abswidth=options.width)
+        div(class="category-wrapper")
+          div(class="category-type")=options.cattype1
+          div(class="category-counter")
+            span(class='counter-minus') -
+            span=options.counter1
+            span(class='counter-plus') +
+        div(class="category-wrapper")
+          div(class="category-type")=options.cattype2
+          div(class="category-counter")
+            span(class='counter-minus') -
+            span=options.counter2
+            span(class='counter-plus') +
+        div(class="category-wrapper")
+          div(class="category-type")=options.cattype3
+          div(class="category-counter")
+            span(class='counter-minus') -
+            span=options.counter3
+            span(class='counter-plus') +
+        if (options.buttons==true)
+          div(class="counter-footer")
+            div(class="button-wrapper")
+              +button({text: 'очистить', isplain: 'plain', color: 'grey'})
+              +button({text: 'применить', isplain: 'plain', color: 'purple'})
