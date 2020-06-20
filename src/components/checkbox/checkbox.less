@@ -1,0 +1,109 @@
+.checkbox{
+  &__wrapper{
+  color: @color_grey_opaque;
+  font-family: "Montserrat", Arial, sans-serif;
+  display: flex;
+}
+}
+
+
+.label{
+  &__wrapper{
+    margin-left: 10px;
+    max-width: 240px;
+
+  }
+
+
+  &-top{
+    font-size: 14px;
+
+  }
+  &-bottom{
+    font-size: 12px;
+    color: @color_grey_opaque;
+  }
+
+    &-bold{
+  color: @color_grey_semiopaque;
+  font-family: "Montserrat Bold", Arial, sans-serif;
+  }
+
+}
+
+.checklist__inpwrapper{
+  position: relative;
+}
+.checklist-exp{
+  position: absolute;
+  background-color: @color_white;
+  z-index: 1;
+}
+
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+ // background-color: #eee;
+  /* Create the checkmark/indicator (hidden when not checked) */
+    &:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  /* Customize the label (the container) */
+    &__wrapper {
+      border: 1px solid @color_grey_opaque;
+      border-radius: 4px;
+      display: block;
+      position: relative;
+      padding-left: 24px;
+      margin-bottom: 12px;
+      height: 23px;
+      cursor: pointer;
+     // font-size: 12px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+        /* Style the checkmark/indicator */
+        & .checkmark:after {
+          left: 9px;
+          top: 5px;
+          width: 5px;
+          height: 8px;
+          border: solid @color_purple;
+          border-width: 0 2px 2px 0;
+          -webkit-transform: rotate(45deg);
+          -ms-transform: rotate(45deg);
+          transform: rotate(45deg);
+        }
+/* Hide the browser's default checkbox */
+          & input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+/* When the checkbox is checked, add a blue background */
+              &:checked ~ .checkmark {
+                      border: 1px solid @color_purple;
+                      border-radius: 4px;
+                      left: -1px;
+                      height: 23px;
+                      top: -1px;
+                      width: 24px;
+                /* Show the checkmark when checked */
+                  &:after {
+                  display: block;
+                }
+              }
+          }
+    }
+}
+
+

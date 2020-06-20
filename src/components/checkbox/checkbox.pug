@@ -1,0 +1,15 @@
+mixin checkbox(options)
+  if !options
+    - options = {}
+  -
+    var toplabel = 'label-top'
+    toplabel += options.toplabel === 'bold' ? ' label-bold' : ''
+  div(class="checkbox__wrapper")
+    label(class="checkmark__wrapper")
+      input(type="checkbox")
+      span(class="checkmark") 
+    div(class="label__wrapper")
+      label(class=toplabel)= options.toptext
+      br
+      if options.labelbottom === true
+        label(class="label-bottom")= options.bottomtext

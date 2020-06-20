@@ -1,0 +1,41 @@
+include ../../components/input/input.pug
+include ../../components/checkbox/checkbox.pug
+mixin checklist_expand(options)
+  if !options
+    - options = {}
+  -
+    var toplabel = 'label-top'
+    toplabel += options.toplabel === 'bold' ? ' label-bold' : ''
+  +input({type: 'checklist', subtype: 'checklistexpand', icon: 'tip', length: 'medium', text: 'expandable checkbox list'})
+  div(class="checklist checklist-exp")
+    +checkbox({toptext: 'Завтрак'})
+    +checkbox({toptext: 'Письменный стол'})
+    +checkbox({toptext: 'Стул для кормления'})
+    +checkbox({toptext: 'Кроватка'})
+    +checkbox({toptext: 'Телевизор'})
+    +checkbox({toptext: 'Шампунь'})
+
+
+mixin checklist_rich(options)
+  if !options
+    - options = {}
+  -
+    var toplabel = 'label-top'
+    toplabel += options.toplabel === 'bold' ? ' label-bold' : ''
+  +input({type: 'checklist', length: 'medium', text: 'rich checkbox buttons'})
+  div(class="checklist")
+    +checkbox({labelbottom: true, toplabel: 'bold', toptext: 'Широкий коридор', bottomtext: 'Ширина коридора в номере не менее 91 см.'})
+    +checkbox({labelbottom: true, toplabel: 'bold', toptext: 'Помощник для инвалидов', bottomtext: 'На 1 этаже вас встретит специалист и проводит до номера. '})
+
+mixin checklist(options)
+  if !options
+    - options = {}
+  -
+    var toplabel = 'label-top'
+    toplabel += options.toplabel === 'bold' ? ' label-bold' : ''
+  +input({type: 'checklist', length: 'medium', text: 'checkbox buttons'})
+  div(class="checklist")
+    +checkbox({toptext: 'Можно курить'})
+    +checkbox({toptext: 'Можно с питомцами'})
+    +checkbox({toptext: 'Можно пригласить гостей (до 10 человек)'})
+

@@ -9,6 +9,8 @@ mixin input(options)
     divclass += options.type === 'counter' ? ' counter-inpwrapper' : ''
     divclass += options.type === 'subscription' ? ' subscription-inpwrapper' : ''
     divclass += options.type === 'text' ? ' text-inpwrapper' : ''
+    divclass += options.type === 'checklist' ? ' checklist__inpwrapper' : ''
+    divclass += options.subtype === 'checklistexpand' ? ' checklist__inpwrapper-expand' : ''
 
     divclass += options.length ? ' inpwrapper-' + options.length : ''
 
@@ -16,6 +18,7 @@ mixin input(options)
     inpclass += options.type === 'counter' ? ' counter-input' : ''
     inpclass += options.type === 'subscription' ? ' subscription-input' : ''
     inpclass += options.type === 'text' ? ' text-input' : ''
+    inpclass += options.type === 'checklist' ? ' checklist-input' : ''
 
   div.inpwrapper(class=divclass)
     input.inp(class=inpclass value=text)

@@ -142,7 +142,7 @@ const counter =jQuery('document').ready(function($) {
 	});
 
 	$('.counter-inpwrapper').on('click', function(){
-	$(this).nextAll().slideToggle(500);
+	$(this).nextAll().slideToggle(300);
 	});
 
 
