@@ -1,0 +1,8 @@
+include ../../components/radio/radio.pug
+mixin radioblock(options)
+  if !options
+    - options = {}
+  -
+  div(class="radioblock")
+    +radio({labeltext: 'Мужчина'})
+    +radio({labeltext: 'Женщина'})

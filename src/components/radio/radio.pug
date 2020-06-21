@@ -1,0 +1,8 @@
+mixin radio(options)
+  if !options
+    - options = {}
+  -
+  label(class="radiomark__wrapper")
+    input(type="checkbox" checked="checked")
+    span(class="radiomark")
+    label(class="radiomark__label")= options.labeltext

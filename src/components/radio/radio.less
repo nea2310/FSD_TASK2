@@ -1,0 +1,80 @@
+.radiomark__label{
+  color: @color_grey_opaque;
+  font-family: "Montserrat", Arial, sans-serif;
+  font-size: 14px;
+}
+
+/* Customize the label (the container) */
+.radiomark__wrapper {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.radiomark__wrapper input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom radio button */
+.radiomark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: @color_white;
+  border: 1px solid @color_grey_opaque;
+  border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+/* .radiomark__wrapper:hover input ~ .radiomark {
+  background-color: #ccc;
+}
+ */
+/* When the radio button is checked, add a blue background */
+
+
+ .radiomark__wrapper input:checked ~ .radiomark {
+  background-color: @color_white;
+  border: 1px solid @color_purple;
+} 
+
+.radiomark__wrapper input:checked ~ .radiomark ~ .radiomark__label {
+  color: @color_purple;
+} 
+
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.radiomark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.radiomark__wrapper input:checked ~ .radiomark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.radiomark__wrapper .radiomark:after {
+  top: 4px;
+  left: 4px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: @color_purple;
+}
