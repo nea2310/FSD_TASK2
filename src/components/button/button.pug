@@ -10,7 +10,7 @@ mixin button(options)
     classes += options.color ? ' btn-' + options.color : ''
   div.btn(class=classes)(
     href = options.href || "/mock-address/change-me"
-  )= options.text || 'Button'
+  )= options.text
     if options.arrow
       div(class="arrow-wrapper")
         +materialicons({
@@ -18,3 +18,11 @@ mixin button(options)
                     color: 'white',
                     size: 'base',
                 })
+    if options.like==true
+      div(class="likes-wrapper")
+        +materialicons({
+                    type: 'favorite_border',
+                    color: 'purple',
+                    size: 'base',
+                })
+        span(class="likes-number") 0
