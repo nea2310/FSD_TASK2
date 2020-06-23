@@ -3,17 +3,17 @@ mixin materialicons({ type, color, size, }={})
     - let sizeModifier = ''
     case color
         when 'grey'
-            - colorModifier = ' material-icons__color-grey'
+            - colorModifier = ' maticons-grey'
         when 'purple-gradient'
-            - colorModifier = ' material-icons__color-gradient'
+            - colorModifier = ' maticons-gradient'
         when 'purple'
-            - colorModifier = ' material-icons__color-purple'
+            - colorModifier = ' maticons-purple'
         when 'white'
-            - colorModifier = ' material-icons__color-white'
+            - colorModifier = ' maticons-white'
     case size
         when 'base'
-            - sizeModifier = ' material-icons__size-base'
+            - sizeModifier = ' maticons-base'
         when 'small'
-            - sizeModifier = ' material-icons__size-small'
+            - sizeModifier = ' maticons-small'
         
-    i.material-icons(class=`${colorModifier}${sizeModifier}`)= type
+    i.maticons(class=`${colorModifier}${sizeModifier}`)= type
