@@ -1,0 +1,10 @@
+mixin buttonwrapper(options)
+  if !options
+    - options = {}
+  -
+    var classes = ''
+    classes += options.color ? ' buttonwrapper-' + options.color : ''
+    classes += options.length ? ' buttonwrapper-' + options.length : ''
+    classes += options.width ? ' buttonwrapper-' + options.width : ''
+  div.buttonwrapper(class=classes)
+    block

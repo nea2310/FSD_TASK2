@@ -1,0 +1,179 @@
+.btn{
+  position: relative;
+  border: none;
+  border-radius: 22px;
+  text-decoration: none;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-family: "Montserrat Bold", Arial, sans-serif;
+  &-short{
+    width: 39.72px;
+    height: 20px;
+    }
+  &-medium{
+    width: 99px;
+    height: 44px;
+    }
+  &-long{
+    width: 320px;
+    height: 44px;
+    }
+  &-plain{
+  display: inline;
+  }
+  &-purple{
+  color: @color_purple;
+  }
+  &-grey{
+  color: @color_grey_opaque;
+  }
+  &-purplebackground{
+   // height: 44px;
+    background: linear-gradient(@color_purple 0%, @color_blue 100%);
+    color: @color_white;
+    &:hover{
+      background: linear-gradient(@color_purple_opaque 0%, @color_blue_opaque 100%);
+      }
+    }
+  &-whitebackground{
+  //  height: 44px;
+    position: relative;
+    background: @color_white;
+    background-clip: padding-box; /* !importanté */
+    border: solid @button_border_width_thick transparent; /* !importanté */
+    color: @color_purple;
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0; right: 0; bottom: 0; left: 0;
+        z-index: -1;
+        margin: -@button_border_width_thick; /* !importanté */
+        border-radius: inherit; /* !importanté */
+        background: linear-gradient(@color_purple 0%, @color_blue 100%);
+        }
+      &:hover{
+        &::before{
+          background: linear-gradient(@color_purple_opaque 0%, @color_blue_opaque 100%);
+        }
+      }
+    }
+/*     &__like-active {
+
+  //  position: relative;
+  //  background: @color_white;
+  //  background-clip: padding-box; !importanté
+border: solid @button_border_width_thin transparent; !importanté
+  //  color: @color_purple;
+  &::before {
+  //  content: '';
+  //  position: absolute;
+  //  top: 0; right: 0; bottom: 0; left: 0;
+  //  z-index: -1;
+    margin: -@button_border_width_thin; !importanté
+ //   border-radius: inherit; !importanté
+ //   background: linear-gradient(@color_purple 0%, @color_blue 100%);
+    }
+&:hover{
+  &::before{
+background: @color_grey_opaque;
+  }
+}
+} */
+
+
+    &__like {
+ color: @color_grey_opaque;;
+  //  position: relative;
+  //  background: @color_white;
+  //  background-clip: padding-box; /* !importanté */
+    border: solid @button_border_width_thin transparent; /* !importanté */
+   // color: @color_grey_opaque;
+      &::before {
+      //  content: '';
+      //  position: absolute;
+      //  top: 0; right: 0; bottom: 0; left: 0;
+      //  z-index: -1;
+        margin: -@button_border_width_thin; /* !importanté */
+     //   border-radius: inherit; /* !importanté */
+        background: @color_grey_opaque;
+        }
+/*       &:hover{
+  &::before{
+    background: @color_grey_opaque;
+  }
+} */
+    &-added{
+      color: @color_purple;
+  //  position: relative;
+  //  background: @color_white;
+  //  background-clip: padding-box; /* !importanté */
+  //  border: solid @button_border_width_thin transparent; /* !importanté */
+   // color: @color_grey_opaque;
+      &::before {
+      //  content: '';
+      //  position: absolute;
+      //  top: 0; right: 0; bottom: 0; left: 0;
+      //  z-index: -1;
+     //   margin: -@button_border_width_thin; /* !importanté */
+     //   border-radius: inherit; /* !importanté */
+        background: @color_purple;
+        }
+/*       &:hover{
+  &::before{
+    background: @color_grey_opaque;
+  }
+} */
+    }
+    }
+
+}
+
+
+
+
+ .arrow-wrapper{
+  position:absolute;
+  left: 90%;
+}
+
+.like{
+  &__wrapper{
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  font-size: 10px;
+  font-family: "Montserrat", Arial, sans-serif;
+   }
+  &__number{
+    margin:  0 4px 0 6px;
+   }
+/*   &-added{
+   color: @color_purple!important;
+//  position: relative;
+//  background: @color_white;
+//  background-clip: padding-box; !importanté
+  border: solid @button_border_width_thin transparent; !importanté
+ // color: @color_grey_opaque;
+    &::before {
+    //  content: '';
+    //  position: absolute;
+    //  top: 0; right: 0; bottom: 0; left: 0;
+    //  z-index: -1;
+      margin: -@button_border_width_thin; !importanté
+   //   border-radius: inherit; !importanté
+      background: @color_purple!important;
+      }
+&:hover{
+&::before{
+  background: @color_grey_opaque;
+}
+}
+ } */
+}
+
+ 

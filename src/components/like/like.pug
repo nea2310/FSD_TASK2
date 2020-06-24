@@ -1,0 +1,10 @@
+include ../../components/materialicons/materialicons.pug
+mixin like()
+  div(class="like__wrapper")
+    div(class="like__heart")
+      +materialicons({
+                type: 'favorite_border',
+                color: 'grey',
+                size: 'small',
+            })
+    span(class="like__number") 0
