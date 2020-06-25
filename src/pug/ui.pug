@@ -10,6 +10,7 @@ include ../components/calendar/calendar.pug
 include ../components/input/input.pug
 include ../components/checklist/checklist.pug
 include ../components/radioblock/radioblock.pug
+include ../components/toggle/toggle.pug
 block variables
   -var type1 = "btn btn-purple"
 block content
@@ -33,3 +34,4 @@ block content
   +radioblock()
   +buttonlike()
   +buttonlike()
+  +toggle({labeltext: 'Получать спецпредложения'})

@@ -1,0 +1,101 @@
+.togglemark__label{
+  color: @color_grey_opaque!important;
+  font-family: "Montserrat", Arial, sans-serif;
+  display: block;
+  font-size: 14px;
+  position: absolute;
+  margin-top: 2px;
+  margin-left: 10px;
+}
+
+/* Customize the label (the container) */
+.togglemark__wrapper {
+  display: flex;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default toggle button */
+.togglemark__wrapper input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom toggle button */
+.togglemark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 40px;
+  background-color: @color_white;
+  border: 1px solid @color_grey_opaque;
+  border-radius: 22px;
+  box-sizing: border-box;
+}
+
+/* On mouse-over, add a grey background color */
+/* .togglemark__wrapper:hover input ~ .togglemark {
+  background-color: #ccc;
+}
+ */
+/* When the toggle button is checked, add a blue background */
+
+
+ .togglemark__wrapper input:checked ~ .togglemark {
+  background-color: @color_white;
+  border: 1px solid @color_purple;
+} 
+
+.togglemark__wrapper input:checked ~ .togglemark ~ .togglemark__label {
+  color: @color_purple;
+} 
+
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.togglemark:after {
+  content: "";
+  position: absolute;
+  display: none;
+  
+}
+
+/* Show the indicator (dot/circle) when checked */
+.togglemark__wrapper input:checked ~ .togglemark:after {
+  display: block;
+  background-color: @color_purple;
+  left: 23px;
+  top: 3px;
+}
+
+
+/* Show the indicator (dot/circle) when checked */
+.togglemark__wrapper input ~ .togglemark:after {
+  display: block;
+  //color: red;
+  background-color: @color_grey_opaque;
+  //left: 10px;
+ // top: 10px;
+}
+
+/* Style the indicator (dot/circle) */
+.togglemark__wrapper .togglemark:after {
+  //top: 4px;
+  //left: 4px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: @color_purple;
+  left: 3px;
+  top: 3px;
+}
