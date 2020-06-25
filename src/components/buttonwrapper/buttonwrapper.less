@@ -4,13 +4,10 @@
   border-radius: 22px;
   text-decoration: none;
   box-sizing: border-box;
-  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
-  text-transform: uppercase;
-  font-size: 12px;
-  font-family: "Montserrat Bold", Arial, sans-serif;
+  
   &-short{
     width: 39.72px;
     }
@@ -28,9 +25,15 @@
   }
   &-purple{
     background: @gradient;
-    color: @color_white;
     &:hover{
       background: @gradient_opaque;
+      }
+    }
+  &-grey{
+    border: solid @button_border_width_thin @color_grey_opaque; /* !importanté */
+      &::before {
+        margin: -@button_border_width_thin; /* !importanté */
+        background: @color_grey_opaque;
       }
     }
   &-white{
@@ -38,7 +41,6 @@
     background: @color_white;
     background-clip: padding-box; /* !importanté */
     border: solid @button_border_width_thick transparent; /* !importanté */
-    color: @color_purple;
       &::before {
         content: '';
         position: absolute;
@@ -53,5 +55,22 @@
           background: @gradient_opaque;
         }
       }
+      }
+    &-thin {
+    border: solid @button_border_width_thin transparent!important; /* !importanté */
+      &::before {
+        margin: -@button_border_width_thin!important; /* !importanté */
+      &:hover{
+        &::before{
+          background: @gradient_opaque;
+        }
+      }
+      } 
     }
-  }
+}
+
+.icon__wrapper{
+  position: absolute;
+  right: 10px;
+  top: 8px;
+} 

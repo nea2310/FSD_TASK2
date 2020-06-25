@@ -1,0 +1,7 @@
+mixin link(options)
+  if !options
+    - options = {}
+  -
+  a(class="link")(
+    href = options.href || "/mock-address/change-me"
+  )= options.text

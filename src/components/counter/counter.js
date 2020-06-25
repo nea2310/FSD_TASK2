@@ -142,7 +142,18 @@ const counter =jQuery('document').ready(function($) {
 	});
 
 	$('.counter-inpwrapper').on('click', function(){
-	$(this).nextAll().slideToggle(300);
+	$(this).nextAll().show(300);
+	}); 
+	
+	
+
+	$(document).mouseup(function (e){ // событие клика по веб-документу
+		let block = $('.counter-wrapper'); // тут указываем ID элемента
+		let block_to_hide = $('.counter-categories');
+		if (!block.is(e.target) // если клик был не по нашему блоку
+		    && block.has(e.target).length === 0) { // и не по его дочерним элементам
+			block_to_hide.hide(300); // скрываем его
+		}
 	});
 
 

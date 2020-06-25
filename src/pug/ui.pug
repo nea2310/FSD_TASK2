@@ -1,7 +1,8 @@
 extends index.pug
-include ../components/button/button.pug
+include ../components/action/action.pug
 include ../components/buttonwrapper/buttonwrapper.pug
 include ../components/buttonlike/buttonlike.pug
+include ../components/buttonaction/buttonaction.pug
 include ../components/counter/counter.pug
 include ../components/pagination/pagination.pug
 include ../components/rangeslider/rangeslider.pug
@@ -12,14 +13,12 @@ include ../components/radioblock/radioblock.pug
 block variables
   -var type1 = "btn btn-purple"
 block content
-  +button({text: 'click me', backgroundcolor: 'whitebackground', length: 'medium'})
-  +button({text: 'click me', backgroundcolor: 'whitebackground', length: 'long'})
-  +button({text: 'click me', backgroundcolor: 'purplebackground', length: 'medium'})
-  +button({text: 'click me', backgroundcolor: 'purplebackground', length: 'long', arrow: true})
-  +button({backgroundcolor: 'whitebackground', length: 'short', like: true})
-  +button({backgroundcolor: 'whitebackground', length: 'short', like: true})
-  +button({text: 'click me', isplain: 'plain', color: 'purple'})
-  +button({text: 'click me', isplain: 'plain', color: 'grey'})
+  +buttonaction({color: 'white', length: 'medium', width: 'wide', text: 'click me', textcolor: 'purple'})
+  +buttonaction({color: 'purple', length: 'medium', width: 'wide', text: 'click me', textcolor: 'white'})
+  +buttonaction({color: 'purple', length: 'long', width: 'wide', text: 'click me', textcolor: 'white', icon: 'arrow'})
+  +action({text: 'click me', textcolor: 'grey'})
+  +action({text: 'click me', textcolor: 'purple'})
+
   +counter({type: 'guests', cattype1: 'взрослые', cattype2: 'дети', cattype3: 'младенцы', counter1: 1, counter2: 0, counter3: 0, buttons: true, width: '320', text: 'Сколько гостей'})
   +counter({type: 'rooms', cattype1: 'спальни', cattype2: 'кровати', cattype3: 'ванные комнаты', counter1: 2, counter2: 2, counter3: 0, width: '266'})
   +pagination()
@@ -32,7 +31,5 @@ block content
   +checklist_rich()
   +checklist()
   +radioblock()
-  +buttonwrapper({color: 'white', length: 'medium', width: 'wide'})
-  +buttonwrapper({color: 'purple', length: 'medium', width: 'wide'})
-  +buttonwrapper({color: 'purple', length: 'long', width: 'wide'})
+  +buttonlike()
   +buttonlike()

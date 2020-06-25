@@ -1,4 +1,4 @@
-include ../../components/button/button.pug
+include ../../components/action/action.pug
 include ../../components/input/input.pug
 mixin counter(options)
   if !options
@@ -32,5 +32,5 @@ mixin counter(options)
         if (options.buttons==true)
           div(class="counter-footer")
             div(class="button-wrapper")
-              +button({text: 'очистить', isplain: 'plain', color: 'grey'})
-              +button({text: 'применить', isplain: 'plain', color: 'purple'})
+              +action({text: 'очистить', textcolor: 'grey'})
+              +action({text: 'применить', textcolor: 'purple'})

@@ -1,0 +1,16 @@
+include ../../components/buttonwrapper/buttonwrapper.pug
+include ../../components/materialicons/materialicons.pug
+include ../../components/action/action.pug
+mixin buttonaction(options)
+  if !options
+    - options = {}
+  -
+    var text = options.text
+    var href = options.href
+    var color = options.color
+    var textcolor = options.textcolor
+    var length = options.length
+    var width = options.width
+    var icon = options.icon
+  +buttonwrapper({color: color, length: length, width: width, icon: icon})
+    +action({text: text, textcolor: textcolor})

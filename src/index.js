@@ -21,7 +21,7 @@ import * as pagination from '@/components/pagination/pagination';
 import * as sliderinstance from '@/components/rangeslider/rangeslider';
 import * as calendar from '@/components/calendar/calendar';
 import * as checklist_expand from '@/components/checklist/checklist';
-import * as button_like from '@/components/button/button';
+import * as button_like from '@/components/buttonlike/buttonlike';
 
 
 

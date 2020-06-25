@@ -7,4 +7,11 @@ mixin buttonwrapper(options)
     classes += options.length ? ' buttonwrapper-' + options.length : ''
     classes += options.width ? ' buttonwrapper-' + options.width : ''
   div.buttonwrapper(class=classes)
+    if options.icon === 'arrow'
+      div(class='icon__wrapper')
+        +materialicons({
+                    type: 'arrow_forward',
+                    color: 'white',
+                    size: 'base',
+                })
     block

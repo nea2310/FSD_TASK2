@@ -1,12 +1,8 @@
 include ../../components/buttonwrapper/buttonwrapper.pug
 include ../../components/like/like.pug
-include ../../components/input/input.pug
-include ../../components/checkbox/checkbox.pug
-mixin buttonlike(options)
+mixin buttonlike()
   if !options
     - options = {}
   -
-    var toplabel = 'label-top'
-    toplabel += options.toplabel === 'bold' ? ' label-bold' : ''
-  +buttonwrapper({color: 'white', length: 'medium', width: 'wide'})
+  +buttonwrapper({color: 'grey', length: 'short', width: 'narrow'})
     +like()
