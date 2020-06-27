@@ -11,6 +11,8 @@ include ../components/input/input.pug
 include ../components/checklist/checklist.pug
 include ../components/radioblock/radioblock.pug
 include ../components/toggle/toggle.pug
+include ../components/starrating/starrating.pug
+
 block variables
   -var type1 = "btn btn-purple"
 block content
@@ -35,3 +37,4 @@ block content
   +buttonlike()
   +buttonlike()
   +toggle({labeltext: 'Получать спецпредложения'})
+  +starrating()

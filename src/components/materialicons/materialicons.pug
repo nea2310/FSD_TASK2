@@ -1,6 +1,7 @@
-mixin materialicons({ type, color, size, }={})
+mixin materialicons({ type, color, size,}={})
     - let colorModifier = ''
     - let sizeModifier = ''
+    - let ratingModifier = ''
     case color
         when 'grey'
             - colorModifier = ' maticons-grey'
@@ -15,5 +16,4 @@ mixin materialicons({ type, color, size, }={})
             - sizeModifier = ' maticons-base'
         when 'small'
             - sizeModifier = ' maticons-small'
-        
     i.maticons(class=`${colorModifier}${sizeModifier}`)= type
