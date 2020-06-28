@@ -12,29 +12,37 @@ include ../components/checklist/checklist.pug
 include ../components/radioblock/radioblock.pug
 include ../components/toggle/toggle.pug
 include ../components/starrating/starrating.pug
+include ../components/info/info.pug
+include ../components/feature/feature.pug
+
+
 
 block variables
   -var type1 = "btn btn-purple"
 block content
-  +buttonaction({color: 'white', length: 'medium', width: 'wide', text: 'click me', textcolor: 'purple'})
-  +buttonaction({color: 'purple', length: 'medium', width: 'wide', text: 'click me', textcolor: 'white'})
-  +buttonaction({color: 'purple', length: 'long', width: 'wide', text: 'click me', textcolor: 'white', icon: 'arrow'})
-  +action({text: 'click me', textcolor: 'grey'})
-  +action({text: 'click me', textcolor: 'purple'})
+  div(style="padding-left: 20px")
+    +buttonaction({color: 'white', length: 'medium', width: 'wide', text: 'click me', textcolor: 'purple'})
+    +buttonaction({color: 'purple', length: 'medium', width: 'wide', text: 'click me', textcolor: 'white'})
+    +buttonaction({color: 'purple', length: 'long', width: 'wide', text: 'click me', textcolor: 'white', icon: 'arrow'})
+    +action({text: 'click me', textcolor: 'grey'})
+    +action({text: 'click me', textcolor: 'purple'})
+    +counter({type: 'guests', cattype1: 'взрослые', cattype2: 'дети', cattype3: 'младенцы', counter1: 1, counter2: 0, counter3: 0, buttons: true, width: '320', text: 'Сколько гостей'})
+    +counter({type: 'rooms', cattype1: 'спальни', cattype2: 'кровати', cattype3: 'ванные комнаты', counter1: 2, counter2: 2, counter3: 0, width: '266'})
+    +pagination()
+    +rangeslider({type: 'double', min: 1000, max: 15000, step: 1, from: 5000, to: 10000})
+    +calendar({type: 'date'})
+    +calendar({type: 'datefilter'})
+    +input({type: 'subscription', icon: 'arrow', length: 'medium', text: 'E-mail'})
+    +input({type: 'text', length: 'long', text: 'This is pretty awesome'})
+    +checklist_expand()
+    +checklist_rich()
+    +checklist()
+    +radioblock()
+    +buttonlike()
+    +buttonlike()
+    +toggle({labeltext: 'Получать спецпредложения'})
+    +starrating()
+    +feature({icon: 'mood', headertext: 'Комфорт', bodytext: 'Шумопоглащающие стены',})
+    +feature({icon: 'location_city', headertext: 'headertext', bodytext: 'bodytext',})
+    +feature({icon: 'whatshot', headertext: 'headertext', bodytext: 'bodytext',})
 
-  +counter({type: 'guests', cattype1: 'взрослые', cattype2: 'дети', cattype3: 'младенцы', counter1: 1, counter2: 0, counter3: 0, buttons: true, width: '320', text: 'Сколько гостей'})
-  +counter({type: 'rooms', cattype1: 'спальни', cattype2: 'кровати', cattype3: 'ванные комнаты', counter1: 2, counter2: 2, counter3: 0, width: '266'})
-  +pagination()
-  +rangeslider({type: 'double', min: 1000, max: 15000, step: 1, from: 5000, to: 10000})
-  +calendar({type: 'date'})
-  +calendar({type: 'datefilter'})
-  +input({type: 'subscription', icon: 'arrow', length: 'medium', text: 'E-mail'})
-  +input({type: 'text', length: 'long', text: 'This is pretty awesome'})
-  +checklist_expand()
-  +checklist_rich()
-  +checklist()
-  +radioblock()
-  +buttonlike()
-  +buttonlike()
-  +toggle({labeltext: 'Получать спецпредложения'})
-  +starrating()

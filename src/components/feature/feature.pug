@@ -1,0 +1,19 @@
+include ../../components/info/info.pug
+include ../../components/materialicons/materialicons.pug
+
+mixin feature(options)
+  if !options
+    - options = {}
+  -
+    var icon = options.icon
+    var headertext = options.headertext
+    var bodytext = options.bodytext
+  div(class="feature__wrapper")
+    div(class="feature")
+      +materialicons({
+                    type: icon,
+                    color: 'purple',
+                    size: 'large',
+                })
+    div(class="info")
+      +info({headertext: headertext, bodytext: bodytext,})

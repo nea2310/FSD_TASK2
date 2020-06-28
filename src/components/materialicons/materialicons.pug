@@ -12,6 +12,8 @@ mixin materialicons({ type, color, size,}={})
         when 'white'
             - colorModifier = ' maticons-white'
     case size
+        when 'large'
+            - sizeModifier = ' maticons-large'
         when 'base'
             - sizeModifier = ' maticons-base'
         when 'small'
