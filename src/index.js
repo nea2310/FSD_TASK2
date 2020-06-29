@@ -9,11 +9,7 @@ import './styles/styles.less'
 import './plugins/datepicker.min.js';
 */
 
-import WebpackLogo from '@/assets/webpack-logo.png'
-
-
-const post = new Post('Webpack Post Title', WebpackLogo)
-$('pre').html(post.toString())
+import avatar from './components/feedback/images/murad.jpg'
 
 
 import * as counter from '@/components/counter/counter';

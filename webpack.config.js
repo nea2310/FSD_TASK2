@@ -6,6 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssAssetWebpackPlugin = require('optimize-css-assets-webpack-plugin')
 const TerserWebpackPlugin = require('terser-webpack-plugin')
 const webpack = require('webpack');
+//const images = require('./webpack/images');
 
 const isDev = process.env.NODE_ENV ==='development'
 const isProd = !isDev
@@ -29,6 +30,7 @@ const config = {
 }
 
 const filename = ext => isDev ? `[name].${ext}` : `[name].[hash].${ext}`
+
 
 const cssLoaders = extra => {
   const loaders = [
@@ -87,7 +89,8 @@ module.exports = {
 		extensions: ['.js', '.json', '.png'],
 		alias: {
 			'@models': path.resolve(__dirname, 'src/models'),
-			'@': path.resolve(__dirname, 'src')
+			'@': path.resolve(__dirname, 'src'),
+			//images: path.resolve(__dirname, 'src/assets/images/'),
 		}
 	},
 	optimization: optimization(),
@@ -134,17 +137,17 @@ module.exports = {
 			 use: cssLoaders('less-loader')
 			},
 			{
-			test: /\.(gif|svg|png|jpe?g)$/,
+			test: /\.(gif|svg|png|jpe?g|gif|jpg)$/,
 			use: [
 			  {
 				loader: 'file-loader',
 				options: {
-     			outputPath: './images'
-				  }
+				name: './images/[name].[ext]'
+     			}
 			   }
 			  ]
 		    },
-			
+			//{ test: /\.(jpe?g|gif|jpg)$/, loader: "file-loader"},
 			
 			{
 			 test: /\.(ttf|woff|woff2|eot)$/,

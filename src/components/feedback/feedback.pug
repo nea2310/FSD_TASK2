@@ -1,0 +1,14 @@
+include ../../components/info/info.pug
+
+mixin feedback(options)
+  if !options
+    - options = {}
+  -
+    var icon = options.icon
+    var headertext = options.headertext
+    var bodytext = options.bodytext
+  div(class="feedback__wrapper")
+    div(class="avatar")
+      img(src="../images/murad.jpg")
+    div(class="info")
+      +info({headertext: headertext, bodytext: bodytext,})
