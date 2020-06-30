@@ -9,7 +9,7 @@ import './styles/styles.less'
 import './plugins/datepicker.min.js';
 */
 
-import avatar from './components/feedback/images/murad.jpg'
+import avatar from './components/feedback/images/murad.svg'
 
 
 import * as counter from '@/components/counter/counter';
