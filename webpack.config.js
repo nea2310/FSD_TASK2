@@ -102,7 +102,8 @@ module.exports = {
 	devtool: isDev ? 'source-map' : '',
 	plugins: [
 		new HTMLWebpackPlugin({
-			 template: './pug/ui.pug',
+			 //template: './pug/ui.pug',
+			 template: './pages/formelements/formelements.pug',
 			 }),
 		new CleanWebpackPlugin(),
 		new CopyWebpackPlugin({

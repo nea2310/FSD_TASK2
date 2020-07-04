@@ -26,66 +26,57 @@ div[data-abswidth="266"]{
  .counter-wrapper{
 	box-sizing:border-box;
 	border: 1px solid @color_grey_opaque;
-	border-radius: 3px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
 	text-transform: uppercase;
 	font-size: 12px;
   	font-family: "Montserrat Bold", Arial, sans-serif;
   	position: relative;
+  	//margin-left: 10px;
 
 } 
 
-/* .counter-header{
-	height: 44px;
-	display: flex;
-	//justify-content: space-between;
-	align-items: center;
-	cursor: pointer;
-	font-family: "Montserrat", Arial, sans-serif;
-	text-transform: lowercase;
-	color: @color_grey_opaque;
-} */
+.counter-input{
+	margin-left: 11px;
+	//margin-right: 11px;
+}
 
-/* .toggle-wrapper{
-	border: 1px solid black;
-	width: 100%;
-	display: flex;
-	justify-content: flex-end;
-} */
-
-/* .counter-toggle{
-	background-image:url('./images/arrow-down.svg'); 
-	background-repeat:no-repeat; 
-	width:12px; 
-	height:8px;
-	
-	border: 1px solid orange;
-
-
-} */
 
 .counter-categories{
 //	border: 1px solid blue;
     padding: 0 10px 0 15px;
-	display: none;
+    border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	display: none; 
 	border: 1px solid @color_grey_opaque;
 	position: absolute;
 	background-color: @color_white;
 	z-index: 1;
 	left: -1px;
+	padding-bottom:7px;
+	//margin-bottom: 5px;
 }
+
+
+
 
 .category-type{
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	margin-top: -3px;
+
+
 }
 
 .category-counter{
 //	border: 1px solid red;
-	width: 90px;
+
+	width: 95px;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	margin-right: -5px;
 }
 
 .counter-minus, .counter-plus {
@@ -102,9 +93,23 @@ div[data-abswidth="266"]{
 	font-family: "Montserrat", Arial, sans-serif;
 }
 
+.counter-minus {
+	margin-left: 1px;
+	margin-right: 10px;
+	}
+
+.counter-plus {
+	//margin-right: 5px;
+	margin-left: 10px;
+	}	
+
+
+
 .counter-footer {
 //	border: 1px solid  green;
-	height: 44px;
+	height: 20px;
+	margin-top: 19px;
+	//margin-bottom: 15px;
 }
 
 .button-wrapper{
@@ -112,11 +117,13 @@ div[data-abswidth="266"]{
 	justify-content: space-between;
 	margin-top: 15px;
 
+
 }
 
 .category-wrapper {
 display: flex;
 justify-content: space-between;
+margin-top: 5px;
 }
 
 

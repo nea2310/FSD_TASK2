@@ -9,12 +9,15 @@
   display: flex;
   font-family: "Montserrat Bold", Arial, sans-serif;
   font-size: 12px;
+  //color: @color_black;
 }
 .cdp_i {
-  font-size: 14px;
+  font-size: 12px;
   text-decoration: none;
   transition: background 250ms;
-  margin: 0 3px 6px;
+  //margin: 0px 3px 0px 6px;
+  margin-right: 3px;
+  margin-left:6px;
   height: 40px;
   width: 40px;
   border-radius: 50%;
@@ -70,10 +73,15 @@
 .cdp[actpage="15"] .cdp_i:nth-child(13):after,
 .cdp[actpage="15"] .cdp_i:nth-child(19):after
  {
+  font-family: "Montserrat", Arial, sans-serif;
   content: '...';
   color: @color_grey_opaque;
   position:absolute;
-  top: 12px;
+  top: 13px;
+  right: 5px;
+  //border: 1px solid blue;
+ // width: 50px;
+ //padding-left: 60px;
 }
 
 
@@ -112,6 +120,9 @@
   justify-content: center;
   align-items: center;
   color: @color_grey_opaque;
+  //border: 1px solid red;
+  font-family: "Montserrat", Arial, sans-serif;
+ margin-right: -6px;
 }
 
 
@@ -143,10 +154,13 @@
 .cdp[actpage="14"] .cdp_i:nth-child(12),
 .cdp[actpage="15"] .cdp_i:nth-child(13) {
   display: inline-block;
+  //display: none;
   pointer-events: none;
   color: transparent;
   border-color: transparent;
-  width: 50px;
+ //border: 1px solid red;
+  width: 31px;
+
 }
 
 

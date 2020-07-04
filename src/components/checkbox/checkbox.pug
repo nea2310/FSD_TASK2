@@ -9,7 +9,6 @@ mixin checkbox(options)
       input(type="checkbox")
       span(class="checkmark") 
     div(class="label__wrapper")
-      label(class=toplabel)= options.toptext
-      br
+      div(class=toplabel)= options.toptext
       if options.labelbottom === true
-        label(class="label-bottom")= options.bottomtext
+        div(class="label-bottom")= options.bottomtext
