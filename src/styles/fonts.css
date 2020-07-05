@@ -1,0 +1,77 @@
+@font-face {
+    font-family: "Montserrat";
+    src: local('Montserrat'),
+         url('../assets/fonts/Montserrat-Regular.woff2') format('woff2'),
+         url('../assets/fonts/Montserrat-Regular.woff') format('woff'), 
+         url('../assets/fonts/Montserrat-Regular.ttf')  format('truetype'), 
+         url('../assets/fonts/Montserrat-Regular.eot');
+    font-weight: normal;
+    font-style: normal;
+    font-display: fallback;
+}
+@font-face {
+    font-family: "Quicksand";
+    src: local('Quicksand'),
+         url('../assets/fonts/Quicksand-Regular.woff2') format('woff2'), 
+         url('../assets/fonts/Quicksand-Regular.woff') format('woff'), 
+         url('../assets/fonts/Quicksand-Regular.ttf')  format('truetype'), 
+         url('../assets/fonts/Quicksand-Regular.eot');
+    font-weight: normal;
+    font-style: normal;
+    font-display: fallback;
+}
+@font-face {
+    font-family: "Montserrat Bold";
+    src: local('Montserrat Bold'),
+         url('../assets/fonts/Montserrat-Bold.woff2') format('woff2'), 
+         url('../assets/fonts/Montserrat-Bold.woff') format('woff'), 
+         url('../assets/fonts/Montserrat-Bold.ttf')  format('truetype'), 
+         url('../assets/fonts/Montserrat-Bold.eot'); 
+    font-weight: bold;
+    font-style: normal;
+    font-display: fallback;
+}
+@font-face {
+    font-family: "Quicksand Bold";
+    src: local('Quicksand Bold'),
+         url('../assets/fonts/Quicksand-Bold.woff2') format('woff2'),
+         url('../assets/fonts/Quicksand-Bold.woff') format('woff'), 
+         url('../assets/fonts/Quicksand-Bold.ttf')  format('truetype'),
+         url('../assets/fonts/Quicksand-Bold.eot'); 
+    font-weight: bold;
+    font-style: normal;
+    font-display: fallback;
+}
+@font-face {
+    font-family: "OpenSans";
+    src: local('OpenSans'),
+         url('../assets/fonts/opensans-regular-webfont.woff2') format('woff2'), 
+         url('../assets/fonts/opensans-regular-webfont.woff') format('woff'), 
+         url('../assets/fonts/opensans-regular-webfont.ttf') format('truetype'),
+         url('../assets/fonts/opensans-regular-webfont.eot');
+    font-weight: normal;
+    font-style: normal;
+    font-display: fallback;
+    }
+
+@font-face {
+    font-family: "OpenSans Bold";
+    src: local('OpenSans Bold'),
+         url('../assets/fonts/opensans-bold-webfont.woff2') format('woff2'), 
+         url('../assets/fonts/opensans-bold-webfont.woff') format('woff'), 
+         url('../assets/fonts/opensans-bold-webfont.ttf') format('truetype'),
+         url('../assets/fonts/opensans-bold-webfont.eot');
+    font-weight: bold;
+    font-style: normal;
+    font-display: fallback;
+}
+@font-face {
+    font-family: 'MaterialIcons-Regular';
+    font-style: normal;
+    font-weight: 400;
+    src:local('MaterialIcons-Regular'),
+        url('../assets/fonts/MaterialIcons-Regular.woff2') format('woff2'),
+        url('../assets/fonts/MaterialIcons-Regular.woff') format('woff'),
+        url('../assets/fonts/MaterialIcons-Regular.ttf') format('truetype'),
+        url('../assets/fonts/MaterialIcons-Regular.eot');
+}
