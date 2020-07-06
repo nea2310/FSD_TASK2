@@ -1,6 +1,6 @@
 .togglemark__label{
-  color: @color_grey_opaque!important;
-  font-family: "Montserrat", Arial, sans-serif;
+ // color: @color_grey_opaque!important;
+  .font__Montserrat_grey();
   display: block;
   font-size: 14px;
   margin-top: 2px;
@@ -15,9 +15,6 @@
   margin-bottom: 12px;
   cursor: pointer;
   font-size: 22px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
 }
 
@@ -43,22 +40,14 @@
   box-sizing: border-box;
 }
 
-/* On mouse-over, add a grey background color */
-/* .togglemark__wrapper:hover input ~ .togglemark {
-  background-color: #ccc;
-}
- */
-/* When the toggle button is checked, add a blue background */
-
-
- .togglemark__wrapper input:checked ~ .togglemark {
+.togglemark__wrapper input:checked ~ .togglemark {
   background-color: @color_white;
   border: 1px solid @color_purple;
-} 
+}
 
 .togglemark__wrapper input:checked ~ .togglemark ~ .togglemark__label {
   color: @color_purple;
-} 
+}
 
 
 /* Create the indicator (the dot/circle - hidden when not checked) */
@@ -66,7 +55,6 @@
   content: "";
   position: absolute;
   display: none;
-  
 }
 
 /* Show the indicator (dot/circle) when checked */
@@ -81,16 +69,11 @@
 /* Show the indicator (dot/circle) when checked */
 .togglemark__wrapper input ~ .togglemark:after {
   display: block;
-  //color: red;
   background-color: @color_grey_opaque;
-  //left: 10px;
- // top: 10px;
 }
 
 /* Style the indicator (dot/circle) */
 .togglemark__wrapper .togglemark:after {
-  //top: 4px;
-  //left: 4px;
   width: 12px;
   height: 12px;
   border-radius: 50%;

@@ -8,14 +8,14 @@
   animation-timeout: 200ms;
   display: flex;
   font-family: "Montserrat Bold", Arial, sans-serif;
+  .font__Montserrat_grey();
   font-size: 12px;
-  //color: @color_black;
 }
+
 .cdp_i {
   font-size: 12px;
   text-decoration: none;
   transition: background 250ms;
-  //margin: 0px 3px 0px 6px;
   margin-right: 3px;
   margin-left:6px;
   height: 40px;
@@ -26,10 +26,11 @@
   display: none;
   position: relative;
 }
+
 .cdp_i:first-child, .cdp_i:last-child {
   background: linear-gradient(@color_light_green 0%, @color_light_blue 100%)!important;
   cursor: pointer;
-} 
+}
 
 .cdp__arrow{
   &-forward{
@@ -40,9 +41,6 @@
 .cdp_i:not(:first-child):not(:last-child):hover {
   background: linear-gradient(@color_purple_opaque 0%, @color_blue_opaque 100%);
 }
-
-
-
 
 .cdp[actpage="1"] .cdp_i:nth-child(5):after,
 .cdp[actpage="2"] .cdp_i:nth-child(6):after,
@@ -71,17 +69,12 @@
 .cdp[actpage="14"] .cdp_i:nth-child(12):after,
 .cdp[actpage="14"] .cdp_i:nth-child(18):after,
 .cdp[actpage="15"] .cdp_i:nth-child(13):after,
-.cdp[actpage="15"] .cdp_i:nth-child(19):after
- {
-  font-family: "Montserrat", Arial, sans-serif;
+.cdp[actpage="15"] .cdp_i:nth-child(19):after {
   content: '...';
-  color: @color_grey_opaque;
+  .font__Montserrat_grey();
   position:absolute;
   top: 13px;
   right: 5px;
-  //border: 1px solid blue;
- // width: 50px;
- //padding-left: 60px;
 }
 
 
@@ -119,10 +112,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: @color_grey_opaque;
-  //border: 1px solid red;
-  font-family: "Montserrat", Arial, sans-serif;
- margin-right: -6px;
+  .font__Montserrat_grey();
+  margin-right: -6px;
 }
 
 
@@ -154,16 +145,11 @@
 .cdp[actpage="14"] .cdp_i:nth-child(12),
 .cdp[actpage="15"] .cdp_i:nth-child(13) {
   display: inline-block;
-  //display: none;
   pointer-events: none;
   color: transparent;
   border-color: transparent;
- //border: 1px solid red;
   width: 31px;
-
 }
-
-
 
 .cdp[actpage="1"] .cdp_i:nth-child(2),
 .cdp[actpage="2"] .cdp_i:nth-child(3),
@@ -179,16 +165,13 @@
 .cdp[actpage="12"] .cdp_i:nth-child(13),
 .cdp[actpage="13"] .cdp_i:nth-child(14),
 .cdp[actpage="14"] .cdp_i:nth-child(15),
-.cdp[actpage="15"] .cdp_i:nth-child(16){
-background: linear-gradient(@color_purple 0%, @color_blue 100%);
-    color: @color_white;
+.cdp[actpage="15"] .cdp_i:nth-child(16) {
+  background: linear-gradient(@color_purple 0%, @color_blue 100%);
+  color: @color_white;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
-
-
 
 .cdp[actpage="15"] .cdp_i:nth-child(16) + .cdp_i:last-child {
   display: none !important;

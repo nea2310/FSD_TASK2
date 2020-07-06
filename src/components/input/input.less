@@ -1,15 +1,7 @@
-/* input:focus{
- // border: 1px solid red!important;
-  } */
 input{
   border:none;
   outline: none;
- // display: none;
-  }  
-
-/* .inpwrapper{
-   border: 1px solid orange;
-   }  */ 
+}
 
 .inpwrapper {
   height: 44px;
@@ -17,18 +9,19 @@ input{
   border: 1px solid @color_grey_opaque;
   display: flex;
   position: relative;
-
   overflow: hidden;
-    &-short{
-      max-width: 150px;
-      }
-    &-medium{
-      max-width: 266px;
-      }  
-    &-long{
-      max-width: 320px;
-      }
 
+  &-short{
+    max-width: 150px;
+  }
+
+  &-medium{
+    max-width: 266px;
+  }
+
+  &-long{
+    max-width: 320px;
+  }
 }
 
 .inpwrapper i {
@@ -37,7 +30,6 @@ input{
   top: 9px;
 }
 .inp{
-//border: 1px solid red;
 width: 100%
 }
 
@@ -47,7 +39,6 @@ width: 100%
 .checklist-input{
   text-transform: uppercase;
   font-size: 12px;
-  font-family: "Montserrat Bold", Arial, sans-serif;
-
+  .font__Montserrat_grey();
 }
 

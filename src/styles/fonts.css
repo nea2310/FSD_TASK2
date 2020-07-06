@@ -66,10 +66,10 @@
     font-display: fallback;
 }
 @font-face {
-    font-family: 'MaterialIcons-Regular';
+    font-family: 'MaterialIcons';
     font-style: normal;
     font-weight: 400;
-    src:local('MaterialIcons-Regular'),
+    src:local('MaterialIcons'),
         url('../assets/fonts/MaterialIcons-Regular.woff2') format('woff2'),
         url('../assets/fonts/MaterialIcons-Regular.woff') format('woff'),
         url('../assets/fonts/MaterialIcons-Regular.ttf') format('truetype'),

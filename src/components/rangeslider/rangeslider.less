@@ -1,57 +1,55 @@
 .range-slider {
-    max-width: 266px;
+  max-width: 266px;
 
-    .r-title {
-      display: flex;
-      justify-content: space-between;
+  .r-title {
+    display: flex;
+    justify-content: space-between;
 
-      .header-block {
-        padding: 0;
-      }
+    .header-block {
+      padding: 0;
     }
-    &__price {
+  }
+  &__price {
+    width: 100%;
+    text-align: end;
+    border: none;
+    pointer-events: none;
+    font-size: 12px;
+    text-transform: uppercase;
+    .font__Montserrat_grey();
+  }
+
+  span.irs.irs--flat {
+    .irs-line {
+      max-width: 266px;
       width: 100%;
-      text-align: end;
-      border: none;
-      pointer-events: none;
-      font-family: "Montserrat", Arial, sans-serif;
-      font-size: 12px;
-      //line-height: 15px;
-      text-transform: uppercase;
-      color: @color_grey_opaque;
+      height: 6px;
+      background: #FFFFFF;
+      border: 1px solid @color_grey_opaque;
+      box-sizing: border-box;
+      border-radius: 3px;
     }
-    span.irs.irs--flat {
-  
-      .irs-line {
-        max-width: 266px;
-        width: 100%;
-        height: 6px;
-        background: #FFFFFF;
-        border: 1px solid @color_grey_opaque;
-        box-sizing: border-box;
-        border-radius: 3px;
-      }
-    
-      .irs-handle {
-        width: 14Px;
-        height: 14Px;
-        margin-top: -1px;
-        background: linear-gradient(180deg, #6FCF97 0%, #66D2EA 100%);
-        border: 2px solid #FFFFFF;
-        border-radius: 50%;
-        box-sizing: border-box;
-        outline: none;
-        cursor: pointer;
-    
-        i {
-          display: none;
+
+  .irs-handle {
+    width: 14Px;
+    height: 14Px;
+    margin-top: -1px;
+    background: linear-gradient(180deg, #6FCF97 0%, #66D2EA 100%);
+    border: 2px solid #FFFFFF;
+    border-radius: 50%;
+    box-sizing: border-box;
+    outline: none;
+    cursor: pointer;
+
+      i {
+        display: none;
         }
       }
-    
-      .irs-bar {
-        height: 6px;
-        background: linear-gradient(180deg, #6FCF97 0%, #66D2EA 100%);
-        border-radius: 3px;
-      }
+
+    .irs-bar {
+      height: 6px;
+      background: linear-gradient(180deg, #6FCF97 0%, #66D2EA 100%);
+      border-radius: 3px;
     }
+  }
 }

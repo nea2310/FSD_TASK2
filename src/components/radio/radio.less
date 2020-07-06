@@ -1,8 +1,5 @@
 .radiomark__label{
-  color: @color_grey_opaque;
-  font-family: "Montserrat", Arial, sans-serif;
-  font-size: 14px;
-  //white-space: pre-wrap;
+  .font__Montserrat_grey();
   margin-right: 19px;
   margin-top: 2px;
 }
@@ -15,15 +12,11 @@
   margin-bottom: 12px;
   cursor: pointer;
   font-size: 22px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
 }
 
 /* Hide the browser's default radio button */
 .radiomark__wrapper input {
-  //position: absolute;
   opacity: 0;
   cursor: pointer;
   height: 0;
@@ -44,17 +37,14 @@
 
 
 /* When the radio button is checked, add a blue background */
-
-
- .radiomark__wrapper input:checked ~ .radiomark {
+.radiomark__wrapper input:checked ~ .radiomark {
   background-color: @color_white;
   border: 1px solid @color_purple;
 } 
 
 .radiomark__wrapper input:checked ~ .radiomark ~ .radiomark__label {
   color: @color_purple;
-} 
-
+}
 
 /* Create the indicator (the dot/circle - hidden when not checked) */
 .radiomark:after {
