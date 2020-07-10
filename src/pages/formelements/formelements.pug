@@ -14,135 +14,140 @@ include ../../components/starrating/starrating.pug
 include ../../components/info/info.pug
 include ../../components/feature/feature.pug
 include ../../components/feedback/feedback.pug
-
+include ../../components/bulletlist/bulletlist.pug
 
 block serv
   -var serv
   div(class="grid")
-    div(class="cell")
-      +input({type: 'subscription', icon: 'arrow', length: 'medium', text: 'E-mail'})
-      br
-      +input({type: 'text', length: 'long', text: 'This is pretty awesome'})
-      br
-      +calendar({type: 'datefilter'})
-      br
-      div(class="cell-inner")
+    div(class="cell cell-col1")
+      div(class="def__wrapper def__wrapper-1")
+        div(class="def def-1") text field
+        div(class="def__sub def__sub-1") default
+      div(class="cell__inner")
+        +input({type: 'subscription', icon: 'arrow', length: 'long', text: 'E-mail'})
+
+      div(class="def__wrapper def__wrapper-2")
+        div(class="def def-2") text field
+        div(class="def__sub def__sub-2") hover/focus
+      div(class="cell__inner")
+        +input({type: 'text', length: 'long', text: 'This is pretty awesome'})
+      div(class="def__wrapper def__wrapper-3")
+        div(class="def def-3") masked text field
+        div(class="def__sub def__sub-3") default
+      div(class="cell__inner")
+        +input({type: 'text', length: 'long', text: 'ДД.ММ.ГГГГ.'})
+
+      div(class="def__wrapper def__wrapper-4")
+        div(class="def def-4") date dropdown
+        div(class="def def-5") date dropdown
+      div(class="cell__inner cell__inner-4")
         +calendar({type: 'date'})
         +calendar({type: 'date'})
-      br
-    div(class="cell")
-      +checklist()
-      br
-      +radioblock()
-      br
-      +toggle({labeltext: 'Получать спецпредложения'})
-      br
-      +buttonlike()
-      br
-      +starrating()
-    div(class="cell")
-      +rangeslider({type: 'double', min: 1000, max: 15000, step: 1, from: 5000, to: 10000})
-      br
-      +buttonaction({color: 'white', length: 'medium', width: 'wide', text: 'click me', textcolor: 'purple'})
-      br
-      +buttonaction({color: 'purple', length: 'medium', width: 'wide', text: 'click me', textcolor: 'white'})
-      div(class="cell-inner")
+
+      div(class="def def-6") filter date dropdown
+      div(class="cell__inner")
+        +calendar({type: 'datefilter'})
+
+      div(class="def def-7") subscription text field
+      div(class="cell__inner")
+        +input({type: 'subscription', icon: 'arrow', length: 'medium', text: 'E-mail'})
+
+
+    div(class="cell cell-col2")
+      div(class="def def-8") checkbox buttons
+      div(class="cell__inner")
+        +checklist()
+
+      div(class="def def-9") radio buttons
+      div(class="cell__inner")
+        +radioblock()
+
+      div(class="def def-10") toggle
+      div(class="cell__inner")
+        +toggle({labeltext: 'Получать спецпредложения'})
+
+      div(class="def def-11") like button
+      div(class="cell__inner")
+        +buttonlike()
+
+      div(class="def def-12") rate button
+      div(class="cell__inner cell__inner-12")
+        +starrating()
+
+
+    div(class="cell cell-col3")
+      div(class="def def-13") range slider
+      div(class="cell__inner")
+        +rangeslider({type: 'double', min: 1000, max: 15000, step: 1, from: 5000, to: 10000})
+
+      div(class="def def-14") buttons
+      div(class="cell__inner")
+        +buttonaction({color: 'purple', length: 'medium', width: 'wide', text: 'click me', textcolor: 'white'})
+
+      div(class="def def-15")
+      div(class="cell__inner")
+        +buttonaction({color: 'white', length: 'medium', width: 'wide', text: 'click me', textcolor: 'purple'})
+      
+      div(class="def def-16")
+      div(class="cell__inner cell__inner-16")
         +action({text: 'click me', textcolor: 'grey'})
         +action({text: 'click me', textcolor: 'purple'})
-      +buttonaction({color: 'purple', length: 'long', width: 'wide', text: 'click me', textcolor: 'white', icon: 'arrow'})
-      br
-      +pagination()
-  div(class="grid")
-    div(class="cell")
-      +counter({type: 'rooms', cattype1: 'спальни', cattype2: 'кровати', cattype3: 'ванные комнаты', counter1: 2, counter2: 2, counter3: 0, width: '266'})
-      br
-      br
-      br
-      br
-      br
-      br
-      br
-      br
-      +checklist_expand()
-      br
-      br
-      br
-      br
-      br
-      br
-      br
-      br
-    div(class="cell")
-      +counter({type: 'guests', cattype1: 'взрослые', cattype2: 'дети', cattype3: 'младенцы', counter1: 1, counter2: 0, counter3: 0, buttons: true, width: '320', text: 'Сколько гостей'})
-      br
-      br
-      br
-      br
-      br
-      br
-      br
-      br
-      +checklist_rich()
-    div(class="cell")
-      +counter({type: 'guests', cattype1: 'взрослые', cattype2: 'дети', cattype3: 'младенцы', counter1: 1, counter2: 0, counter3: 0, buttons: true, width: '320', text: 'Сколько гостей'})
-  div(class="grid")
-    div(class="cell")
-      +feature({icon: 'mood', headertext: 'Комфорт', bodytext: 'Шумопоглащающие стены',})
-      br
-      +feature({icon: 'location_city', headertext: 'удобство', bodytext: 'Окно в каждой из спален',})
-      br
-      +feature({icon: 'whatshot', headertext: 'headertext', bodytext: 'bodytext',})
-    div(class="cell")
-      +feedback({imgpath: 'images/murad.jpg', name: 'Мурад Сарафанов', date: '5 дней назад', text: 'Великолепный матрас на кровати в основной спальне! А пуфик вообще потрясающий.        И стены, действительно, шумоподавляющие. Выкрикивал комплименты повару — никто не жаловался из соседей.'})
-      
-  br
-  br
-  br
-  br
-  br
-  br
-  br
-  br
-  br
-  br
-  br
-  br
+
+      div(class="def def-17")
+      div(class="cell__inner")
+        +buttonaction({color: 'purple', length: 'long', width: 'wide', text: 'перейти к оплате', textcolor: 'white', icon: 'arrow'})
+      div(class="def def-18") pagination
+      div(class="cell__inner cell__inner-18")
+        +pagination()
 
 
 
-  +buttonaction({color: 'purple', length: 'long', width: 'wide', text: 'click me', textcolor: 'white', icon: 'arrow'})
-  +action({text: 'click me', textcolor: 'grey'})
-  +action({text: 'click me', textcolor: 'purple'})
-  +counter({type: 'guests', cattype1: 'взрослые', cattype2: 'дети', cattype3: 'младенцы', counter1: 1, counter2: 0, counter3: 0, buttons: true, width: '320', text: 'Сколько гостей'})
-  br
-  br
-  br
-  br
-  br
-  br
-  br
-  br
-  br
-  br
-  br
-  br
-  +counter({type: 'rooms', cattype1: 'спальни', cattype2: 'кровати', cattype3: 'ванные комнаты', counter1: 2, counter2: 2, counter3: 0, width: '266'})
-  +pagination()
-  +rangeslider({type: 'double', min: 1000, max: 15000, step: 1, from: 5000, to: 10000})
-  +calendar({type: 'date'})
-  +calendar({type: 'datefilter'})
-  +input({type: 'subscription', icon: 'arrow', length: 'medium', text: 'E-mail'})
-  +input({type: 'text', length: 'long', text: 'This is pretty awesome'})
-  +checklist_expand()
-  +checklist_rich()
-  +checklist()
-  +radioblock()
-  +buttonlike()
-  +buttonlike()
-  +toggle({labeltext: 'Получать спецпредложения'})
-  +starrating()
-  +feature({icon: 'mood', headertext: 'Комфорт', bodytext: 'Шумопоглащающие стены',})
-  +feature({icon: 'location_city', headertext: 'удобство', bodytext: 'Окно в каждой из спален',})
-  +feature({icon: 'whatshot', headertext: 'headertext', bodytext: 'bodytext',})
-  +feedback({imgpath: 'images/murad.jpg', name: 'Мурад Сарафанов', date: '5 дней назад', text: 'Великолепный матрас на кровати в основной спальне! А пуфик вообще потрясающий.        И стены, действительно, шумоподавляющие. Выкрикивал комплименты повару — никто не жаловался из соседей.'})
+  div(class="grid grid-2")
+    div(class="cell cell-col1")
+      div(class="def__wrapper def__wrapper-19")
+        div(class="def def-19") dropdown
+        div(class="def__sub def__sub-19") default
+      div(class="cell__inner")
+        +counter({type: 'rooms', cattype1: 'спальни', cattype2: 'кровати', cattype3: 'ванные комнаты', counter1: 2, counter2: 2, counter3: 0, width: '266'})
+
+
+      div(class="cell__inner cell__inner-20")
+        +checklist_expand()
+
+
+    div(class="cell cell-col2")
+      div(class="def def-21") dropdown
+      div(class="cell__inner")
+        +counter({type: 'guests', cattype1: 'взрослые', cattype2: 'дети', cattype3: 'младенцы', counter1: 1, counter2: 0, counter3: 0, buttons: true, width: '320', text: 'Сколько гостей'})
+
+
+      div(class="def def-22") rich checkbox buttons
+      div(class="cell__inner")
+        +checklist_rich()
+
+
+    div(class="cell cell-col3")
+      div(class="def def-23") bullet list
+      div(class="cell__inner")
+        +bulletlist()
+
+
+  div(class="grid grid-3")
+    div(class="cell cell-col1")
+
+      div(class="cell__inner cell__inner-23")
+        +feature({icon: 'mood', headertext: 'Комфорт', bodytext: 'Шумопоглащающие стены',})
+
+      div(class="cell__inner cell__inner-24")
+        +feature({icon: 'location_city', headertext: 'Удобство', bodytext: 'Окно в каждой из спален',})
+
+      div(class="def def-25 cell__inner-25")
+      div(class="cell__inner")
+        +feature({icon: 'whatshot', headertext: 'TO_DELETE', bodytext: 'bodytext',})
+
+
+    div(class="cell")
+        div(class="cell__inner cell__inner-26")
+          +feedback({imgpath: 'images/murad.jpg', name: 'Мурад Сарафанов', date: '5 дней назад', text: 'Великолепный матрас на кровати в основной спальне! А пуфик вообще потрясающий.        И стены, действительно, шумоподавляющие. Выкрикивал комплименты повару — никто не жаловался из соседей.'})
+
 

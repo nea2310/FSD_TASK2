@@ -22,18 +22,14 @@ mixin checklist_rich(options)
   -
     var toplabel = 'label-top'
     toplabel += options.toplabel === 'bold' ? ' label-bold' : ''
-  +input({type: 'checklist', length: 'medium', text: 'rich checkbox buttons'})
   div(class="checklist")
     +checkbox({labelbottom: true, toplabel: 'bold', toptext: 'Широкий коридор', bottomtext: 'Ширина коридора в номере не менее 91 см.'})
+    div(class="checklist__interval")
     +checkbox({labelbottom: true, toplabel: 'bold', toptext: 'Помощник для инвалидов', bottomtext: 'На 1 этаже вас встретит специалист и проводит до номера. '})
 
-mixin checklist(options)
-  if !options
-    - options = {}
-  -
-    var toplabel = 'label-top'
-    toplabel += options.toplabel === 'bold' ? ' label-bold' : ''
-  +input({type: 'checklist', length: 'medium', text: 'checkbox buttons'})
+
+
+mixin checklist()
   div(class="checklist")
     +checkbox({toptext: 'Можно курить'})
     +checkbox({toptext: 'Можно с питомцами'})

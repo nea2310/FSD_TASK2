@@ -1,22 +1,260 @@
+body{
+  padding-top: 130px;
+}
+
+.def{
+  .font__MontserratBold_black();
+  font-size: 12px;
+  text-transform: uppercase;
+  //display: inline-block;
+  &__wrapper{
+    display: flex;
+    justify-content: space-between;
+    &-1{
+      margin-top: 4px;
+      margin-left: 0px;
+      margin-bottom: 6px;
+    }
+    &-2{
+      margin-top: 17px;
+      margin-left: 0px;
+      margin-bottom: 5px;
+    }
+    &-3{
+      margin-top: 104px;
+      margin-left: 0px;
+      margin-bottom: 5px;
+    }
+    &-4{
+      margin-top: 39px;
+      margin-left: 0px;
+      margin-bottom: 5px;
+      width: 320px;
+    }
+    &-19{
+    margin-top: 85px;
+    margin-left: 0px;
+    margin-bottom: 4px;
+    width: 266px;
+  }
+  }
+  &-1{
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-bottom: 0px;
+  }
+  &-2{
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-bottom: 0px;
+  }
+  &-3{
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-bottom: 0px;
+  }
+  &-4{
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-bottom: 0px;
+  }
+  &-5{
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-right: 33px;
+    margin-bottom: 0px;
+  }
+  &-6{
+    margin-top: 39px;
+    margin-left: 0px;
+    margin-bottom: 4px;
+  }
+  &-7{
+    margin-top: 39px;
+    margin-left: 0px;
+    margin-bottom: 4px;
+  }
+  &-8{
+    margin-top: 5px;
+    margin-left: 0px;
+    margin-bottom: 16px;
+  }
+  &-9{
+    margin-top: 29px;
+    margin-left: 0px;
+    margin-bottom: 15px;
+  }
+  &-10{
+    margin-top: 33px;
+    margin-left: 0px;
+    margin-bottom: 16px;
+  }
+  &-11{
+    margin-top: 67px;
+    margin-left: 0px;
+    margin-bottom: 17px;
+  }
+  &-12{
+    margin-top: 40px;
+    margin-left: 0px;
+    margin-bottom: 6px;
+  }
+  &-13{
+    margin-top: 5px;
+    margin-left: 0px;
+    margin-bottom: -19px;
+   position: absolute;
+  }
+  &-14{
+    margin-top: 35px;
+    margin-left: 0px;
+    margin-bottom: 16px;
+  }
+  &-15{
+    margin-top: 31px;
+    margin-left: 0px;
+    margin-bottom: 0px;
+  }
+  &-16{
+    margin-top: 30px;
+    margin-left: 0px;
+    margin-bottom: 0px;
+  }
+  &-17{
+    margin-top: 30px;
+    margin-left: 0px;
+    margin-bottom: 0px;
+  }
+  &-18{
+    margin-top: 40px;
+    margin-left: 0px;
+    margin-bottom: -53px;
+  }
+  &-21{
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-bottom: 5px;
+  }
+
+  &-22{
+    margin-top: 255px;
+    margin-left: 0px;
+    margin-bottom: 20px;
+  }
+
+   &-23{
+  margin-top: 320px;
+  margin-left: 0px;
+  margin-bottom: 17px;
+}
+/*
+&-24{
+  margin-top: 20px;
+  margin-left: 0px;
+  margin-bottom: 0px;
+}
+
+&-25{
+  margin-top: 40px;
+  margin-left: 0px;
+  margin-bottom: 0px;
+}
+ */
+  &-26{
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-bottom: 0px;
+  }
+
+
+  &__sub{
+    .font__Montserrat_grey();
+    text-transform: uppercase;
+    font-size: 12px;
+    //display: inline-block;
+      &-1{
+        margin-top: 0px;
+        margin-left: 0px;
+        margin-bottom: 0px;
+    }
+      &-2{
+        margin-top: 0px;
+        margin-left: 0px;
+        margin-bottom: 0px;
+    }
+      &-3{
+        margin-top: 0px;
+        margin-left: 0px;
+        margin-bottom: 0px;
+    }
+  }
+}
+
 .grid{
-	margin: 50px;
-	display: flex;
-	flex-wrap: wrap;
-	border: 1px solid red;
-	justify-content: space-between;
-	max-width: 1010px;
-	margin: 0 auto;
+  display: flex;
+  //border: 1px solid red;
+  justify-content: space-between;
+  max-width: 1300px;
+  margin: 0 auto;
+  &-2{
+    margin-top: 99px
+  }
+  &-3{
+    margin-top: 205px
+  }
 
 }
 
 .cell{
-	border: 1px solid green;
-	&-inner{
-	display: flex;
-	flex-wrap: wrap;
-	//width: 33%;
-	flex-shrink: 1;
-	flex-grow: 1;
+  //border: 1px solid green;
+  &-start{
+    justify-content: space-between;
+    padding-right: 10px;
+  }
+  &__inner{
+    display: flex;
+    flex-wrap: wrap;
+    //flex-shrink: 1;
+    //flex-grow: 1;
+      &-4{
+        justify-content: space-between;
+        padding-right: 10px;
+      }
+      &-12{
+        margin-left: -1px;
+      }
+      &-16{
+        justify-content: space-between;
+        width: 142px;
+        //padding-right: 10px;
+      }
+      &-18{
+        margin-left: -5px;
+      }
+      &-20{
+        margin-top: 220px;
+      }
+      &-24{
+        margin-top: 22px;
+      }
+      &-26{
+        margin-left: 120px;
+      }
 
-	}
+  }
+  &-col1{
+    //border: 1px solid blue;
+    padding-left: 70px;
+    flex-basis: 360px;
+  }
+  &-col2{
+    //border: 1px solid purple;
+    padding-left: 115px;
+    flex-basis: 370px;
+  }
+  &-col3{
+   // border: 1px solid orange;
+    padding-left: 50px;
+    flex-basis: 425px;
+  }
 }

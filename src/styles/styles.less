@@ -18,7 +18,9 @@
 @import "../components/info/info.less";
 @import "../components/feature/feature.less";
 @import "../components/feedback/feedback.less";
+@import "../components/bulletlist/bulletlist.less";
 @import "../pages/formelements/formelements.less";
+
 
 
 
@@ -33,6 +35,7 @@
 
 @color_white: #ffffff;
 @color_black: #000000;
+@color_grey_lightopaque: rgba(31, 32, 65, 0.25);
 @color_grey_opaque: rgba(31, 32, 65, 0.5);
 @color_grey_semiopaque: rgba(31, 32, 65, 0.75);
 @color_light_green: #6FCF97;
@@ -72,11 +75,23 @@
 
 .font__Montserrat_grey(){
   font-family: "Montserrat", Arial, sans-serif;;
-  color: @color_grey_opaque;;
+  color: @color_grey_opaque;
 }
+
+.font__Montserrat_darkgrey(){
+  font-family: "Montserrat", Arial, sans-serif;;
+  color: @color_grey_semiopaque;
+}
+
 
 .font__MontserratBold_grey(){
   font-family: "Montserrat Bold", Arial, sans-serif;;
-  color: @color_grey_opaque;;
+  color: @color_grey_opaque;
 }
+
+.font__MontserratBold_black(){
+  font-family: "Montserrat Bold", Arial, sans-serif;;
+  color: #1F2041;;
+}
+
 
