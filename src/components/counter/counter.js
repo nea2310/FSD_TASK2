@@ -1,145 +1,119 @@
 const counter =jQuery('document').ready(function($) {
 
 
-	$('.counter-minus').click(function () {
-	let cat1quant1 = $(this).parent().parent().parent().parent().parent().children(".cat1quant1")
-	let cat1quant2 = $(this).parent().parent().parent().parent().parent().children(".cat1quant2")
-	let cat1quant3 = $(this).parent().parent().parent().parent().parent().children(".cat1quant3")
-	let cat2quant1 = $(this).parent().parent().parent().parent().parent().children(".cat2quant1")
-	let cat2quant2 = $(this).parent().parent().parent().parent().parent().children(".cat2quant2")
-	let cat2quant3 = $(this).parent().parent().parent().parent().parent().children(".cat2quant3")
-	let cat3quant1 = $(this).parent().parent().parent().parent().parent().children(".cat3quant1")
-	let cat3quant2 = $(this).parent().parent().parent().parent().parent().children(".cat3quant2")
-	let cat3quant3 = $(this).parent().parent().parent().parent().parent().children(".cat3quant3")
-	
-	let span = $(this).next();
+
+	$('.counter-minusplus').click(function () {
+	let span = $(this).parent().children(".counter");
 	let span_numb = parseInt(span.text());
-	if(span_numb) {
-	span.text(--span_numb);
+	let opertype = $(this).attr("class")
+	let container = $(this).parent().parent().parent().parent().children(".counter-inpwrapper");
+
+	let val1 = container.children(".val1");
+	let val2 = container.children(".val2");
+	let val3 = container.children(".val3");
+	let text1 = container.children(".text1");
+	let text2 = container.children(".text2");
+	let text3 = container.children(".text3");
+
+	let val;
+	let text;
+
+
+
+				if(opertype=='counter-minus counter-minusplus' && span_numb != 0) {
+					span.text(--span_numb);
+					}
+				else if (opertype=='counter-plus counter-minusplus'){
+					span.text(++span_numb);
+				}
+
 		switch($(this).attr('data-name')){
 			case 'category-one':
-				$(this).parent().parent().parent().parent().parent().children(".counter-inpwrapper").children(".category-one-count").text(span.text());
 					switch(Number(span.text())){
 						case 1:
-							$(this).parent().parent().parent().parent().parent().children(".counter-inpwrapper").children(".category-one-name").text(cat1quant1.text());
+							text = $(this).attr('data-coun1cat1');
+							val = span.text();
+							val1.text(val);
+							text1.text(text);
 							break;
 						case 2:
 						case 3:
 						case 4:
-							$(this).parent().parent().parent().parent().parent().children(".counter-inpwrapper").children(".category-one-name").text(cat1quant2.text());
+						//case 0:
+							text = $(this).attr('data-coun2cat1');
+							val = span.text();
+							val1.text(val);
+							text1.text(text);
 							break;
 						default:
-							$(this).parent().parent().parent().parent().parent().children(".counter-inpwrapper").children(".category-one-name").text(cat1quant3.text());
-							break;		
-						}
-				console.log(span.text())
-				console.log(cat1quant2.text())
-				break;
-			case 'category-two':
-				$(this).parent().parent().parent().parent().parent().children(".counter-inpwrapper").children(".category-two-count").text(span.text());
-					switch(Number(span.text())){
-						case 1:
-							$(this).parent().parent().parent().parent().parent().children(".counter-inpwrapper").children(".category-two-name").text(cat2quant1.text());
-							break;
-						case 2:
-						case 3:
-						case 4:
-							$(this).parent().parent().parent().parent().parent().children(".counter-inpwrapper").children(".category-two-name").text(cat2quant2.text());
-							break;
-						default:
-							$(this).parent().parent().parent().parent().parent().children(".counter-inpwrapper").children(".category-two-name").text(cat2quant3.text());
-							break;		
-						}
-				break;
-			case 'category-three':
-				$(this).parent().parent().parent().parent().parent().children(".counter-inpwrapper").children(".category-three-count").text(span.text());
-					switch(Number(span.text())){
-						case 1:
-							$(this).parent().parent().parent().parent().parent().children(".counter-inpwrapper").children(".category-three-name").text(cat3quant1.text());
-							break;
-						case 2:
-						case 3:
-						case 4:
-							$(this).parent().parent().parent().parent().parent().children(".counter-inpwrapper").children(".category-three-name").text(cat3quant2.text());
-							break;
-						default:
-							$(this).parent().parent().parent().parent().parent().children(".counter-inpwrapper").children(".category-three-name").text(cat3quant3.text());
-							break;		
-						}
-				break;		
-			}
-		}
-	});
-
-	$('.counter-plus').on('click', function () {
-	let cat1quant1 = $(this).parent().parent().parent().parent().parent().children(".cat1quant1")
-	let cat1quant2 = $(this).parent().parent().parent().parent().parent().children(".cat1quant2")
-	let cat1quant3 = $(this).parent().parent().parent().parent().parent().children(".cat1quant3")
-	let cat2quant1 = $(this).parent().parent().parent().parent().parent().children(".cat2quant1")
-	let cat2quant2 = $(this).parent().parent().parent().parent().parent().children(".cat2quant2")
-	let cat2quant3 = $(this).parent().parent().parent().parent().parent().children(".cat2quant3")
-	let cat3quant1 = $(this).parent().parent().parent().parent().parent().children(".cat3quant1")
-	let cat3quant2 = $(this).parent().parent().parent().parent().parent().children(".cat3quant2")
-	let cat3quant3 = $(this).parent().parent().parent().parent().parent().children(".cat3quant3")
-
-
-	let span = $(this).prev();
-	let span_numb = parseInt(span.text());
-	if(span_numb || span_numb == 0) {
-	span.text(++span_numb);
-
-	switch($(this).attr('data-name')){
-			case 'category-one':
-				$(this).parent().parent().parent().parent().parent().children(".counter-inpwrapper").children(".category-one-count").text(span.text());
-					switch(Number(span.text())){
-						case 1:
-							$(this).parent().parent().parent().parent().parent().children(".counter-inpwrapper").children(".category-one-name").text(cat1quant1.text());
-							break;
-						case 2:
-						case 3:
-						case 4:
-							$(this).parent().parent().parent().parent().parent().children(".counter-inpwrapper").children(".category-one-name").text(cat1quant2.text());
-							break;
-						default:
-							$(this).parent().parent().parent().parent().parent().children(".counter-inpwrapper").children(".category-one-name").text(cat1quant3.text());
+							text = $(this).attr('data-coun5cat1');
+							val = span.text();
+							val1.text(val);
+							text1.text(text);
+							let a = $(this).attr('data-coun5cat1');
+							let b = span.text();
+							console.log('a '+a);
+							console.log('b '+b);
 							break;		
 						}
 				break;
 			case 'category-two':
-				$(this).parent().parent().parent().parent().parent().children(".counter-inpwrapper").children(".category-two-count").text(span.text());
-					switch(Number(span.text())){
+						switch(Number(span.text())){
 						case 1:
-							$(this).parent().parent().parent().parent().parent().children(".counter-inpwrapper").children(".category-two-name").text(cat2quant1.text());
+
+							text = $(this).attr('data-coun1cat2');
+							val = span.text();
+							val2.text(val);
+							text2.text(text);
 							break;
 						case 2:
 						case 3:
 						case 4:
-							$(this).parent().parent().parent().parent().parent().children(".counter-inpwrapper").children(".category-two-name").text(cat2quant2.text());
+
+							text = $(this).attr('data-coun2cat2');
+							val = span.text();
+							val2.text(val);
+							text2.text(text);
 							break;
 						default:
-							$(this).parent().parent().parent().parent().parent().children(".counter-inpwrapper").children(".category-two-name").text(cat2quant3.text());
-							break;		
+
+							text = $(this).attr('data-coun5cat2');
+							val = span.text();
+							val2.text(val);
+							text2.text(text);
+							break;				
 						}
-				break;	
+				break;
 			case 'category-three':
-				$(this).parent().parent().parent().parent().parent().children(".counter-inpwrapper").children(".category-three-count").text(span.text());
 					switch(Number(span.text())){
 						case 1:
-							$(this).parent().parent().parent().parent().parent().children(".counter-inpwrapper").children(".category-three-name").text(cat3quant1.text());
+
+							text = $(this).attr('data-coun1cat3');
+							val = span.text();
+							val3.text(val);
+							text3.text(text);
 							break;
 						case 2:
 						case 3:
 						case 4:
-							$(this).parent().parent().parent().parent().parent().children(".counter-inpwrapper").children(".category-three-name").text(cat3quant2.text());
+
+							text = $(this).attr('data-coun2cat3');
+							val = span.text();
+							val3.text(val);
+							text3.text(text);
 							break;
 						default:
-							$(this).parent().parent().parent().parent().parent().children(".counter-inpwrapper").children(".category-three-name").text(cat3quant3.text());
+
+							text = $(this).attr('data-coun5cat3');
+							val = span.text();
+							val3.text(val);
+							text3.text(text);
 							break;		
 						}
 				break;		
 			}
-		}
 	});
+
 
 	$('.counter-inpwrapper').on('click', function(){
 	$(this).nextAll().show(300);
