@@ -1,5 +1,6 @@
 .datepicker{
   width: 320px;
+  font-family:  "Quicksand Bold", Arial, sans-serif;
 
   &-input {
   width: 266px;
@@ -10,6 +11,84 @@
   padding-left: 10px;
   box-sizing: border-box;
   }
+
+  &--nav{
+    &-title{
+      height: 55px;
+      font-size: 19px;
+      color: @color_black;
+      font-style: normal;
+        &:hover{
+        background-color: @color_white;
+        cursor: default;
+      }
+      & i{
+        font-size: 19px;
+        color: @color_black;
+        font-style: normal;
+      }
+    }
+    &-action{
+      &[data-action="prev"]{
+        margin-left: 10px;
+      }
+      &[data-action="next"]{
+        margin-right: 10px;
+      }
+      &:hover{
+        background-color: @color_white;
+      }
+      &:first-child{
+        position: relative;
+        &:before{
+          content: 'arrow_back';
+          position: absolute;
+          display: inline-block;
+          font-family: "MaterialIcons";
+          font-weight: normal;
+          font-style: normal;
+          text-transform: none;
+          letter-spacing: normal;
+          word-wrap: normal;
+          white-space: nowrap;
+          direction: ltr;
+          user-select: none;  
+          text-rendering: optimizeLegibility;
+          font-feature-settings: 'liga';
+          color: @color_purple;
+          font-size: 24px;
+          top: 14px;
+          left: 5px;
+        }
+      }
+      &:last-child{
+        position: relative;
+        &:after{
+          content: 'arrow_forward';
+          position: absolute;
+          display: inline-block;
+          font-family: "MaterialIcons";
+          font-weight: normal;
+          font-style: normal;
+          text-transform: none;
+          letter-spacing: normal;
+          word-wrap: normal;
+          white-space: nowrap;
+          direction: ltr;
+          user-select: none;  
+          text-rendering: optimizeLegibility;
+          font-feature-settings: 'liga';
+          color: @color_purple;
+          font-size: 24px;
+          top: 14px;
+          right: 0px;
+          left: 1px;
+      }
+    }
+  }
+}
+
+
 
   &--button{
     &::after {
@@ -55,4 +134,20 @@
 .-selected-{
   background-color: @color_purple!important;
   color: @color_white!important;
+}
+
+.datepicker-buttons{
+  display: flex;
+  justify-content: space-between;
+  //height: 59px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 25px;
+  margin-bottom: 20px;
+
+
+}
+
+path{
+  stroke: @color_white!important;
 }

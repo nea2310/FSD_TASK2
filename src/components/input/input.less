@@ -22,13 +22,26 @@ input{
   &-long{
     width: 320px;
   }
+
+  & span{
+    .font__Montserrat_darkgrey();
+    font-size: 14px;
+    text-transform: lowercase;
+    display: inline-block;
+   // margin-top: 13px;
+  }
+  i {
+    position: absolute;
+    right: 8px;
+    top: 9px;
+  }
 }
 
-.inpwrapper i {
+/* .inpwrapper i {
   position: absolute;
   right: 8px;
   top: 9px;
-}
+} */
 .inp{
 width: 100%;
 .font__Montserrat_darkgrey();
@@ -45,4 +58,18 @@ padding-left: 15px;
   font-size: 12px;
   .font__MontserratBold_black();
 }
+
+.counter-inpwrapper{
+  display: flex;
+  align-items: center;
+}
+.val1{
+  padding-left: 15px;
+}
+.text1,
+.text2, 
+.text3{
+    padding-left: 5px;
+}
+
 

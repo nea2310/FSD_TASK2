@@ -7,6 +7,7 @@ const counter =jQuery('document').ready(function($) {
 	let span_numb = parseInt(span.text());
 	let opertype = $(this).attr("class")
 	let container = $(this).parent().parent().parent().parent().children(".counter-inpwrapper");
+	let textinit = container.children(".counter-input");
 
 	let val1 = container.children(".val1");
 	let val2 = container.children(".val2");
@@ -17,6 +18,8 @@ const counter =jQuery('document').ready(function($) {
 
 	let val;
 	let text;
+	if (textinit.css("display")!='none')
+		textinit.hide();
 
 
 
@@ -50,10 +53,6 @@ const counter =jQuery('document').ready(function($) {
 							val = span.text();
 							val1.text(val);
 							text1.text(text);
-							let a = $(this).attr('data-coun5cat1');
-							let b = span.text();
-							console.log('a '+a);
-							console.log('b '+b);
 							break;		
 						}
 				break;
@@ -63,7 +62,7 @@ const counter =jQuery('document').ready(function($) {
 
 							text = $(this).attr('data-coun1cat2');
 							val = span.text();
-							val2.text(val);
+							val2.text(', '+val);
 							text2.text(text);
 							break;
 						case 2:
@@ -72,14 +71,14 @@ const counter =jQuery('document').ready(function($) {
 
 							text = $(this).attr('data-coun2cat2');
 							val = span.text();
-							val2.text(val);
+							val2.text(', '+val);
 							text2.text(text);
 							break;
 						default:
 
 							text = $(this).attr('data-coun5cat2');
 							val = span.text();
-							val2.text(val);
+							val2.text(', '+val);
 							text2.text(text);
 							break;				
 						}
@@ -90,7 +89,7 @@ const counter =jQuery('document').ready(function($) {
 
 							text = $(this).attr('data-coun1cat3');
 							val = span.text();
-							val3.text(val);
+							val3.text(', '+val);
 							text3.text(text);
 							break;
 						case 2:
@@ -99,14 +98,14 @@ const counter =jQuery('document').ready(function($) {
 
 							text = $(this).attr('data-coun2cat3');
 							val = span.text();
-							val3.text(val);
+							val3.text(', '+val);
 							text3.text(text);
 							break;
 						default:
 
 							text = $(this).attr('data-coun5cat3');
 							val = span.text();
-							val3.text(val);
+							val3.text(', '+val);
 							text3.text(text);
 							break;		
 						}
@@ -114,19 +113,55 @@ const counter =jQuery('document').ready(function($) {
 			}
 	});
 
+	$('.action-grey').click(function (){
+		let counterContainer = $(this).parent().parent().parent().parent();
+		console.log(counterContainer);
+		if (counterContainer.hasClass("counter-wrapper")){
+			counterContainer.children(".counter-inpwrapper").children("span").text('');
+			counterContainer.children(".counter-inpwrapper").children(".counter-input").show();
+			counterContainer.children(".counter-categories").children(".category-wrapper").children(".category-counter").children(".counter").text('0');
+		}
+           
+		
+	});
+
 
 	$('.counter-inpwrapper').on('click', function(){
-	$(this).nextAll().show(300);
+	$(this).nextAll().show();
+	if ($(this).parent().hasClass("counter-guests")){
+		$(this).children(".counter-input").hide();
+		$(this).children(".val1").text('1');
+		$(this).children(".text1").text('взрослый');
+
+	}
+
+	if ($(this).parent().hasClass("counter-rooms")){
+		$(this).children(".counter-input").hide();
+		$(this).children(".val1").text('2');
+		$(this).children(".text1").text('спальни');
+		$(this).children(".val2").text(', 2');
+		$(this).children(".text2").text('кровати');
+
+	}
 	}); 
 	
-	
+	//Повторяющийся код - нужен рефакторинг
 
 	$(document).mouseup(function (e){ // событие клика по веб-документу
-		let block = $('.counter-wrapper'); // тут указываем ID элемента
-		let block_to_hide = $('.counter-categories');
+		let block = $('.counter-guests'); // тут указываем ID элемента
+		let block_to_hide = $('.counter-guests').children('.counter-categories');
 		if (!block.is(e.target) // если клик был не по нашему блоку
 		    && block.has(e.target).length === 0) { // и не по его дочерним элементам
-			block_to_hide.hide(300); // скрываем его
+			block_to_hide.hide(); // скрываем его
+		}
+	});
+
+	$(document).mouseup(function (e){ // событие клика по веб-документу
+		let block = $('.counter-rooms'); // тут указываем ID элемента
+		let block_to_hide = $('.counter-rooms').children('.counter-categories');
+		if (!block.is(e.target) // если клик был не по нашему блоку
+		    && block.has(e.target).length === 0) { // и не по его дочерним элементам
+			block_to_hide.hide(); // скрываем его
 		}
 	});
 
