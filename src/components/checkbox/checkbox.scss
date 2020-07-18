@@ -1,6 +1,6 @@
 .checkbox{
   &__wrapper{
-    .font__Montserrat_grey();
+    @include font__Montserrat_grey;
     display: flex;
   }
 }
@@ -20,12 +20,12 @@
 
   &-bottom{
     font-size: 12px;
-    color: @color_grey_opaque;
+    color: $color_grey_opaque;
     margin-top: 6px;
   }
 
   &-bold{
-    color: @color_grey_semiopaque;
+    color: $color_grey_semiopaque;
     font-family: "Montserrat Bold", Arial, sans-serif;
   }
 }
@@ -35,7 +35,7 @@
 }
 .checklist-exp{
   position: absolute;
-  background-color: @color_white;
+  background-color: $color_white;
   z-index: 1;
 }
 
@@ -53,7 +53,7 @@
   }
   /* Customize the label (the container) */
   &__wrapper {
-    border: 1px solid @color_grey_opaque;
+    border: 1px solid $color_grey_opaque;
     border-radius: 4px;
     display: block;
     position: relative;
@@ -68,7 +68,7 @@
     top: 4px;
     width: 4px;
     height: 6px;
-    border: solid @color_purple;
+    border: solid $color_purple;
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
   }
@@ -81,7 +81,7 @@
       width: 0;
 /* When the checkbox is checked, add a blue background */
       &:checked ~ .checkmark {
-        border: 1px solid @color_purple;
+        border: 1px solid $color_purple;
         border-radius: 4px;
         left: -1px;
         height: 18px;

@@ -6,7 +6,7 @@ input{
 .inpwrapper {
   height: 44px;
   border-radius: 5px;
-  border: 1px solid @color_grey_opaque;
+  border: 1px solid $color_grey_opaque;
   display: flex;
   position: relative;
   overflow: hidden;
@@ -24,7 +24,7 @@ input{
   }
 
   & span{
-    .font__Montserrat_darkgrey();
+    @include font__Montserrat_darkgrey;
     font-size: 14px;
     text-transform: lowercase;
     display: inline-block;
@@ -44,7 +44,7 @@ input{
 } */
 .inp{
 width: 100%;
-.font__Montserrat_darkgrey();
+@include font__Montserrat_darkgrey;
 font-size: 14px;
 padding-left: 15px;
 }
@@ -56,7 +56,7 @@ padding-left: 15px;
   text-transform: uppercase;
   padding-left: 0px!important;
   font-size: 12px;
-  .font__MontserratBold_black();
+  @include font__MontserratBold_black;
 }
 
 .counter-inpwrapper{

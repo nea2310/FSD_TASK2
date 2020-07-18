@@ -11,13 +11,14 @@
   font-size: 12px;
   font-family: "Montserrat Bold", Arial, sans-serif;
 
+
   &-white{
-   color: @color_white;
+   color: $color_white;
   }
   &-purple{
-    color: @color_purple;
+    color: $color_purple;
   }
   &-grey{
-    color: @color_grey_opaque;
+    color: $color_grey_opaque;
   }
 }

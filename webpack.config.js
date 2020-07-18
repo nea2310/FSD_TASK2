@@ -137,6 +137,11 @@ module.exports = {
 			 test: /\.less$/,
 			 use: cssLoaders('less-loader')
 			},
+
+      {
+        test: /\.s[ac]ss$/,
+        use: cssLoaders('sass-loader')
+      },
 			{
 			test: /\.(gif|svg|png|jpe?g|gif|jpg)$/,
 			use: [

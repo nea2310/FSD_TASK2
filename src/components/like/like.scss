@@ -5,7 +5,7 @@
     justify-content: space-between;
     font-size: 10px;
     cursor: pointer;
-    .font__Montserrat_grey();
+    @include font__Montserrat_grey;
   }
 
   &__number{
@@ -13,6 +13,6 @@
   }
 
   &-added{
-    color: @color_purple;
+    color: $color_purple;
   }
 }

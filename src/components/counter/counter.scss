@@ -24,7 +24,7 @@ div[data-abswidth="266"]{
 
 .counter-wrapper{
   box-sizing:border-box;
-  border: 1px solid @color_grey_opaque;
+  border: 1px solid $color_grey_opaque;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   text-transform: uppercase;
@@ -38,9 +38,9 @@ div[data-abswidth="266"]{
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   display: none; 
-  border: 1px solid @color_grey_opaque;
+  border: 1px solid $color_grey_opaque;
   position: absolute;
-  background-color: @color_white;
+  background-color: $color_white;
   z-index: 1;
   left: -1px;
   padding-bottom:7px;

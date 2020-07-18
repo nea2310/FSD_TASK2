@@ -9,11 +9,11 @@
     margin-top: 1px;
     width: 10px;
     height: 10px;
-    background-color: @color_grey_lightopaque;
+    background-color: $color_grey_lightopaque;
     border-radius: 50%;
   }
   &__label{
-    .font__Montserrat_grey();
+    @include font__Montserrat_grey;
     font-size: 14px;
     padding-left: 10px;
     width: 230px;

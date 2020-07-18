@@ -1,5 +1,5 @@
 .radiomark__label{
-  .font__Montserrat_grey();
+  @include font__Montserrat_grey;
   margin-right: 18px;
   margin-top: 2px;
   font-size: 14px;
@@ -32,20 +32,20 @@
   left: 0;
   height: 20px;
   width: 20px;
-  background-color: @color_white;
-  border: 1px solid @color_grey_opaque;
+  background-color: $color_white;
+  border: 1px solid $color_grey_opaque;
   border-radius: 50%;
 }
 
 
 /* When the radio button is checked, add a blue background */
 .radiomark__wrapper input:checked ~ .radiomark {
-  background-color: @color_white;
-  border: 1px solid @color_purple;
+  background-color: $color_white;
+  border: 1px solid $color_purple;
 } 
 
 .radiomark__wrapper input:checked ~ .radiomark ~ .radiomark__label {
-  color: @color_purple;
+  color: $color_purple;
 }
 
 /* Create the indicator (the dot/circle - hidden when not checked) */
@@ -67,5 +67,5 @@
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: @color_purple;
+  background: $color_purple;
 }

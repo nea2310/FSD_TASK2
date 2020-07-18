@@ -1,6 +1,6 @@
 .togglemark__label{
- // color: @color_grey_opaque!important;
-  .font__Montserrat_grey();
+ // color: $color_grey_opaque!important;
+  @include font__Montserrat_grey;
   display: block;
   font-size: 14px;
   margin-left: 13px;
@@ -33,19 +33,19 @@
   left: 0;
   height: 20px;
   width: 40px;
-  background-color: @color_white;
-  border: 1px solid @color_grey_opaque;
+  background-color: $color_white;
+  border: 1px solid $color_grey_opaque;
   border-radius: 22px;
   box-sizing: border-box;
 }
 
 .togglemark__wrapper input:checked ~ .togglemark {
-  background-color: @color_white;
-  border: 1px solid @color_purple;
+  background-color: $color_white;
+  border: 1px solid $color_purple;
 }
 
 .togglemark__wrapper input:checked ~ .togglemark ~ .togglemark__label {
-  color: @color_purple;
+  color: $color_purple;
 }
 
 
@@ -59,7 +59,7 @@
 /* Show the indicator (dot/circle) when checked */
 .togglemark__wrapper input:checked ~ .togglemark:after {
   display: block;
-  background-color: @color_purple;
+  background-color: $color_purple;
   left: 23px;
   top: 3px;
 }
@@ -68,7 +68,7 @@
 /* Show the indicator (dot/circle) when checked */
 .togglemark__wrapper input ~ .togglemark:after {
   display: block;
-  background-color: @color_grey_opaque;
+  background-color: $color_grey_opaque;
 }
 
 /* Style the indicator (dot/circle) */
@@ -76,7 +76,7 @@
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: @color_purple;
+  background: $color_purple;
   left: 3px;
   top: 3px;
 }

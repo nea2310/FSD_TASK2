@@ -25,7 +25,7 @@
 }
 
   &__details{
-    .font__Montserrat_grey();
+    @include font__Montserrat_grey;
     font-size: 14px;
     margin-top: 15px;
     margin-left: 13px;

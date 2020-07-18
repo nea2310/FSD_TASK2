@@ -2,7 +2,7 @@ import * as $ from 'jquery'
 import Post from '@models/post'
 import './babel'
 import './styles/styles.css'
-import './styles/styles.less'
+import './styles/styles.scss'
 
 
 /*import './plugins/datepicker.min.css';

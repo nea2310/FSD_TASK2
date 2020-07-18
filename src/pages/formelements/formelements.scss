@@ -3,7 +3,7 @@ body{
 }
 
 .def{
-  .font__MontserratBold_black();
+  @include font__MontserratBold_black;
   font-size: 12px;
   text-transform: uppercase;
   //display: inline-block;
@@ -168,7 +168,7 @@ body{
 
 
   &__sub{
-    .font__Montserrat_grey();
+    @include font__Montserrat_grey;
     text-transform: uppercase;
     font-size: 12px;
     //display: inline-block;
