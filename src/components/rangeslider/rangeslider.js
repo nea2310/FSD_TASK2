@@ -19,11 +19,11 @@ class RangeSlider {
     this.$slider.ionRangeSlider({
       onStart(data) {
         const {from, to} = data;
-        $price.val(`${from}₽ - ${to}₽`);
+        $price.val(`${from.toLocaleString()}₽ - ${to.toLocaleString()}₽`);
       },
       onChange(data) {
         const {from, to} = data;
-        $price.val(`${from}₽ - ${to}₽`);
+        $price.val(`${from.toLocaleString()}₽ - ${to.toLocaleString()}₽`);
       }
     })
   } 

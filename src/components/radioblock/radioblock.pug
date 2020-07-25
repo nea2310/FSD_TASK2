@@ -4,5 +4,5 @@ mixin radioblock(options)
     - options = {}
   -
   div(class="radioblock")
-    +radio({labeltext: 'Мужчина'})
-    +radio({labeltext: 'Женщина'})
+    +radio({labeltext: 'Мужчина', ischecked: 'checked=""', seqnumber: '1', seqnumber1: '1'})
+    +radio({labeltext: 'Женщина', seqnumber: '2', seqnumber1: '2'})

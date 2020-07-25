@@ -3,10 +3,10 @@
   
   &__row{
     display: flex;
-    margin-bottom: 17px;
+    margin-bottom: 11px;
   }
   &__marker{
-    margin-top: 1px;
+    margin-top: 5px;
     width: 10px;
     height: 10px;
     background-color: $color_grey_lightopaque;
@@ -17,5 +17,6 @@
     font-size: 14px;
     padding-left: 10px;
     width: 230px;
+    line-height: 1.7;
   }
 }

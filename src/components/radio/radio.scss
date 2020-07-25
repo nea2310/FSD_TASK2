@@ -1,7 +1,8 @@
 .radiomark__label{
   @include font__Montserrat_grey;
-  margin-right: 18px;
-  margin-top: 2px;
+  margin-right: 20px;
+  margin-left: 8px;
+  margin-top: -5px;
   font-size: 14px;
 }
 
@@ -45,8 +46,14 @@
 } 
 
 .radiomark__wrapper input:checked ~ .radiomark ~ .radiomark__label {
-  color: $color_purple;
+  color: $color_grey_semiopaque;
+
 }
+
+
+
+
+
 
 /* Create the indicator (the dot/circle - hidden when not checked) */
 .radiomark:after {

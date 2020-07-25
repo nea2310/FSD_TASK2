@@ -75,6 +75,7 @@ console.log('IS DEV: ', isDev)
 console.log('IS PROD: ', isProd)
 
 module.exports = {
+	watch: true,
 	context: path.resolve(__dirname, 'src'),
 	mode: 'development',
 	entry: {
@@ -97,7 +98,10 @@ module.exports = {
 	
 	devServer: {
 		port: 4200,
-		hot: isDev
+		hot: isDev,
+		watchOptions: {
+      poll: true
+    },
 	},
 	devtool: isDev ? 'source-map' : '',
 	plugins: [

@@ -1,6 +1,6 @@
 .togglemark__label{
  // color: $color_grey_opaque!important;
-  @include font__Montserrat_grey;
+  @include font__Montserrat_darkgrey;
   display: block;
   font-size: 14px;
   margin-left: 13px;
@@ -34,7 +34,7 @@
   height: 20px;
   width: 40px;
   background-color: $color_white;
-  border: 1px solid $color_grey_opaque;
+  border: 1px solid $color_grey_lightopaque;
   border-radius: 22px;
   box-sizing: border-box;
 }
@@ -43,10 +43,10 @@
   background-color: $color_white;
   border: 1px solid $color_purple;
 }
-
+/*
 .togglemark__wrapper input:checked ~ .togglemark ~ .togglemark__label {
   color: $color_purple;
-}
+}*/
 
 
 /* Create the indicator (the dot/circle - hidden when not checked) */
@@ -68,7 +68,7 @@
 /* Show the indicator (dot/circle) when checked */
 .togglemark__wrapper input ~ .togglemark:after {
   display: block;
-  background-color: $color_grey_opaque;
+  background-color: $color_grey_lightopaque;
 }
 
 /* Style the indicator (dot/circle) */

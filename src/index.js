@@ -19,6 +19,7 @@ import * as calendar from '@/components/calendar/calendar';
 import * as checklist_expand from '@/components/checklist/checklist';
 import * as button_like from '@/components/buttonlike/buttonlike';
 import * as starrating from '@/components/starrating/starrating';
+import * as radioblock from '@/components/radioblock/radioblock';
 
 
 

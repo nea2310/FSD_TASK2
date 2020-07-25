@@ -2,7 +2,14 @@ mixin radio(options)
   if !options
     - options = {}
   -
-  label(class="radiomark__wrapper")
-    input(type="checkbox" checked="checked")
+    var classes = ''
+    var classes1 = ''
+    classes += options.seqnumber ? 'radiomark__checkbox-' + options.seqnumber : ''
+    classes1 += options.seqnumber1 ? 'radiomark__wrapper radiomark__wrapper-' + options.seqnumber1 : ''
+  label(class=classes1)
+    if options.ischecked
+      input(type="checkbox" class=classes checked)
+    else
+      input(type="checkbox" class=classes)
     span(class="radiomark")
-  div(class="radiomark__label")= options.labeltext
+    div(class="radiomark__label")= options.labeltext
