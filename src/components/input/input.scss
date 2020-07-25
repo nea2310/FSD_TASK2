@@ -1,15 +1,22 @@
 input{
   border:none;
   outline: none;
+  &:focus{
+    color: $color_grey_opaque;
+  }
 }
 
 .inpwrapper {
   height: 44px;
   border-radius: 5px;
-  border: 1px solid $color_grey_opaque;
+  border: 1px solid $color_grey_lightopaque;
   display: flex;
   position: relative;
   overflow: hidden;
+
+  &:focus{
+    border: 1px solid $color_grey_opaque;
+  }
 
   &-short{
     width: 150px;
@@ -24,7 +31,7 @@ input{
   }
 
   & span{
-    @include font__Montserrat_darkgrey;
+    @include font__Montserrat_lightgrey;
     font-size: 14px;
     text-transform: lowercase;
     display: inline-block;
@@ -44,7 +51,7 @@ input{
 } */
 .inp{
 width: 100%;
-@include font__Montserrat_darkgrey;
+@include font__Montserrat_lightgrey;
 font-size: 14px;
 padding-left: 15px;
 }

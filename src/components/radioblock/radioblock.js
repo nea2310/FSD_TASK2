@@ -1,6 +1,6 @@
 const radioblock =jQuery('document').ready(function($) {
 	$('.radiomark').on('click', function(e){
-		let container = $(this).parent().parent('.radioblock');
+		let container = $(this).parent().parent('.input');
 		let checkboxcurrent = $(this).prev("input");
 		let checkbox;
 		if (checkboxcurrent.hasClass('radiomark__checkbox-1')){

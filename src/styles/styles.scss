@@ -50,6 +50,11 @@ $gradient_opaque: linear-gradient($color_purple_opaque 0%, $color_blue_opaque 10
   color: rgba(31, 32, 65, 0.75);
 }
 
+@mixin font__Montserrat_lightgrey(){
+  font-family: "Montserrat", Arial, sans-serif;;
+  color: $color_grey_lightopaque;
+}
+
 
 @mixin font__Montserrat_grey(){
   font-family: "Montserrat", Arial, sans-serif;;
