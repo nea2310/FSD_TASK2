@@ -1,8 +1,15 @@
 
 .datepicker{
   width: 320px;
-  font-family:  "Quicksand Bold", Arial, sans-serif;
-
+  font-family:  "Quicksand Bold", Arial, sans-serif!important;
+  &--days-names{
+    margin: 19px 16px 0 16px!important;
+    font-weight: 800;
+    font-size: 14px!important;
+      }
+  &--cells-days{
+    margin: 10px 16px 1px 16px!important;
+  }
   &-input {
   width: 266px;
   height: 44px;
@@ -104,7 +111,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 42px;
+    height: 40px;
     margin-left:auto;
     margin-right:auto;
     text-align: center;
@@ -112,6 +119,7 @@
     border-radius: 50%;
     font-family:  "Montserrat", Arial, sans-serif;
     font-size: 12px;
+    //border: 1px solid red;
 
       &:hover{
         background-color: $color_purple_opaque;
@@ -124,6 +132,7 @@
 
   &--day-name{
     color: $color_purple;
+    text-transform: capitalize!important;
   }
 }
 
@@ -141,9 +150,9 @@
   display: flex;
   justify-content: space-between;
   //height: 59px;
-  margin-left: 20px;
-  margin-right: 20px;
-  margin-top: 25px;
+  margin-left: 19px;
+  margin-right: 21px;
+  margin-top: 16px;
   margin-bottom: 20px;
 
 
