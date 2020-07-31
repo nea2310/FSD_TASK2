@@ -28,7 +28,7 @@
 }
 
 .cdp_i:first-child, .cdp_i:last-child {
-  background: linear-gradient($color_light_green 0%, $color_light_blue 100%)!important;
+  background: $gradient_green!important;
   cursor: pointer;
 }
 
@@ -39,7 +39,7 @@
 }
 
 .cdp_i:not(:first-child):not(:last-child):hover {
-  background: linear-gradient($color_purple_opaque 0%, $color_blue_opaque 100%);
+  background: $gradient_opaque;
 }
 
 .cdp[actpage="1"] .cdp_i:nth-child(5):after,
@@ -166,7 +166,7 @@
 .cdp[actpage="13"] .cdp_i:nth-child(14),
 .cdp[actpage="14"] .cdp_i:nth-child(15),
 .cdp[actpage="15"] .cdp_i:nth-child(16) {
-  background: linear-gradient($color_purple 0%, $color_blue 100%);
+  background: $gradient;
   color: $color_white;
   display: flex;
   justify-content: center;

@@ -21,6 +21,7 @@
   }
 
   &--nav{
+    border-bottom: none!important;
     &-title{
       height: 55px;
       font-size: 19px;
@@ -29,6 +30,7 @@
         &:hover{
         background-color: $color_white;
         cursor: default;
+
       }
       & i{
         font-size: 19px;
@@ -97,15 +99,36 @@
 }
 
 
-
+  &--buttons{
+    display: flex;
+    justify-content: space-between;
+    border-top: none!important;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
   &--button{
-    &::after {
+    color: $color_grey_opaque;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-family: "Montserrat Bold", Arial, sans-serif;
+    //display: block;
+    //width: 50%;
+    //flex-shrink: 0;
+    //border: 1px solid blue;
+    margin-right: 101px;
+ /*   &::after {
       display: block;
       content: '1';
       color: transparent;
       background-size: contain;
-      }
+      }*/
+    &:hover{
+      background: none!important;
+      color: $color_grey_opaque!important;
+    }
   }
+
+
 
   &--cell{
     display: flex;
@@ -160,4 +183,11 @@
 
 path{
   stroke: $color_white!important;
+}
+.action-apply{
+  flex-shrink: 1;
+  width: 100px!important;
+  //border: 1px solid red!important;
+  margin-right: 8px;
+  cursor: pointer;
 }

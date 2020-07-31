@@ -1,6 +1,6 @@
 const radioblock =jQuery('document').ready(function($) {
 	$('.radiomark').on('click', function(e){
-		let container = $(this).parent().parent('.input');
+		let container = $(this).parent().parent('.radioblock');
 		let checkboxcurrent = $(this).prev("input");
 		let checkbox;
 		if (checkboxcurrent.hasClass('radiomark__checkbox-1')){
@@ -11,7 +11,6 @@ const radioblock =jQuery('document').ready(function($) {
 		}
 		let ischecked = checkboxcurrent.is(":checked");
 		ischecked==false ? checkbox.prop('checked', false) : e.preventDefault();
-
 	});
 });
 export { radioblock }
