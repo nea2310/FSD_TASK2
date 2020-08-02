@@ -2,6 +2,7 @@ mixin toggle(options)
   if !options
     - options = {}
   -
+  div(class="toggle__wrapper")= options.label
   label(class="togglemark__wrapper")
     input(type="checkbox" checked="checked")
     span(class="togglemark")

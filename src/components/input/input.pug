@@ -14,7 +14,7 @@ mixin input(options)
     var divclass = ''
     var inpclass = ''
     var text = options.text
-    divclass += options.type === 'calendar' || 'calendar-range' ? ' calendar-inpwrapper' : ''
+    divclass += options.type === ('calendar' || 'calendar-range') ? ' calendar-inpwrapper' : ''
     divclass += options.type === 'counter' ? ' counter-inpwrapper' : ''
     divclass += options.type === 'subscription' ? ' subscription-inpwrapper' : ''
     divclass += options.type === 'text' ? ' text-inpwrapper' : ''
@@ -30,6 +30,7 @@ mixin input(options)
     inpclass += options.type === 'text' ? ' text-input' : ''
     inpclass += options.type === 'checklist' ? ' checklist-input' : ''
 
+  div(class='input__label')= options.label
   div.inpwrapper(class=divclass)
     input.inp(class=inpclass value=text)
     if options.type === 'counter'

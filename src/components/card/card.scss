@@ -1,0 +1,231 @@
+.card {
+  &__wrapper {
+    @include card;
+  }
+
+  &__innerwrapper{
+    margin: 0 auto;
+    width: 320px;
+    &-fixedheight1{
+      height: 602px;
+    }
+    &-fixedheight2{
+      height: 315px;
+    }
+  }
+
+  &__header {
+    @include font_h1;
+    font-weight: bold;
+    margin-top: 40px;
+   letter-spacing: 1.45px;
+  }
+  &__calendar{
+    margin-top: 20px;
+  }
+  &__guests{
+    margin-top: 20px;
+  }
+  &__button{
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+
+  &__wrapper{
+    position: relative;
+  }
+
+
+  &__login{
+    display: flex;
+    justify-content: space-between;
+    width: 324px;
+    margin: 0 auto;
+    position: absolute;
+    z-index: 99;
+    top: 570px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    //border: 1px solid;
+    &-2{
+      top: 280px!important;
+    }
+  }
+
+  &__accountexist{
+    @include font_body;
+    margin-top: 10px;
+    margin-left: 2px;
+  }
+
+  &__total {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 25px;
+    margin-bottom: -5px;
+  }
+
+  &__name{
+    margin-top: 20px;
+    margin-bottom: 0px;
+  }
+  &__surname{
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+  &__radioblock{
+    margin-top: 9px;
+    margin-bottom: 0px;
+
+  }
+  &__birthdate{
+    margin-top: 15px;
+    margin-bottom: 0px;
+  }
+  &__email{
+    margin-top: 19px;
+    margin-bottom: 0px;
+  }
+  &__password{
+    margin-top: 0px;
+    margin-bottom: 0px;
+    &-2{
+      margin-bottom: -10px;
+    }
+  }
+  &__toggle{
+    margin-top: 11px;
+    margin-bottom: -4px;
+  }
+
+}
+
+.details__row{
+  display: flex;
+  justify-content: space-between;
+  @include font_body;
+  color: $color_grey_semiopaque;
+
+  //width: 250px;
+  line-height: 1.5;
+
+  &-1{
+    margin-top: 19px;
+  }
+  &-2{
+    margin-top: 13px;
+  }
+  &-3{
+    margin-top: 12px;
+  }
+
+}
+
+.details__col {
+  display: flex;
+  justify-content: space-between;
+  &-fixedwidth{
+    width: 250px;
+  }
+}
+
+.col__info{
+  color: $color_grey_lightopaque;;
+  border: 1px solid $color_grey_lightopaque;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  margin-right: 10px;
+
+}
+
+.room__number, .room__price{
+  display: flex;
+  align-items: flex-end;
+
+  //border: 1px solid green;
+
+
+}
+.room__info{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 37px;
+}
+
+.number__elem{
+  &-1{
+    font-family: "Quicksand Bold", Arial, sans-serif;;
+    font-size: 14px;
+    //line-height: 10px;
+   // border: 1px solid red;
+    //line-height: 10px;
+    //vertical-align: bottom;
+    margin: 0px 0px 2px -1px;
+
+  }
+  &-2{
+
+    font-family: "Quicksand Bold", Arial, sans-serif;;
+    font-size: 24px;
+    //ertical-align: bottom;
+    //line-height: 10px;
+
+    //border: 1px solid blue;
+    margin: 0px 0px 0px 4px;
+  }
+  &-3{
+
+    @include font_body;
+    color: $color_purple;
+    margin: 0px 0px 0px 7px;
+    font-weight: bold;
+  }
+}
+
+.price__elem{
+
+
+  &-1{
+
+    font-family: "Montserrat Bold", Arial, sans-serif;
+    color: $color_grey_opaque;
+    font-size: 13px;
+    margin: 0px 3px 4px 0px;
+  }
+  &-2{
+
+    font-family: "Montserrat", Arial, sans-serif;
+    color: $color_grey_opaque;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+
+    margin: 0px 0px 5px 0px;
+    //padding: 0px 0px 0px 0px;
+  }
+}
+
+
+
+.total__elem{
+  &-1{
+    @include font_h2;
+    font-weight: bold;
+    letter-spacing: 1.7px;
+  }
+  &-2{
+width: 190px;
+    border-bottom: 1px dotted $color_grey_opaque;
+    margin-bottom: 4px;
+  }
+  &-3{
+    @include font_h2;
+  }
+
+}
+
+

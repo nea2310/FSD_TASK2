@@ -1,13 +1,13 @@
 .checklist{
   width: 260px;
-  margin-top: 50px;
+  margin-top: 15px;
   &-exp {
     display: none;
   }
   &__interval{
     margin-top: -5px;
   }
-  &__inpwrapper{
-
+  &__label{
+    @include label();
   }
 }

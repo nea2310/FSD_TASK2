@@ -1,0 +1,99 @@
+include ../../components/buttonwrapper/buttonwrapper.pug
+mixin card1(options)
+  if !options
+    - options = {}
+  -
+  div(class="card__wrapper")
+    div(class="card__innerwrapper")
+     div(class="card__header") Найдем номера под ваши пожелания
+     div(class="card__calendar")
+       +calendarblock({label1: 'прибытие', label2: 'выезд'})
+     div(class="card__guests")
+       +counter({type: 'guests', label: 'гости', cattype1: 'взрослые', cattype2: 'дети', cattype3: 'младенцы', counter1: 1, counter2: 0, counter3: 0, buttons: true, width: '320', text: 'Сколько гостей', coun1cat1: 'взрослый', coun2cat1: 'взрослых', coun5cat1: 'взрослых', coun1cat2: 'ребенок', coun2cat2: 'ребенка', coun5cat2: 'детей', coun1cat3: 'младенец', coun2cat3: 'младенца', coun5cat3: 'младенцев'})
+     div(class="card__button")
+       +buttonaction({color: 'purple', length: 'long', width: 'wide', text: 'подобрать номер', textcolor: 'white', icon: 'arrow'})
+
+
+mixin card2(options)
+  if !options
+    - options = {}
+  -
+  div(class="card__wrapper")
+    div(class="card__innerwrapper")
+     div(class="room__info")
+       div(class="room__number")
+         div(class='number__elem-1') №
+         div(class='number__elem-2') 888
+         div(class='number__elem-3') люкс
+       div(class="room__price")
+         div(class='price__elem-1') 9 990₽
+         div(class='price__elem-2') в сутки
+     div(class="card__calendar")
+       +calendarblock({label1: 'прибытие', label2: 'выезд'})
+     div(class="card__guests")
+       +counter({type: 'guests', label: 'гости', cattype1: 'взрослые', cattype2: 'дети', cattype3: 'младенцы', counter1: 1, counter2: 0, counter3: 0, buttons: true, width: '320', text: '3 гостя', coun1cat1: 'взрослый', coun2cat1: 'взрослых', coun5cat1: 'взрослых', coun1cat2: 'ребенок', coun2cat2: 'ребенка', coun5cat2: 'детей', coun1cat3: 'младенец', coun2cat3: 'младенца', coun5cat3: 'младенцев'})
+     div(class="order__details")
+       div(class="details__row details__row-1")
+         div(class="details__col") 9 990₽ * 4 суток
+         div(class="details__col")
+         div(class="details__col") 39 960₽
+       div(class="details__row details__row-2")
+         div(class="details__col details__col-fixedwidth") Сбор за услуги: скидка 2 179₽
+           div(class="col__info") i
+         div(class="details__col") 0₽
+       div(class="details__row details__row-3")
+         div(class="details__col details__col-fixedwidth") Сбор за дополнительные услуги
+           div(class="col__info") i
+         div(class="details__col") 300₽
+     div(class="card__total")
+       div(class="total__elem-1")  Итого
+       div(class="total__elem-2")
+       div(class="total__elem-3") 38 081₽
+     div(class="card__button")
+       +buttonaction({color: 'purple', length: 'long', width: 'wide', text: 'забронировать', textcolor: 'white', icon: 'arrow'})
+
+
+mixin card3(options)
+  if !options
+    - options = {}
+  -
+  div(class="card__wrapper")
+    div(class="card__innerwrapper card__innerwrapper-fixedheight1")
+     div(class="card__header") Регистрация аккаунта
+     div(class="card__name")
+       +input({type: 'text', length: 'long', text: 'Имя'})
+     div(class="card__surname")
+       +input({type: 'text', length: 'long', text: 'Фамилия'})
+     div(class="card__radioblock")
+       +radioblock()
+     div(class="card__birthdate")
+       +input({label: 'дата рождения', type: 'text', length: 'long', text: 'ДД.ММ.ГГГГ.'})
+     div(class="card__email")
+       +input({label: 'данные для входа в сервис', type: 'subscription', length: 'long', text: 'E-mail'})
+     div(class="card__password")
+       +input({type: 'text', length: 'long', text: 'пароль'})
+     div(class="card__toggle")
+       +toggle({labeltext: 'Получать спецпредложения'})
+     div(class="card__button")
+       +buttonaction({color: 'purple', length: 'long', width: 'wide', text: 'перейти к оплате', textcolor: 'white', icon: 'arrow'})
+     div(class="card__login")
+       div(class="card__accountexist") Уже есть аккаунт на Toxin
+       +buttonaction({color: 'white', length: 'medium', width: 'wide', text: 'войти', textcolor: 'purple'})
+
+mixin card4(options)
+  if !options
+    - options = {}
+  -
+  div(class="card__wrapper")
+    div(class="card__innerwrapper card__innerwrapper-fixedheight2")
+     div(class="card__header") Войти
+     div(class="card__email")
+       +input({type: 'subscription', length: 'long', text: 'E-mail'})
+     div(class="card__password card__password-2")
+       +input({type: 'text', length: 'long', text: 'пароль'})
+     div(class="card__button")
+       +buttonaction({color: 'purple', length: 'long', width: 'wide', text: 'войти', textcolor: 'white', icon: 'arrow'})
+     div(class="card__login card__login-2")
+       div(class="card__accountexist") Нет аккаунта на Toxin?
+       +buttonaction({color: 'white', length: 'medium', width: 'wide', text: 'создать', textcolor: 'purple'})
+

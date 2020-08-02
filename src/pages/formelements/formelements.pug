@@ -15,70 +15,31 @@ include ../../components/info/info.pug
 include ../../components/feature/feature.pug
 include ../../components/feedback/feedback.pug
 include ../../components/bulletlist/bulletlist.pug
+include ../../components/card/card.pug
+include ../../components/calendarblock/calendarblock.pug
 
 block serv
   -var serv
   div(class="grid")
     div(class="cell cell-col1")
-      div(class="def__wrapper def__wrapper-1")
-        div(class="def def-1") text field
-        div(class="def__sub def__sub-1") default
-      div(class="cell__inner")
-        +input({type: 'subscription', icon: 'arrow', length: 'long', text: 'E-mail'})
-
-      div(class="def__wrapper def__wrapper-2")
-        div(class="def def-2") text field
-        div(class="def__sub def__sub-2") hover/focus
-      div(class="cell__inner")
-        +input({type: 'text', length: 'long', text: 'This is pretty awesome'})
-      div(class="def__wrapper def__wrapper-3")
-        div(class="def def-3") masked text field
-        div(class="def__sub def__sub-3") default
-      div(class="cell__inner")
-        +input({type: 'text', length: 'long', text: 'ДД.ММ.ГГГГ.'})
-
-      div(class="def__wrapper def__wrapper-4")
-        div(class="def def-4") date dropdown
-        div(class="def def-5") date dropdown
-      div(class="cell__inner cell__inner-4")
-        +calendar({type: 'date'})
-        +calendar({type: 'date'})
-
-      div(class="def def-6") filter date dropdown
-      div(class="cell__inner")
-        +calendar({type: 'datefilter-range'})
-
-      div(class="def def-7") subscription text field
-      div(class="cell__inner")
-        +input({type: 'subscription', icon: 'arrow', length: 'medium', text: 'E-mail'})
+      +input({label: 'text field', type: 'subscription', icon: 'arrow', length: 'long', text: 'E-mail'})
+      +input({label: 'text field', type: 'text', length: 'long', text: 'This is pretty awesome'})
+      +input({label: 'masked text field', type: 'text', length: 'long', text: 'ДД.ММ.ГГГГ.'})
+      +calendarblock({label1: 'date dropdown', label2: 'date dropdown'})
+      +calendar({label: 'filter date dropdown', type: 'datefilter-range'})
+      +input({label: 'subscription text field', type: 'subscription', icon: 'arrow', length: 'medium', text: 'E-mail'})
 
 
     div(class="cell cell-col2")
-      div(class="def def-8") checkbox buttons
-      div(class="cell__inner")
-        +checklist()
-
-      div(class="def def-9") radio buttons
-      div(class="cell__inner")
-        +radioblock()
-
-      div(class="def def-10") toggle
-      div(class="cell__inner")
-        +toggle({labeltext: 'Получать спецпредложения'})
-
-      div(class="def def-11") like button
-      div(class="cell__inner")
-        +buttonlike()
-
-      div(class="def def-12") rate button
-      div(class="cell__inner cell__inner-12")
-        +starrating()
+      +checklist({label: 'checkbox buttons'})
+      +radioblock({label: 'radio buttons'})
+      +toggle({label: 'toggle', labeltext: 'Получать спецпредложения'})
+      +buttonlike({label: 'like button'})
+      +starrating({label: 'rate button'})
 
 
     div(class="cell cell-col3")
-      div(class="def def-13") range slider
-      div(class="cell__inner")
-        +rangeslider({type: 'double', min: 1000, max: 15000, step: 1, from: 5000, to: 10000})
+      +rangeslider({label: 'range slider'})
 
       div(class="def def-14") buttons
       div(class="cell__inner")
@@ -104,31 +65,17 @@ block serv
 
   div(class="grid grid-2")
     div(class="cell cell-col1")
-      div(class="def__wrapper def__wrapper-19")
-        div(class="def def-19") dropdown
-        div(class="def__sub def__sub-19") default
-      div(class="cell__inner")
-        +counter({type: 'rooms', cattype1: 'спальни', cattype2: 'кровати', cattype3: 'ванные комнаты', counter1: 2, counter2: 2, counter3: 0, width: '266', text: '2 спальни, 2 кровати', coun1cat1: 'спальня', coun2cat1: 'спальни', coun5cat1: 'спален', coun1cat2: 'кровать', coun2cat2: 'кровати', coun5cat2: 'кроватей', coun1cat3: 'ванн...', coun2cat3: 'ванн...', coun5cat3: 'ванн...'})
-
-
-      div(class="cell__inner cell__inner-20")
-        +checklist_expand()
+      +counter({label: 'dropdown', type: 'rooms', cattype1: 'спальни', cattype2: 'кровати', cattype3: 'ванные комнаты', counter1: 2, counter2: 2, counter3: 0, width: '266', text: '2 спальни, 2 кровати', coun1cat1: 'спальня', coun2cat1: 'спальни', coun5cat1: 'спален', coun1cat2: 'кровать', coun2cat2: 'кровати', coun5cat2: 'кроватей', coun1cat3: 'ванн...', coun2cat3: 'ванн...', coun5cat3: 'ванн...'})
+      +checklist_expand({label: 'expandable checkbox list'})
 
 
     div(class="cell cell-col2")
-      div(class="def def-21") dropdown
-      div(class="cell__inner")
-        +counter({type: 'guests', cattype1: 'взрослые', cattype2: 'дети', cattype3: 'младенцы', counter1: 1, counter2: 0, counter3: 0, buttons: true, width: '320', text: 'Сколько гостей', coun1cat1: 'взрослый', coun2cat1: 'взрослых', coun5cat1: 'взрослых', coun1cat2: 'ребенок', coun2cat2: 'ребенка', coun5cat2: 'детей', coun1cat3: 'младенец', coun2cat3: 'младенца', coun5cat3: 'младенцев'})
-
-
-      div(class="def def-22") rich checkbox buttons
-      div(class="cell__inner")
-        +checklist_rich()
+      +counter({label: 'dropdown', type: 'guests', cattype1: 'взрослые', cattype2: 'дети', cattype3: 'младенцы', counter1: 1, counter2: 0, counter3: 0, buttons: true, width: '320', text: 'Сколько гостей', coun1cat1: 'взрослый', coun2cat1: 'взрослых', coun5cat1: 'взрослых', coun1cat2: 'ребенок', coun2cat2: 'ребенка', coun5cat2: 'детей', coun1cat3: 'младенец', coun2cat3: 'младенца', coun5cat3: 'младенцев'})
+      +checklist_rich({label: 'rich checkbox buttons'})
 
 
     div(class="cell cell-col3")
       div(class="def def-23") bullet list
-      div(class="cell__inner")
         +bulletlist()
 
 
@@ -149,5 +96,14 @@ block serv
     div(class="cell")
         div(class="cell__inner cell__inner-26")
           +feedback({imgpath: 'images/murad.jpg', name: 'Мурад Сарафанов', date: '5 дней назад', text: 'Великолепный матрас на кровати в основной спальне! А пуфик вообще потрясающий.        И стены, действительно, шумоподавляющие. Выкрикивал комплименты повару — никто не жаловался из соседей.'})
+  div(class="grid grid-4")
+    +card1()
+  div(class="grid grid-4")
+    +card2()
+  div(class="grid grid-4")
+    +card3()
+  div(class="grid grid-4")
+    +card4()
+
 
 

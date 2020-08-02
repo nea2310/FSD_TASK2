@@ -3,6 +3,7 @@ mixin radioblock(options)
   if !options
     - options = {}
   -
+  div(class="radioblock__wrapper")= options.label
   div(class="radioblock")
     +radio({labeltext: 'Мужчина', ischecked: 'checked=""', seqnumber: '1', seqnumber1: '1'})
     +radio({labeltext: 'Женщина', seqnumber: '2', seqnumber1: '2'})

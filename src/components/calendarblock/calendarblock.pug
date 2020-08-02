@@ -1,0 +1,11 @@
+mixin calendarblock(options)
+  if !options
+    - options = {}
+  -
+  div(class="calendarblock__wrapper")
+    div(class="calendarblock__innerwrapper calendarblock__innerwrapper-1")
+      div(class="calendarblock__label calendarblock__label-1")= options.label1
+      +calendar({type: 'date'})
+    div(class="calendarblock__innerwrapper calendarblock__innerwrapper-2")
+      div(class="calendarblock__label calendarblock__label-2")= options.label2
+      +calendar({type: 'date'})

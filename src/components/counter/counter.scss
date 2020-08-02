@@ -20,6 +20,7 @@ div[data-abswidth="266"]{
 
 .counter-inpwrapper{
   border: none!important;
+  margin-top: -5px;
 }
 
 .counter-wrapper{
@@ -99,6 +100,13 @@ div[data-abswidth="266"]{
   display: flex;
   justify-content: space-between;
   margin-top: 5px;
+}
+.counter__label{
+  @include font_h3;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-bottom: 4px;
+  margin-right: 0px;
 }
 
 

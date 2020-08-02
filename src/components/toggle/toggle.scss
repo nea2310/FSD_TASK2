@@ -80,3 +80,7 @@
   left: 3px;
   top: 3px;
 }
+
+.toggle__wrapper{
+  @include label();
+}

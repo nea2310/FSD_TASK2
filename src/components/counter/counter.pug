@@ -6,9 +6,11 @@ mixin counter(options)
   -
     var type = 'counter-wrapper'
     var text = options.text
+    var label = options.label
     type += options.type === 'rooms' ? ' counter-rooms' : ''
     type += options.type === 'guests' ? ' counter-guests' : ''
-  div(class=type data-width=options.width) 
+  div(class="counter__label")=options.label
+  div(class=type data-width=options.width)
     + input({type: 'counter', icon: 'tip', text: text})
     div(class="counter-categories" data-abswidth=options.width)
         div(class="category-wrapper")

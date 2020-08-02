@@ -79,4 +79,7 @@ padding-left: 15px;
     padding-left: 5px;
 }
 
+.input__label {
+  @include label();
+}
 

@@ -1,8 +1,9 @@
 include ../../components/buttonwrapper/buttonwrapper.pug
 include ../../components/like/like.pug
-mixin buttonlike()
+mixin buttonlike(options)
   if !options
     - options = {}
   -
+  div(class="buttonlike__wrapper")= options.label
   +buttonwrapper({color: 'grey', length: 'short', width: 'narrow'})
     +like()

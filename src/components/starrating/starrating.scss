@@ -19,4 +19,8 @@
   background-repeat: no-repeat;
 }
 
+.stars__wrapper {
+  @include label();
+}
+
 

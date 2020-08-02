@@ -53,3 +53,7 @@
     }
   }
 }
+
+.slider__label{
+  @include label(0px);
+}
