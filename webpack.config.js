@@ -106,8 +106,24 @@ module.exports = {
 	devtool: isDev ? 'source-map' : '',
 	plugins: [
 		new HTMLWebpackPlugin({
-			 //template: './pug/ui.pug',
-			 template: './pages/formelements/formelements.pug',
+			 filename: 'cards.html',
+			 template: './pages/cards/cards.pug',
+			 }),
+		new HTMLWebpackPlugin({
+			 filename: 'colorsType.html',
+			 template: './pages/colorsType/colorsType.pug',
+			 }),
+		new HTMLWebpackPlugin({
+			 filename: 'formElements.html',
+			 template: './pages/formElements/formElements.pug',
+			 }),
+		new HTMLWebpackPlugin({
+			 filename: 'headersFooters.html',
+			 template: './pages/headersFooters/headersFooters.pug',
+			 }),
+		new HTMLWebpackPlugin({
+			 filename: 'index.html',
+			 template: './pages/main/main.pug',
 			 }),
 		new CleanWebpackPlugin(),
 		new CopyWebpackPlugin({

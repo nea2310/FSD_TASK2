@@ -14,7 +14,7 @@ mixin input(options)
     var divclass = ''
     var inpclass = ''
     var text = options.text
-    divclass += options.type === ('calendar' || 'calendar-range') ? ' calendar-inpwrapper' : ''
+    divclass += options.type === ('calendar' || 'calendar-range' || 'calendar-visible') ? ' calendar-inpwrapper' : ''
     divclass += options.type === 'counter' ? ' counter-inpwrapper' : ''
     divclass += options.type === 'subscription' ? ' subscription-inpwrapper' : ''
     divclass += options.type === 'text' ? ' text-inpwrapper' : ''
@@ -23,8 +23,9 @@ mixin input(options)
 
     divclass += options.length ? ' inpwrapper-' + options.length : ''
 
-    inpclass += options.type === 'calendar' ? ' datepicker-input' : ''
+    inpclass += options.type === 'calendar' ? ' datepicker-input datepicker-plain' : ''
     inpclass += options.type === 'calendar-range' ? ' datepicker-input datepicker-range' : ''
+    inpclass += options.type === 'calendar-visible' ? ' datepicker-input datepicker-visible' : ''
     inpclass += options.type === 'counter' ? ' counter-input' : ''
     inpclass += options.type === 'subscription' ? ' subscription-input' : ''
     inpclass += options.type === 'text' ? ' text-input' : ''

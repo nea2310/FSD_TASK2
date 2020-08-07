@@ -13,21 +13,26 @@ input{
   display: flex;
   position: relative;
   overflow: hidden;
+  box-sizing: border-box;
 
   &:focus{
     border: 1px solid $color_grey_opaque;
+    box-sizing: border-box;
   }
 
   &-short{
     width: 150px;
+    box-sizing: border-box;
   }
 
   &-medium{
     width: 266px;
+    box-sizing: border-box;
   }
 
   &-long{
     width: 320px;
+    box-sizing: border-box;
   }
 
   & span{

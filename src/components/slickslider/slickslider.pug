@@ -1,0 +1,31 @@
+mixin slickslider(options)
+  if !options
+    - options = {}
+  -
+    var img1 = options.img1
+    var img2 = options.img2
+    var img3 = options.img3
+    var img4 = options.img4
+  div(class="slickslider__wrapper")
+    div(class="slider demo")
+      div(class="slide-1")
+        img(class="slide" src=img1)
+      div(class="slide-2")
+        img(class="slide" src=img2)
+      div(class="slide-3")
+        img(class="slide" src=img3)
+      div(class="slide-4")
+        img(class="slide" src=img4)
+    div(class="dtls__row dtls__row-1")
+      div(class="sign") №
+      div(class="number")= options.roomNumber
+      div(class="lux")= options.isLux
+      div(class="price")= options.price
+      div(class="currency") ₽
+      div(class="period") в сутки
+    div(class="dtls__line")
+    div(class="dtls__row dtls__row-2")
+      div(class="rating")=options.rating
+      div(class="reviewamount")= options.reviewAmount
+      div(class="review") Отзывов
+

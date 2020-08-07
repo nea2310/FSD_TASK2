@@ -17,6 +17,7 @@ include ../../components/feedback/feedback.pug
 include ../../components/bulletlist/bulletlist.pug
 include ../../components/card/card.pug
 include ../../components/calendarblock/calendarblock.pug
+include ../../components/slickslider/slickslider.pug
 
 block serv
   -var serv
@@ -48,7 +49,7 @@ block serv
       div(class="def def-15")
       div(class="cell__inner")
         +buttonaction({color: 'white', length: 'medium', width: 'wide', text: 'click me', textcolor: 'purple'})
-      
+
       div(class="def def-16")
       div(class="cell__inner cell__inner-16")
         +action({text: 'click me', textcolor: 'grey'})
@@ -96,14 +97,3 @@ block serv
     div(class="cell")
         div(class="cell__inner cell__inner-26")
           +feedback({imgpath: 'images/murad.jpg', name: 'Мурад Сарафанов', date: '5 дней назад', text: 'Великолепный матрас на кровати в основной спальне! А пуфик вообще потрясающий.        И стены, действительно, шумоподавляющие. Выкрикивал комплименты повару — никто не жаловался из соседей.'})
-  div(class="grid grid-4")
-    +card1()
-  div(class="grid grid-4")
-    +card2()
-  div(class="grid grid-4")
-    +card3()
-  div(class="grid grid-4")
-    +card4()
-
-
-

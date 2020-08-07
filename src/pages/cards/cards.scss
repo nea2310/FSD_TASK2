@@ -1,0 +1,72 @@
+
+
+.cards__wrapper{
+  background-color: #F4F4F6;
+  //width: 1440px;
+  //margin: 0 auto;
+  //padding-right: 0px;
+ // padding-left: 100px;
+  //border: 1px solid red;
+}
+
+.col__wrapper{
+  justify-content: space-between;
+  display: flex;
+  width: 1160px;
+  //border: 1px solid green;
+  padding-top: 140px;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+
+.col{
+  display: flex;
+  flex-direction: column;
+}
+
+.card{
+  &-1 {
+    margin-bottom: 40px;
+  }
+  &-2 {
+    margin-bottom: 36px;
+  }
+  &-3 {
+    margin: 0px 0px 32px 3px;
+  }
+  &-4 {
+    margin: 6px 0px 0px 1px;
+  }
+  &-5 {
+    margin: -4px 0px 0px 1px;
+  }
+  &-6 {
+    margin: -4px 0px 0px 4px;
+  }
+  &-7 {
+    margin: 38px 0px 0px 4px;
+  }
+}
+
+.card-5 .inpwrapper{
+  height: 412px;
+  width: 324px;
+  border: none;
+}
+
+.card-5 .inpwrapper .inp{
+  display: none;
+}
+
+.card-5 .inpwrapper .maticons{
+display: none!important;
+}
+
+
+.datepicker-inline .datepicker .datepicker--nav .datepicker--nav-title i{
+  position: static!important;
+}
+
+

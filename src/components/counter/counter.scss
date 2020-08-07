@@ -32,6 +32,7 @@ div[data-abswidth="266"]{
   font-size: 12px;
   font-family: "Montserrat Bold", Arial, sans-serif;
   position: relative;
+  box-sizing: border-box;
 }
 
 .counter-categories{
@@ -45,6 +46,7 @@ div[data-abswidth="266"]{
   z-index: 1;
   left: -1px;
   padding-bottom:7px;
+  box-sizing: border-box;
 }
 
 .category-type{
@@ -60,6 +62,7 @@ div[data-abswidth="266"]{
   align-items: center;
   justify-content: space-between;
   margin-right: -5px;
+  box-sizing: border-box;
 }
 
 .counter-minus, .counter-plus{

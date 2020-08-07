@@ -1,0 +1,51 @@
+include ../../components/action/action.pug
+include ../../components/buttonwrapper/buttonwrapper.pug
+include ../../components/buttonlike/buttonlike.pug
+include ../../components/buttonaction/buttonaction.pug
+include ../../components/counter/counter.pug
+include ../../components/pagination/pagination.pug
+include ../../components/rangeslider/rangeslider.pug
+include ../../components/calendar/calendar.pug
+include ../../components/input/input.pug
+include ../../components/checklist/checklist.pug
+include ../../components/radioblock/radioblock.pug
+include ../../components/toggle/toggle.pug
+include ../../components/starrating/starrating.pug
+include ../../components/info/info.pug
+include ../../components/feature/feature.pug
+include ../../components/feedback/feedback.pug
+include ../../components/bulletlist/bulletlist.pug
+include ../../components/card/card.pug
+include ../../components/calendarblock/calendarblock.pug
+include ../../components/slickslider/slickslider.pug
+
+block serv
+  -var serv
+  div(class="cards__wrapper")
+    div(class="col__wrapper")
+      div(class='col')
+        div(class='card card-1')
+          +card1()
+        div(class='card card-2')
+          +card3()
+      div(class='col')
+        div(class='card card-3')
+          +card2()
+        div(class='card card-4')
+          +card4()
+      div(class='col')
+        div(class='card card-5')
+          +calendar({type: 'datefilter-visible'})
+        div(class='card card-6')
+          +slickslider({img1:'images/room1.jpg', img2:'images/room1.jpg', img3:'images/room1.jpg', img4:'images/room1.jpg',
+            roomNumber: '888', isLux: 'люкс', price: '9 990', rating: 'star star star star star', reviewAmount: '145'
+            })
+        div(class='card card-7')
+          +slickslider({img1:'images/room2.jpg', img2:'images/room1.jpg', img3:'images/room1.jpg', img4:'images/room1.jpg',
+            roomNumber: '840', price: '9 990', rating: 'star star star star star_border', reviewAmount: '65'
+            })
+
+
+
+
+
