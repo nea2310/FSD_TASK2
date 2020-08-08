@@ -46,10 +46,11 @@ const calendar =jQuery('document').ready(function($){
     });
 
 
-    $('.calendar-inpwrapper').click(function (){
+    $('.datepicker-input').click(function (){
 
         //$(this).parent('.datepicker--buttons').parent('.datepicker').parent('.datepicker-inline').hide();
         $('.datepicker').show();
+        //$('.datepicker-range').show();
     });
 
 

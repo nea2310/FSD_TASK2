@@ -119,8 +119,12 @@ $gradient_green: linear-gradient($color_light_green 0%, $color_light_blue 100%);
 @import "../components/card/card.scss";
 @import "../components/calendarblock/calendarblock.scss";
 @import "../components/slickslider/slickslider.scss";
+@import "../components/header/header.scss";
+@import "../components/footer/footer.scss";
 @import "../pages/formElements/formElements.scss";
 @import "../pages/cards/cards.scss";
+@import "../pages/colorsType/colorsType.scss";
+@import "../pages/headersFooters/headersFooters.scss";
 
 
 

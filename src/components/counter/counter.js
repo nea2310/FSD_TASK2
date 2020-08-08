@@ -119,7 +119,10 @@ const counter =jQuery('document').ready(function($) {
 		if (counterContainer.hasClass("counter-wrapper")){
 			counterContainer.children(".counter-inpwrapper").children("span").text('');
 			counterContainer.children(".counter-inpwrapper").children(".counter-input").show();
-			counterContainer.children(".counter-categories").children(".category-wrapper").children(".category-counter").children(".counter").text('0');
+			//counterContainer.children(".counter-categories").children(".category-wrapper").children(".category-counter").children(".counter").text('0');
+			counterContainer.children(".counter-categories").children(".category-wrapper").children(".category-counter").children(".counter-1").text('1');
+			counterContainer.children(".counter-categories").children(".category-wrapper").children(".category-counter").children(".counter-2").text('0');
+			counterContainer.children(".counter-categories").children(".category-wrapper").children(".category-counter").children(".counter-3").text('0');
 		}
            
 		
@@ -143,7 +146,12 @@ const counter =jQuery('document').ready(function($) {
 		$(this).children(".text2").text('кровати');
 
 	}
-	}); 
+	});
+
+	$('.action-purple').click(function (){
+			$(this).parent('.button-wrapper').parent('.counter-footer').parent('.counter-categories').hide();
+	});
+
 	
 	//Повторяющийся код - нужен рефакторинг
 

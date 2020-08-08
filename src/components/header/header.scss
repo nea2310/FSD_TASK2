@@ -1,0 +1,110 @@
+.container{
+  width: 100%;
+  box-sizing: border-box;
+
+}
+
+
+
+
+
+
+.header{
+  &__wrapper{
+    max-width: 1440px;
+    height: 70px;
+    margin: 0 auto;
+   // border: 1px solid red;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+
+  }
+
+  &__innerwrapper{
+   width: 1168px;
+  //  border: 1px solid green;
+    box-sizing: border-box;
+   margin: 0 auto;
+    box-sizing: border-box;
+display: flex;
+
+  }
+
+  &__logo{
+    width:160px;
+    // border: 1px solid blue;
+    display: flex;
+    position: relative;
+    height: 43px;
+    //margin-left: 90px;
+   margin-right: 232px;
+  }
+
+  &__menu{
+    display: flex;
+    @include font__Montserrat_grey;
+    font-size: 14px;
+
+    margin-top: -3px;
+    margin-right: 21px;
+
+
+
+  }
+
+  &__login{
+    display: flex;
+    margin-top: 2px;
+
+  }
+
+  &__enter{
+    margin-right: 19px;
+  }
+
+}
+
+
+
+.logo{
+  &__image{
+    position: absolute;
+    background-image: url(img/logo_image_small.svg);
+    background-repeat: no-repeat;
+    width: 40px;
+    height: 40px;
+    top: 0px;
+    //left: 50px;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: all .5s ease;
+    border-radius: 50%;
+  }
+  &__label{
+    position: absolute;
+    background-image: url(img/logo_label.svg);
+    background-repeat: no-repeat;
+    width: 53.19px;
+    height: 12.95px;
+    top: 14px;
+    left: 53px;
+  }
+}
+
+
+.menu__item{
+  margin-left: 20px;
+  //  border: 1px solid green;
+  display: flex;
+  align-items: center;
+
+
+  &-first{
+    margin-left: 0!important;
+  }
+}
+
+
+
+

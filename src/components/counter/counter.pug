@@ -11,25 +11,25 @@ mixin counter(options)
     type += options.type === 'guests' ? ' counter-guests' : ''
   div(class="counter__label")=options.label
   div(class=type data-width=options.width)
-    + input({type: 'counter', icon: 'tip', text: text})
+    +input({type: 'counter', icon: 'tip', text: text})
     div(class="counter-categories" data-abswidth=options.width)
         div(class="category-wrapper")
           div(class="category-type")=options.cattype1
           div(class="category-counter")
             span(class='counter-minus counter-minusplus' data-name='category-one' data-coun1cat1=options.coun1cat1 data-coun2cat1=options.coun2cat1 data-coun5cat1=options.coun5cat1) -
-            span(class='counter')=options.counter1
+            span(class='counter counter-1')=options.counter1
             span(class='counter-plus counter-minusplus' data-name='category-one' data-coun1cat1=options.coun1cat1 data-coun2cat1=options.coun2cat1 data-coun5cat1=options.coun5cat1) +
         div(class="category-wrapper")
           div(class="category-type")=options.cattype2
           div(class="category-counter")
             span(class='counter-minus counter-minusplus' data-name='category-two' data-coun1cat2=options.coun1cat2 data-coun2cat2=options.coun2cat2 data-coun5cat2=options.coun5cat2) -
-            span(class='counter')=options.counter2
+            span(class='counter counter-2')=options.counter2
             span(class='counter-plus counter-minusplus' data-name='category-two' data-coun1cat2=options.coun1cat2 data-coun2cat2=options.coun2cat2 data-coun5cat2=options.coun5cat2) +
         div(class="category-wrapper")
           div(class="category-type")=options.cattype3
           div(class="category-counter")
             span(class='counter-minus counter-minusplus' data-name='category-three' data-coun1cat3=options.coun1cat3 data-coun2cat3=options.coun2cat3 data-coun5cat3=options.coun5cat3) -
-            span(class='counter')=options.counter3
+            span(class='counter counter-3')=options.counter3
             span(class='counter-plus counter-minusplus' data-name='category-three' data-coun1cat3=options.coun1cat3 data-coun2cat3=options.coun2cat3 data-coun5cat3=options.coun5cat3) +
         if (options.buttons==true)
           div(class="counter-footer")

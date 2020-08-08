@@ -2,8 +2,9 @@
   display: flex;
   width: 200px;
   justify-content: space-between;
-  margin-bottom: 10px;
+
   &__wrapper{
     @include label();
+    //margin-bottom: 15px;
   }
 }

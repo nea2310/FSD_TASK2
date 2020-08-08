@@ -22,24 +22,60 @@ include ../../components/slickslider/slickslider.pug
 block serv
   -var serv
   div(class="grid")
+    div(class="test")
+      +feedback({imgpath: 'images/murad.jpg', name: 'Мурад Сарафанов', date: '5 дней назад', text: 'Великолепный матрас на кровати в основной спальне! А пуфик вообще потрясающий.        И стены, действительно, шумоподавляющие. Выкрикивал комплименты повару — никто не жаловался из соседей.'})
     div(class="cell cell-col1")
+      div(class='space space-1')
       +input({label: 'text field', type: 'subscription', icon: 'arrow', length: 'long', text: 'E-mail'})
+      div(class='space space-2')
       +input({label: 'text field', type: 'text', length: 'long', text: 'This is pretty awesome'})
+      div(class='space space-3')
       +input({label: 'masked text field', type: 'text', length: 'long', text: 'ДД.ММ.ГГГГ.'})
+      div(class='space space-4')
       +calendarblock({label1: 'date dropdown', label2: 'date dropdown'})
+      div(class='space space-5')
       +calendar({label: 'filter date dropdown', type: 'datefilter-range'})
+      div(class='space space-6')
       +input({label: 'subscription text field', type: 'subscription', icon: 'arrow', length: 'medium', text: 'E-mail'})
+      div(class='space space-7')
+      +counter({label: 'dropdown', type: 'rooms', cattype1: 'спальни', cattype2: 'кровати', cattype3: 'ванные комнаты', counter1: 2, counter2: 2, counter3: 0, width: '266', text: '2 спальни, 2 кровати', coun1cat1: 'спальня', coun2cat1: 'спальни', coun5cat1: 'спален', coun1cat2: 'кровать', coun2cat2: 'кровати', coun5cat2: 'кроватей', coun1cat3: 'ванн...', coun2cat3: 'ванн...', coun5cat3: 'ванн...'})
+      div(class='space space-8')
+      +checklist_expand({label: 'expandable checkbox list'})
+      div(class='space space-9')
+      +feature({icon: 'mood', headertext: 'Комфорт', bodytext: 'Шумопоглащающие стены',})
+      div(class='space space-10')
+      +feature({icon: 'location_city', headertext: 'Удобство', bodytext: 'Окно в каждой из спален',})
+      div(class='space space-11')
+      +feature({icon: 'whatshot', headertext: 'TO_DELETE', bodytext: 'bodytext',})
+
+
+
+
 
 
     div(class="cell cell-col2")
+      div(class='space space-12')
       +checklist({label: 'checkbox buttons'})
-      +radioblock({label: 'radio buttons'})
-      +toggle({label: 'toggle', labeltext: 'Получать спецпредложения'})
-      +buttonlike({label: 'like button'})
+      div(class='space space-13')
+      div(class="def def-1") radio buttons
+      +radioblock()
+      div(class='space space-14')
+      div(class="def def-2") toggle
+      +toggle({labeltext: 'Получать спецпредложения'})
+      div(class='space space-15')
+      div(class="def def-3") like button
+      +buttonlike()
+      div(class='space space-16')
       +starrating({label: 'rate button'})
+      div(class='space space-17')
+      +counter({label: 'dropdown', type: 'guests', cattype1: 'взрослые', cattype2: 'дети', cattype3: 'младенцы', counter1: 1, counter2: 0, counter3: 0, buttons: true, width: '320', text: 'Сколько гостей', coun1cat1: 'взрослый', coun2cat1: 'взрослых', coun5cat1: 'взрослых', coun1cat2: 'ребенок', coun2cat2: 'ребенка', coun5cat2: 'детей', coun1cat3: 'младенец', coun2cat3: 'младенца', coun5cat3: 'младенцев'})
+      div(class='space space-18')
+      +checklist_rich({label: 'rich checkbox buttons'})
+
 
 
     div(class="cell cell-col3")
+      div(class='space space-19')
       +rangeslider({label: 'range slider'})
 
       div(class="def def-14") buttons
@@ -61,39 +97,12 @@ block serv
       div(class="def def-18") pagination
       div(class="cell__inner cell__inner-18")
         +pagination()
-
-
-
-  div(class="grid grid-2")
-    div(class="cell cell-col1")
-      +counter({label: 'dropdown', type: 'rooms', cattype1: 'спальни', cattype2: 'кровати', cattype3: 'ванные комнаты', counter1: 2, counter2: 2, counter3: 0, width: '266', text: '2 спальни, 2 кровати', coun1cat1: 'спальня', coun2cat1: 'спальни', coun5cat1: 'спален', coun1cat2: 'кровать', coun2cat2: 'кровати', coun5cat2: 'кроватей', coun1cat3: 'ванн...', coun2cat3: 'ванн...', coun5cat3: 'ванн...'})
-      +checklist_expand({label: 'expandable checkbox list'})
-
-
-    div(class="cell cell-col2")
-      +counter({label: 'dropdown', type: 'guests', cattype1: 'взрослые', cattype2: 'дети', cattype3: 'младенцы', counter1: 1, counter2: 0, counter3: 0, buttons: true, width: '320', text: 'Сколько гостей', coun1cat1: 'взрослый', coun2cat1: 'взрослых', coun5cat1: 'взрослых', coun1cat2: 'ребенок', coun2cat2: 'ребенка', coun5cat2: 'детей', coun1cat3: 'младенец', coun2cat3: 'младенца', coun5cat3: 'младенцев'})
-      +checklist_rich({label: 'rich checkbox buttons'})
-
-
-    div(class="cell cell-col3")
       div(class="def def-23") bullet list
+      div(class="cell__inner cell__inner-19")
         +bulletlist()
 
 
-  div(class="grid grid-3")
-    div(class="cell cell-col1")
-
-      div(class="cell__inner cell__inner-23")
-        +feature({icon: 'mood', headertext: 'Комфорт', bodytext: 'Шумопоглащающие стены',})
-
-      div(class="cell__inner cell__inner-24")
-        +feature({icon: 'location_city', headertext: 'Удобство', bodytext: 'Окно в каждой из спален',})
-
-      div(class="def def-25 cell__inner-25")
-      div(class="cell__inner")
-        +feature({icon: 'whatshot', headertext: 'TO_DELETE', bodytext: 'bodytext',})
 
 
-    div(class="cell")
-        div(class="cell__inner cell__inner-26")
-          +feedback({imgpath: 'images/murad.jpg', name: 'Мурад Сарафанов', date: '5 дней назад', text: 'Великолепный матрас на кровати в основной спальне! А пуфик вообще потрясающий.        И стены, действительно, шумоподавляющие. Выкрикивал комплименты повару — никто не жаловался из соседей.'})
+
+

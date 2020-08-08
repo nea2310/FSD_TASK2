@@ -1,0 +1,45 @@
+include ../../components/buttonaction/buttonaction.pug
+include ../../components/materialicons/materialicons.pug
+mixin header(options)
+  if !options
+    - options = {}
+  -
+    var isAuth = options.isAuthorized
+  div(class='container')
+    div(class='header__wrapper')
+      div(class='header__innerwrapper')
+        div(class='header__logo')
+          div(class="logo__image")
+          div(class="logo__label")
+        div(class='header__menu')
+          div(class='menu__item menu__item-first') О нас
+          div(class='menu__item') Услуги
+            +materialicons({
+                              type: 'keyboard_arrow_down',
+                              color: 'grey',
+                              size: 'base',
+                          })
+          div(class='menu__item') Вакансии
+          div(class='menu__item') Новости
+          div(class='menu__item') Соглашения
+            +materialicons({
+                              type: 'keyboard_arrow_down',
+                              color: 'grey',
+                              size: 'base',
+                          })
+        if (options.isAuthorized)
+          div(class='header__username') Юлий Цезарь
+        else
+          div(class="header__login")
+            div(class="header__enter")
+              +buttonaction({color: 'white', length: 'mediumshort', width: 'mediumwide', text: 'войти', textcolor: 'purple'})
+            div(class="header__register")
+              +buttonaction({color: 'purple', length: 'longmedium', width: 'mediumwide', text: 'зарегистрироваться', textcolor: 'white'})
+
+
+
+
+
+
+a(href='#')
+  i.fa.fa-arrow-up(aria-hidden='true')

@@ -1,5 +1,9 @@
+.rangeslider__wrapper{
+  position: relative;
+}
 .range-slider {
   width: 266px;
+  //
 
   .r-title {
     display: flex;
@@ -56,4 +60,5 @@
 
 .slider__label{
   @include label(0px);
+  position: absolute;
 }
