@@ -1,0 +1,18 @@
+.logo{
+  display: flex;
+  justify-content: center;
+  height: 45px;
+  align-items: center;
+
+  &__image{
+    background-image: url(img/logo_image_small.svg);
+    width: 40px;
+    height: 40px;
+     }
+  &__label{
+    background-image: url(img/logo_label.svg);
+    width: 53.19px;
+    height: 12.95px;
+    margin-left: 12px;
+  }
+}

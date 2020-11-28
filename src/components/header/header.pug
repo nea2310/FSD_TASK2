@@ -1,45 +1,49 @@
 include ../../components/buttonaction/buttonaction.pug
 include ../../components/materialicons/materialicons.pug
+include ../../components/logo/logo.pug
 mixin header(options)
   if !options
     - options = {}
   -
     var isAuth = options.isAuthorized
-  div(class='container')
-    div(class='header__wrapper')
-      div(class='header__innerwrapper')
-        div(class='header__logo')
-          div(class="logo__image")
-          div(class="logo__label")
-        div(class='header__menu')
-          div(class='menu__item menu__item-first') О нас
-          div(class='menu__item') Услуги
+  div(class="header__burger")
+    span
+  header(class="header")
+    div(class="header__logo")
+      +logo()
+    div(class="header__innerwrapper")
+      nav(class="header__menu")
+        ul(class="header__list")
+          li(class="list__item" data-seq="1")
+            a(href="" class="list__link") О нас
+          li(class="list__item" data-seq="2")
+            a(href="" class="list__link") Услуги
+          li(class="list__item" class="list__tip")
             +materialicons({
                               type: 'keyboard_arrow_down',
                               color: 'grey',
                               size: 'base',
                           })
-          div(class='menu__item') Вакансии
-          div(class='menu__item') Новости
-          div(class='menu__item') Соглашения
+          li(class="list__item" data-seq="3")
+            a(href="" class="list__link") Вакансии
+          li(class="list__item" data-seq="4")
+            a(href="" class="list__link") Новости
+          li(class="list__item" data-seq="5")
+            a(href="" class="list__link") Соглашения
+          li(class="list__item" class="list__tip")
             +materialicons({
                               type: 'keyboard_arrow_down',
                               color: 'grey',
                               size: 'base',
                           })
-        if (options.isAuthorized)
-          div(class='header__username') Юлий Цезарь
-        else
-          div(class="header__login")
-            div(class="header__enter")
-              +buttonaction({color: 'white', length: 'mediumshort', width: 'mediumwide', text: 'войти', textcolor: 'purple'})
-            div(class="header__register")
-              +buttonaction({color: 'purple', length: 'longmedium', width: 'mediumwide', text: 'зарегистрироваться', textcolor: 'white'})
+      if (options.isAuthorized)
+        div(class='header__username') Юлий Цезарь
+      else
+        div(class="header__login")
+          div(class="header__enter")
+            +buttonaction({color: 'white', length: 'mediumshort', width: 'mediumwide', text: 'войти', textcolor: 'purple'})
+          div(class="header__register")
+            +buttonaction({color: 'purple', length: 'longmedium', width: 'mediumwide', text: 'зарегистрироваться', textcolor: 'white'})
 
 
 
-
-
-
-a(href='#')
-  i.fa.fa-arrow-up(aria-hidden='true')
