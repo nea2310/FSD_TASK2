@@ -1,6 +1,7 @@
 include ../../components/buttonaction/buttonaction.pug
 include ../../components/materialicons/materialicons.pug
 include ../../components/logo/logo.pug
+include ../../components/menuitem/menuitem.pug
 mixin header(options)
   if !options
     - options = {}
@@ -9,33 +10,16 @@ mixin header(options)
   div(class="header__burger")
     span
   header(class="header")
-    div(class="header__logo")
+    a(href="" class="header__logo")
       +logo()
     div(class="header__innerwrapper")
       nav(class="header__menu")
         ul(class="header__list")
-          li(class="list__item" data-seq="1")
-            a(href="" class="list__link") О нас
-          li(class="list__item" data-seq="2")
-            a(href="" class="list__link") Услуги
-          li(class="list__item" class="list__tip")
-            +materialicons({
-                              type: 'keyboard_arrow_down',
-                              color: 'grey',
-                              size: 'base',
-                          })
-          li(class="list__item" data-seq="3")
-            a(href="" class="list__link") Вакансии
-          li(class="list__item" data-seq="4")
-            a(href="" class="list__link") Новости
-          li(class="list__item" data-seq="5")
-            a(href="" class="list__link") Соглашения
-          li(class="list__item" class="list__tip")
-            +materialicons({
-                              type: 'keyboard_arrow_down',
-                              color: 'grey',
-                              size: 'base',
-                          })
+          +menuitem({text: 'О нас'})
+          +menuitem({text: 'Услуги', tip: true})
+          +menuitem({text: 'Вакансии'})
+          +menuitem({text: 'Новости'})
+          +menuitem({text: 'Соглашения', tip: true})
       if (options.isAuthorized)
         div(class='header__username') Юлий Цезарь
       else

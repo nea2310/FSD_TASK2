@@ -1,25 +1,6 @@
-/*
-*,*:before,*:after{
-  padding: 0;
-  margin: 0;
-  border: 0;
-  box-sizing: border-box;
-}
-html,body{
-  height: 100%;
-}
-
-*/
-
 .header{
-  //position: relative;
-  //width: 100%;
-  //top: 0;
-  //left: 0;
-//  z-index: 50;
   display: flex;
   justify-content: space-between;
- // border: 1px solid green;
   height: 70px;
   background-color: $color_white;
 }
@@ -27,18 +8,27 @@ html,body{
 .header__logo{
   margin-left: 140px;
   margin-top: 13px;
+  display: block;
 }
 
 .header__login{
-  //display: flex;
-  //justify-content: flex-start;
- margin-top: 18px;
- margin-right: 140px;
+  margin-top: 18px;
+  margin-right: 140px;
   position: relative;
   width: 323px;
-  //border: 1px solid red;
- // z-index: 99;
- // left: 1000px;
+ }
+
+.header__username{
+  height: 30px;
+  margin-right: 140px;
+  @include font__Montserrat_grey;
+  font-size: 14px;
+  border-left: 1px solid rgba(31, 32, 65, 0.1);
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  margin-left: 20px;
+  padding-left: 20px;
 }
 
 .header__innerwrapper{
@@ -48,16 +38,13 @@ html,body{
 
 .header__enter{
  position: absolute;
-  //border: 1px solid green;
- z-index: 90;
+    z-index: 90;
   right: 216px;
 }
 
 .header__register{
  position: absolute;
-  //border: 1px solid orange;
   right: 1px;
- // z-index: 90;
 }
 
 
@@ -67,10 +54,9 @@ html,body{
   cursor: pointer;
 }
 .header__menu{
- //margin-right: 463px;
+
   margin-top: 13px;
   font-size: 14px;
-  //margin-left: 200px;
   display: flex;
   justify-content: flex-end;
 
@@ -80,71 +66,8 @@ html,body{
 
 .header__list{
   display: flex;
- // position: relative;
-  //z-index: 2;
-}
-.list__item{
   list-style: none;
-//  margin-top: -20px;
 }
-
-.list__link{
-  @include font__Montserrat_grey;
-  text-decoration: none
-}
-
-.list__link:hover{
- @include font__Montserrat_darkgrey;
-  font-weight: bolder;
-}
-
-
-.list__tip{
-  //margin: -24px -4px 0px -3px!important;
-  margin-top: -2px;
- // padding: 0px 0px 0px 0px;
-//  border: 1px solid red;
-  display: inline-block;
-}
-
-
-
-
-
-
-
-
-.list__item i{
-  display: inline-block;
-//  border: 1px solid blue;
-  //margin-top: -20px;
-  //padding-top: 20px;
-}
-/*
-.temp{
-  font-weight: bold;
-} */
-.list__item[data-seq ="1"]{
-  margin-left: 0px;
-  margin-right: 21px;
-}
-.list__item[data-seq ="2"]{
-  margin-left: 0px;
-  margin-right: 2px;
-}
-.list__item[data-seq ="3"]{
-  margin-left: 18px;
-  margin-right: 21px;
-}
-.list__item[data-seq ="4"]{
-  margin-left: 0px;
-  margin-right: 20px;
-}
-.list__item[data-seq ="5"]{
-  margin-left: 0px;
-  margin-right: 0px;
-}
-
 
 
 
@@ -185,8 +108,11 @@ html,body{
 
 @media screen and (max-width: 950px){
 
+
+
   .header{
     justify-content: space-around;
+   position: relative;
   }
 
   .header__logo{
@@ -196,9 +122,7 @@ html,body{
   body.lock{
     overflow: hidden;
   }
-  /*.header__body{
-    height: 50px;
-  }*/
+
   .header__burger{
     display: block;
     position: absolute;
@@ -223,7 +147,7 @@ html,body{
     width: 100%;
     height: 2px;
     left: 0;
-    transition: all 0.9s ease 0s;
+    transition: all 0.5s ease 0s;
   }
   .header__burger:before{
     top: 0;
@@ -245,29 +169,40 @@ html,body{
     transform: scale(0);
   }
   .header__menu{
-    position: fixed;
+    height: 0;
+    position: absolute;
     top: -100%;
     left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    transition: all 0.9s ease 0s;
-    background-color: $color_grey_opaque;
-    padding: 70px 10px 20px 10px;
+    width: 0;
+    overflow: hidden;
+    transition: none;
+    margin-top: -20px;
   }
+
   .header__menu.active{
     top:0;
-  }
-  .header__list{
+    height: 100%;
+    width: 100%;
     display: block;
+    overflow: visible;
+    padding-top: 70px;
+    transition: all 0.5s linear 0s;
   }
+
+
+
+  .header__list{
+
+    display: block;
+    background-color: $color_grey_opaque;
+    //padding-top: 100px;
+  }
+
+
   .header__list li{
     margin: 0 0 20px 0;
   }
-/*
-  .content {
-    padding: 70px 0 0 0;
-  }
 
-   */
+
+
 }

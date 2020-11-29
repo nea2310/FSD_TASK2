@@ -1,0 +1,20 @@
+.menuitem{
+  display: flex;
+  margin-left: 20px;
+}
+
+.menuitem__link{
+  @include font__Montserrat_grey;
+  text-decoration: none;
+  list-style: none;
+}
+
+.menuitem__link:hover{
+  @include font__Montserrat_darkgrey;
+  font-weight: bolder;
+}
+
+
+.menuitem i{
+  margin-top: -2px;
+}

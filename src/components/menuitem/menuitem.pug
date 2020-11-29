@@ -1,0 +1,12 @@
+mixin menuitem(options)
+  if !options
+    - options = {}
+  -
+  li(class="menuitem")
+   a(href="" class="menuitem__link")=options.text
+   if options.tip
+     +materialicons({
+                     type: 'keyboard_arrow_down',
+                     color: 'grey',
+                     size: 'base',
+                    })
