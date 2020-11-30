@@ -10,19 +10,24 @@
   box-sizing: border-box;
   
   &-short{
-    width: 39.72px;
+    width: 100%;
+    max-width: 39.72px;
     }
   &-mediumshort{
-    width: 87px;
+    width: 100%;
+    max-width: 87px;
   }
   &-medium{
-    width: 99px;
+    width: 100%;
+    max-width: 99px;
     }
   &-longmedium{
-    width: 196px;
+    width: 100%;
+    max-width: 196px;
   }
   &-long{
-    width: 320px;
+    width: 100%;
+    max-width: 320px;
     }
   &-wide{
     height: 44px;

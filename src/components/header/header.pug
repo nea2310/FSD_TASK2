@@ -7,26 +7,26 @@ mixin header(options)
     - options = {}
   -
     var isAuth = options.isAuthorized
-  div(class="header__burger")
+  div(class="header-burger")
     span
   header(class="header")
-    a(href="" class="header__logo")
+    a(href="" class="header-logo")
       +logo()
-    div(class="header__innerwrapper")
-      nav(class="header__menu")
-        ul(class="header__list")
+    div(class="header-innerwrapper")
+      nav(class="header-menu")
+        ul(class="header-list")
           +menuitem({text: 'О нас'})
           +menuitem({text: 'Услуги', tip: true})
           +menuitem({text: 'Вакансии'})
           +menuitem({text: 'Новости'})
           +menuitem({text: 'Соглашения', tip: true})
       if (options.isAuthorized)
-        div(class='header__username') Юлий Цезарь
+        div(class='header-username') Юлий Цезарь
       else
-        div(class="header__login")
-          div(class="header__enter")
+        div(class="header-login")
+          div(class="header-login__enter")
             +buttonaction({color: 'white', length: 'mediumshort', width: 'mediumwide', text: 'войти', textcolor: 'purple'})
-          div(class="header__register")
+          div(class="header-login__register")
             +buttonaction({color: 'purple', length: 'longmedium', width: 'mediumwide', text: 'зарегистрироваться', textcolor: 'white'})
 
 
