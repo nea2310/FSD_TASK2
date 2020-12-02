@@ -1,49 +1,19 @@
-mixin inputinner()
-  span(class="val1")
-  span(class="text1")
-  span(class="val2")
-  span(class="text2")
-  span(class="val3")
-  span(class="text3")
-
-
 mixin input(options)
   if !options
     - options = {}
   -
-    var divclass = ''
-    var inpclass = ''
-    var text = options.text
-    divclass += options.type === ('calendar' || 'calendar-range' || 'calendar-visible') ? ' calendar-inpwrapper' : ''
-    divclass += options.type === 'counter' ? ' counter-inpwrapper' : ''
-    divclass += options.type === 'subscription' ? ' subscription-inpwrapper' : ''
-    divclass += options.type === 'text' ? ' text-inpwrapper' : ''
-    divclass += options.type === 'checklist' ? ' checklist__inpwrapper' : ''
-    divclass += options.subtype === 'checklistexpand' ? ' checklist__inpwrapper-expand' : ''
-
-    divclass += options.length ? ' inpwrapper-' + options.length : ''
-
-    inpclass += options.type === 'calendar' ? ' datepicker-input datepicker-plain' : ''
-    inpclass += options.type === 'calendar-range' ? ' datepicker-input datepicker-range' : ''
-    inpclass += options.type === 'calendar-visible' ? ' datepicker-input datepicker-visible' : ''
-    inpclass += options.type === 'counter' ? ' counter-input' : ''
-    inpclass += options.type === 'subscription' ? ' subscription-input' : ''
-    inpclass += options.type === 'text' ? ' text-input' : ''
-    inpclass += options.type === 'checklist' ? ' checklist-input' : ''
-
-  div(class='input__label')= options.label
-  div.inpwrapper(class=divclass)
-    input.inp(class=inpclass value=text)
-    if options.type === 'counter'
-      +inputinner()
-    if options.icon === 'tip'
-      +materialicons({
+    var icon = options.icon
+  div(class='input-wrapper')
+    label(class='input-label')
+      input(class='input')
+      if icon === 'tip'
+        +materialicons({
                     type: 'keyboard_arrow_down',
                     color: 'grey',
                     size: 'base',
                 })
-    else if options.icon === 'arrow'
-      +materialicons({
+      else if icon === 'arrow'
+        +materialicons({
                     type: 'arrow_forward',
                     color: 'purple',
                     size: 'base',

@@ -1,0 +1,23 @@
+include ../../components/action/action.pug
+include ../../components/input/input.pug
+include ../../components/counter/counter.pug
+mixin dropdown(options, counter_options, input_options)
+  if !options
+    - options = {}
+  if !input_options
+    - input_options = {}
+  if !counter_options
+    - counter_options = {}
+  -
+    var counter_options = counter_options
+    var input_options = input_options
+    var wrapper_classes = 'dropdown-wrapper'
+    wrapper_classes += options.width ? ' dropdown-wrapper_' + options.width : ''
+  div(class=wrapper_classes)
+    +input({icon: 'tip'})
+    div(class='dropdown-countwrapper')
+      +counter(counter_options)
+      if (options.buttons==true)
+        div(class="button-wrapper")
+          +action({text: 'очистить', textcolor: 'grey'})
+          +action({text: 'применить', textcolor: 'purple'})
