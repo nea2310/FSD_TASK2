@@ -1,0 +1,27 @@
+include ../../components/materialicons/materialicons.pug
+mixin button(options)
+  if !options
+    - options = {}
+  -
+    var text = options.text
+    var href = options.href
+    var button_classes = 'button'
+    var wrapper_classes = 'button-wrap'
+    wrapper_classes += options.length ? ' button-wrap_' + options.length : ''
+    button_classes += options.length ? ' button_' + options.length : ''
+    button_classes += options.width ? ' button_' + options.width : ''
+    button_classes += options.backgroundcolor ? ' button_' + options.backgroundcolor : ''
+    button_classes += options.textcolor ? ' button_' + options.textcolor : ''
+    button_classes += options.icon ? ' button_' + options.icon : ''
+  div(class=wrapper_classes)
+    a(class=button_classes)=text
+    if options.icon === 'arrow'
+      div(class='button-arrow')
+        +materialicons({
+                    type: 'arrow_forward',
+                    color: 'white',
+                    size: 'base',
+                })
+    block
+//  div(class="module-border-wrap")
+//    div(class="module")  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent bibendum, lorem vel tincidunt imperdiet, nibh elit laoreet felis, a bibendum nisl tortor non orci. Donec pretium fermentum felis, quis aliquet est rutrum ut. Integer quis massa ut lacus viverra pharetra in eu lacus. Aliquam tempus odio adipiscing diam pellentesque rhoncus. Curabitur a bibendum est.

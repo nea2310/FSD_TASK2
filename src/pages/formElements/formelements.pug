@@ -18,6 +18,7 @@ include ../../components/bulletlist/bulletlist.pug
 include ../../components/card/card.pug
 include ../../components/calendarblock/calendarblock.pug
 include ../../components/slickslider/slickslider.pug
+include ../../components/button/button.pug
 
 block serv
   -var serv
@@ -80,12 +81,17 @@ block serv
 
       div(class="def def-14") buttons
       div(class="cell__inner")
+      div удалить:
         +buttonaction({color: 'purple', length: 'medium', width: 'wide', text: 'click me', textcolor: 'white'})
+      div оставить:
+      +button({length: 'mediumlength', width: 'wide', backgroundcolor: 'purple', text: 'click me'})
 
       div(class="def def-15")
       div(class="cell__inner")
+      div удалить:
         +buttonaction({color: 'white', length: 'medium', width: 'wide', text: 'click me', textcolor: 'purple'})
-
+      div оставить:
+      +button({length: 'mediumlength', width: 'wide', backgroundcolor: 'white', text: 'click me'})
       div(class="def def-16")
       div(class="cell__inner cell__inner-16")
         +action({text: 'click me', textcolor: 'grey'})
@@ -93,7 +99,10 @@ block serv
 
       div(class="def def-17")
       div(class="cell__inner")
+      div удалить:
         +buttonaction({color: 'purple', length: 'long', width: 'wide', text: 'перейти к оплате', textcolor: 'white', icon: 'arrow'})
+      div оставить:
+        +button({length: 'long', width: 'wide', backgroundcolor: 'purple', icon: 'arrow', text: 'перейти к оплате'})
       div(class="def def-18") pagination
       div(class="cell__inner cell__inner-18")
         +pagination()

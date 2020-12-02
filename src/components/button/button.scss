@@ -1,0 +1,107 @@
+/*
+length:
+long
+mediumlength
+short
+
+
+width:
+wide
+mediumwidth
+narrow
+
+backgroundcolor:
+white
+purple
+
+borderstyle:
+purple
+
+textcolor:
+white
+purple
+
+*/
+
+.button {
+  border-radius: 22px;
+  display: inline-flex;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 10.5px;
+  font-weight: bolder;
+  letter-spacing: 1px;
+  font-family: "Montserrat", Arial, sans-serif;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+
+  &_long {
+    max-width: 316px;
+  }
+
+  &_mediumlength {
+    max-width: 192px;
+  }
+
+  &_short {
+    max-width: 82px;
+  }
+
+  &_wide {
+    height: 40px;
+  }
+
+  &_mediumwidth {
+    height: 30px;
+  }
+
+  &_narrow {
+    height: 29px;
+  }
+
+  &_purple {
+    background: $gradient;
+    color: $color_white;
+
+    &:hover {
+      background: $gradient_opaque;
+    }
+  }
+
+  &_white {
+    background: $color_white;
+    color: $color_purple;
+  }
+
+  &-wrap {
+    width: 100%;
+    padding: 2px;
+    background: $gradient;
+    border-radius: 22px;
+    display: flex;
+
+    &_long {
+      max-width: 316px;
+    }
+
+    &_mediumlength {
+      max-width: 192px;
+    }
+
+    &_short {
+      max-width: 82px;
+    }
+
+    &:hover {
+      background: $gradient_opaque;
+    }
+  }
+
+  &-arrow{
+   margin: 8px 8px 0px -42px;
+  }
+}
+
+
+

@@ -14,8 +14,15 @@
 .header-login{
   margin-top: 18px;
   margin-right: 140px;
-  position: relative;
-  width: 323px;
+ // position: relative;
+   display: flex;
+  //flex-direction: row;
+  justify-content: space-between;
+  align-items: start;
+  //width: 100%;
+  width: 303px;
+  //border: 1px solid red;
+ margin-left: 20px;
  }
 
 .header-username{
@@ -37,14 +44,16 @@
 }
 
 .header-login__enter{
- position: absolute;
-    z-index: 90;
-  right: 216px;
+// position: absolute;
+//    z-index: 90;
+//  right: 216px;
+  width: 100%;
 }
 
 .header-login__register{
- position: absolute;
-  right: 1px;
+// position: absolute;
+  //right: 1px;
+  width: 100%;
 }
 
 
