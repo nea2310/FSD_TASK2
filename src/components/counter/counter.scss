@@ -38,40 +38,35 @@ p, ul{
 
 .count{
   box-sizing: border-box;
-  width: 100px;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding-top: 5px;
-  padding-left: 2px;
-  padding-right: 5px;
+  border: 1px solid $color_grey_opaque;
+  color: $color_grey_opaque;
+  cursor: pointer;
 
-  &__minus{
+  &-wrapper {
     box-sizing: border-box;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
+    width: 100px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    border: 1px solid $color_grey_lightopaque;
-    color: $color_grey_opaque;
-
+    padding-top: 5px;
+    padding-left: 2px;
+    padding-right: 5px;
   }
+
+  &_inactive{
+    border: 1px solid $color_grey_lightopaque;
+  }
+
+
   &__value{
     box-sizing: border-box;
 
   }
-  &__plus{
-    box-sizing: border-box;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid $color_grey_opaque;
-    color: $color_grey_opaque;
 
-  }
 }

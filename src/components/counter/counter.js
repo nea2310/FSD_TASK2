@@ -1,25 +1,51 @@
 const counter =jQuery('document').ready(function($) {
-
-	$('.count__minus').click(function () {
-		let count = $(this).next();
-		let count_val = count.text();
-		count_val>0?count.text(--count_val):count.text(count_val);
+	$("div[data-type='dropdown']").click(function () {
+		$(this).parents('.dropdown-wrapper').children('.dropdown-countwrapper').removeClass('dropdown-countwrapper_collapsed')
 	})
 
-	$('.count__plus').click(function () {
-		let count = $(this).prev();
-		let count_val = count.text();
-        count.text(++count_val);
+
+	$("a[rel='nofollow']");
+
+	$('.dropdown-submit').click(function () {
+		$(this).parents('.dropdown-countwrapper').addClass('dropdown-countwrapper_collapsed')
+	})
+
+	$('.dropdown-clean').click(function () {
+		let input = $(this).parents('.dropdown-wrapper').children('.input-wrapper').children('.input-label').children('.input');
+		let default_val = input.attr('value');
+		input.val(default_val);
+	})
+
+	$('.count').click(function () {
+
+		if ($(this).hasClass('count_increm')) {
+			let count = $(this).prev();
+			let count_val = count.text();
+				if (count_val<=98)
+					count.text(++count_val);
+			let decrement = $(this).siblings('.count_decrem');
+				if (decrement.hasClass('count_inactive'))
+					decrement.removeClass('count_inactive')
+
+		}
+		else if ($(this).hasClass('count_decrem')) {
+			let count = $(this).next();
+			let count_val = count.text();
+				if (count_val>0)
+					count.text(--count_val)
+				else
+					count.text(count_val);
+					$(this).addClass('count_inactive')
+
+		}
 
 		let list = $(this).parents('.counter').children('.counter-category');
-
-
 		let category_names = [];
 		let category_counters = [];
 
 		list.each(function(indx){
 			category_names.push($(this).children('.counter-category__name').text());
-			category_counters.push($(this).children('.count').children('.count__value').text());
+			category_counters.push($(this).children('.count-wrapper').children('.count__value').text());
 					});
 
 		console.log(category_names);
@@ -117,7 +143,7 @@ const counter =jQuery('document').ready(function($) {
 			}
 
 
-
+$(this).parents('.dropdown-wrapper').children('.input-wrapper').children('.input-label').children('.input').val(str);
 
 
 
