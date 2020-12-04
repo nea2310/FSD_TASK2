@@ -1,179 +1,142 @@
 const counter =jQuery('document').ready(function($) {
 
+	$('.count__minus').click(function () {
+		let count = $(this).next();
+		let count_val = count.text();
+		count_val>0?count.text(--count_val):count.text(count_val);
+	})
+
+	$('.count__plus').click(function () {
+		let count = $(this).prev();
+		let count_val = count.text();
+        count.text(++count_val);
+
+		let list = $(this).parents('.counter').children('.counter-category');
 
 
-	$('.counter-minusplus').click(function () {
-	let span = $(this).parent().children(".counter");
-	let span_numb = parseInt(span.text());
-	let opertype = $(this).attr("class")
-	let container = $(this).parent().parent().parent().parent().children(".counter-inpwrapper");
-	let textinit = container.children(".counter-input");
+		let category_names = [];
+		let category_counters = [];
 
-	let val1 = container.children(".val1");
-	let val2 = container.children(".val2");
-	let val3 = container.children(".val3");
-	let text1 = container.children(".text1");
-	let text2 = container.children(".text2");
-	let text3 = container.children(".text3");
+		list.each(function(indx){
+			category_names.push($(this).children('.counter-category__name').text());
+			category_counters.push($(this).children('.count').children('.count__value').text());
+					});
 
-	let val;
-	let text;
-	if (textinit.css("display")!='none')
-		textinit.hide();
-
-
-
-				if(opertype=='counter-minus counter-minusplus' && span_numb != 0) {
-					span.text(--span_numb);
+		console.log(category_names);
+		console.log(category_counters);
+		let cat1_name;
+		let cat1_value;
+		let cat2_name;
+		let cat2_value;
+		let cat3_name;
+		let cat3_value;
+		let str;
+			switch (category_names[0]){
+				case 'взрослые':
+					cat1_value = Number(category_counters[0]) + Number(category_counters[1]);
+					switch (cat1_value) {
+						case 1:
+							cat1_name = 'гость';
+							break;
+						case 2:
+						case 3:
+						case 4:
+							cat1_name = 'гостя';
+							break;
+						default:
+							cat1_name = 'гостей';
 					}
-				else if (opertype=='counter-plus counter-minusplus'){
-					span.text(++span_numb);
-				}
-
-		switch($(this).attr('data-name')){
-			case 'category-one':
-					switch(Number(span.text())){
+					cat2_value = Number(category_counters[2]);
+					switch (cat2_value) {
+						case 0:
+							cat2_name = '';
+							break;
 						case 1:
-							text = $(this).attr('data-coun1cat1');
-							val = span.text();
-							val1.text(val);
-							text1.text(text);
+							cat2_name = 'младенец';
 							break;
 						case 2:
 						case 3:
 						case 4:
-						//case 0:
-							text = $(this).attr('data-coun2cat1');
-							val = span.text();
-							val1.text(val);
-							text1.text(text);
+							cat2_name = 'младенца';
 							break;
 						default:
-							text = $(this).attr('data-coun5cat1');
-							val = span.text();
-							val1.text(val);
-							text1.text(text);
-							break;		
-						}
-				break;
-			case 'category-two':
-						switch(Number(span.text())){
-						case 1:
+							cat2_name = 'младенцев';
+					}
+					str = cat1_value + ' ' + cat1_name + ', ' + cat2_value + ' '+ cat2_name
+						if(str.substr(str.length - 2 )==='0 ')
+							str = str.substr(0, str.length - 4)
+					break;
 
-							text = $(this).attr('data-coun1cat2');
-							val = span.text();
-							val2.text(', '+val);
-							text2.text(text);
+				case 'спальни':
+					cat1_value = Number(category_counters[0]);
+					switch (cat1_value) {
+						case 1:
+							cat1_name = 'спальня';
 							break;
 						case 2:
 						case 3:
 						case 4:
-
-							text = $(this).attr('data-coun2cat2');
-							val = span.text();
-							val2.text(', '+val);
-							text2.text(text);
+							cat1_name = 'спальни';
 							break;
 						default:
-
-							text = $(this).attr('data-coun5cat2');
-							val = span.text();
-							val2.text(', '+val);
-							text2.text(text);
-							break;				
-						}
-				break;
-			case 'category-three':
-					switch(Number(span.text())){
+							cat1_name = 'спален';
+					}
+					cat2_value = Number(category_counters[1]);
+					switch (cat2_value) {
 						case 1:
-
-							text = $(this).attr('data-coun1cat3');
-							val = span.text();
-							val3.text(', '+val);
-							text3.text(text);
+							cat2_name = 'кровать';
 							break;
 						case 2:
 						case 3:
 						case 4:
-
-							text = $(this).attr('data-coun2cat3');
-							val = span.text();
-							val3.text(', '+val);
-							text3.text(text);
+							cat2_name = 'кровати';
 							break;
 						default:
+							cat2_name = 'кроватей';
+					}
+					cat3_value = Number(category_counters[2]);
+					switch (cat3_value) {
+						case 1:
+							cat3_name = 'ванная комната';
+							break;
+						case 2:
+						case 3:
+						case 4:
+							cat3_name = 'ванные комнаты';
+							break;
+						default:
+							cat3_name = 'ванных комнат';
+					}
+					str = cat1_value + ' ' + cat1_name + ', ' + cat2_value + ' '+ cat2_name + ', ' + cat3_value + ' ' + cat3_name
+					break;
 
-							text = $(this).attr('data-coun5cat3');
-							val = span.text();
-							val3.text(', '+val);
-							text3.text(text);
-							break;		
-						}
-				break;		
+				default:
+					cat1_name = '';
+					cat2_name = '';
+					cat3_name = '';
 			}
+
+
+
+
+
+
+
+
+/*
+		console.log('cat1_name= ' + cat1_name);
+		console.log('cat1_value= ' + cat1_value);
+		console.log('cat2_name=  ' + cat2_name);
+		console.log('cat2_value= ' + cat2_value);
+		console.log('cat3_name= ' + cat3_name);
+		console.log('cat3_value= ' + cat3_value);
+		*/
+		console.log('str= ' + str);
+
+
+
+
+
 	});
-
-	$('.action-grey').click(function (){
-		let counterContainer = $(this).parent().parent().parent().parent();
-		console.log(counterContainer);
-		if (counterContainer.hasClass("counter-wrapper")){
-			counterContainer.children(".counter-inpwrapper").children("span").text('');
-			counterContainer.children(".counter-inpwrapper").children(".counter-input").show();
-			//counterContainer.children(".counter-categories").children(".category-wrapper").children(".category-counter").children(".counter").text('0');
-			counterContainer.children(".counter-categories").children(".category-wrapper").children(".category-counter").children(".counter-1").text('1');
-			counterContainer.children(".counter-categories").children(".category-wrapper").children(".category-counter").children(".counter-2").text('0');
-			counterContainer.children(".counter-categories").children(".category-wrapper").children(".category-counter").children(".counter-3").text('0');
-		}
-           
-		
-	});
-
-
-	$('.counter-inpwrapper').on('click', function(){
-	$(this).nextAll().show();
-	if ($(this).parent().hasClass("counter-guests")){
-		$(this).children(".counter-input").hide();
-		$(this).children(".val1").text('1');
-		$(this).children(".text1").text('взрослый');
-
-	}
-
-	if ($(this).parent().hasClass("counter-rooms")){
-		$(this).children(".counter-input").hide();
-		$(this).children(".val1").text('2');
-		$(this).children(".text1").text('спальни');
-		$(this).children(".val2").text(', 2');
-		$(this).children(".text2").text('кровати');
-
-	}
-	});
-
-	$('.action-purple').click(function (){
-			$(this).parent('.button-wrapper').parent('.counter-footer').parent('.counter-categories').hide();
-	});
-
-	
-	//Повторяющийся код - нужен рефакторинг
-
-	$(document).mouseup(function (e){ // событие клика по веб-документу
-		let block = $('.counter-guests'); // тут указываем ID элемента
-		let block_to_hide = $('.counter-guests').children('.counter-categories');
-		if (!block.is(e.target) // если клик был не по нашему блоку
-		    && block.has(e.target).length === 0) { // и не по его дочерним элементам
-			block_to_hide.hide(); // скрываем его
-		}
-	});
-
-	$(document).mouseup(function (e){ // событие клика по веб-документу
-		let block = $('.counter-rooms'); // тут указываем ID элемента
-		let block_to_hide = $('.counter-rooms').children('.counter-categories');
-		if (!block.is(e.target) // если клик был не по нашему блоку
-		    && block.has(e.target).length === 0) { // и не по его дочерним элементам
-			block_to_hide.hide(); // скрываем его
-		}
-	});
-
-
 });
-
-export { counter }
+	export { counter }
