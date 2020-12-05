@@ -6,16 +6,25 @@ input{
   }
 }
 .input{
-  color: red;
+  @include font_body;
+  //font-size: 14px;
+  margin-top: 7px;
+  margin-left: 12px;
 }
 .input-wrapper{
   height: 44px;
-  border-radius: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
   border: 1px solid $color_grey_lightopaque;
   display: flex;
   position: relative;
   overflow: hidden;
   box-sizing: border-box;
+
+  &_collapsed{
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
 
   &:focus{
     border: 1px solid $color_grey_opaque;

@@ -5,9 +5,12 @@ mixin input(options)
     var icon = options.icon
     var text = options.text
     var type = options.type
-  div(class='input-wrapper' data-type=type)
+    var input_classes = 'input'
+    //var input_classes = 'input input__calendar-range'
+    input_classes += options.input_type ? ' input__' + options.input_type : ''
+  div(class='input-wrapper input-wrapper_collapsed' data-type=type)
     label(class='input-label')
-      input(class='input' type='text' value=text)
+      input(class=input_classes type='text' value=text)
       if icon === 'tip'
         +materialicons({
                     type: 'keyboard_arrow_down',

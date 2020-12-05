@@ -1,13 +1,13 @@
 const counter =jQuery('document').ready(function($) {
 	$("div[data-type='dropdown']").click(function () {
-		$(this).parents('.dropdown-wrapper').children('.dropdown-countwrapper').removeClass('dropdown-countwrapper_collapsed')
+		$(this).parents('.dropdown-wrapper').children('.dropdown-countwrapper').toggleClass('dropdown-countwrapper_collapsed')
+		$(this).toggleClass('input-wrapper_collapsed')
 	})
 
 
-	$("a[rel='nofollow']");
-
 	$('.dropdown-submit').click(function () {
-		$(this).parents('.dropdown-countwrapper').addClass('dropdown-countwrapper_collapsed')
+		$(this).parents('.dropdown-countwrapper').addClass('dropdown-countwrapper_collapsed');
+		$(this).parents('.dropdown-wrapper').children('.input-wrapper').addClass('input-wrapper_collapsed')
 	})
 
 	$('.dropdown-clean').click(function () {
@@ -159,10 +159,17 @@ $(this).parents('.dropdown-wrapper').children('.input-wrapper').children('.input
 		*/
 		console.log('str= ' + str);
 
-
-
-
-
 	});
+
+	$(document).mouseup(function (e){ // событие клика по веб-документу
+		let block = $('.dropdown-wrapper'); // тут указываем ID элемента
+		if (!block.is(e.target) // если клик был не по нашему блоку
+			&& block.has(e.target).length === 0) { // и не по его дочерним элементам
+		    $('.dropdown-countwrapper').addClass('dropdown-countwrapper_collapsed')// скрываем его
+		    block.children('.input-wrapper').addClass('input-wrapper_collapsed')// скрываем его
+		}
+	});
+
+
 });
 	export { counter }

@@ -3,7 +3,7 @@ import '../../plugins/airdatepicker/datepicker.min.js';
 
 
 const calendar =jQuery('document').ready(function($){
-  $('.datepicker-plain').datepicker(
+  $('.input__datepicker-plain').datepicker(
       {
       clearButton: true,
       navTitles: {
@@ -11,7 +11,7 @@ const calendar =jQuery('document').ready(function($){
           }
       },
   );
-  $('.datepicker-range').datepicker(
+  $('.input__datepicker-range').datepicker(
         {
             clearButton: true,
             navTitles: {
@@ -20,7 +20,7 @@ const calendar =jQuery('document').ready(function($){
             range: true,
             multipleDatesSeparator: ' - '
         });
-  $('.datepicker-visible').datepicker(
+  $('.input__datepicker-visible').datepicker(
         {
             clearButton: true,
             inline: true,
@@ -46,13 +46,19 @@ const calendar =jQuery('document').ready(function($){
     });
 
 
-    $('.datepicker-input').click(function (){
+    $("div[data-type='calendar']").click(function () {
+        $('.datepicker').show();
+    })
+
+
+ /*
+    $('.input__datepicker-range').click(function (){
 
         //$(this).parent('.datepicker--buttons').parent('.datepicker').parent('.datepicker-inline').hide();
         $('.datepicker').show();
         //$('.datepicker-range').show();
     });
-
+*/
 
 });
 

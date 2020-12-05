@@ -1,4 +1,10 @@
 .dropdown-wrapper{
+  & .input-wrapper  .input-label .input{
+    width: 166px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
   &_wide {
     width: 320px;
   }
