@@ -5,7 +5,9 @@ mixin calendar(options)
     - options = {}
   -
   if (options.type=='date')
-    +input({type: 'calendar',input_type: 'datepicker-plain', icon: 'tip', length: 'short', text: 'ДД.ММ.ГГГГ'})
+    +input({type: 'calendar',input_type: 'datepicker-start', icon: 'tip', length: 'short', text: 'ДД.ММ.ГГГГ'})
+  else if(options.type=='date1')
+    +input({type: 'calendar',input_type: 'datepicker-end', icon: 'tip', length: 'short', text: 'ДД.ММ.ГГГГ'})
   else if(options.type=='datefilter')
     +input({type: 'calendar',input_type: 'calendar', icon: 'tip', length: 'medium'})
   else if(options.type=='datefilter-range')

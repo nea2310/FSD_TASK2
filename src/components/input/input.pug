@@ -6,9 +6,11 @@ mixin input(options)
     var text = options.text
     var type = options.type
     var input_classes = 'input'
+    var input_wrapper_classes = 'input-wrapper input-wrapper_collapsed'
     //var input_classes = 'input input__calendar-range'
     input_classes += options.input_type ? ' input__' + options.input_type : ''
-  div(class='input-wrapper input-wrapper_collapsed' data-type=type)
+    input_wrapper_classes += options.length ? ' input-wrapper_' + options.length : ''
+  div(class=input_wrapper_classes data-type=type)
     label(class='input-label')
       input(class=input_classes type='text' value=text)
       if icon === 'tip'

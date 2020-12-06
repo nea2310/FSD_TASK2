@@ -3,14 +3,47 @@ import '../../plugins/airdatepicker/datepicker.min.js';
 
 
 const calendar =jQuery('document').ready(function($){
-  $('.input__datepicker-plain').datepicker(
+
+
+    let startdate;
+    let  source = $('.calendarblock__wrapper').children('.input-wrapper').eq(1);
+    source.click( function() {
+        init(this);
+    });
+
+
+    function init(element){
+        startdate = $(element).parents('.calendarblock__wrapper').children('.input-wrapper').eq(0).children('.input-label').children('.input').val();
+        startdate =  startdate.substr(startdate.length - 4) + '-' + startdate.substr(-7, 2) + '-' + startdate.substr(-10,2);
+        $('.input__datepicker-end').datepicker(
+            {
+                 minDate: new Date(startdate)
+            },
+        );
+
+    }
+
+
+  $('.input__datepicker-start').datepicker(
       {
+      minDate: new Date(),
       clearButton: true,
       navTitles: {
         days: 'MM <i>yyyy</i>',
           }
       },
   );
+
+
+    $('.input__datepicker-end').datepicker(
+        {
+            clearButton: true,
+            navTitles: {
+                days: 'MM <i>yyyy</i>',
+            }
+        },
+    );
+
   $('.input__datepicker-range').datepicker(
         {
             clearButton: true,
@@ -32,16 +65,12 @@ const calendar =jQuery('document').ready(function($){
         });
 
 
-
-
     $('.datepicker--button').after(function(indx){
         return '<div class="action action-apply action-purple">применить</div>';
     });
 
 
     $('.action').click(function (){
-
-        //$(this).parent('.datepicker--buttons').parent('.datepicker').parent('.datepicker-inline').hide();
         $(this).parent('.datepicker--buttons').parent('.datepicker').hide();
     });
 
@@ -50,24 +79,7 @@ const calendar =jQuery('document').ready(function($){
         $('.datepicker').show();
     })
 
-
- /*
-    $('.input__datepicker-range').click(function (){
-
-        //$(this).parent('.datepicker--buttons').parent('.datepicker').parent('.datepicker-inline').hide();
-        $('.datepicker').show();
-        //$('.datepicker-range').show();
-    });
-*/
-
 });
-
-
-
-
-
-
-
 
 
 export { calendar }

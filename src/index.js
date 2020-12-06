@@ -18,6 +18,7 @@ import * as counter from '@/components/counter/counter';
 import * as pagination from '@/components/pagination/pagination';
 import * as sliderinstance from '@/components/rangeslider/rangeslider';
 import * as calendar from '@/components/calendar/calendar';
+import * as calendarblock from '@/components/calendarblock/calendarblock';
 import * as slickslider from '@/components/slickslider/slickslider';
 import * as checklist_expand from '@/components/checklist/checklist';
 import * as button_like from '@/components/buttonlike/buttonlike';
