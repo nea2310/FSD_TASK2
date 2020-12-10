@@ -6,10 +6,12 @@ mixin dropdown(options={}, counter_options={}, input_options={})
     var counter_options = counter_options
     var input_options = input_options
     var wrapper_classes = 'dropdown-wrapper'
+    var countwrapper_classes = 'dropdown-countwrapper dropdown-countwrapper_collapsed'
     wrapper_classes += options.width ? ' dropdown-wrapper_' + options.width : ''
+    countwrapper_classes += options.width ? ' dropdown-countwrapper_' + options.width : ''
   div(class=wrapper_classes)
-    +input({icon: 'tip', text: input_options.text, type: 'dropdown'})
-    div(class='dropdown-countwrapper dropdown-countwrapper_collapsed')
+    +input({icon: 'tip', text: input_options.text, type: 'dropdown', label: input_options.label})
+    div(class=countwrapper_classes)
       +counter(counter_options)
       if (options.buttons==true)
         div(class="button-wrapper")
@@ -17,6 +19,3 @@ mixin dropdown(options={}, counter_options={}, input_options={})
             +action({text: 'очистить', textcolor: 'grey'})
           div(class='dropdown-submit')
             +action({text: 'применить', textcolor: 'purple'})
-  input(class='datepicker-plain')
-  input(class='datepicker-range')
-  input(class='datepicker-visible')

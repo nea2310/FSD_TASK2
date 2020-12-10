@@ -2,6 +2,9 @@
   width: 260px;
   margin-top: 15px;
   &-exp {
+    &_collapsed{
+      display: none!important;
+          }
     display: none;
   }
   &__interval{

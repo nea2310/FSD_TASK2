@@ -8,7 +8,8 @@ body{
 
   &__innerwrapper{
     margin: 0 auto;
-    width: 320px;
+    width: 100%;
+    max-width: 320px;
     &-fixedheight1{
       height: 602px;
     }
@@ -27,7 +28,7 @@ body{
     margin-top: 20px;
   }
   &__guests{
-    margin-top: 22px;
+    margin-top: 20px;
   }
   &__button{
     margin-top: 30px;
@@ -42,17 +43,17 @@ body{
   &__login{
     display: flex;
     justify-content: space-between;
-    width: 324px;
-    margin: 0 auto;
-    position: absolute;
-    z-index: 99;
-    top: 570px;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
+   // width: 324px;
+    //margin: 0 auto;
+    //position: absolute;
+//    z-index: 99;
+//    top: 570px;
+//    bottom: 0px;
+//    left: 0px;
+//    right: 0px;
     //border: 1px solid;
     &-2{
-      top: 280px!important;
+     // top: 280px!important;
     }
   }
 
@@ -70,16 +71,16 @@ body{
   }
 
   &__name{
-    margin-top: 20px;
-    margin-bottom: 0px;
-  }
-  &__surname{
     margin-top: 10px;
     margin-bottom: 0px;
   }
-  &__radioblock{
-    margin-top: 9px;
+  &__surname{
+    margin-top: 3px;
     margin-bottom: 0px;
+  }
+  &__radioblock{
+    margin-top: 3px;
+    margin-left: -2px;
 
   }
   &__birthdate{
@@ -87,19 +88,19 @@ body{
     margin-bottom: 0px;
   }
   &__email{
-    margin-top: 22px;
+    margin-top: 19px;
     margin-bottom: 0px;
   }
   &__password{
-    margin-top: 9px;
+    margin-top: 0px;
     margin-bottom: 0px;
     &-2{
       margin-bottom: -10px;
     }
   }
   &__toggle{
-    margin-top: 11px;
-    margin-bottom: -4px;
+    margin-top: 4px;
+    margin-bottom: -3px;
   }
 
 }

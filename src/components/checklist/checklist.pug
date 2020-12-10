@@ -7,7 +7,7 @@ mixin checklist_expand(options)
     var toplabel = 'label-top'
     var label = options.label
     toplabel += options.toplabel === 'bold' ? ' label-bold' : ''
-  +input({type: 'checklist', subtype: 'checklistexpand', icon: 'tip', length: 'medium', text: label})
+  +input({type: 'checklistexpand', subtype: 'checklistexpand', icon: 'tip', length: 'medium', text: label})
   div(class="checklist checklist-exp")
     +checkbox({toptext: 'Завтрак'})
     +checkbox({toptext: 'Письменный стол'})

@@ -53,16 +53,28 @@ const calendar =jQuery('document').ready(function($){
             range: true,
             multipleDatesSeparator: ' - '
         });
-  $('.input__datepicker-visible').datepicker(
+
+    $('.input__datepicker-visible').datepicker(
         {
-            clearButton: true,
             inline: true,
+            clearButton: true,
             navTitles: {
                 days: 'MM <i>yyyy</i>',
             },
             range: true,
             multipleDatesSeparator: ' - '
         });
+
+/*  $('.input__datepicker-visible').datepicker(
+       {
+            clearButton: true,
+           inline: true,
+            navTitles: {
+                days: 'MM <i>yyyy</i>',
+            },
+            range: true,
+            multipleDatesSeparator: ' - '
+        });*/
 
 
     $('.datepicker--button').after(function(indx){

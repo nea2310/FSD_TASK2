@@ -1,29 +1,32 @@
-mixin input(options)
-  if !options
-    - options = {}
+include ../../components/label/label.pug
+mixin input(options={})
   -
     var icon = options.icon
     var text = options.text
     var type = options.type
     var input_classes = 'input'
     var input_wrapper_classes = 'input-wrapper input-wrapper_collapsed'
-    //var input_classes = 'input input__calendar-range'
     input_classes += options.input_type ? ' input__' + options.input_type : ''
     input_wrapper_classes += options.length ? ' input-wrapper_' + options.length : ''
-  div(class=input_wrapper_classes data-type=type)
-    label(class='input-label')
-      input(class=input_classes type='text' value=text)
-      if icon === 'tip'
-        +materialicons({
+  +label({label: options.label})
+  if options.input_type === 'datepicker-visible'
+    input(class=input_classes)
+  else
+    div(class=input_wrapper_classes data-type=type)
+      label(class='input-label')
+        input(class=input_classes type='text' value=text)
+        if icon === 'tip'
+          +materialicons({
                     type: 'keyboard_arrow_down',
                     color: 'grey',
                     size: 'base',
                 })
-      else if icon === 'arrow'
-        +materialicons({
+        else if icon === 'arrow'
+          +materialicons({
                     type: 'arrow_forward',
                     color: 'purple',
                     size: 'base',
                 })
+
 
 

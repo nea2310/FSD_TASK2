@@ -1,7 +1,4 @@
-mixin calendarblock(options)
-  if !options
-    - options = {}
-  -
+mixin calendarblock(options={})
   div(class="calendarblock__wrapper")
-    +calendar({type: 'date'})
-    +calendar({type: 'date1'})
+    +calendar({type: 'date_from', label: options.label_datefrom})
+    +calendar({type: 'date_to', label: options.label_dateto})

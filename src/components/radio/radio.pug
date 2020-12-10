@@ -8,8 +8,8 @@ mixin radio(options)
     classes1 += options.seqnumber1 ? 'radiomark__wrapper radiomark__wrapper-' + options.seqnumber1 : ''
   label(class=classes1)
     if options.ischecked
-      input(type="checkbox" class=classes checked)
+      input(type="radio" class=classes checked)
     else
-      input(type="checkbox" class=classes)
+      input(type="radio" class=classes)
     span(class="radiomark")
     div(class="radiomark__label")= options.labeltext

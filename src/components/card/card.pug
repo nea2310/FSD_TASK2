@@ -1,4 +1,7 @@
 include ../../components/buttonwrapper/buttonwrapper.pug
+include ../../components/button/button.pug
+include ../../components/dropdown/dropdown.pug
+include ../../components/calendarblock/calendarblock.pug
 mixin card1(options)
   if !options
     - options = {}
@@ -7,11 +10,11 @@ mixin card1(options)
     div(class="card__innerwrapper")
      div(class="card__header") Найдем номера под ваши пожелания
      div(class="card__calendar")
-       +calendarblock({label1: 'прибытие', label2: 'выезд'})
+       +calendarblock({label_datefrom: 'прибытие', label_dateto: 'выезд'})
      div(class="card__guests")
-       +counter({type: 'guests', label: 'гости', cattype1: 'взрослые', cattype2: 'дети', cattype3: 'младенцы', counter1: 1, counter2: 0, counter3: 0, buttons: true, width: '320', text: 'Сколько гостей', coun1cat1: 'взрослый', coun2cat1: 'взрослых', coun5cat1: 'взрослых', coun1cat2: 'ребенок', coun2cat2: 'ребенка', coun5cat2: 'детей', coun1cat3: 'младенец', coun2cat3: 'младенца', coun5cat3: 'младенцев'})
+       +dropdown({width: 'wide', buttons: true}, {'взрослые': '0', 'дети': '0', 'младенцы': '0',}, {text: 'Сколько гостей', label: 'гости'})
      div(class="card__button")
-       +buttonaction({color: 'purple', length: 'long', width: 'wide', text: 'подобрать номер', textcolor: 'white', icon: 'arrow'})
+       +button({length: 'long', width: 'wide', backgroundcolor: 'purple', icon: 'arrow', text: 'подобрать номер'})
 
 
 mixin card2(options)
@@ -29,9 +32,9 @@ mixin card2(options)
          div(class='price__elem-1') 9 990₽
          div(class='price__elem-2') в сутки
      div(class="card__calendar")
-       +calendarblock({label1: 'прибытие', label2: 'выезд'})
+       +calendarblock({label_datefrom: 'прибытие', label_dateto: 'выезд'})
      div(class="card__guests")
-       +counter({type: 'guests', label: 'гости', cattype1: 'взрослые', cattype2: 'дети', cattype3: 'младенцы', counter1: 1, counter2: 0, counter3: 0, buttons: true, width: '320', text: '3 гостя', coun1cat1: 'взрослый', coun2cat1: 'взрослых', coun5cat1: 'взрослых', coun1cat2: 'ребенок', coun2cat2: 'ребенка', coun5cat2: 'детей', coun1cat3: 'младенец', coun2cat3: 'младенца', coun5cat3: 'младенцев'})
+       +dropdown({width: 'wide', buttons: true}, {'взрослые': '0', 'дети': '0', 'младенцы': '0',}, {text: 'Сколько гостей', label: 'гости'})
      div(class="order__details")
        div(class="details__row details__row-1")
          div(class="details__col") 9 990₽ * 4 суток
@@ -50,7 +53,7 @@ mixin card2(options)
        div(class="total__elem-2")
        div(class="total__elem-3") 38 081₽
      div(class="card__button")
-       +buttonaction({color: 'purple', length: 'long', width: 'wide', text: 'забронировать', textcolor: 'white', icon: 'arrow'})
+       +button({length: 'long', width: 'wide', backgroundcolor: 'purple', icon: 'arrow', text: 'забронировать'})
 
 
 mixin card3(options)
@@ -75,10 +78,10 @@ mixin card3(options)
      div(class="card__toggle")
        +toggle({labeltext: 'Получать спецпредложения'})
      div(class="card__button")
-       +buttonaction({color: 'purple', length: 'long', width: 'wide', text: 'перейти к оплате', textcolor: 'white', icon: 'arrow'})
+       +button({length: 'long', width: 'wide', backgroundcolor: 'purple', icon: 'arrow', text: 'перейти к оплате'})
      div(class="card__login")
        div(class="card__accountexist") Уже есть аккаунт на Toxin
-       +buttonaction({color: 'white', length: 'medium', width: 'wide', text: 'войти', textcolor: 'purple'})
+       +button({length: 'short', width: 'wide', backgroundcolor: 'white', text: 'войти'})
 
 mixin card4(options)
   if !options
@@ -92,8 +95,8 @@ mixin card4(options)
      div(class="card__password card__password-2")
        +input({type: 'text', length: 'long', text: 'пароль'})
      div(class="card__button")
-       +buttonaction({color: 'purple', length: 'long', width: 'wide', text: 'войти', textcolor: 'white', icon: 'arrow'})
+       +button({length: 'long', width: 'wide', backgroundcolor: 'purple', icon: 'arrow', text: 'войти'})
      div(class="card__login card__login-2")
        div(class="card__accountexist") Нет аккаунта на Toxin?
-       +buttonaction({color: 'white', length: 'medium', width: 'wide', text: 'создать', textcolor: 'purple'})
+       +button({length: 'short', width: 'wide', backgroundcolor: 'white', text: 'создать'})
 

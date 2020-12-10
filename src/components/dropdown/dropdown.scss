@@ -1,4 +1,5 @@
 .dropdown-wrapper{
+  position: relative;
   & .input-wrapper  .input-label .input{
     width: 166px;
     white-space: nowrap;
@@ -15,12 +16,22 @@
 
 
 .dropdown-countwrapper{
+  position: absolute;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   border-left: 1px solid $color_grey_lightopaque;
   border-right: 1px solid $color_grey_lightopaque;
   border-bottom: 1px solid $color_grey_lightopaque;
   box-sizing: border-box;
+  //z-index: 10;
+  background-color: $color_white;
+
+  &_wide {
+    width: 320px;
+  }
+  &_narrow {
+    width: 266px;
+  }
 
   &_collapsed{
     display: none;
