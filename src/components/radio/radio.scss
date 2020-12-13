@@ -11,7 +11,6 @@
   display: block;
   position: relative;
   padding-left: 22px;
- // padding-right: 22px;
   margin-bottom: 12px;
   cursor: pointer;
   font-size: 22px;
@@ -45,14 +44,6 @@
   border: 1px solid $color_purple;
 } 
 
-.radiomark__wrapper input:checked ~ .radiomark ~ .radiomark__label {
-  color: $color_grey_semiopaque;
-
-}
-
-
-
-
 
 
 /* Create the indicator (the dot/circle - hidden when not checked) */
@@ -75,4 +66,8 @@
   height: 12px;
   border-radius: 50%;
   background: $color_purple;
+}
+
+.radiomark__wrapper input:checked +.radiomark__label{
+  color: $color_grey_semiopaque;
 }

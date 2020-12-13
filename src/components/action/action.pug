@@ -1,7 +1,6 @@
-mixin action(options)
-  if !options
-    - options = {}
+mixin action(options={})
   -
     var classes = ''
     classes += options.textcolor ? ' action-' + options.textcolor : ''
+    classes += options.inactive ? ' action_inactive' : ''
   div.action(class=classes)= options.text

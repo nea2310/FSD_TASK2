@@ -21,4 +21,7 @@
   &-grey{
     color: $color_grey_opaque;
   }
+  &_inactive{
+    display: none;
+  }
 }

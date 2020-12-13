@@ -5,5 +5,5 @@ mixin radioblock(options)
   -
   div(class="radioblock__wrapper")= options.label
   div(class="radioblock")
-    +radio({labeltext: 'Мужчина', ischecked: 'checked=""', seqnumber: '1', seqnumber1: '1'})
-    +radio({labeltext: 'Женщина', seqnumber: '2', seqnumber1: '2'})
+    +radio({name: options.name1, value: options.value1, id: options.id1, labeltext: options.labeltext1, checked: options.checked1})
+    +radio({name: options.name2, value: options.value2, id: options.id2, labeltext: options.labeltext2, checked: options.checked2})

@@ -10,19 +10,27 @@ const counter =jQuery('document').ready(function($) {
 		$(this).parents('.dropdown-wrapper').children('.input-wrapper').addClass('input-wrapper_collapsed')
 	})
 
+	//let isCleaned=true;
+
 	$('.dropdown-clean').click(function () {
 		let input = $(this).parents('.dropdown-wrapper').children('.input-wrapper').children('.input-label').children('.input');
 		let default_val = input.attr('value');
+		$(this).parents('.dropdown-countwrapper').children('.counter').children('.counter-category').children('.count-wrapper').children('.count_decrem').addClass('count_inactive')
+		$(this).parents('.dropdown-countwrapper').children('.counter').children('.counter-category').children('.count-wrapper').children('.count__value').text('0').addClass('count__value_inactive')
 		input.val(default_val);
+		//isCleaned=true;
 	})
 
 	$('.count').click(function () {
-
+		let clearButton = $(this).parents('.dropdown-countwrapper').children('.button-wrapper').children('.dropdown-clean').children('div');
 		if ($(this).hasClass('count_increm')) {
 			let count = $(this).prev();
 			let count_val = count.text();
-				if (count_val<=98)
+				if (count_val<=98) {
 					count.text(++count_val);
+					if (clearButton.hasClass('action_inactive'))
+						clearButton.removeClass('action_inactive');
+				}
 			let decrement = $(this).siblings('.count_decrem');
 				if (decrement.hasClass('count_inactive'))
 					decrement.removeClass('count_inactive')
@@ -31,12 +39,20 @@ const counter =jQuery('document').ready(function($) {
 		else if ($(this).hasClass('count_decrem')) {
 			let count = $(this).next();
 			let count_val = count.text();
-				if (count_val>0)
+				if (count_val>1)
 					count.text(--count_val)
+				else if (count_val==1) {
+					$(this).addClass('count_inactive');
+					count.text(--count_val);
+					let inactiveCategories = $(this).parents('.counter').children('.counter-category').children('.count-wrapper').children('.count_inactive');
+					let Categories = $(this).parents('.counter').children('.counter-category');
+					console.log(inactiveCategories);
+					console.log(Categories);
+					if (inactiveCategories.length==Categories.length)
+						clearButton.addClass('action_inactive');
+						}
 				else
 					count.text(count_val);
-					$(this).addClass('count_inactive')
-
 		}
 
 		let list = $(this).parents('.counter').children('.counter-category');
@@ -48,8 +64,8 @@ const counter =jQuery('document').ready(function($) {
 			category_counters.push($(this).children('.count-wrapper').children('.count__value').text());
 					});
 
-		console.log(category_names);
-		console.log(category_counters);
+		//console.log(category_names);
+		//console.log(category_counters);
 		let cat1_name;
 		let cat1_value;
 		let cat2_name;
@@ -157,7 +173,7 @@ $(this).parents('.dropdown-wrapper').children('.input-wrapper').children('.input
 		console.log('cat3_name= ' + cat3_name);
 		console.log('cat3_value= ' + cat3_value);
 		*/
-		console.log('str= ' + str);
+		//console.log('str= ' + str);
 
 	});
 
