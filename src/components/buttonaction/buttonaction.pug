@@ -1,9 +1,7 @@
 include ../../components/buttonwrapper/buttonwrapper.pug
 include ../../components/materialicons/materialicons.pug
 include ../../components/action/action.pug
-mixin buttonaction(options)
-  if !options
-    - options = {}
+mixin buttonaction(options={})
   -
     var text = options.text
     var href = options.href

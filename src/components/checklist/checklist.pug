@@ -1,44 +1,32 @@
 include ../../components/input/input.pug
 include ../../components/checkbox/checkbox.pug
-mixin checklist_expand(options)
-  if !options
-    - options = {}
+include ../../components/label/label.pug
+mixin checklist_expand(options={}, categories=[])
   -
-    var toplabel = 'label-top'
     var label = options.label
-    toplabel += options.toplabel === 'bold' ? ' label-bold' : ''
-  +input({type: 'checklistexpand', subtype: 'checklistexpand', icon: 'tip', length: 'medium', text: label})
-  div(class="checklist checklist-exp")
-    +checkbox({toptext: 'Завтрак'})
-    +checkbox({toptext: 'Письменный стол'})
-    +checkbox({toptext: 'Стул для кормления'})
-    +checkbox({toptext: 'Кроватка'})
-    +checkbox({toptext: 'Телевизор'})
-    +checkbox({toptext: 'Шампунь'})
+  +input({type: 'checklistexpand', subtype: 'checklistexpand', icon: 'tip', length: 'medium', text: label, readonly: 'readonly'})
+  ul(class="checklist checklist-exp")
+    each val in categories
+      +checkbox({toptext: val})
 
 
-mixin checklist_rich(options)
-  if !options
-    - options = {}
+
+mixin checklist_rich(options={}, categories={})
   -
-    var toplabel = 'label-top'
-    toplabel += options.toplabel === 'bold' ? ' label-bold' : ''
-  div(class="checklist__label")= options.label
-  div(class="checklist")
-    +checkbox({labelbottom: true, toplabel: 'bold', toptext: 'Широкий коридор', bottomtext: 'Ширина коридора в номере не менее 91 см.'})
-    div(class="checklist__interval")
-    +checkbox({labelbottom: true, toplabel: 'bold', toptext: 'Помощник для инвалидов', bottomtext: 'На 1 этаже вас встретит специалист и проводит до номера. '})
+  +label({label: options.label})
+  ul(class="checklist")
+    each val, index in categories
+      +checkbox({labelbottom: true, toplabel: 'bold', toptext: index, bottomtext: val})
+      div(class="checklist__interval")
 
 
 
 
-mixin checklist(options)
-  if !options
-    - options = {}
-  -
-  div(class="checklist__label")= options.label
-  div(class="checklist")
-    +checkbox({toptext: 'Можно курить'})
-    +checkbox({toptext: 'Можно с питомцами'})
-    +checkbox({toptext: 'Можно пригласить гостей (до 10 человек)'})
+
+mixin checklist(options={}, categories=[])
+  +label({label: options.label})
+  ul(class="checklist")
+    each val in categories
+      +checkbox({toptext: val})
+
 

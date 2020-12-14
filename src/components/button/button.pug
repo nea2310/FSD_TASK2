@@ -1,7 +1,5 @@
 include ../../components/materialicons/materialicons.pug
-mixin button(options)
-  if !options
-    - options = {}
+mixin button(options={})
   -
     var text = options.text
     var href = options.href

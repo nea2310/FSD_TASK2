@@ -10,9 +10,9 @@
   box-sizing: border-box;
   
   &-short{
-    width: 100%;
-    max-width: 39.72px;
-    }
+    min-width: 39.72px;
+    width: 39.72px;
+     }
   &-mediumshort{
     width: 100%;
     max-width: 87px;

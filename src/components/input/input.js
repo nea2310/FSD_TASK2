@@ -1,9 +1,11 @@
 const input =jQuery('document').ready(function($) {
 	$('.input').on('focus', function(e){
-		$(this).parent('.inpwrapper').css('border-color', 'rgba(31, 32, 65, 0.5)')
+		//$(this).parents('.input-wrapper').css('border-color', 'rgba(31, 32, 65, 0.5)')
+		$(this).parents('.input-wrapper').addClass('input-wrapper-focused')
 	});
 	$('.input').on('blur', function(e){
-		$(this).parent('.inpwrapper').css('border-color', 'rgba(31, 32, 65, 0.25)')
+		//$(this).parents('.input-wrapper').css('border-color', 'rgba(31, 32, 65, 0.25)')
+		$(this).parents('.input-wrapper').removeClass('input-wrapper-focused')
 	});
 
 /*

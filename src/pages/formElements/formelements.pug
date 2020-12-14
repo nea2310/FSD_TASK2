@@ -22,94 +22,38 @@ include ../../components/dropdown/dropdown.pug
 
 block serv
   -var serv
-  div(class="grid")
-    div(class="test")
-      +feedback({imgpath: 'images/murad.jpg', name: 'Мурад Сарафанов', date: '5 дней назад', text: 'Великолепный матрас на кровати в основной спальне! А пуфик вообще потрясающий.        И стены, действительно, шумоподавляющие. Выкрикивал комплименты повару — никто не жаловался из соседей.'})
-    div(class="cell cell-col1")
-      div(class='space space-1')
-      +input({label: 'text field', type: 'subscription', icon: 'arrow', length: 'long', text: 'E-mail'})
-      div(class='space space-2')
-      +input({label: 'text field', type: 'text', length: 'long', text: 'This is pretty awesome'})
-      div(class='space space-3')
-      +input({label: 'masked text field', type: 'text', length: 'long', text: 'ДД.ММ.ГГГГ.'})
-      div(class='space space-4')
-      +calendarblock()
-      div(class='space space-5')
-      +calendar({type: 'datefilter-range'})
-      div(class='space space-6')
-      +input({label: 'subscription text field', type: 'subscription', icon: 'arrow', length: 'medium', text: 'E-mail'})
-      div(class='space space-7')
-      +dropdown({width: 'narrow'}, {'спальни': '2', 'кровати': '2', 'ванные комнаты': '0'}, {text: '2 спальни, 2 кровати...',})
-      div(class='space space-8')
-      +checklist_expand({label: 'expandable checkbox list'})
-      div(class='space space-9')
-      +feature({icon: 'mood', headertext: 'Комфорт', bodytext: 'Шумопоглащающие стены',})
-      div(class='space space-10')
-      +feature({icon: 'location_city', headertext: 'Удобство', bodytext: 'Окно в каждой из спален',})
-      div(class='space space-11')
-      +feature({icon: 'whatshot', headertext: 'TO_DELETE', bodytext: 'bodytext',})
-
-
-
-
-
-
-    div(class="cell cell-col2")
-      div(class='space space-12')
-      +checklist({label: 'checkbox buttons'})
-      div(class='space space-13')
-      div(class="def def-1") radio buttons
-      +radioblock({name1:'radioblock', name2:'radioblock', value1:'1', value2:'2', id1:'1', id2:'2', labeltext1:'Мужчина', labeltext2:'Женщина', checked1: 'checked'})
-      div(class='space space-14')
-      div(class="def def-2") toggle
-      +toggle({labeltext: 'Получать спецпредложения'})
-      div(class='space space-15')
-      div(class="def def-3") like button
-      +buttonlike()
-      div(class='space space-16')
-      +starrating({label: 'rate button'})
-      div(class='space space-17')
-      +dropdown({width: 'wide', buttons: true}, {'взрослые': '0', 'дети': '0', 'младенцы': '0',}, {text: 'Сколько гостей', })
-      div(class='space space-18')
-      +checklist_rich({label: 'rich checkbox buttons'})
-
-
-
-    div(class="cell cell-col3")
-      div(class='space space-19')
-      +rangeslider({label: 'range slider'})
-
-      div(class="def def-14") buttons
-      div(class="cell__inner")
-      div удалить:
-        +buttonaction({color: 'purple', length: 'medium', width: 'wide', text: 'click me', textcolor: 'white'})
-      div оставить:
-      +button({length: 'short', width: 'wide', backgroundcolor: 'purple', text: 'click me'})
-
-      div(class="def def-15")
-      div(class="cell__inner")
-      div удалить:
-        +buttonaction({color: 'white', length: 'medium', width: 'wide', text: 'click me', textcolor: 'purple'})
-      div оставить:
-      +button({length: 'short', width: 'wide', backgroundcolor: 'white', text: 'click me'})
-      div(class="def def-16")
-      div(class="cell__inner cell__inner-16")
-        +action({text: 'click me', textcolor: 'grey'})
-        +action({text: 'click me', textcolor: 'purple'})
-
-      div(class="def def-17")
-      div(class="cell__inner")
-      div удалить:
-        +buttonaction({color: 'purple', length: 'long', width: 'wide', text: 'перейти к оплате', textcolor: 'white', icon: 'arrow'})
-      div оставить:
-        +button({length: 'long', width: 'wide', backgroundcolor: 'purple', icon: 'arrow', text: 'перейти к оплате'})
-      div(class="def def-18") pagination
-      div(class="cell__inner cell__inner-18")
-        +pagination()
-      div(class="def def-23") bullet list
-      div(class="cell__inner cell__inner-19")
-        +bulletlist()
-
+  +input({label: 'text field', type: 'plaintext', icon: 'arrow', length: 'long', text: 'E-mail'})
+  +input({label: 'masked text field', type: 'maskedtext', length: 'long', text: 'ДД.ММ.ГГГГ.'})
+  +calendarblock()
+  +calendar({type: 'datefilter-range'})
+  +input({label: 'subscription text field', type: 'plaintext', icon: 'arrow', length: 'medium', text: 'E-mail'})
+  +dropdown({width: 'narrow'}, {'спальни': '2', 'кровати': '2', 'ванные комнаты': '0'}, {text: '2 спальни, 2 кровати...',})
+  +checklist_expand({label: 'expandable checkbox list'}, ['Завтрак', 'Письменный стол', 'Стул для кормления', 'Кроватка', 'Телевизор', 'Шампунь',])
+  +feature({icon: 'mood', headertext: 'Комфорт', bodytext: 'Шумопоглащающие стены',})
+  +feature({icon: 'location_city', headertext: 'Удобство', bodytext: 'Окно в каждой из спален',})
+  +feature({icon: 'whatshot', headertext: 'TO_DELETE', bodytext: 'bodytext',})
+  +checklist({label: 'checkbox buttons'}, ['Можно курить', 'Можно с питомцами', 'Можно пригласить гостей (до 10 человек)'])
+  div(class="def def-1") radio buttons
+  +radioblock({name:'radioblock'}, [{value: '1', id: '1', labeltext: 'Мужчина', checked: 'checked'}, {value: '2', id: '2', labeltext: 'Женщина'}])
+  div(class="def def-2") toggle
+  +toggle({labeltext: 'Получать спецпредложения'})
+  div(class="def def-3") like button
+  +buttonlike()
+  +starrating({label: 'rate button'})
+  +dropdown({width: 'wide', buttons: true}, {'взрослые': '0', 'дети': '0', 'младенцы': '0',}, {text: 'Сколько гостей', })
+  +checklist_rich({label: 'rich checkbox buttons'}, {'Широкий коридор': 'Ширина коридора в номере не менее 91 см.', 'Помощник для инвалидов': 'На 1 этаже вас встретит специалист и проводит до номера.',})
+  +rangeslider({label: 'range slider'})
+  div(class="def def-14") buttons
+  +button({length: 'short', width: 'wide', backgroundcolor: 'purple', text: 'click me'})
+  +button({length: 'short', width: 'wide', backgroundcolor: 'white', text: 'click me'})
+  +action({text: 'click me', textcolor: 'grey'})
+  +action({text: 'click me', textcolor: 'purple'})
+  +button({length: 'long', width: 'wide', backgroundcolor: 'purple', icon: 'arrow', text: 'перейти к оплате'})
+  div(class="def def-18") pagination
+  +pagination()
+  div(class="def def-23") bullet list
+  +bulletlist({label: 'bullet list'}, ['Нельзя с питомцами', 'Без вечеринок и мероприятий', 'Время прибытия - после 13:00, а выезд - до 12:00',])
+  +feedback({imgpath: 'images/murad.jpg', name: 'Мурад Сарафанов', date: '5 дней назад', text: 'Великолепный матрас на кровати в основной спальне! А пуфик вообще потрясающий.        И стены, действительно, шумоподавляющие. Выкрикивал комплименты повару — никто не жаловался из соседей.'})
 
 
 

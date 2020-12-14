@@ -1,9 +1,4 @@
-include ../../components/materialicons/materialicons.pug
-mixin starrating(options)
-  if !options
-    - options = {}
-  -
-  div(class="stars__wrapper")= options.label
+mixin starrating(options={})
   div(class="stars")
     span(class="star active")
     span(class="star active")

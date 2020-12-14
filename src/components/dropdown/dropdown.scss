@@ -1,17 +1,18 @@
 .dropdown-wrapper{
   position: relative;
-  & .input-wrapper  .input-label .input{
-    width: 166px;
+  & .input-wrapper[data-type='dropdown']  .input-label .input{
+    padding-right: 33%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
+     }
   &_wide {
     width: 320px;
   }
   &_narrow {
     width: 266px;
   }
+
 }
 
 

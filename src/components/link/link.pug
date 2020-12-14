@@ -1,6 +1,4 @@
-mixin link(options)
-  if !options
-    - options = {}
+mixin link(options={})
   -
   a(class="link")(
     href = options.href || "/mock-address/change-me"

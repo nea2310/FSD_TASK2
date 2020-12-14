@@ -1,6 +1,4 @@
-mixin menuitem(options)
-  if !options
-    - options = {}
+mixin menuitem(options={})
   -
   li(class="menuitem")
    a(href="" class="menuitem__link")=options.text

@@ -1,9 +1,7 @@
 include ../../components/info/info.pug
 include ../../components/buttonlike/buttonlike.pug
 
-mixin feedback(options)
-  if !options
-    - options = {}
+mixin feedback(options={})
   -
     var icon = options.icon
     var headertext = options.name

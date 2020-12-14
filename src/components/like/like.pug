@@ -1,7 +1,5 @@
 include ../../components/materialicons/materialicons.pug
-mixin like(options)
-  if !options
-    - options = {}
+mixin like(options={})
   -
   div(class="like__wrapper")
     div(class="like__heart")

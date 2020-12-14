@@ -1,9 +1,7 @@
 include ../../components/info/info.pug
 include ../../components/materialicons/materialicons.pug
 
-mixin feature(options)
-  if !options
-    - options = {}
+mixin feature(options={})
   -
     var icon = options.icon
     var headertext = options.headertext

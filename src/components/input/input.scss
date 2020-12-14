@@ -1,4 +1,5 @@
 input{
+  cursor: default;
   border:none;
   outline: none;
   &:focus{
@@ -7,24 +8,25 @@ input{
 }
 .input{
   @include font_body;
-  //font-size: 14px;
-  //margin-top: 7px;
-  //margin-left: 12px;
   padding-top: 9px;
-  padding-left: 14px;
-  width: 100% !important;
-  //border: 1px solid blue;
+  //padding-left: 14px;
+  text-indent: 14px;
+  width: 100%;
+
+
 
   &-label{
    width: 100%;
- //   border: 1px solid red;
   }
 
   &__datepicker-visible{
     display: none;
   }
+
+
 }
 .input-wrapper{
+  cursor: pointer!important;
   height: 44px;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
@@ -33,16 +35,45 @@ input{
   position: relative;
   overflow: hidden;
   box-sizing: border-box;
+   &:hover{
+     border-color: $color_grey_opaque;;
+   }
+
+  &-focused{
+    border-color: $color_grey_opaque;;
+  }
+
+  &[data-type='checklistexpand']{
+    border: none!important;
+  }
+
+  &[data-type='checklistexpand']>.input-label>.input::-webkit-input-placeholder{
+    text-transform: uppercase;
+    font-size: 12px;
+    font-family: "Montserrat Bold", Arial, sans-serif;
+    color: $color_black;
+    text-indent: 0px;
+     }
+
+   &[data-type='plaintext']>.input-label>.input::-webkit-input-placeholder{
+    color: $color_grey_lightopaque;
+}
+  &[data-type='plaintext']>.input-label>.input::-moz-placeholder{
+    color: $color_grey_lightopaque;
+  }
+  &[data-type='maskedtext']>.input-label>.input::-webkit-input-placeholder{
+    color: $color_grey_lightopaque;
+  }
+  &[data-type='maskedtext']>.input-label>.input::-moz-placeholder{
+    color: $color_grey_lightopaque;
+  }
+
 
   &_collapsed{
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
   }
 
-  &:focus{
-    border: 1px solid $color_grey_opaque;
-    box-sizing: border-box;
-  }
 
   &_short{
     width: 150px;
@@ -65,3 +96,5 @@ input{
     top: 9px;
   }
 }
+
+

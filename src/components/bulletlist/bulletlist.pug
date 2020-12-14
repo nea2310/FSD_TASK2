@@ -1,14 +1,8 @@
-mixin bulletlist()
-  div(class="bulletlist")
-    div(class="bulletlist__row")
-      div(class="bulletlist__marker")
-      div(class="bulletlist__label") Нельзя с питомцами
-    div(class="bulletlist__row")
-      div(class="bulletlist__marker")
-      div(class="bulletlist__label") Без вечеринок и мероприятий
-    div(class="bulletlist__row")
-      div(class="bulletlist__marker")
-      div(class="bulletlist__label") Время прибытия - после 13:00, а выезд - до 12:00
-
-
-
+include ../../components/label/label.pug
+mixin bulletlist(options={}, categories={})
+  +label({label: options.label})
+  each val in categories
+    ul(class="bulletlist")
+      li(class="bulletlist__row")
+        div(class="bulletlist__marker")
+        div(class="bulletlist__label")=val

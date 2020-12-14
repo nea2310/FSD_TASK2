@@ -1,6 +1,4 @@
-mixin toggle(options)
-  if !options
-    - options = {}
+mixin toggle(options={})
   -
   div(class="toggle__wrapper")= options.label
   label(class="togglemark__wrapper")

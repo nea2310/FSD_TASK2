@@ -4,6 +4,20 @@ const counter =jQuery('document').ready(function($) {
 		$(this).toggleClass('input-wrapper_collapsed')
 	})
 
+	$("div[data-type='dropdown']").children('.input-label').children('.input').prop("value", function(i, text) {
+
+		if (text.length >= 10) {
+			text = text.substring(0, 10);
+			var lastIndex = text.lastIndexOf(" ");       // позиция последнего пробела
+			text = text.substring(0, lastIndex) + '...'; // обрезаем до последнего слова
+		}
+
+		$(this).prop("value", text);
+		console.log(text);
+
+	});
+
+
 
 	$('.dropdown-submit').click(function () {
 		$(this).parents('.dropdown-countwrapper').addClass('dropdown-countwrapper_collapsed');
@@ -18,6 +32,7 @@ const counter =jQuery('document').ready(function($) {
 		$(this).parents('.dropdown-countwrapper').children('.counter').children('.counter-category').children('.count-wrapper').children('.count_decrem').addClass('count_inactive')
 		$(this).parents('.dropdown-countwrapper').children('.counter').children('.counter-category').children('.count-wrapper').children('.count__value').text('0').addClass('count__value_inactive')
 		input.val(default_val);
+		$(this).children('.action').addClass('action_inactive');
 		//isCleaned=true;
 	})
 

@@ -1,6 +1,4 @@
-mixin buttonwrapper(options)
-  if !options
-    - options = {}
+mixin buttonwrapper(options={})
   -
     var classes = ''
     classes += options.color ? ' buttonwrapper-' + options.color : ''

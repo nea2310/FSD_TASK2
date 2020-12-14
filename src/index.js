@@ -24,7 +24,6 @@ import * as button_like from '@/components/buttonlike/buttonlike';
 import * as starrating from '@/components/starrating/starrating';
 import * as input from '@/components/input/input';
 import * as header from '@/components/header/header';
-import * as slider from '@/components/slider/slider';
 
 
 
