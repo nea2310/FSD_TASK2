@@ -1,7 +1,25 @@
-.logo {
+.logo{
   background-repeat: no-repeat;
   width: 110px;
-  height: 40px;
-  align-items: center;
-  background-image: url(img/logo.svg);
+
+  &-color {
+    height: 40px;
+    align-items: center;
+    background-image: url(img/logo.svg);
+  }
+
+
+  &-grey {
+    height: 50px;
+    align-items: center;
+    background-image: url(img/logo_black.svg);
+    position: fixed;
+    top:28px;
+    left:235px;
+    z-index: 100;
+  }
 }
+
+
+
+

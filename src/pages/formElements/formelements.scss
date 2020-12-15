@@ -1,0 +1,35 @@
+.formelements{
+  &__col-wrapper{
+    justify-content: space-between;
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1160px;
+    padding-top: 140px;
+    margin: 0 auto;
+    padding-right: 30px;
+    padding-left: 30px;
+      }
+
+
+  &__card{
+   // border: 1px solid red;
+    padding-bottom: 20px;
+    //display: flex;
+    &-1{
+      display: flex;
+      justify-content: space-between;
+      //border: 1px solid red;
+      max-width: 142px;
+    }
+  }
+
+}
+
+
+
+
+
+
+
+
+

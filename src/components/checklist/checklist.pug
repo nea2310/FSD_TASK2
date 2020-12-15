@@ -16,7 +16,7 @@ mixin checklist_rich(options={}, categories={})
   +label({label: options.label})
   ul(class="checklist")
     each val, index in categories
-      +checkbox({labelbottom: true, toplabel: 'bold', toptext: index, bottomtext: val})
+      +checkbox({labelbottom: true, toplabel: 'label-bold', toptext: index, bottomtext: val})
       div(class="checklist__interval")
 
 

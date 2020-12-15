@@ -2,6 +2,7 @@
   &__wrapper{
     @include font__Montserrat_grey;
     display: flex;
+    font-size: 14px;
   }
 }
 
@@ -10,7 +11,7 @@
   &__wrapper{
     margin-left: 10px;
     max-width: 240px;
-    margin-bottom: 12px;
+    margin-bottom: 15px;
   }
 
   &-top{

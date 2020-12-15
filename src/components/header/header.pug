@@ -3,9 +3,7 @@ include ../../components/button/button.pug
 include ../../components/materialicons/materialicons.pug
 include ../../components/logo/logo.pug
 include ../../components/menuitem/menuitem.pug
-mixin header(options)
-  if !options
-    - options = {}
+mixin header(options={})
   -
     var isAuth = options.isAuthorized
   div(class="header-burger")

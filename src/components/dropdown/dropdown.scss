@@ -18,6 +18,7 @@
 
 .dropdown-countwrapper{
   position: absolute;
+  z-index: 1;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   border-left: 1px solid $color_grey_lightopaque;
