@@ -64,7 +64,7 @@
 }
 .header-menu{
 
-  margin-top: 13px;
+  margin-top: 25px;
   font-size: 14px;
   display: flex;
   justify-content: flex-end;
@@ -177,15 +177,28 @@
   .header-burger.active span{
     transform: scale(0);
   }
-  .heade-menu{
+
+  .header-burger.active~.header .header-innerwrapper .header-menu{
+   // border: 1px solid red;
+  }
+
+  .header-list{
+
+    display: block;
+    background-color: $color_white;
+    //padding-top: 100px;
+  }
+
+  .header-menu{
     height: 0;
     position: absolute;
     top: -100%;
-    left: 0;
+    left: 30px;
     width: 0;
     overflow: hidden;
     transition: none;
     margin-top: -20px;
+    z-index: 5;
   }
 
   .header-menu.active{
@@ -194,18 +207,13 @@
     width: 100%;
     display: block;
     overflow: visible;
-    padding-top: 70px;
+    padding-top: 75px;
     transition: all 0.5s linear 0s;
   }
 
 
 
-  .header-list{
 
-    display: block;
-    background-color: $color_grey_opaque;
-    //padding-top: 100px;
-  }
 
 
   .header-list li{

@@ -3,6 +3,7 @@ include ../../components/button/button.pug
 include ../../components/materialicons/materialicons.pug
 include ../../components/logo/logo.pug
 include ../../components/menuitem/menuitem.pug
+include ../../components/logo/logo.pug
 mixin header(options={})
   -
     var isAuth = options.isAuthorized
@@ -23,7 +24,7 @@ mixin header(options={})
         div(class='header-username') Юлий Цезарь
       else
         div(class="header-login")
-          +button({length: 'short', width: 'narrow', backgroundcolor: 'white', text: 'войти'})
+          +button({length: 'supershort', width: 'narrow', backgroundcolor: 'white', text: 'войти'})
           +button({length: 'mediumlength', width: 'narrow', backgroundcolor: 'purple', text: 'зарегистрироваться'})
 
 

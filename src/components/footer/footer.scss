@@ -1,0 +1,86 @@
+.footer{
+  display: flex;
+  font-size: 14px;
+  justify-content: space-between;
+  //width: 100%;
+  //max-width: 1000px;
+  margin: 0 auto;
+  background-color: $color_white;
+  //position: relative;
+
+
+  &-list{
+    @include font__Montserrat_darkgrey;
+    font-weight: bolder;
+    border: 1px solid red;
+    //position: absolute;
+   // display: flex;
+    //flex-direction: column;
+
+    &-1 {
+    //  left: 10%;
+     // margin-top: -10px;
+      margin-left: 9.5%;
+      max-width: 254px;
+    //  width: 20%;
+    //  margin-bottom: 10px;
+    }
+
+    &-2 {
+      margin-left: 43px;
+      flex-grow: 1;
+     // width:200px;
+     // padding-left: 30px;
+      //left: 10%;
+     // width: 15%;
+      //margin-left: -6%;
+      //padding-left: 10px;
+      //margin-right: 10px;
+    }
+
+   &-3 {
+     margin-left: 20px;
+     flex-grow: 1;
+   //  width:200px;
+   //  left: 10%;
+     //width: calc(41.5%/3);
+     //width: 15%;
+    // margin-right: 6%;
+   }
+
+&-4 {
+  margin-left: 20px;
+  flex-grow: 1;
+ // width:200px;
+ // left: 10%;
+ // width: calc(41.5%/3);
+ // width: 15%;
+ // margin-right: 6%;
+}
+
+
+    &-5 {
+     /// left: 10%;
+    //  width:19%;
+     margin-right: 9%;
+    //  margin-left: 10px;
+      max-width: 272px;
+    }
+  }
+
+}
+
+
+
+.menuitem:nth-child(3){
+ // border: 1px solid red!important;
+}
+
+
+.footer-list{
+ // border: 1px solid green!important;
+}
+
+.a{
+ // border: 1px solid green!important;
+}

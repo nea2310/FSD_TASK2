@@ -1,6 +1,8 @@
 mixin menuitem(options={})
   -
-  li(class="menuitem")
+    var li_classes="menuitem"
+    li_classes += options.is_vertical ? ' menuitem-vertical' : ''
+  li(class=li_classes)
    a(href="" class="menuitem__link")=options.text
    if options.tip
      +materialicons({

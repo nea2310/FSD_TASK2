@@ -24,6 +24,7 @@
     max-width: 82px;
   }
 
+
   &_wide {
     height: 40px;
   }
@@ -67,6 +68,9 @@
 
     &_short {
       max-width: 95px;
+    }
+    &_supershort {
+      max-width: 83px;
     }
 
     &:hover {
