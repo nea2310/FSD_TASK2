@@ -11,7 +11,9 @@ import './plugins/datepicker.min.js';
 
 import murad from './components/feedback/images/murad.svg'
 import room1 from './components/slickslider/images/room1.jpg'
-import room2 from './components/slickslider/images/room2.jpg'
+import facebook from './components/footer/images/facebook.svg'
+import instagram from './components/footer/images/instagram.svg'
+import twitter from './components/footer/images/twitter.svg'
 
 
 import * as counter from '@/components/counter/counter';
