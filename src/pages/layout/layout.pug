@@ -1,0 +1,14 @@
+include ../../components/header/header.pug
+include ../../components/footer/footer.pug
+html
+  head
+    block title
+      title Default Title
+  body
+    div(class="main-wrapper")
+      block header
+        +header()
+    block content
+      div Test
+    block footer
+      +footer()

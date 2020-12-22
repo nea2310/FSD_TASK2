@@ -1,23 +1,19 @@
 .header{
   display: flex;
   justify-content: space-between;
-  align-items: center;
   height: 70px;
   background-color: $color_white;
-  //border: 1px solid red;
 }
 
 .header-logo{
-  margin-left: 9.6%;
-  //margin-top: 13px;
+  margin-left: 140px;
+  margin-top: 13px;
   display: block;
-  flex-grow: 1;
-  //border: 1px solid green;
 }
 
 .header-login{
-  //margin-top: 18px;
-  margin-right: 9.7%;
+  margin-top: 18px;
+  margin-right: 140px;
  // position: relative;
    display: flex;
   //flex-direction: row;
@@ -27,26 +23,25 @@
   width: 303px;
   //border: 1px solid red;
  margin-left: 20px;
- // border: 1px solid orange;
  }
 
 .header-username{
   height: 30px;
-  margin-right: 9.8%;
+  margin-right: 140px;
   @include font__Montserrat_grey;
   font-size: 14px;
   border-left: 1px solid rgba(31, 32, 65, 0.1);
   display: flex;
   align-items: center;
-  //margin-top: 20px;
+  margin-top: 20px;
   margin-left: 20px;
   padding-left: 20px;
 }
 
-/*.header-innerwrapper{
+.header-innerwrapper{
   display: flex;
   justify-content: flex-end;
-}*/
+}
 
 .header-login__enter{
 // position: absolute;
@@ -69,12 +64,10 @@
 }
 .header-menu{
 
-  margin-top: 5px;
- // margin-left: 260px;
+  margin-top: 25px;
   font-size: 14px;
   display: flex;
   justify-content: flex-end;
-  //border: 1px solid blue;
 
 }
 

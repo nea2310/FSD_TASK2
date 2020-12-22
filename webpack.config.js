@@ -125,6 +125,22 @@ module.exports = {
 			 filename: 'index.html',
 			 template: './pages/main/main.pug',
 			 }),
+		new HTMLWebpackPlugin({
+			filename: 'layout.html',
+			template: './pages/layout/layout.pug',
+		}),
+		new HTMLWebpackPlugin({
+			filename: 'landing_page.html',
+			template: './pages/landing_page/landing_page.pug',
+		}),
+		new HTMLWebpackPlugin({
+			filename: 'registration.html',
+			template: './pages/registration/registration.pug',
+		}),
+		new HTMLWebpackPlugin({
+			filename: 'sign_in.html',
+			template: './pages/sign_in/sign_in.pug',
+		}),
 		new CleanWebpackPlugin(),
 		new CopyWebpackPlugin({
 		  patterns: [

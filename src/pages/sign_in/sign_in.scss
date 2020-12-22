@@ -1,0 +1,25 @@
+.signin-page{
+  background-image: url(img/background_reg_signin.jpg);
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
+  height: 700px;
+  margin-bottom: 100px;
+  position: relative;
+  & .form-wrapper{
+    position: absolute;
+    left: 37%;
+    top: 24.7%;
+  }
+}
+
+
+
+@media screen and (max-width: 650px){
+  .signin-page{
+
+    & .form-wrapper{
+      left: 10%;
+    }
+  }
+}

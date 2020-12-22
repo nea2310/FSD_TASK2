@@ -1,9 +1,9 @@
 .menuitem{
   display: flex;
-  margin-left: 20px;
+  margin-left: 21px;
   &-vertical{
     margin-left: 0!important;
-    margin-top: 22px;
+    margin-top: 20px;
   }
 }
 
@@ -11,6 +11,7 @@
   @include font__Montserrat_grey;
   text-decoration: none;
   list-style: none;
+  white-space: nowrap;
 }
 
 .menuitem__link:hover{

@@ -12,20 +12,19 @@ mixin header(options={})
   header(class="header")
     a(href="" class="header-logo")
       +logo()
-    div(class="header-innerwrapper")
-      nav(class="header-menu")
-        ul(class="header-list")
-          +menuitem({text: 'О нас'})
-          +menuitem({text: 'Услуги', tip: true})
-          +menuitem({text: 'Вакансии'})
-          +menuitem({text: 'Новости'})
-          +menuitem({text: 'Соглашения', tip: true})
-      if (options.isAuthorized)
-        div(class='header-username') Юлий Цезарь
-      else
-        div(class="header-login")
-          +button({length: 'supershort', width: 'narrow', backgroundcolor: 'white', text: 'войти'})
-          +button({length: 'mediumlength', width: 'narrow', backgroundcolor: 'purple', text: 'зарегистрироваться'})
+    nav(class="header-menu")
+      ul(class="header-list")
+        +menuitem({text: 'О нас'})
+        +menuitem({text: 'Услуги', tip: true})
+        +menuitem({text: 'Вакансии'})
+        +menuitem({text: 'Новости'})
+        +menuitem({text: 'Соглашения', tip: true})
+    if (options.isAuthorized)
+      div(class='header-username') Юлий Цезарь
+    else
+      div(class="header-login")
+        +button({length: 'supershort', width: 'narrow', backgroundcolor: 'white', text: 'войти'})
+        +button({length: 'mediumlength', width: 'narrow', backgroundcolor: 'purple', text: 'зарегистрироваться'})
 
 
 

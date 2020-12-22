@@ -1,0 +1,25 @@
+.registration-page{
+  background-image: url(img/background_reg_signin.jpg);
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
+  height: 683px;
+  margin-bottom: 99px;
+  position: relative;
+  & .form-wrapper{
+    position: absolute;
+    left: 37.3%;
+    top: 2.9%;
+  }
+}
+
+
+
+@media screen and (max-width: 650px){
+  .registration-page{
+
+    & .form-wrapper{
+      left: 10%;
+         }
+  }
+}
