@@ -1,0 +1,8 @@
+extends ../../pages/layout/layout.pug
+block title
+  title Search Room
+block content
+  include ../../components/search/search.pug
+  section(class="landing-page")
+    div(class="form-wrapper")
+      +search()

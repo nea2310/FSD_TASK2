@@ -1,0 +1,9 @@
+include ../../components/calendar/calendar.pug
+include ../../components/dropdown/dropdown.pug
+include ../../components/rangeslider/rangeslider.pug
+include ../../components/checklist/checklist.pug
+include ../../components/slickslider/slickslider.pug
+include ../../components/pagination/pagination.pug
+mixin search(options={})
+
+  +calendar({type: 'datefilter-range'})

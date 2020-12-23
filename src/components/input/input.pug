@@ -14,7 +14,7 @@ mixin input(options={})
     input(class=input_classes)
   else
     div(class=input_wrapper_classes data-type=type)
-      label(class='input-label')
+      label(class='input-label') TEST
         if type==='maskedtext'
           input(class=input_classes maxlength=50 placeholder=text type='password')
         else

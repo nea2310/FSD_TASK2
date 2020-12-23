@@ -131,9 +131,11 @@ $gradient_green: linear-gradient($color_light_green 0%, $color_light_blue 100%);
 @import "../components/button/button.scss";
 @import "../components/dropdown/dropdown.scss";
 @import "../components/label/label.scss";
+@import "../components/search/search.scss";
 @import "../pages/landing_page/landing_page.scss";
 @import "../pages/registration/registration.scss";
 @import "../pages/sign_in/sign_in.scss";
+@import "../pages/search_room/search_room.scss";
 
 @import "../pages/layout/layout.scss";
 

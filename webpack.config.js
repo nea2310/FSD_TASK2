@@ -141,6 +141,10 @@ module.exports = {
 			filename: 'sign_in.html',
 			template: './pages/sign_in/sign_in.pug',
 		}),
+		new HTMLWebpackPlugin({
+			filename: 'search_room.html',
+			template: './pages/search_room/search_room.pug',
+		}),
 		new CleanWebpackPlugin(),
 		new CopyWebpackPlugin({
 		  patterns: [
