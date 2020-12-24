@@ -3,7 +3,8 @@ include ../../components/action/action.pug
 include ../../components/label/label.pug
 mixin calendar(options={})
   div(class='calendar-wrapper')
-    +label({label: options.label})
+    if options.label_required
+      +label({label: options.label, margins: options.margins})
     if (options.type=='date_from')
       +input({type: 'calendar',input_type: 'datepicker-start', icon: 'tip', length: 'short', text: 'ДД.ММ.ГГГГ', readonly: 'readonly'})
     else if(options.type=='date_to')

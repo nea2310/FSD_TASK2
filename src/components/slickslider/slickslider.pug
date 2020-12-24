@@ -1,19 +1,14 @@
 mixin slickslider(options={})
-  -
-    var img1 = options.img1
-    var img2 = options.img2
-    var img3 = options.img3
-    var img4 = options.img4
   div(class="slickslider__wrapper")
     div(class="slider demo")
       div(class="slide-1")
-        img(class="slide" src=img1)
+        img(class="slide" src=options.img1)
       div(class="slide-2")
-        img(class="slide" src=img2)
+        img(class="slide" src=options.img2)
       div(class="slide-3")
-        img(class="slide" src=img3)
+        img(class="slide" src=options.img3)
       div(class="slide-4")
-        img(class="slide" src=img4)
+        img(class="slide" src=options.img4)
     div(class="dtls__row dtls__row-1")
       div(class="sign") №
       div(class="number")= options.roomNumber

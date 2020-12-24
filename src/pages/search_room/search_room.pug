@@ -3,6 +3,13 @@ block title
   title Search Room
 block content
   include ../../components/search/search.pug
-  section(class="landing-page")
-    div(class="form-wrapper")
+  include ../../components/slickslider/slickslider.pug
+  section(class="search-wrapper")
+    aside(class="search-form")
       +search()
+    section(class="results-wrapper") Номера, которые мы для вас подобрали
+      section(class="search-results")
+        +slickslider({img1:'images/room1.jpg', img2:'images/room1.jpg', img3:'images/room1.jpg', img4:'images/room1.jpg',
+                  roomNumber: '840', price: '9 990', rating: 'star star star star star_border', reviewAmount: '65'
+                  })
+

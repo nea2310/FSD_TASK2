@@ -2,8 +2,20 @@ include ../../components/calendar/calendar.pug
 include ../../components/dropdown/dropdown.pug
 include ../../components/rangeslider/rangeslider.pug
 include ../../components/checklist/checklist.pug
-include ../../components/slickslider/slickslider.pug
 include ../../components/pagination/pagination.pug
 mixin search(options={})
-
-  +calendar({type: 'datefilter-range'})
+  div(class="searchform-wrapper searchform-wrapper_1")
+    +calendar({label_required: true, type: 'datefilter-range', label: 'даты пребывания в отеле', margins: 'margin-bottom: 0'})
+  div(class="searchform-wrapper searchform-wrapper_2")
+    +dropdown({width: 'narrow', buttons: true}, {'взрослые': '0', 'дети': '0', 'младенцы': '0',}, {text: 'Сколько гостей', label: 'гости', label_required: true, margins: 'margin-bottom: 0'})
+  div(class="searchform-wrapper searchform-wrapper_3")
+    +rangeslider({label: 'диапазон цены'})
+    p(class="searchform-labelrange") Стоимость за сутки пребывания в номере
+  div(class="searchform-wrapper searchform-wrapper_4")
+    +checklist({label: 'правила дома', label_required: true, margins: 'margin-bottom: 17px'}, ['Можно курить', 'Можно с питомцами', 'Можно пригласить гостей (до 10 человек)'])
+  div(class="searchform-wrapper searchform-wrapper_5")
+    +checklist_rich({label: 'доступность', label_required: true, margins: 'margin-bottom: 17px'}, {'Широкий коридор': 'Ширина коридора в номере не менее 91 см.', 'Помощник для инвалидов': 'На 1 этаже вас встретит специалист и проводит до номера.',})
+  div(class="searchform-wrapper searchform-wrapper_6")
+    +dropdown({width: 'narrow'}, {'спальни': '2', 'кровати': '2', 'ванные комнаты': '1'}, {text: '2 спальни, 2 кровати...', label_required: true, label: 'удобства номера',  margins: 'margin-bottom: 10px'})
+  div(class="searchform-wrapper searchform-wrapper_7")
+    +checklist_expand({label: 'дополнительные удобства'}, ['Завтрак', 'Письменный стол', 'Стул для кормления', 'Кроватка', 'Телевизор', 'Шампунь',])

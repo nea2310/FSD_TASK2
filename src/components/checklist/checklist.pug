@@ -13,7 +13,8 @@ mixin checklist_expand(options={}, categories=[])
 
 mixin checklist_rich(options={}, categories={})
   -
-  +label({label: options.label})
+  if options.label_required
+    +label({label: options.label, margins: options.margins})
   ul(class="checklist")
     each val, index in categories
       +checkbox({labelbottom: true, toplabel: 'label-bold', toptext: index, bottomtext: val})
@@ -24,7 +25,8 @@ mixin checklist_rich(options={}, categories={})
 
 
 mixin checklist(options={}, categories=[])
-  +label({label: options.label})
+  if options.label_required
+    +label({label: options.label, margins: options.margins})
   ul(class="checklist")
     each val in categories
       +checkbox({toptext: val})

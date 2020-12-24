@@ -7,20 +7,50 @@ input{
   }
 }
 .input{
+
+  height: 44px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+ // border-bottom-left-radius: 5px;
+ // border-bottom-right-radius: 5px;
+  border: 1px solid $color_grey_lightopaque;
+
+
   @include font_body;
-  padding-top: 9px;
+ // padding-top: 9px;
   //padding-left: 14px;
-  text-indent: 14px;
+  text-indent: 12px;
   width: 100%;
-  border: 1px solid green;
-  box-sizing: border-box;
+  //border: 1px solid green;
+ // box-sizing: border-box;
+  margin-top: 5px;
 
+  &:hover{
+    border-color: $color_grey_opaque;
+  }
+  &_focused{
+    border-color: $color_grey_opaque;
+  }
 
+  &_collapsed{
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+  &_expanded{
+    border: 1px solid $color_grey_opaque!important;
+  }
 
   &-label{
+    position: relative;
    width: 100%;
-    border: 1px solid red;
+  //  border: 1px solid red;
     box-sizing: border-box;
+    @include font_h3;
+    text-transform: uppercase;
+    font-weight: bold;
+    display: inline-block;
+
+
   }
 
   &__datepicker-visible{
@@ -31,23 +61,16 @@ input{
 }
 .input-wrapper{
   cursor: pointer!important;
-  height: 44px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  border: 1px solid $color_grey_lightopaque;
+
   display: flex;
-  position: relative;
   overflow: hidden;
   box-sizing: border-box;
-   &:hover{
-     border-color: $color_grey_opaque;;
-   }
 
-  &-focused{
-    border-color: $color_grey_opaque;;
-  }
 
-  &[data-type='checklistexpand']{
+
+
+
+  &[data-type='checklistexpand'] .input-label .input{
     border: none!important;
   }
 
@@ -73,10 +96,7 @@ input{
   }
 
 
-  &_collapsed{
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-  }
+
 
 
   &_short{
@@ -96,8 +116,9 @@ input{
 
   i {
     position: absolute;
-    right: 8px;
-    top: 9px;
+    right: 10px;
+    bottom: 12px;
+    z-index: 5;
   }
 }
 

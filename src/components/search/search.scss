@@ -1,0 +1,32 @@
+.form-wrapper{
+}
+
+.searchform-labelrange{
+  line-height: 27px;
+  font-size: 10px;
+  text-transform: uppercase;
+  @include font__Montserrat_grey;
+}
+
+.searchform-wrapper{
+
+  &_1{
+    margin-bottom: 21px;
+  }
+  &_2{
+    margin-bottom: 31px;
+  }
+  &_3{
+    margin-bottom:23px;
+  }
+  &_4{
+    margin-bottom: 23px;
+  }
+  &_5{
+    margin-bottom: 20px;
+  }
+  &_6{
+    margin-bottom: 9px;
+  }
+
+}

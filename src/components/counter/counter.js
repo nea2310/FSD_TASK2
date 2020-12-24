@@ -1,7 +1,8 @@
 const counter =jQuery('document').ready(function($) {
-	$("div[data-type='dropdown']").click(function () {
-		$(this).parents('.dropdown-wrapper').children('.dropdown-countwrapper').toggleClass('dropdown-countwrapper_collapsed')
-		$(this).toggleClass('input-wrapper_collapsed')
+	$("div[data-type='dropdown']").children('.input-label').children('.input').click(function () {
+		$(this).parents('.dropdown-wrapper').children('.dropdown-countwrapper').toggleClass('dropdown-countwrapper_collapsed');
+		$(this).toggleClass('input_collapsed');
+		$(this).toggleClass('input_expanded')
 	})
 
 	$("div[data-type='dropdown']").children('.input-label').children('.input').prop("value", function(i, text) {
@@ -21,10 +22,11 @@ const counter =jQuery('document').ready(function($) {
 
 	$('.dropdown-submit').click(function () {
 		$(this).parents('.dropdown-countwrapper').addClass('dropdown-countwrapper_collapsed');
-		$(this).parents('.dropdown-wrapper').children('.input-wrapper').addClass('input-wrapper_collapsed')
+		$(this).parents('.dropdown-wrapper').children('.input-wrapper').children('.input-label').children('.input').addClass('input_collapsed')
+		$(this).parents('.dropdown-wrapper').children('.input-wrapper').children('.input-label').children('.input').removeClass('input_expanded')
 	})
 
-	//let isCleaned=true;
+
 
 	$('.dropdown-clean').click(function () {
 		let input = $(this).parents('.dropdown-wrapper').children('.input-wrapper').children('.input-label').children('.input');
@@ -197,7 +199,8 @@ $(this).parents('.dropdown-wrapper').children('.input-wrapper').children('.input
 		if (!block.is(e.target) // если клик был не по нашему блоку
 			&& block.has(e.target).length === 0) { // и не по его дочерним элементам
 		    $('.dropdown-countwrapper').addClass('dropdown-countwrapper_collapsed')// скрываем его
-		    block.children('.input-wrapper').addClass('input-wrapper_collapsed')// скрываем его
+		    block.children('.input-wrapper').children('.input-label').children('.input').addClass('input_collapsed')// скрываем его
+		    block.children('.input-wrapper').children('.input-label').children('.input').removeClass('input_expanded')// скрываем его
 		}
 	});
 

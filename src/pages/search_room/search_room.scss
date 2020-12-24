@@ -1,0 +1,41 @@
+.search-wrapper{
+  display: flex;
+  box-sizing: border-box;
+ // border: 1px solid blue;
+  margin-top: 0%;
+  margin-left: 0%;
+  margin-right: 0%;
+}
+
+
+.search-form{
+  box-sizing: border-box;
+  //border: 1px solid green;
+  margin-top: 2.2%;
+  margin-left: 4.2%;
+  margin-right: 0%;
+}
+
+.results-wrapper{
+  @include font_h1();
+  font-weight: bold;
+  letter-spacing: 2px;
+  word-spacing: -5px;
+  font-weight: 700;
+  margin-top: 2.2%;
+  margin-left: 4.5%;
+  margin-right: 0%;
+
+}
+
+
+.search-results{
+  height: 800px;
+  box-sizing: border-box;
+//  border: 1px solid red;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 0%;
+  margin-left: 0%;
+  margin-right: 0%;
+}
