@@ -10,7 +10,7 @@
 	border-bottom-right-radius: 4px;
 	//border: 1px solid red;
 }
-.demo {
+.slider {
 	width: 272px;
 	//border: 10px solid red;
 	//border-radius: 5px;
@@ -61,21 +61,18 @@ li.slick-active button[role="tab"]:before {
 .dtls__row {
 	display: flex;
 	margin-right: 15px;
-	&-1 {
+	& div {
+		display: flex;
+	}
+	&:nth-child(2) {
 		margin-top: -5px;
 		margin-bottom: 10px;
 		justify-content: space-between;
-		& div {
-			display: flex;
-		}
 	}
-	&-2 {
+	&:nth-child(4) {
 		margin-top: 8px;
 		margin-left: 20px;
 		justify-content: space-between;
-		& div {
-			display: flex;
-		}
 	}
 }
 
@@ -87,7 +84,7 @@ li.slick-active button[role="tab"]:before {
 	margin: 0 auto;
 }
 
-.sign {
+.dtls__sign {
 	font-family: "Quicksand Bold", Arial, sans-serif;
 	font-size: 14px;
 	//line-height: 10px;
@@ -97,7 +94,7 @@ li.slick-active button[role="tab"]:before {
 	margin: -2px 0px 0px 20px;
 	line-height: 17.5px;
 }
-.number {
+.dtls__number {
 	font-family: "Quicksand Bold", Arial, sans-serif;
 	font-size: 22px;
 	letter-spacing: -1px;
@@ -109,54 +106,54 @@ li.slick-active button[role="tab"]:before {
 	margin: -8px 0px 0px 4px;
 	line-height: 24.5px;
 }
-.lux {
+.dtls__lux {
 	@include font_body;
 	color: $color_purple;
 	margin: -4px 0px 0px 2px;
 	font-weight: bold;
 }
 
-.price,
-.reviewamount {
+.dtls__price,
+.dtls__reviewamount {
 	font-family: "Montserrat Bold", Arial, sans-serif;
 	color: $color_grey_opaque;
 	font-size: 13px;
 }
 
-.price {
+.dtls__price {
 	margin: 0px 0px 0px 39px;
 }
 
-.reviewamount {
+.dtls__reviewamount {
 	margin: 4px 0px 0px 20px;
 }
 
-.currency {
+.dtls__currency {
 	font-family: "Montserrat Bold", Arial, sans-serif;
 	color: $color_grey_opaque;
 	font-size: 13px;
 	margin: 0px 0px 0px 3px;
 }
 
-.period,
-.review {
+.dtls__period,
+.dtls__review {
 	font-family: "Montserrat", Arial, sans-serif;
 	color: $color_grey_opaque;
 }
 
-.period {
+.dtls__period {
 	margin: 0px 0px 5px 1px;
 	letter-spacing: 0.5px;
 	font-size: 12px;
 }
 
-.review {
+.dtls__review {
 	margin: 4px 0px 0px 5px;
 	letter-spacing: 0.5px;
 	font-size: 13px;
 }
 
-.rating i {
+.dtls__rating i {
 	font-family: "MaterialIcons" !important;
 	color: $color_purple;
 	font-size: 24px !important;

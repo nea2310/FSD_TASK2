@@ -10,17 +10,17 @@ mixin slickslider(options={})
 				img(class="slide" src=options.img3)
 			div(class="slide-4")
 				img(class="slide" src=options.img4)
-		div(class="dtls__row dtls__row-1")
+		div(class="dtls__row")
 			div
-				div(class="sign") №
-				div(class="number")= options.roomNumber
-				div(class="lux")= options.isLux
+				div(class="dtls__sign") №
+				div(class="dtls__number")= options.roomNumber
+				div(class="dtls__lux")= options.isLux
 			div
-				div(class="price")= options.price
-				div(class="currency") ₽
-				div(class="period") в сутки
+				div(class="dtls__price")= options.price
+				div(class="dtls__currency") ₽
+				div(class="dtls__period") в сутки
 		div(class="dtls__line")
-		div(class="dtls__row dtls__row-2")
+		div(class="dtls__row")
 			div(class="rating")
 				+materialicons({
 					type: options.star1,
@@ -48,6 +48,6 @@ mixin slickslider(options={})
 					size: 'base',
 			})
 			div
-				div(class="reviewamount")= options.reviewAmount
-				div(class="review") Отзывов
+				div(class="dtls__reviewamount")= options.reviewAmount
+				div(class="dtls__review") Отзывов
 
