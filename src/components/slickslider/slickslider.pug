@@ -1,3 +1,4 @@
+include ../../components/materialicons/materialicons.pug
 mixin slickslider(options={})
   div(class="slickslider__wrapper")
     div(class="slider demo")
@@ -18,7 +19,32 @@ mixin slickslider(options={})
       div(class="period") в сутки
     div(class="dtls__line")
     div(class="dtls__row dtls__row-2")
-      div(class="rating")=options.rating
+      div(class="rating")
+        +materialicons({
+                            type: options.star1,
+                            color: 'purple',
+                            size: 'base',
+                        })
+        +materialicons({
+                            type: options.star2,
+                            color: 'purple',
+                            size: 'base',
+                        })
+        +materialicons({
+                            type: options.star3,
+                            color: 'purple',
+                            size: 'base',
+                        })
+        +materialicons({
+                            type: options.star4,
+                            color: 'purple',
+                            size: 'base',
+                        })
+        +materialicons({
+                            type: options.star5,
+                            color: 'purple',
+                            size: 'base',
+                        })
       div(class="reviewamount")= options.reviewAmount
       div(class="review") Отзывов
 
