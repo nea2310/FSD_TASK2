@@ -1,50 +1,53 @@
 include ../../components/materialicons/materialicons.pug
 mixin slickslider(options={})
-  div(class="slickslider__wrapper")
-    div(class="slider demo")
-      div(class="slide-1")
-        img(class="slide" src=options.img1)
-      div(class="slide-2")
-        img(class="slide" src=options.img2)
-      div(class="slide-3")
-        img(class="slide" src=options.img3)
-      div(class="slide-4")
-        img(class="slide" src=options.img4)
-    div(class="dtls__row dtls__row-1")
-      div(class="sign") №
-      div(class="number")= options.roomNumber
-      div(class="lux")= options.isLux
-      div(class="price")= options.price
-      div(class="currency") ₽
-      div(class="period") в сутки
-    div(class="dtls__line")
-    div(class="dtls__row dtls__row-2")
-      div(class="rating")
-        +materialicons({
-                            type: options.star1,
-                            color: 'purple',
-                            size: 'base',
-                        })
-        +materialicons({
-                            type: options.star2,
-                            color: 'purple',
-                            size: 'base',
-                        })
-        +materialicons({
-                            type: options.star3,
-                            color: 'purple',
-                            size: 'base',
-                        })
-        +materialicons({
-                            type: options.star4,
-                            color: 'purple',
-                            size: 'base',
-                        })
-        +materialicons({
-                            type: options.star5,
-                            color: 'purple',
-                            size: 'base',
-                        })
-      div(class="reviewamount")= options.reviewAmount
-      div(class="review") Отзывов
+	div(class="slickslider__wrapper")
+		div(class="slider demo")
+			div(class="slide-1")
+				img(class="slide" src=options.img1)
+			div(class="slide-2")
+				img(class="slide" src=options.img2)
+			div(class="slide-3")
+				img(class="slide" src=options.img3)
+			div(class="slide-4")
+				img(class="slide" src=options.img4)
+		div(class="dtls__row dtls__row-1")
+			div
+				div(class="sign") №
+				div(class="number")= options.roomNumber
+				div(class="lux")= options.isLux
+			div
+				div(class="price")= options.price
+				div(class="currency") ₽
+				div(class="period") в сутки
+		div(class="dtls__line")
+		div(class="dtls__row dtls__row-2")
+			div(class="rating")
+				+materialicons({
+					type: options.star1,
+					color: 'purple',
+					size: 'base',
+			})
+				+materialicons({
+					type: options.star2,
+					color: 'purple',
+					size: 'base',
+			})
+				+materialicons({
+					type: options.star3,
+					color: 'purple',
+					size: 'base',
+			})
+				+materialicons({
+					type: options.star4,
+					color: 'purple',
+					size: 'base',
+			})
+				+materialicons({
+					type: options.star5,
+					color: 'purple',
+					size: 'base',
+			})
+			div
+				div(class="reviewamount")= options.reviewAmount
+				div(class="review") Отзывов
 

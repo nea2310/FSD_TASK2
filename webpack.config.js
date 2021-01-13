@@ -5,13 +5,18 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssAssetWebpackPlugin = require('optimize-css-assets-webpack-plugin')
 const TerserWebpackPlugin = require('terser-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin');  // Копирует отдельные файлы или целые каталоги, которые уже существуют, в каталог сборки.
 const webpack = require('webpack');
 //const images = require('./webpack/images');
 
 const isDev = process.env.NODE_ENV === 'development'
 const isProd = !isDev
 
-
+const PATHS = {
+	src: path.join(__dirname, './src'),
+	dist: path.join(__dirname, './dist'),
+	assets: 'assets/'
+}
 
 
 const optimization = () => {
@@ -164,7 +169,12 @@ module.exports = {
 			$: 'jquery',
 			jQuery: 'jquery',
 			'window.jQuery': 'jquery'
-		})
+		}),
+		new CopyPlugin({
+			patterns: [
+				{ from: `${PATHS.assets}img`, to: `${PATHS.dist}/${PATHS.assets}img/` }, // копируем все изображения в папку продакшена
+			],
+		}),
 	],
 
 	module: {

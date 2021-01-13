@@ -7,8 +7,6 @@ const calendar = jQuery('document').ready(function ($) {
 
 	let startdate;
 	let source = $('.calendarblock__wrapper').children('.calendar-wrapper').eq(1).children('.input-wrapper');
-	console.log("source");
-	console.log(source);
 	source.click(function () {
 		init(this);
 	});
@@ -17,8 +15,8 @@ const calendar = jQuery('document').ready(function ($) {
 	function init(element) {
 		startdate = $(element).parents('.calendarblock__wrapper').children('.calendar-wrapper').children('.input-wrapper').eq(0).children('.input-label').children('.input').val();
 		startdate = startdate.substr(startdate.length - 4) + '-' + startdate.substr(-7, 2) + '-' + startdate.substr(-10, 2);
-		console.log("startdate");
-		console.log(startdate);
+		//console.log("startdate");
+		//console.log(startdate);
 		$('.input__datepicker-end').datepicker(
 			{
 				minDate: new Date(startdate)
