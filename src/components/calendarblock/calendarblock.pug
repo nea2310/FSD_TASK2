@@ -1,4 +1,4 @@
 mixin calendarblock(options={})
-  div(class="calendarblock__wrapper")
-    +calendar({type: 'date_from', label: options.label_datefrom})
-    +calendar({type: 'date_to', label: options.label_dateto})
+	div(class="calendarblock__wrapper")
+		+calendar({type: 'date_from', label: options.label_datefrom, label_required: true, margins: options.margins})
+		+calendar({type: 'date_to', label: options.label_dateto, label_required: true, margins: options.margins})

@@ -8,6 +8,7 @@
 	height: 258px;
 	border-bottom-left-radius: 4px;
 	border-bottom-right-radius: 4px;
+	box-shadow: 0px 10px 20px rgba(31, 32, 65, 0.05);
 	//border: 1px solid red;
 }
 .slider {
@@ -15,6 +16,7 @@
 	//border: 10px solid red;
 	//border-radius: 5px;
 	position: relative !important;
+	background-color: rgba(31, 32, 65, 0.05);
 }
 
 .slick-track {
@@ -61,8 +63,13 @@ li.slick-active button[role="tab"]:before {
 .dtls__row {
 	display: flex;
 	margin-right: 15px;
-	& div {
+	white-space: nowrap;
+	//	border: 1px solid red;
+
+	& > div {
 		display: flex;
+		//border: 1px solid red;
+		line-height: initial !important;
 	}
 	&:nth-child(2) {
 		margin-top: -5px;
@@ -85,54 +92,62 @@ li.slick-active button[role="tab"]:before {
 }
 
 .dtls__sign {
-	font-family: "Quicksand Bold", Arial, sans-serif;
+	font-family: "Montserrat Bold", Arial, sans-serif;
 	font-size: 14px;
 	//line-height: 10px;
 	// border: 1px solid red;
 	//line-height: 10px;
 	//vertical-align: bottom;
 	margin: -2px 0px 0px 20px;
-	line-height: 17.5px;
+
+	//line-height: 17.5px;
+
+	font-weight: initial !important;
+	letter-spacing: initial !important;
+	word-spacing: initial !important;
 }
 .dtls__number {
-	font-family: "Quicksand Bold", Arial, sans-serif;
-	font-size: 22px;
-	letter-spacing: -1px;
-	//font-weight: 900 !important;
-	//ertical-align: bottom;
-	//line-height: 10px;
+	//font-family: "Quicksand Bold", Arial, sans-serif !important;
+	//font-size: 22px !important;
+	//letter-spacing: -1px !important;
+	@include font_h2;
+	margin: -6px 0px 0px 4px;
+	line-height: 24.5px !important;
 
-	//border: 1px solid blue;
-	margin: -8px 0px 0px 4px;
-	line-height: 24.5px;
+	word-spacing: initial !important;
 }
 .dtls__lux {
 	@include font_body;
 	color: $color_purple;
 	margin: -4px 0px 0px 2px;
-	font-weight: bold;
+	font-weight: bold !important;
+	letter-spacing: initial !important;
+	word-spacing: initial !important;
 }
 
 .dtls__price,
 .dtls__reviewamount {
 	font-family: "Montserrat Bold", Arial, sans-serif;
 	color: $color_grey_opaque;
-	font-size: 13px;
+	font-size: 13px !important;
 }
 
 .dtls__price {
-	margin: 0px 0px 0px 39px;
-}
-
-.dtls__reviewamount {
-	margin: 4px 0px 0px 20px;
+	//margin: 0px 0px 0px 39px;
+	font-weight: initial !important;
+	letter-spacing: initial !important;
+	word-spacing: initial !important;
+	//	border: 1px solid red;
 }
 
 .dtls__currency {
 	font-family: "Montserrat Bold", Arial, sans-serif;
 	color: $color_grey_opaque;
-	font-size: 13px;
+	font-size: 13px !important;
 	margin: 0px 0px 0px 3px;
+	font-weight: initial !important;
+	letter-spacing: initial !important;
+	word-spacing: initial !important;
 }
 
 .dtls__period,
@@ -143,19 +158,37 @@ li.slick-active button[role="tab"]:before {
 
 .dtls__period {
 	margin: 0px 0px 5px 1px;
-	letter-spacing: 0.5px;
-	font-size: 12px;
+	letter-spacing: 0.5px !important;
+	font-size: 12px !important;
+	font-weight: initial !important;
+	word-spacing: initial !important;
 }
 
 .dtls__review {
-	margin: 4px 0px 0px 5px;
-	letter-spacing: 0.5px;
-	font-size: 13px;
+	margin: 2px 0px 0px 0px;
+	padding: 0px 4px 0px 0px;
+	letter-spacing: 0.5px !important;
+	font-size: 13px !important;
+	font-weight: initial !important;
+	//letter-spacing: initial !important;
+	//border: 1px solid green;
+}
+
+.dtls__reviewamount {
+	margin: 2px 0px 0px 0px;
+	padding: 0px 3px 0px 0px;
+	font-weight: initial !important;
+	//letter-spacing: initial !important;
+	word-spacing: initial !important;
+	//border: 1px solid red;
 }
 
 .dtls__rating i {
 	font-family: "MaterialIcons" !important;
 	color: $color_purple;
 	font-size: 24px !important;
+	font-weight: initial !important;
+	letter-spacing: initial !important;
+	word-spacing: initial !important;
 	//word-spacing: -7px;
 }

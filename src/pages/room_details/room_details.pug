@@ -1,0 +1,40 @@
+extends ../../pages/layout/layout.pug
+block title
+	title Room details
+block content
+	include ../../components/card/card.pug
+	include ../../components/feature/feature.pug
+	include ../../components/feedback/feedback.pug
+	include ../../components/bulletlist/bulletlist.pug
+	section(class="section-decor")
+		div(class="decor")
+		div(class="decor")
+			div(class="decor")
+			div(class="decor")
+	section(class='section-details')
+		section(class="section-info")
+			div(class="title") Сведения о номере
+				div(class="feature-wrapper")
+					+feature({icon: 'mood', headertext: 'Комфорт', bodytext: 'Шумопоглащающие стены',})
+				div(class="feature-wrapper")
+					+feature({icon: 'location_city', headertext: 'Удобство', bodytext: 'Окно в каждой из спален',})
+				div(class="feature-wrapper")
+					+feature({icon: 'whatshot', headertext: 'Уют', bodytext: 'Номер оснащен камином',})
+			div(class="title") Впечатления от номера
+		section(class="section-feedback") 
+			div(class="feedback-titles")
+				div(class="feedback-title") Отзывы посетителей номера
+				div(class="feedback-title") 2 отзыва
+			div(class="feedback-wrapper")
+				+feedback({imgpath: 'images/murad.svg', name: 'Мурад Сарафанов', date: '5 дней назад', text: 'Великолепный матрас на кровати в основной спальне! А пуфик вообще потрясающий.        И стены, действительно, шумоподавляющие. Выкрикивал комплименты повару — никто не жаловался из соседей.'})
+			div(class="feedback-wrapper")
+				+feedback({imgpath: 'images/murad.svg', name: 'Мурад Сарафанов', date: '5 дней назад', text: 'Великолепный матрас на кровати в основной спальне! А пуфик вообще потрясающий.        И стены, действительно, шумоподавляющие. Выкрикивал комплименты повару — никто не жаловался из соседей.'})
+		section(class="section-rules")
+			div(class="rules") Правила
+				div(class="rules-wrapper")
+					+bulletlist({}, ['Нельзя с питомцами', 'Без вечеринок и мероприятий', 'Время прибытия - после 13:00, а выезд - до 12:00',])
+			div(class="rules") Отмена
+				div(class="rules-wrapper")
+					p Бесплатная отмена в течение 48ч. После этого при отмене не позднее чем за 5 дн. до прибыти вы получите полный возврат за вычетом сбора за услуги. 
+		div(class="form-wrapper")
+			+card2()

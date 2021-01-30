@@ -1,100 +1,92 @@
-$color_purple: #BC9CFF;
+$color_purple: #bc9cff;
 $color_purple_opaque: rgba(188, 156, 255, 0.5);
-$color_blue: #8BA4F9;
+$color_blue: #8ba4f9;
 $color_blue_opaque: rgba(139, 164, 249, 0.5);
-
 
 $color_white: #ffffff;
 $color_black: #000000;
 $color_grey_lightopaque: rgba(31, 32, 65, 0.25);
 $color_grey_opaque: rgba(31, 32, 65, 0.5);
 $color_grey_semiopaque: rgba(31, 32, 65, 0.75);
-$color_light_green: #6FCF97;
-$color_light_blue: #66D2EA;
+$color_light_green: #6fcf97;
+$color_light_blue: #66d2ea;
 $button_border_width_thick: 2px;
 $button_border_width_thin: 1px;
 $button_padding: 15px;
-
-
 
 $gradient: linear-gradient($color_purple 0%, $color_blue 100%);
 $gradient_opaque: linear-gradient($color_purple_opaque 0%, $color_blue_opaque 100%);
 $gradient_green: linear-gradient($color_light_green 0%, $color_light_blue 100%);
 
-@mixin label($margin_bottom: 7px){
-  @include font_h3;
-  text-transform: uppercase;
-  font-weight: bold;
-  display: inline-block;
-  margin-bottom: $margin_bottom;
+@mixin label($margin_bottom: 7px) {
+	@include font_h3;
+	text-transform: uppercase;
+	font-weight: bold;
+	display: inline-block;
+	margin-bottom: $margin_bottom;
 }
 
-@mixin card(){
-  width: 380px;
-  background: $color_white;
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  box-sizing: border-box;
-  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
+@mixin card() {
+	width: 380px;
+	background: $color_white;
+	border: 1px solid rgba(0, 0, 0, 0.12);
+	box-sizing: border-box;
+	box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.2);
+	border-radius: 4px;
 }
 
-@mixin font_h1(){
-  font-family: "Quicksand Bold", Arial, sans-serif;;
-  font-size: 24px;
-  line-height: 30px;
-  color: #1F2041;
+@mixin font_h1() {
+	font-family: "Montserrat Bold", Arial, sans-serif;
+	font-size: 24px;
+	line-height: 29.26px;
+	color: #1f2041;
 }
 
-@mixin font_h2(){
-  font-family: "Quicksand Bold", Arial, sans-serif;;
-  font-size: 19px;
-  line-height: 24px;
-  color: #1F2041;
+@mixin font_h2() {
+	font-family: "Montserrat Bold", Arial, sans-serif;
+	font-size: 19px;
+	line-height: 23.16px;
+	color: #1f2041;
 }
 
-@mixin font_h3(){
-  font-family: "Montserrat Bold", Arial, sans-serif;;
-  font-size: 12px;
-  line-height: 15px;
-  color: #1F2041;
+@mixin font_h3() {
+	font-family: "Montserrat Bold", Arial, sans-serif;
+	font-size: 12px;
+	line-height: 15px;
+	color: #1f2041;
 }
 
-@mixin font_body(){
-  font-family: "Montserrat", Arial, sans-serif;;
-  font-size: 14px;
-  line-height: 24px;
-  color: rgba(31, 32, 65, 0.75);
+@mixin font_body() {
+	font-family: "Montserrat", Arial, sans-serif;
+	font-size: 14px;
+	line-height: 24px;
+	color: rgba(31, 32, 65, 0.75);
 }
 
-@mixin font__Montserrat_lightgrey(){
-  font-family: "Montserrat", Arial, sans-serif;;
-  color: $color_grey_lightopaque;
+@mixin font__Montserrat_lightgrey() {
+	font-family: "Montserrat", Arial, sans-serif;
+	color: $color_grey_lightopaque;
 }
 
-
-@mixin font__Montserrat_grey(){
-  font-family: "Montserrat", Arial, sans-serif;;
-  color: $color_grey_opaque;
+@mixin font__Montserrat_grey() {
+	font-family: "Montserrat", Arial, sans-serif;
+	color: $color_grey_opaque;
 }
 
-@mixin font__Montserrat_darkgrey(){
-  font-family: "Montserrat", Arial, sans-serif;;
-  color: $color_grey_semiopaque;
+@mixin font__Montserrat_darkgrey() {
+	font-family: "Montserrat", Arial, sans-serif;
+	color: $color_grey_semiopaque;
 }
 
-
-@mixin font__MontserratBold_grey(){
-  font-family: "Montserrat Bold", Arial, sans-serif;;
-  color: $color_grey_opaque;
+@mixin font__MontserratBold_grey() {
+	font-family: "Montserrat Bold", Arial, sans-serif;
+	color: $color_grey_opaque;
 }
 
-@mixin font__MontserratBold_black(){
-  font-family: "Montserrat Bold", Arial, sans-serif;;
-  color: #1F2041;;
+@mixin font__MontserratBold_black() {
+	font-family: "Montserrat Bold", Arial, sans-serif;
+	color: #1f2041;
 }
-
-
-
 
 @import "../components/buttonwrapper/buttonwrapper.scss";
 @import "../components/like/like.scss";
@@ -136,16 +128,6 @@ $gradient_green: linear-gradient($color_light_green 0%, $color_light_blue 100%);
 @import "../pages/registration/registration.scss";
 @import "../pages/sign_in/sign_in.scss";
 @import "../pages/search_room/search_room.scss";
+@import "../pages/room_details/room_details.scss";
 
-@import "../pages/layout/layout.scss";
-
-
-
-
-
-
-
-
-
-
-
+//@import "../pages/layout/layout.scss";

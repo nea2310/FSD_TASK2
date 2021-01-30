@@ -1,37 +1,37 @@
 include ../../components/label/label.pug
 mixin input(options={})
-  -
-    var icon = options.icon
-    var text = options.text
-    var type = options.type
-    var readonly = options.readonly
-    var input_classes = 'input input_collapsed'
-    var input_wrapper_classes = 'input-wrapper'
-    input_classes += options.input_type ? ' input__' + options.input_type : ''
-    input_wrapper_classes += options.length ? ' input-wrapper_' + options.length : ''
-  if options.label_required
-    +label({label: options.label, margins: options.margins,})
-  if options.input_type === 'datepicker-visible'
-    input(class=input_classes)
-  else
-    div(class=input_wrapper_classes data-type=type)
-      label(class='input-label')=options.labelname
-        if icon === 'tip'
-          +materialicons({
-                          type: 'keyboard_arrow_down',
-                          color: 'grey',
-                          size: 'base',
-                      })
-        else if icon === 'arrow'
-          +materialicons({
-                          type: 'arrow_forward',
-                          color: 'purple',
-                          size: 'base',
-                      })
-        if type==='maskedtext'
-          input(class=input_classes placeholder=text type='password')
-        else
-          input(class=input_classes placeholder=text readonly=readonly)
+	-
+		var icon = options.icon
+		var text = options.text
+		var type = options.type
+		var readonly = options.readonly
+		var input_classes = 'input input_collapsed'
+		var input_wrapper_classes = 'input-wrapper'
+		input_classes += options.input_type ? ' input__' + options.input_type : ''
+		input_wrapper_classes += options.length ? ' input-wrapper_' + options.length : ''
+	if options.label_required
+		+label({label: options.label, margins: options.margins,})
+	if options.input_type === 'datepicker-visible'
+		input(class=input_classes)
+	else
+		div(class=input_wrapper_classes data-type=type)
+			label(class='input-label')=options.labelname
+				if icon === 'tip'
+					+materialicons({
+						type: 'keyboard_arrow_down',
+						color: 'grey',
+						size: 'base',
+})
+				else if icon === 'arrow'
+					+materialicons({
+						type: 'arrow_forward',
+						color: 'purple',
+						size: 'base',
+})
+				if type==='maskedtext'
+					input(class=input_classes placeholder=text type='password')
+				else
+					input(class=input_classes placeholder=text readonly=readonly)
 
 
 

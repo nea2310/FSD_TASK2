@@ -6,88 +6,88 @@ include ../../components/calendar/calendar.pug
 include ../../components/radioblock/radioblock.pug
 include ../../components/toggle/toggle.pug
 mixin card1(options={})
-  div(class="card__wrapper")
-    div(class="card__innerwrapper")
-     div(class="card__header") Найдем номера под ваши пожелания
-     div(class="card__calendar")
-       +calendarblock({label_datefrom: 'прибытие', label_dateto: 'выезд'})
-     div(class="card__guests")
-       +dropdown({width: 'wide', buttons: true}, {'взрослые': '0', 'дети': '0', 'младенцы': '0',}, {text: 'Сколько гостей', label: 'гости'})
-     div(class="card__button")
-       +button({length: 'long', width: 'wide', backgroundcolor: 'purple', icon: 'arrow', text: 'подобрать номер'})
+	div(class="card__wrapper card__wrapper-1")
+		div(class="card__innerwrapper")
+			div(class="card__header") Найдем номера под ваши пожелания
+			div(class="card__calendar")
+				+calendarblock({label_datefrom: 'прибытие', label_dateto: 'выезд', margins: 'margin-bottom: 1px'})
+			div(class="card__guests")
+				+dropdown({width: 'wide', buttons: true}, {'взрослые': '0', 'дети': '0', 'младенцы': '0',}, {text: 'Сколько гостей', label_required: true, label: 'гости', margins: 'margin-bottom: 1px'})
+			div(class="card__button")
+				+button({length: 'long', width: 'wide', backgroundcolor: 'purple', icon: 'arrow', text: 'подобрать номер'})
 
 
 mixin card2(options={})
-  div(class="card__wrapper")
-    div(class="card__innerwrapper")
-     div(class="room__info")
-       div(class="room__number")
-         div(class='number__elem-1') №
-         div(class='number__elem-2') 888
-         div(class='number__elem-3') люкс
-       div(class="room__price")
-         div(class='price__elem-1') 9 990₽
-         div(class='price__elem-2') в сутки
-     div(class="card__calendar")
-       +calendarblock({label_datefrom: 'прибытие', label_dateto: 'выезд'})
-     div(class="card__guests")
-       +dropdown({width: 'wide', buttons: true}, {'взрослые': '0', 'дети': '0', 'младенцы': '0',}, {text: 'Сколько гостей', label: 'гости'})
-     div(class="order__details")
-       div(class="details__row details__row-1")
-         div(class="details__col") 9 990₽ * 4 суток
-         div(class="details__col")
-         div(class="details__col") 39 960₽
-       div(class="details__row details__row-2")
-         div(class="details__col details__col-fixedwidth") Сбор за услуги: скидка 2 179₽
-         div(class="col__info") i
-         div(class="details__col") 0₽
-       div(class="details__row details__row-3")
-         div(class="details__col details__col-fixedwidth") Сбор за дополнительные услуги
-         div(class="col__info") i
-         div(class="details__col") 300₽
-     div(class="card__total")
-       div(class="total__elem-1")  Итого
-       div(class="total__elem-2")
-       div(class="total__elem-3") 38 081₽
-     div(class="card__button")
-       +button({length: 'long', width: 'wide', backgroundcolor: 'purple', icon: 'arrow', text: 'забронировать'})
+	div(class="card__wrapper card__wrapper-2")
+		div(class="card__innerwrapper")
+			div(class="room__info")
+				div(class="room__number")
+					div(class='number__elem-1') №
+					div(class='number__elem-2') 888
+					div(class='number__elem-3') люкс
+				div(class="room__price")
+					div(class='price__elem-1') 9 990₽
+					div(class='price__elem-2') в сутки
+			div(class="card__calendar")
+				+calendarblock({label_datefrom: 'прибытие', label_dateto: 'выезд', margins: 'margin-bottom: 1px'})
+			div(class="card__guests")
+				+dropdown({width: 'wide', buttons: true}, {'взрослые': '0', 'дети': '0', 'младенцы': '0',}, {text: 'Сколько гостей', label_required: true, label: 'гости', margins: 'margin-bottom: 1px'})
+			div(class="order__details")
+				div(class="details__row details__row-1")
+					div(class="details__col") 9 990₽ * 4 суток
+					div(class="details__col")
+					div(class="details__col") 39 960₽
+				div(class="details__row details__row-2")
+					div(class="details__col details__col-fixedwidth") Сбор за услуги: скидка 2 179₽
+					div(class="col__info") i
+					div(class="details__col") 0₽
+				div(class="details__row details__row-3")
+					div(class="details__col details__col-fixedwidth") Сбор за дополнительные услуги
+					div(class="col__info") i
+					div(class="details__col") 300₽
+			div(class="card__total")
+				div(class="total__elem-1")  Итого
+				div(class="total__elem-2")
+				div(class="total__elem-3") 38 081₽
+			div(class="card__button")
+				+button({length: 'long', width: 'wide', backgroundcolor: 'purple', icon: 'arrow', text: 'забронировать'})
 
 
 mixin card3(options={})
-  div(class="card__wrapper")
-    div(class="card__innerwrapper card__innerwrapper-fixedheight1")
-     div(class="card__header") Регистрация аккаунта
-     div(class="card__name")
-       +input({type: 'text', length: 'long', text: 'Имя'})
-     div(class="card__surname")
-       +input({type: 'text', length: 'long', text: 'Фамилия'})
-     div(class="card__radioblock")
-       +radioblock({name:'radioblock'}, [{value: '1', id: '1', labeltext: 'Мужчина', checked: 'checked'}, {value: '2', id: '2', labeltext: 'Женщина'}])
-     div(class="card__birthdate")
-       +input({label: 'дата рождения', type: 'text', length: 'long', text: 'ДД.ММ.ГГГГ.'})
-     div(class="card__email")
-       +input({label: 'данные для входа в сервис', type: 'subscription', length: 'long', text: 'E-mail'})
-     div(class="card__password")
-       +input({type: 'text', length: 'long', text: 'пароль'})
-     div(class="card__toggle")
-       +toggle({labeltext: 'Получать спецпредложения'})
-     div(class="card__button")
-       +button({length: 'long', width: 'wide', backgroundcolor: 'purple', icon: 'arrow', text: 'перейти к оплате'})
-     div(class="card__login")
-       div(class="card__accountexist") Уже есть аккаунт на Toxin
-       +button({length: 'short', width: 'wide', backgroundcolor: 'white', text: 'войти'})
+	div(class="card__wrapper card__wrapper-3")
+		div(class="card__innerwrapper card__innerwrapper-fixedheight1")
+			div(class="card__header") Регистрация аккаунта
+			div(class="card__name")
+				+input({type: 'text', length: 'long', text: 'Имя'})
+			div(class="card__surname")
+				+input({type: 'text', length: 'long', text: 'Фамилия'})
+			div(class="card__radioblock")
+				+radioblock({name:'radioblock'}, [{value: '1', id: '1', labeltext: 'Мужчина', checked: 'checked'}, {value: '2', id: '2', labeltext: 'Женщина'}])
+			div(class="card__birthdate")
+				+input({label_required: true, label: 'дата рождения', type: 'text', length: 'long', text: 'ДД.ММ.ГГГГ.', margins: 'margin-bottom: 1px'})
+			div(class="card__email")
+				+input({label_required: true, label: 'данные для входа в сервис', type: 'subscription', length: 'long', text: 'E-mail', margins: 'margin-bottom: 1px'})
+			div(class="card__password")
+				+input({type: 'text', length: 'long', text: 'пароль'})
+			div(class="card__toggle")
+				+toggle({labeltext: 'Получать спецпредложения'})
+			div(class="card__button")
+				+button({length: 'long', width: 'wide', backgroundcolor: 'purple', icon: 'arrow', text: 'перейти к оплате'})
+			div(class="card__login")
+				div(class="card__accountexist") Уже есть аккаунт на Toxin
+				+button({length: 'short', width: 'wide', backgroundcolor: 'white', text: 'войти'})
 
 mixin card4(options={})
-  div(class="card__wrapper")
-    div(class="card__innerwrapper card__innerwrapper-fixedheight2")
-     div(class="card__header") Войти
-     div(class="card__email")
-       +input({type: 'subscription', length: 'long', text: 'E-mail'})
-     div(class="card__password card__password-2")
-       +input({type: 'text', length: 'long', text: 'пароль'})
-     div(class="card__button")
-       +button({length: 'long', width: 'wide', backgroundcolor: 'purple', icon: 'arrow', text: 'войти'})
-     div(class="card__login card__login-2")
-       div(class="card__accountexist") Нет аккаунта на Toxin?
-       +button({length: 'short', width: 'wide', backgroundcolor: 'white', text: 'создать'})
+	div(class="card__wrapper card__wrapper-4")
+		div(class="card__innerwrapper card__innerwrapper-fixedheight2")
+			div(class="card__header") Войти
+			div(class="card__email")
+				+input({type: 'subscription', length: 'long', text: 'E-mail'})
+			div(class="card__password card__password-2")
+				+input({type: 'text', length: 'long', text: 'пароль'})
+			div(class="card__button")
+				+button({length: 'long', width: 'wide', backgroundcolor: 'purple', icon: 'arrow', text: 'войти'})
+			div(class="card__login card__login-2")
+				div(class="card__accountexist") Нет аккаунта на Toxin?
+				+button({length: 'short', width: 'wide', backgroundcolor: 'white', text: 'создать'})
 

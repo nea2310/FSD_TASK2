@@ -1,15 +1,52 @@
 extends ../../pages/layout/layout.pug
 block title
-  title Search Room
+	title Search Room
 block content
-  include ../../components/search/search.pug
-  include ../../components/slickslider/slickslider.pug
-  section(class="search-wrapper")
-    aside(class="search-form")
-      +search()
-    section(class="results-wrapper") Номера, которые мы для вас подобрали
-      section(class="search-results")
-        +slickslider({img1:'images/room1.jpg', img2:'images/room1.jpg', img3:'images/room1.jpg', img4:'images/room1.jpg',
-                  roomNumber: '840', price: '9 990', star1: 'star', star2: 'star', star3: 'star', star4: 'star', star5: 'star', reviewAmount: '65'
-                  })
-
+	include ../../components/search/search.pug
+	include ../../components/slickslider/slickslider.pug
+	include ../../components/pagination/pagination.pug
+	section(class="search-wrapper")
+		aside(class="search-form")
+			+search()
+		section(class="results-wrapper") 
+			p Номера, которые мы для вас подобрали
+			section(class="search-results")
+				div(class="search-result")
+					+slickslider({img1:'images/room1.jpg', img2:'images/room1.jpg', img3:'images/room1.jpg', img4:'images/room1.jpg',
+					roomNumber: '840', price: '9 990', star1: 'star', star2: 'star', star3: 'star', star4: 'star', star5: 'star', reviewAmount: '65'})
+				div(class="search-result")
+					+slickslider({img1:'images/room1.jpg', img2:'images/room1.jpg', img3:'images/room1.jpg', img4:'images/room1.jpg',
+					roomNumber: '840', price: '9 990', star1: 'star', star2: 'star', star3: 'star', star4: 'star', star5: 'star', reviewAmount: '65'})
+				div(class="search-result")
+					+slickslider({img1:'images/room1.jpg', img2:'images/room1.jpg', img3:'images/room1.jpg', img4:'images/room1.jpg',
+					roomNumber: '840', price: '9 990', star1: 'star', star2: 'star', star3: 'star', star4: 'star', star5: 'star', reviewAmount: '65'})
+				div(class="search-result")
+					+slickslider({img1:'images/room1.jpg', img2:'images/room1.jpg', img3:'images/room1.jpg', img4:'images/room1.jpg',
+					roomNumber: '840', price: '9 990', star1: 'star', star2: 'star', star3: 'star', star4: 'star', star5: 'star', reviewAmount: '65'})
+				div(class="search-result")
+					+slickslider({img1:'images/room1.jpg', img2:'images/room1.jpg', img3:'images/room1.jpg', img4:'images/room1.jpg',
+					roomNumber: '840', price: '9 990', star1: 'star', star2: 'star', star3: 'star', star4: 'star', star5: 'star', reviewAmount: '65'})
+				div(class="search-result")
+					+slickslider({img1:'images/room1.jpg', img2:'images/room1.jpg', img3:'images/room1.jpg', img4:'images/room1.jpg',
+					roomNumber: '840', price: '9 990', star1: 'star', star2: 'star', star3: 'star', star4: 'star', star5: 'star', reviewAmount: '65'})
+				div(class="search-result")
+					+slickslider({img1:'images/room1.jpg', img2:'images/room1.jpg', img3:'images/room1.jpg', img4:'images/room1.jpg',
+					roomNumber: '840', price: '9 990', star1: 'star', star2: 'star', star3: 'star', star4: 'star', star5: 'star', reviewAmount: '65'})
+				div(class="search-result")
+					+slickslider({img1:'images/room1.jpg', img2:'images/room1.jpg', img3:'images/room1.jpg', img4:'images/room1.jpg',
+					roomNumber: '840', price: '9 990', star1: 'star', star2: 'star', star3: 'star', star4: 'star', star5: 'star', reviewAmount: '65'})
+				div(class="search-result")
+					+slickslider({img1:'images/room1.jpg', img2:'images/room1.jpg', img3:'images/room1.jpg', img4:'images/room1.jpg',
+					roomNumber: '840', price: '9 990', star1: 'star', star2: 'star', star3: 'star', star4: 'star', star5: 'star', reviewAmount: '65'})
+				div(class="search-result")
+					+slickslider({img1:'images/room1.jpg', img2:'images/room1.jpg', img3:'images/room1.jpg', img4:'images/room1.jpg',
+					roomNumber: '840', price: '9 990', star1: 'star', star2: 'star', star3: 'star', star4: 'star', star5: 'star', reviewAmount: '65'})
+				div(class="search-result")
+					+slickslider({img1:'images/room1.jpg', img2:'images/room1.jpg', img3:'images/room1.jpg', img4:'images/room1.jpg',
+					roomNumber: '840', price: '9 990', star1: 'star', star2: 'star', star3: 'star', star4: 'star', star5: 'star', reviewAmount: '65'})
+				div(class="search-result")
+					+slickslider({img1:'images/room1.jpg', img2:'images/room1.jpg', img3:'images/room1.jpg', img4:'images/room1.jpg',
+					roomNumber: '840', price: '9 990', star1: 'star', star2: 'star', star3: 'star', star4: 'star', star5: 'star', reviewAmount: '65'})
+				div(class="search-pagination")
+					+pagination()
+					p 1 - 12 из 100+ вариантов аренды

@@ -1,195 +1,191 @@
+.datepicker {
+	width: 320px;
+	@include font_h2;
+	//font-family:  "Quicksand Bold", Arial, sans-serif!important;
+	&--days-names {
+		margin: 19px 16px 0 16px !important;
+		font-weight: 800;
+		font-size: 14px !important;
+	}
+	&--cells-days {
+		margin: 10px 16px 1px 16px !important;
+	}
+	&--content {
+		margin-top: -6px !important;
+		padding: 4px 4px 4px 4px !important;
+	}
+	&-input {
+		width: 266px;
+		height: 44px;
+		overflow: hidden;
+		border-radius: 0.3rem;
+		padding-right: 10px;
+		padding-left: 10px;
+		box-sizing: border-box;
+	}
 
-.datepicker{
+	&--nav {
+		border-bottom: none !important;
+		&-title {
+			height: 55px;
+			font-size: 19px;
+			color: $color_black;
+			font-style: normal;
+			&:hover {
+				background-color: $color_white;
+				cursor: default;
+			}
+			& i {
+				font-size: 19px;
+				color: $color_black;
+				font-style: normal;
+			}
+		}
+		&-action {
+			&[data-action="prev"] {
+				margin-left: 10px;
+			}
+			&[data-action="next"] {
+				margin-right: 10px;
+			}
+			&:hover {
+				background-color: $color_white;
+			}
+			&:first-child {
+				position: relative;
+				&:before {
+					content: "arrow_back";
+					position: absolute;
+					display: inline-block;
+					font-family: "MaterialIcons";
+					font-weight: normal;
+					font-style: normal;
+					text-transform: none;
+					letter-spacing: normal;
+					word-wrap: normal;
+					white-space: nowrap;
+					direction: ltr;
+					user-select: none;
+					text-rendering: optimizeLegibility;
+					font-feature-settings: "liga";
+					color: $color_purple;
+					font-size: 24px;
+					top: 14px;
+					left: 5px;
+				}
+			}
+			&:last-child {
+				position: relative;
+				&:after {
+					content: "arrow_forward";
+					position: absolute;
+					display: inline-block;
+					font-family: "MaterialIcons";
+					font-weight: normal;
+					font-style: normal;
+					text-transform: none;
+					letter-spacing: normal;
+					word-wrap: normal;
+					white-space: nowrap;
+					direction: ltr;
+					user-select: none;
+					text-rendering: optimizeLegibility;
+					font-feature-settings: "liga";
+					color: $color_purple;
+					font-size: 24px;
+					top: 14px;
+					right: 0px;
+					left: 1px;
+				}
+			}
+		}
+	}
 
-  width: 320px;
-  font-family:  "Quicksand Bold", Arial, sans-serif!important;
-  &--days-names{
-    margin: 19px 16px 0 16px!important;
-    font-weight: 800;
-    font-size: 14px!important;
-      }
-  &--cells-days{
-    margin: 10px 16px 1px 16px!important;
-  }
-  &-input {
-  width: 266px;
-  height: 44px;
-  overflow: hidden;
-  border-radius: 0.3rem;
-  padding-right: 10px;
-  padding-left: 10px;
-  box-sizing: border-box;
-  }
-
-  &--nav{
-    border-bottom: none!important;
-    &-title{
-      height: 55px;
-      font-size: 19px;
-      color: $color_black;
-      font-style: normal;
-        &:hover{
-        background-color: $color_white;
-        cursor: default;
-
-      }
-      & i{
-        font-size: 19px;
-        color: $color_black;
-        font-style: normal;
-      }
-    }
-    &-action{
-      &[data-action="prev"]{
-        margin-left: 10px;
-      }
-      &[data-action="next"]{
-        margin-right: 10px;
-      }
-      &:hover{
-        background-color: $color_white;
-      }
-      &:first-child{
-        position: relative;
-        &:before{
-          content: 'arrow_back';
-          position: absolute;
-          display: inline-block;
-          font-family: "MaterialIcons";
-          font-weight: normal;
-          font-style: normal;
-          text-transform: none;
-          letter-spacing: normal;
-          word-wrap: normal;
-          white-space: nowrap;
-          direction: ltr;
-          user-select: none;  
-          text-rendering: optimizeLegibility;
-          font-feature-settings: 'liga';
-          color: $color_purple;
-          font-size: 24px;
-          top: 14px;
-          left: 5px;
-        }
-      }
-      &:last-child{
-        position: relative;
-        &:after{
-          content: 'arrow_forward';
-          position: absolute;
-          display: inline-block;
-          font-family: "MaterialIcons";
-          font-weight: normal;
-          font-style: normal;
-          text-transform: none;
-          letter-spacing: normal;
-          word-wrap: normal;
-          white-space: nowrap;
-          direction: ltr;
-          user-select: none;  
-          text-rendering: optimizeLegibility;
-          font-feature-settings: 'liga';
-          color: $color_purple;
-          font-size: 24px;
-          top: 14px;
-          right: 0px;
-          left: 1px;
-      }
-    }
-  }
-}
-
-
-  &--buttons{
-    display: flex;
-    justify-content: space-between;
-    border-top: none!important;
-    margin-top: 5px;
-    margin-bottom: 5px;
-  }
-  &--button{
-    color: $color_grey_opaque;
-    text-transform: uppercase;
-    font-size: 12px;
-    font-family: "Montserrat Bold", Arial, sans-serif;
-    //display: block;
-    //width: 50%;
-    //flex-shrink: 0;
-    //border: 1px solid blue;
-    margin-right: 101px;
- /*   &::after {
+	&--buttons {
+		display: flex;
+		justify-content: space-between;
+		border-top: none !important;
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
+	&--button {
+		color: $color_grey_opaque;
+		text-transform: uppercase;
+		font-size: 12px;
+		font-family: "Montserrat Bold", Arial, sans-serif;
+		//display: block;
+		//width: 50%;
+		//flex-shrink: 0;
+		//border: 1px solid blue;
+		margin-right: 101px;
+		/*   &::after {
       display: block;
       content: '1';
       color: transparent;
       background-size: contain;
       }*/
-    &:hover{
-      background: none!important;
-      color: $color_grey_opaque!important;
-    }
-  }
+		&:hover {
+			background: none !important;
+			color: $color_grey_opaque !important;
+		}
+	}
 
+	&--cell {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 40px;
+		margin-left: auto;
+		margin-right: auto;
+		text-align: center;
+		color: #868686;
+		border-radius: 50%;
+		font-family: "Montserrat", Arial, sans-serif;
+		font-size: 12px;
+		//border: 1px solid red;
 
+		&:hover {
+			background-color: $color_purple_opaque;
+		}
 
-  &--cell{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 40px;
-    margin-left:auto;
-    margin-right:auto;
-    text-align: center;
-    color: #868686;
-    border-radius: 50%;
-    font-family:  "Montserrat", Arial, sans-serif;
-    font-size: 12px;
-    //border: 1px solid red;
+		&::selection {
+			background-color: $color_light_green;
+		}
+	}
 
-      &:hover{
-        background-color: $color_purple_opaque;
-       }
-
-      &::selection{
-        background-color: $color_light_green;
-      }
-    }
-
-  &--day-name{
-    color: $color_purple;
-    text-transform: capitalize!important;
-  }
+	&--day-name {
+		color: $color_purple;
+		text-transform: capitalize !important;
+	}
 }
 
-.-current-{
-  background-color: $color_light_green;
-  color: $color_white!important;
+.-current- {
+	background-color: $color_light_green;
+	color: $color_white !important;
 }
 
-.-selected-{
-  background-color: $color_purple!important;
-  color: $color_white!important;
+.-selected- {
+	background-color: $color_purple !important;
+	color: $color_white !important;
 }
 
-.datepicker-buttons{
-  display: flex;
-  justify-content: space-between;
-  //height: 59px;
-  margin-left: 19px;
-  margin-right: 21px;
-  margin-top: 16px;
-  margin-bottom: 20px;
-
-
+.datepicker-buttons {
+	display: flex;
+	justify-content: space-between;
+	//height: 59px;
+	margin-left: 19px;
+	margin-right: 21px;
+	margin-top: 16px;
+	margin-bottom: 20px;
 }
 
-path{
-  stroke: $color_white!important;
+path {
+	stroke: $color_white !important;
 }
-.action-apply{
-  flex-shrink: 1;
-  width: 100px!important;
-  //border: 1px solid red!important;
-  margin-right: 8px;
-  cursor: pointer;
+.action-apply {
+	flex-shrink: 1;
+	width: 100px !important;
+	//border: 1px solid red!important;
+	margin-right: 8px;
+	cursor: pointer;
 }
-

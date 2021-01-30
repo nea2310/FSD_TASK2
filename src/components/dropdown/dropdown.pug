@@ -2,20 +2,20 @@ include ../../components/action/action.pug
 include ../../components/input/input.pug
 include ../../components/counter/counter.pug
 mixin dropdown(options={}, counter_options={}, input_options={})
-  -
-    var counter_options = counter_options
-    var input_options = input_options
-    var wrapper_classes = 'dropdown-wrapper'
-    var countwrapper_classes = 'dropdown-countwrapper dropdown-countwrapper_collapsed'
-    wrapper_classes += options.width ? ' dropdown-wrapper_' + options.width : ''
-    countwrapper_classes += options.width ? ' dropdown-countwrapper_' + options.width : ''
-  div(class=wrapper_classes)
-    +input({margins: input_options.margins,icon: 'tip', text: input_options.text, type: 'dropdown', label_required: input_options.label_required, label: input_options.label, readonly: 'readonly'})
-    div(class=countwrapper_classes)
-      +counter(counter_options)
-      if (options.buttons==true)
-        div(class="button-wrapper")
-          div(class='dropdown-clean')
-            +action({text: 'очистить', textcolor: 'purple', inactive: true})
-          div(class='dropdown-submit')
-            +action({text: 'применить', textcolor: 'purple'})
+	-
+		var counter_options = counter_options
+		var input_options = input_options
+		var wrapper_classes = 'dropdown-wrapper'
+		var countwrapper_classes = 'dropdown-countwrapper dropdown-countwrapper_collapsed'
+		wrapper_classes += options.width ? ' dropdown-wrapper_' + options.width : ''
+		countwrapper_classes += options.width ? ' dropdown-countwrapper_' + options.width : ''
+	div(class=wrapper_classes)
+		+input({margins: input_options.margins,icon: 'tip', text: input_options.text, type: 'dropdown', label_required: input_options.label_required, label: input_options.label, readonly: 'readonly'})
+		div(class=countwrapper_classes)
+			+counter(counter_options)
+			if (options.buttons==true)
+				div(class="button-wrapper")
+					div(class='dropdown-clean')
+						+action({text: 'очистить', textcolor: 'purple', inactive: true})
+					div(class='dropdown-submit')
+						+action({text: 'применить', textcolor: 'purple'})

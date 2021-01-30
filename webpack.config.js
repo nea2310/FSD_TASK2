@@ -88,7 +88,7 @@ module.exports = {
 	mode: 'development',
 	entry: {
 		main: ['@babel/polyfill', './index.js'],
-		analytics: './analytics.ts',
+		//	analytics: './analytics.ts',
 	},
 	output: {
 		filename: filename('js'),
@@ -153,6 +153,13 @@ module.exports = {
 			filename: 'search_room.html',
 			template: './pages/search_room/search_room.pug',
 		}),
+		new HTMLWebpackPlugin({
+			filename: 'room_details.html',
+			template: './pages/room_details/room_details.pug',
+		}),
+
+
+
 		new CleanWebpackPlugin(),
 		new CopyWebpackPlugin({
 			patterns: [
