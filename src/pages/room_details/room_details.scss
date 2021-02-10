@@ -31,29 +31,34 @@
 
 .rules {
 	@include font_h2;
-	width: 50%;
+	//	width: 50%;
 	&:first-child {
 		//width: 49%;
-		text-indent: 20px;
-		& > .rules-wrapper {
+		text-indent: 22px;
+		& > .rule-wrapper {
 			margin-left: 2px;
 			margin-top: 13px;
+			text-indent: initial !important;
 		}
 	}
 	&:last-child {
-		margin-left: 13px;
-		& > .rules-wrapper {
+		max-width: 340px;
+		margin-right: 10px;
+		& > .rule-wrapper {
 			margin-top: 20px;
 		}
 	}
 
-	& > .rules-wrapper > p {
+	& > .rule-wrapper > p {
 		@include font__Montserrat_grey;
 		font-size: 14px;
 		line-height: 1.7;
 	}
 	&-wrapper {
 		text-indent: 0px;
+		display: flex;
+		margin-top: 30px;
+		justify-content: space-between;
 	}
 }
 
@@ -66,12 +71,12 @@
 .section-details {
 	position: relative;
 	margin-left: 137px;
-	max-width: 49.2%;
+	max-width: 48.5%;
 	margin-bottom: 60px;
 	//	margin-right: 100px;
 	& > .form-wrapper {
 		position: absolute;
-		left: 107.3%;
+		left: 110%;
 		top: 0%;
 	}
 }

@@ -1,125 +1,109 @@
-input{
-  cursor: default;
-  border:none;
-  outline: none;
-  &:focus{
-    color: $color_grey_opaque;
-  }
+input {
+	cursor: default;
+	border: none;
+	outline: none;
+	&:focus {
+		color: $color_grey_semiopaque;
+	}
 }
-.input{
+.input {
+	height: 44px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	// border-bottom-left-radius: 5px;
+	// border-bottom-right-radius: 5px;
+	border: 1px solid $color_grey_lightopaque;
 
-  height: 44px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
- // border-bottom-left-radius: 5px;
- // border-bottom-right-radius: 5px;
-  border: 1px solid $color_grey_lightopaque;
+	@include font_body;
+	// padding-top: 9px;
+	//padding-left: 14px;
+	text-indent: 12px;
+	width: 100%;
+	//border: 1px solid green;
+	// box-sizing: border-box;
+	margin-top: 5px;
 
+	&:hover {
+		border-color: $color_grey_opaque;
+	}
+	&_focused {
+		border-color: $color_grey_opaque;
+	}
 
-  @include font_body;
- // padding-top: 9px;
-  //padding-left: 14px;
-  text-indent: 12px;
-  width: 100%;
-  //border: 1px solid green;
- // box-sizing: border-box;
-  margin-top: 5px;
+	&_collapsed {
+		border-bottom-left-radius: 5px;
+		border-bottom-right-radius: 5px;
+	}
+	&_expanded {
+		border: 1px solid $color_grey_opaque !important;
+	}
 
-  &:hover{
-    border-color: $color_grey_opaque;
-  }
-  &_focused{
-    border-color: $color_grey_opaque;
-  }
+	&-label {
+		position: relative;
+		width: 100%;
+		//  border: 1px solid red;
+		box-sizing: border-box;
+		@include font_h3;
+		text-transform: uppercase;
+		font-weight: bold;
+		display: inline-block;
+	}
 
-  &_collapsed{
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-  }
-  &_expanded{
-    border: 1px solid $color_grey_opaque!important;
-  }
-
-  &-label{
-    position: relative;
-   width: 100%;
-  //  border: 1px solid red;
-    box-sizing: border-box;
-    @include font_h3;
-    text-transform: uppercase;
-    font-weight: bold;
-    display: inline-block;
-
-
-  }
-
-  &__datepicker-visible{
-    display: none;
-  }
-
-
+	&__datepicker-visible {
+		display: none;
+	}
 }
-.input-wrapper{
-  cursor: pointer!important;
+.input-wrapper {
+	cursor: pointer !important;
 
-  display: flex;
-  overflow: hidden;
-  box-sizing: border-box;
+	display: flex;
+	overflow: hidden;
+	box-sizing: border-box;
 
+	&[data-type="checklistexpand"] .input-label .input {
+		border: none !important;
+	}
 
+	&[data-type="checklistexpand"] > .input-label > .input::-webkit-input-placeholder {
+		text-transform: uppercase;
+		font-size: 12px;
+		font-family: "Montserrat Bold", Arial, sans-serif;
+		color: $color_black;
+		text-indent: 0px;
+	}
 
+	&[data-type="plaintext"] > .input-label > .input::-webkit-input-placeholder {
+		color: $color_grey_lightopaque;
+	}
+	&[data-type="plaintext"] > .input-label > .input::-moz-placeholder {
+		color: $color_grey_lightopaque;
+	}
+	&[data-type="maskedtext"] > .input-label > .input::-webkit-input-placeholder {
+		color: $color_grey_lightopaque;
+	}
+	&[data-type="maskedtext"] > .input-label > .input::-moz-placeholder {
+		color: $color_grey_lightopaque;
+	}
 
+	&_short {
+		width: 150px;
+		box-sizing: border-box;
+	}
 
-  &[data-type='checklistexpand'] .input-label .input{
-    border: none!important;
-  }
+	&_medium {
+		width: 266px;
+		box-sizing: border-box;
+	}
 
-  &[data-type='checklistexpand']>.input-label>.input::-webkit-input-placeholder{
-    text-transform: uppercase;
-    font-size: 12px;
-    font-family: "Montserrat Bold", Arial, sans-serif;
-    color: $color_black;
-    text-indent: 0px;
-     }
+	&_long {
+		width: 320px;
+		box-sizing: border-box;
+	}
 
-   &[data-type='plaintext']>.input-label>.input::-webkit-input-placeholder{
-    color: $color_grey_lightopaque;
+	i {
+		position: absolute;
+		right: 10px;
+		bottom: 12px;
+		z-index: 5;
+	}
 }
-  &[data-type='plaintext']>.input-label>.input::-moz-placeholder{
-    color: $color_grey_lightopaque;
-  }
-  &[data-type='maskedtext']>.input-label>.input::-webkit-input-placeholder{
-    color: $color_grey_lightopaque;
-  }
-  &[data-type='maskedtext']>.input-label>.input::-moz-placeholder{
-    color: $color_grey_lightopaque;
-  }
-
-
-
-
-
-  &_short{
-    width: 150px;
-    box-sizing: border-box;
-  }
-
-  &_medium{
-    width: 266px;
-    box-sizing: border-box;
-  }
-
-  &_long{
-    width: 320px;
-    box-sizing: border-box;
-  }
-
-  i {
-    position: absolute;
-    right: 10px;
-    bottom: 12px;
-    z-index: 5;
-  }
-}
-
-

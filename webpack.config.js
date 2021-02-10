@@ -179,7 +179,7 @@ module.exports = {
 		}),
 		new CopyPlugin({
 			patterns: [
-				{ from: `${PATHS.assets}img`, to: `${PATHS.dist}/${PATHS.assets}img/` }, // копируем все изображения в папку продакшена
+				{ from: `${PATHS.assets}images`, to: `${PATHS.dist}/${PATHS.assets}images/` }, // копируем все изображения в папку продакшена
 			],
 		}),
 	],
