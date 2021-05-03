@@ -39,7 +39,7 @@ class View {
 		this.decrements = this.dropdownWrapper.querySelectorAll('.count_decrem');
 		this.increments = this.dropdownWrapper.querySelectorAll('.count_increm');
 		this.listElems = this.counters.children;
-		this.counterList = this.bindInitialCounterList();// #1 получаем первоначальный список li (из разметки) и создаем массив объектов вида [{id: 0, text: "спальни", cnt: "2"}, ...]
+		this.counterList = this.getInitialCounterList();// #1 получаем первоначальный список li (из разметки) и создаем массив объектов вида [{id: 0, text: "спальни", cnt: "2"}, ...]
 	}
 	// №4 Устанавливаем объектам LI значения ID (на основании данных, ранее переданных в модель)
 	assignCounterID(counters) {
@@ -47,7 +47,32 @@ class View {
 			this.listElems[counter.id].id = counter.id; //присваиваем ID узлам li
 		})
 	}
+	getInitialCounterList() {
 
+		let counterList = [];
+		for (let i = 0; i < this.listElems.length; i++) {
+			let elemObj = {};
+			let catName = this.listElems[i].querySelector('.counter-category__name');
+			let catCnt = this.listElems[i].querySelector('.count__value');
+			elemObj.id = i;
+			elemObj.text = catName.innerText;
+			elemObj.cnt = catCnt.innerText;
+			counterList.push(elemObj);
+		}
+		return counterList;
+	}
+
+	// #5-1 Вешаем обработчики событий клика по кнопкам "плюс" и "минус"
+	bindEditCounter(handler) {
+		for (let elem of this.decrements) {
+			elem.addEventListener('click', event => {
+				const id = parseInt(event.target.parentElement.parentElement.id);
+				let currentCounter = parseInt(event.target.nextSibling.innerText);
+				let editedCounter = String(currentCounter - 1);
+				handler(id, editedCounter)
+			})
+		}
+	}
 
 	//#6-5 - Обновление view после каждого изменения модели
 	displayUpdatedCounters(counters) {
@@ -67,43 +92,40 @@ class View {
 	}
 
 
-	// #5-1 Вешаем обработчики событий клика по кнопкам "плюс" и "минус"
-	bindEditCounter(handler) {
-		for (let elem of this.decrements) {
-			elem.addEventListener('click', event => {
-				const id = parseInt(event.target.parentElement.parentElement.id);
-				let currentCounter = parseInt(event.target.nextSibling.innerText);
-				let editedCounter = String(currentCounter - 1);
-				handler(id, editedCounter)
-			})
-		}
-	}
+
 
 	// #1 получаем первоначальный список li (из разметки) и создаем массив объектов вида [{id: 0, text: "спальни", cnt: "2"}, ...]
-	bindInitialCounterList() {
 
-		let counterList = [];
-		for (let i = 0; i < this.listElems.length; i++) {
-			let elemObj = {};
-			let catName = this.listElems[i].querySelector('.counter-category__name');
-			let catCnt = this.listElems[i].querySelector('.count__value');
-			elemObj.id = i;
-			elemObj.text = catName.innerText;
-			elemObj.cnt = catCnt.innerText;
-			counterList.push(elemObj);
-		}
-		return counterList;
-	}
+
+
+	// bindInitialCounterList(handler) {
+
+	// 	window.addEventListener('load', function () {
+	// 		let counterList = [];
+	// 		for (let i = 0; i < this.listElems.length; i++) {
+	// 			let elemObj = {};
+	// 			let catName = this.listElems[i].querySelector('.counter-category__name');
+	// 			let catCnt = this.listElems[i].querySelector('.count__value');
+	// 			elemObj.id = i;
+	// 			elemObj.text = catName.innerText;
+	// 			elemObj.cnt = catCnt.innerText;
+	// 			counterList.push(elemObj);
+	// 		}
+	// 		handler(counterList);
+	// 	})
+
+	// }
 }
 
 class Controller {
 	constructor(model, view) {
 		this.model = model;
 		this.view = view;
-		this.handleInitialCounterList(this.view.counterList);//#2 Передаем в модель первоначальный список li (полученные в классе view), массив объектов вида [{id: 0, text: "спальни", cnt: "2"}, ...]
+		this.handleInitialCounterList(this.view.counterList);//#2 Получаем из view и передаем в модель первоначальный список li (полученные в классе view), массив объектов вида [{id: 0, text: "спальни", cnt: "2"}, ...]
 		this.onInitialCounterListSet(this.model.counters); // №4 Устанавливаем объектам LI значения ID (на основании данных, ранее переданных в модель)
 		this.view.bindEditCounter(this.handleEditCounter);// #5-2 Ловим события клика по кнопкам "плюс" и "минус"
 		this.model.bindCounterListChanged(this.onCounterListChanged)//#6-3 - связка с методом onCounterListChanged (в контроллере) для обновления view после изменения модели (чтобы его можно было вызывать из модели)
+
 	}
 
 
@@ -119,7 +141,8 @@ class Controller {
 	}
 
 	//#2 Передаем в модель первоначальный список li (полученные в классе view), массив объектов вида [{id: 0, text: "спальни", cnt: "2"}, ...]
-	handleInitialCounterList = (counterList) => {
+	handleInitialCounterList = counterList => {
+		console.log(counterList);
 		this.model.initialCounterList(counterList);
 
 	}
