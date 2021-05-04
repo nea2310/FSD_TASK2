@@ -37,13 +37,54 @@ class Model {
 
 class View {
 	constructor(root) {
+		this.parent = document;
 		this.dropdownWrapper = document.querySelector(root);
 		this.input = this.dropdownWrapper.querySelector('.input');
+		this.inputWrapper = this.dropdownWrapper.querySelector('.input-wrapper');
+		this.countWrapper = this.dropdownWrapper.querySelector('.dropdown-countwrapper');
 		this.counters = this.dropdownWrapper.querySelector('.counter');
 		this.decrements = this.dropdownWrapper.querySelectorAll('.count_decrem');
 		this.increments = this.dropdownWrapper.querySelectorAll('.count_increm');
 		this.listElems = this.counters.children;
+		this.inputWrapper.addEventListener('click', () => this.collapseDropdownByInsideClick())
+		this.parent.addEventListener('mouseup', this.collapseDropdownByOutsideClick);
 	}
+
+
+
+	collapseDropdownByOutsideClick(e) {
+
+		let dropDowns = document.querySelectorAll('.dropdown-wrapper');
+		console.log(e.target);
+		let a = e.target;
+		if (e.target.classList.contains('input')) e.preventDefault();
+		else {
+			for (let elem of dropDowns) {
+
+
+
+				let DropDownCountWrapper = elem.querySelector('.dropdown-countwrapper');
+				let DropDownInput = elem.querySelector('.input');
+
+				if (e.target != DropDownInput) {
+
+					DropDownCountWrapper.classList.add('dropdown-countwrapper_collapsed');
+					DropDownInput.classList.add('input_collapsed');
+					DropDownInput.classList.remove('input_expanded');
+				}
+			}
+		}
+	}
+
+
+	collapseDropdownByInsideClick() {
+		//	console.log(this);
+		this.input.classList.toggle('input_collapsed');
+		this.input.classList.toggle('input_expanded');
+
+	}
+
+
 	// №2-3 Метод assignCounterID получает объект, сформированный в модели, и прописывает свойства ID объектам LI
 	assignCounterID(counters) {
 		counters.forEach(counter => {
