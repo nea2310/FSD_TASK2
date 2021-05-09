@@ -10,23 +10,18 @@ function collapse(selector) {
 		}
 	}
 	if (selector == '') {
-
 	}
 	if (selector == '') {
-
 	}
 }
 
 
 
 function insideClick(elem, parentElemSelector) {
-	console.log(elem);
 	if (elem.closest(parentElemSelector)) {
-		console.log('Внутренний клик');
 		return true;
 	}
 	else {
-		console.log('Внешний клик');
 		return false;
 	}
 
@@ -46,7 +41,7 @@ class Model {
 
 	//#1-3 Метод initialCounterList получает данные  о первоначальном списке li (полученные в классе view, переданные через controller) и преобразует в массив объектов вида [{id: 0, text: "спальни", cnt: "2"}, ...]), заносим в localStorage
 	initialCounterList(counterList) {
-		let counterList1 = [];
+		let counterListArr = [];
 		for (let i = 0; i < counterList.length; i++) {
 			let elemObj = {};
 			let catName = counterList[i].querySelector('.counter-category__name');
@@ -54,9 +49,9 @@ class Model {
 			elemObj.id = i;
 			elemObj.text = catName.innerText;
 			elemObj.cnt = catCnt.innerText;
-			counterList1.push(elemObj);
+			counterListArr.push(elemObj);
 		}
-		localStorage.setItem('counters', JSON.stringify(counterList1));
+		localStorage.setItem('counters', JSON.stringify(counterListArr));
 		this.counters = JSON.parse(localStorage.getItem('counters'));
 	}
 
@@ -77,10 +72,10 @@ class View {
 		this.inputWrapper = this.dropdownWrapper.querySelector('.input-wrapper');
 		this.countWrapper = this.dropdownWrapper.querySelector('.dropdown-countwrapper');
 		this.counters = this.dropdownWrapper.querySelector('.counter');
-		this.decrements = this.dropdownWrapper.querySelectorAll('.count_decrem');
-		this.increments = this.dropdownWrapper.querySelectorAll('.count_increm');
+		this.counts = this.dropdownWrapper.querySelectorAll('.count');
 		this.listElems = this.counters.children;
-		this.inputWrapper.addEventListener('click', () => this.toggleDropdownByInsideClick())
+		this.submitButton = this.dropdownWrapper.querySelector('.dropdown-submit .action');
+		this.dropdownWrapper.addEventListener('click', (e) => this.toggleDropdownByInsideClick(e))
 		this.parent.addEventListener('mouseup', this.collapseDropdownByOutsideClick);
 	}
 
@@ -93,15 +88,22 @@ class View {
 		}
 	}
 
-	// Переключить состояние дропдауна, если кликнули по его инпуту
-	toggleDropdownByInsideClick() {
-		//Закрываем все открытые инпуты на странице (в будущем надо расширить функцию, чтобы она закрывала любые открывающиеся элемены)	
-		collapse('.dropdown-wrapper');
-		//Переключаем состоняние текущего дропдауна	
-		this.input.classList.toggle('input_collapsed');
-		this.input.classList.toggle('input_expanded');
-		this.countWrapper.classList.toggle('dropdown-countwrapper_collapsed');
-
+	// Переключить состояние дропдауна, если кликнули по его инпуту или кнопке [Применить]
+	toggleDropdownByInsideClick(e) {
+		//Если текущий дропдаун закрыт
+		if (this.input.classList.contains('input_collapsed')) {
+			//Закрыть все открытые дропдауны
+			collapse('.dropdown-wrapper');
+		}
+		//Если клик был по инпуту или кнопке [Применить]
+		if (e.target == this.input || e.target == this.submitButton) {
+			//Переключаем состояние текущего дропдауна	
+			this.input.classList.toggle('input_collapsed');
+			this.input.classList.toggle('input_expanded');
+			this.countWrapper.classList.toggle('dropdown-countwrapper_collapsed');
+		}
+		//Если клик был по какому-либо другому элементу - не обрабатываем клик
+		else e.preventDefault();
 	}
 
 
@@ -114,11 +116,21 @@ class View {
 
 	// #3-1 Вешаем обработчики событий клика по кнопкам "плюс" и "минус"
 	bindChangeCounter(handler) {
-		for (let elem of this.decrements) {
+		for (let elem of this.counts) {
 			elem.addEventListener('click', event => {
+				console.log(elem);
 				const id = parseInt(event.target.parentElement.parentElement.id);
-				let currentCounter = parseInt(event.target.nextSibling.innerText);
-				let editedCounter = String(currentCounter - 1);
+				let editedCounter;
+				//Для кнопки "минус"
+				if (elem.classList.contains('count_decrem')) {
+					let currentCounter = parseInt(event.target.nextSibling.innerText);
+					editedCounter = String(currentCounter - 1);
+				}
+				//Для кнопки "плюс"
+				else {
+					let currentCounter = parseInt(event.target.previousSibling.innerText);
+					editedCounter = String(currentCounter + 1);
+				}
 				handler(id, editedCounter)
 			})
 		}

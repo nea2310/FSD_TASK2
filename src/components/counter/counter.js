@@ -21,11 +21,11 @@ const counter = jQuery('document').ready(function ($) {
 
 
 
-	$('.dropdown-submit').click(function () {
-		$(this).parents('.dropdown-countwrapper').addClass('dropdown-countwrapper_collapsed');
-		$(this).parents('.dropdown-wrapper').children('.input-wrapper').children('.input-label').children('.input').addClass('input_collapsed')
-		$(this).parents('.dropdown-wrapper').children('.input-wrapper').children('.input-label').children('.input').removeClass('input_expanded')
-	})
+	// $('.dropdown-submit').click(function () {
+	// 	$(this).parents('.dropdown-countwrapper').addClass('dropdown-countwrapper_collapsed');
+	// 	$(this).parents('.dropdown-wrapper').children('.input-wrapper').children('.input-label').children('.input').addClass('input_collapsed')
+	// 	$(this).parents('.dropdown-wrapper').children('.input-wrapper').children('.input-label').children('.input').removeClass('input_expanded')
+	// })
 
 
 
