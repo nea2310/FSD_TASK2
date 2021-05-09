@@ -1,3 +1,37 @@
+function collapse(selector) {
+	let elemsToCollapse = document.querySelectorAll(selector);
+	if (selector == '.dropdown-wrapper') {
+		for (let elem of elemsToCollapse) {
+			let DropDownCountWrapper = elem.querySelector('.dropdown-countwrapper');
+			let DropDownInput = elem.querySelector('.input');
+			DropDownCountWrapper.classList.add('dropdown-countwrapper_collapsed');
+			DropDownInput.classList.add('input_collapsed');
+			DropDownInput.classList.remove('input_expanded');
+		}
+	}
+	if (selector == '') {
+
+	}
+	if (selector == '') {
+
+	}
+}
+
+
+
+function insideClick(elem, parentElemSelector) {
+	console.log(elem);
+	if (elem.closest(parentElemSelector)) {
+		console.log('Внутренний клик');
+		return true;
+	}
+	else {
+		console.log('Внешний клик');
+		return false;
+	}
+
+}
+
 class Model {
 	//#4-1 - Вешаем обработчик события изменения модели. В данном случае в callback будет передан метод view.displayChangedCounters, т.к. связка с ним задана в контроллере (controller: this.model.bindCounterListChanged(this.handleOnCounterListChanged)) 
 	bindCounterListChanged(callback) {
@@ -46,41 +80,27 @@ class View {
 		this.decrements = this.dropdownWrapper.querySelectorAll('.count_decrem');
 		this.increments = this.dropdownWrapper.querySelectorAll('.count_increm');
 		this.listElems = this.counters.children;
-		this.inputWrapper.addEventListener('click', () => this.collapseDropdownByInsideClick())
+		this.inputWrapper.addEventListener('click', () => this.toggleDropdownByInsideClick())
 		this.parent.addEventListener('mouseup', this.collapseDropdownByOutsideClick);
 	}
 
 
-
+	//Закрыть все дропдауны на странице, если кликнули мимо дропдауна (возможно надо вынести этот метод из этого класса???)
 	collapseDropdownByOutsideClick(e) {
-
-		let dropDowns = document.querySelectorAll('.dropdown-wrapper');
-		console.log(e.target);
-		let a = e.target;
-		if (e.target.classList.contains('input')) e.preventDefault();
+		if (insideClick(e.target, '.dropdown-wrapper')) e.preventDefault();
 		else {
-			for (let elem of dropDowns) {
-
-
-
-				let DropDownCountWrapper = elem.querySelector('.dropdown-countwrapper');
-				let DropDownInput = elem.querySelector('.input');
-
-				if (e.target != DropDownInput) {
-
-					DropDownCountWrapper.classList.add('dropdown-countwrapper_collapsed');
-					DropDownInput.classList.add('input_collapsed');
-					DropDownInput.classList.remove('input_expanded');
-				}
-			}
+			collapse('.dropdown-wrapper');
 		}
 	}
 
-
-	collapseDropdownByInsideClick() {
-		//	console.log(this);
+	// Переключить состояние дропдауна, если кликнули по его инпуту
+	toggleDropdownByInsideClick() {
+		//Закрываем все открытые инпуты на странице (в будущем надо расширить функцию, чтобы она закрывала любые открывающиеся элемены)	
+		collapse('.dropdown-wrapper');
+		//Переключаем состоняние текущего дропдауна	
 		this.input.classList.toggle('input_collapsed');
 		this.input.classList.toggle('input_expanded');
+		this.countWrapper.classList.toggle('dropdown-countwrapper_collapsed');
 
 	}
 
@@ -153,7 +173,8 @@ class Controller {
 	}
 }
 
-new Controller(new Model(), new View('.dropdown-wrapper'))
+new Controller(new Model(), new View('.dropdown-wrapper_narrow'))
+new Controller(new Model(), new View('.dropdown-wrapper_wide'))
 
 
 
