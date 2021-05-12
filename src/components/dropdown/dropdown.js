@@ -63,7 +63,17 @@ class Model {
 			elemObj.cnt = catCnt.innerText;
 			elemObj.maxCnt = catIncrem.getAttribute('data-max');
 			elemObj.minCnt = catDecrem.getAttribute('data-min');
-			//console.log(elemObj);
+			if (elemObj.cnt == elemObj.maxCnt) {
+				elemObj.isMax = true;
+			} else {
+				elemObj.isMax = false;
+			}
+			if (elemObj.cnt == elemObj.minCnt) {
+				elemObj.isMin = true;
+			} else {
+				elemObj.isMin = false;
+			}
+
 			counterListArr.push(elemObj);
 		}
 		localStorage.setItem('counters', JSON.stringify(counterListArr));
@@ -74,7 +84,66 @@ class Model {
 	changeCounter(text, editedCounter) {
 		//Формируем this.counters - они содержат все категории
 		this.counters = this.counters.map((counter) =>
-			counter.text === text ? { text: counter.text, type: counter.type, cnt: editedCounter, minCnt: counter.minCnt, maxCnt: counter.maxCnt } : counter,
+			counter.text === text ? {
+				text: counter.text,
+				type: counter.type,
+				cnt: editedCounter,
+				minCnt: counter.minCnt,
+				maxCnt: counter.maxCnt,
+				isMin: counter.isMin,
+				isMax: counter.isMax
+			} : counter,
+		)
+		//Проверяем, достигнуто ли минимальное / максимальное значение счетчика и если да -  присваиваем true 
+		//соответствующему свойству объекта, иначе - присваиваем false
+		// НАДО ОПТИМИЗИРОВАТЬ ПОВТОРЯЮЩИЙСЯ КОД!!!
+
+		this.counters = this.counters.map((counter) =>
+			parseInt(counter.minCnt) >= parseInt(counter.cnt) ? {
+				text: counter.text,
+				type: counter.type,
+				cnt: counter.cnt,
+				minCnt: counter.minCnt,
+				maxCnt: counter.maxCnt,
+				isMin: true,
+				isMax: counter.isMax
+			} : counter,
+		)
+
+		this.counters = this.counters.map((counter) =>
+			parseInt(counter.minCnt) < parseInt(counter.cnt) ? {
+				text: counter.text,
+				type: counter.type,
+				cnt: counter.cnt,
+				minCnt: counter.minCnt,
+				maxCnt: counter.maxCnt,
+				isMin: false,
+				isMax: counter.isMax
+			} : counter,
+		)
+
+		this.counters = this.counters.map((counter) =>
+			parseInt(counter.maxCnt) <= parseInt(counter.cnt) ? {
+				text: counter.text,
+				type: counter.type,
+				cnt: counter.cnt,
+				minCnt: counter.minCnt,
+				maxCnt: counter.maxCnt,
+				isMin: counter.isMin,
+				isMax: true
+			} : counter,
+		)
+
+		this.counters = this.counters.map((counter) =>
+			parseInt(counter.maxCnt) > parseInt(counter.cnt) ? {
+				text: counter.text,
+				type: counter.type,
+				cnt: counter.cnt,
+				minCnt: counter.minCnt,
+				maxCnt: counter.maxCnt,
+				isMin: counter.isMin,
+				isMax: false
+			} : counter,
 		)
 		this._commitCounterList(this.counters);
 		this.changeCounterToDisplay(this.counters);
@@ -82,7 +151,6 @@ class Model {
 
 	// #2-4-2 Метод changeCounterToDisplay формирует this.countersToDisplay - они могут объединять несколько категории в одну (например "Взрослые", "Дети" --> "Гости") в зависимости от типа категории; затем вызывает  метод _commitCounterList
 	changeCounterToDisplay(changedCounters) {
-
 
 		//! Здесь еще нужно добавить склонение названий по падежам!
 		let arr = [];
@@ -109,7 +177,6 @@ class Model {
 		this.countersToDisplay = arr;
 		this._commitCounterListToDisplay(this.countersToDisplay);
 	}
-
 }
 
 class View {
@@ -190,19 +257,19 @@ class View {
 	//#3-5-1 - Обновление view после каждого изменения модели (обновляем значения в строках со счетчиками)
 	updateChangedCounters(counters) {
 		for (let i = 0; i < counters.length; i++) {
-
 			let cnt = counters[i].cnt;
 			let cntToChange = this.listElems[i].querySelector('.count__value');
 			cntToChange.innerText = cnt;
 			//Если обновленное значение - минимальное разрешенное значение, то сделать кнопку "минус" неактивной
-			if (cnt < parseInt(counters[i].minCnt) + 1) {
+			if (counters[i].isMin) {
 				cntToChange.previousSibling.disabled = true;
-				console.log('ДЕАКТИВИРОВАТЬ МИНУС');
+				//	console.log('ДЕАКТИВИРОВАТЬ МИНУС');
 			}
 			//Если обновленное значение - максимальное разрешенное значение, то сделать кнопку "плюс" неактивной
-			if (cnt > parseInt(counters[i].maxCnt) - 1) {
+
+			if (counters[i].isMax) {
 				cntToChange.nextSibling.disabled = true;
-				console.log('ДЕАКТИВИРОВАТЬ ПЛЮС');
+				//	console.log('ДЕАКТИВИРОВАТЬ ПЛЮС');
 			}
 		}
 	}
