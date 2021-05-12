@@ -36,6 +36,10 @@ class Model {
 		this.counterListChanged = callback
 	}
 
+	// bindDisableButtons(callback) {
+	// 	this.disableButtons = callback;
+	// }
+
 	//	2-5-1 вызывает метод counterListChanged и обновляет localstorage 
 	_commitCounterList(counterList) {
 		this.counterListChanged(counterList); // Вызываем для обновления списка категорий и их счетчиков во view после изменения модели
@@ -78,6 +82,10 @@ class Model {
 		}
 		localStorage.setItem('counters', JSON.stringify(counterListArr));
 		this.counters = JSON.parse(localStorage.getItem('counters'));
+
+		//this.disableButtons(this.counters);
+
+
 	}
 
 	// #2-4-1 Метод changeCounter получает измененный каунтер и его text, проверяет все каунтеры, ищет по text каунтер, значение которого изменилось, меняет соответствующий каунтер в модели и вызывает методы _commitCounterList и changeCounterToDisplay
@@ -221,7 +229,21 @@ class View {
 		else e.preventDefault();
 	}
 	//распарсить дата-атрибуты data-min и data-max на кнопках "плюс" и "минус" и сделать их неактивными, если начальное значение равно data-min или data-max
-	setInactiveButtons() {
+	initializeDisableButtons(counterList) {
+		console.log(counterList);
+		for (let i = 0; i < counterList.length; i++) {
+			console.log(counterList[i]);
+			let elem = this.listElems[i];
+			console.log(elem);
+			if (counterList[i].isMin) {
+				let minus = elem.querySelector('.count_decrem')
+				minus.disabled = true;
+			}
+			if (counterList[i].isMax) {
+				let plus = elem.querySelector('.count_increm')
+				plus.disabled = true;
+			}
+		}
 	}
 
 
@@ -289,9 +311,11 @@ class Controller {
 		this.model = model;
 		this.view = view;
 		this.handleInitialCounterList(this.view.listElems);//#1-1 запускаем обработчик handleInitialCounterList  для передачи первоначального списка li (получен в классе view) в модель
+		this.handleDisableButtons(this.model.counters);
 		this.view.bindChangeCounter(this.handleChangeCounter);// #2-2 запускаем обработчик handleChangeCounter при возникновении в view события клика по кнопкам "плюс" и "минус"
 		this.model.bindCounterListChanged(this.handleOnCounterListChanged)//#3-3-1 - запускаем обработчик handleOnCounterListChanged при возникновении в модели события ее изменения 
 		this.model.bindCounterListToDisplayChanged(this.handleOnCounterListToDisplayChanged)//#3-3-2 - запускаем обработчик handleOnCounterListToDisplayChanged при возникновении в модели события ее изменения 
+
 	}
 
 	//#1-2 Обработчик handleInitialCounterList вызывает метод initialCounterList в модели
@@ -313,6 +337,10 @@ class Controller {
 	//#3-4-1 - Обработчик handleOnCounterListToDisplayChanged вызывает метод updateChangedCountersToDisplay в view
 	handleOnCounterListToDisplayChanged = (countersToDisplay) => {
 		this.view.updateChangedCountersToDisplay(countersToDisplay);
+	}
+
+	handleDisableButtons = counterList => {
+		this.view.initializeDisableButtons(counterList);
 	}
 }
 
