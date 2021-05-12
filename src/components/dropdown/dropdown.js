@@ -49,16 +49,21 @@ class Model {
 
 	}
 
-	//#1-3 Метод initialCounterList получает данные  о первоначальном списке li (полученные в классе view, переданные через controller) и преобразует в массив объектов вида [{id: 0, text: "спальни", cnt: "2"}, ...]), заносим в localStorage
+	//#1-3 Метод initialCounterList получает данные  о первоначальном списке li (полученные в классе view, переданные через controller) и преобразует в массив объектов вида [{text: "спальни", cnt: "2"}, ...]), заносим в localStorage
 	initialCounterList(counterList) {
 		let counterListArr = [];
 		for (let i = 0; i < counterList.length; i++) {
 			let elemObj = {};
 			let catName = counterList[i].querySelector('.counter-category__name');
 			let catCnt = counterList[i].querySelector('.count__value');
+			let catIncrem = counterList[i].querySelector('.count_increm');
+			let catDecrem = counterList[i].querySelector('.count_decrem');
 			elemObj.text = catName.innerText;
 			elemObj.type = catName.getAttribute('data-type')
 			elemObj.cnt = catCnt.innerText;
+			elemObj.maxCnt = catIncrem.getAttribute('data-max');
+			elemObj.minCnt = catDecrem.getAttribute('data-min');
+			//console.log(elemObj);
 			counterListArr.push(elemObj);
 		}
 		localStorage.setItem('counters', JSON.stringify(counterListArr));
@@ -69,7 +74,7 @@ class Model {
 	changeCounter(text, editedCounter) {
 		//Формируем this.counters - они содержат все категории
 		this.counters = this.counters.map((counter) =>
-			counter.text === text ? { text: counter.text, type: counter.type, cnt: editedCounter } : counter,
+			counter.text === text ? { text: counter.text, type: counter.type, cnt: editedCounter, minCnt: counter.minCnt, maxCnt: counter.maxCnt } : counter,
 		)
 		this._commitCounterList(this.counters);
 		this.changeCounterToDisplay(this.counters);
@@ -163,19 +168,19 @@ class View {
 				//Для кнопки "минус"
 				if (elem.classList.contains('count_decrem')) {
 					// Сделать активной кнопку "плюс" при клике на кнопку "минус"					
-					elem.parentElement.lastElementChild.classList.remove('count_inactive')
+					elem.parentElement.lastElementChild.disabled = false;
+					//Уменьшить счетчик на единицу
 					let currentCounter = parseInt(event.target.nextSibling.innerText);
-					//Если дошли до минимального разрешенного значения - не менять значение счетчика, иначе - уменьшить на 1
-					currentCounter > parseInt(elem.getAttribute('data-min')) ? editedCounter = String(currentCounter - 1) : editedCounter = String(currentCounter);
+					editedCounter = String(currentCounter - 1);
 				}
 
 				//Для кнопки "плюс"
 				else {
 					// Сделать активной кнопку "минус" при клике на кнопку "плюс"				
-					elem.parentElement.firstElementChild.classList.remove('count_inactive')
+					elem.parentElement.firstElementChild.disabled = false;
+					//Увеличить счетчик на единицу
 					let currentCounter = parseInt(event.target.previousSibling.innerText);
-					//Если дошли до максимального разрешенного значения - не менять значение счетчика, иначе - увеличить на 1
-					currentCounter < parseInt(elem.getAttribute('data-max')) ? editedCounter = String(currentCounter + 1) : editedCounter = String(currentCounter);
+					editedCounter = String(currentCounter + 1);
 				}
 				handler(text, editedCounter)
 			})
@@ -187,17 +192,17 @@ class View {
 		for (let i = 0; i < counters.length; i++) {
 
 			let cnt = counters[i].cnt;
-			let cntToChange = this.listElems[i].querySelector('.count__value')
-			let minCnt = cntToChange.previousSibling.getAttribute('data-min');
-			let maxCnt = cntToChange.nextSibling.getAttribute('data-max')
+			let cntToChange = this.listElems[i].querySelector('.count__value');
 			cntToChange.innerText = cnt;
 			//Если обновленное значение - минимальное разрешенное значение, то сделать кнопку "минус" неактивной
-			if (cnt == minCnt) {
-				cntToChange.previousSibling.classList.add('count_inactive')
-			};
+			if (cnt < parseInt(counters[i].minCnt) + 1) {
+				cntToChange.previousSibling.disabled = true;
+				console.log('ДЕАКТИВИРОВАТЬ МИНУС');
+			}
 			//Если обновленное значение - максимальное разрешенное значение, то сделать кнопку "плюс" неактивной
-			if (cnt == maxCnt) {
-				cntToChange.nextSibling.classList.add('count_inactive')
+			if (cnt > parseInt(counters[i].maxCnt) - 1) {
+				cntToChange.nextSibling.disabled = true;
+				console.log('ДЕАКТИВИРОВАТЬ ПЛЮС');
 			}
 		}
 	}
