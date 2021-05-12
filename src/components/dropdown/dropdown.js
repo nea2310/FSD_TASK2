@@ -15,8 +15,6 @@ function collapse(selector) {
 	}
 }
 
-
-
 function insideClick(elem, parentElemSelector) {
 	if (elem.closest(parentElemSelector)) {
 		return true;
@@ -24,20 +22,31 @@ function insideClick(elem, parentElemSelector) {
 	else {
 		return false;
 	}
-
 }
 
 class Model {
-	//#3-1 - Вешаем обработчик события изменения модели. В данном случае в callback будет передан метод view.displayChangedCounters, т.к. связка с ним задана в контроллере (controller: this.model.bindCounterListChanged(this.handleOnCounterListChanged)) 
+
+	//#3-1-1 - Вешаем обработчик события изменения модели. В данном случае в callback будет передан метод view.updateChangedCounters, т.к. связка с ним задана в контроллере (controller: this.model.bindCounterListChanged(this.handleOnCounterListChanged)) 
+	bindCounterListToDisplayChanged(callback) {
+		this.counterListToDisplayChanged = callback
+	}
+
+	//#3-1-2 - Вешаем обработчик события изменения модели. В данном случае в callback будет передан метод view.updateChangedCountersToDisplay, т.к. связка с ним задана в контроллере (controller: this.model.bindCounterListToDisplayChanged(this.handleOnCounterListToDisplayChanged)) 
 	bindCounterListChanged(callback) {
 		this.counterListChanged = callback
 	}
 
-	//	2-5 вызывает метод counterListChanged и обновляет localstorage 
-	_commit(counterList, counterListtoDisplay) {
-		this.counterListChanged(counterList, counterListtoDisplay); // Вызываем для обновления view после изменения модели
+	//	2-5-1 вызывает метод counterListChanged и обновляет localstorage 
+	_commitCounterList(counterList) {
+		this.counterListChanged(counterList); // Вызываем для обновления списка категорий и их счетчиков во view после изменения модели
 		localStorage.setItem('counters', JSON.stringify(counterList));
-		localStorage.setItem('countersToDisplay', JSON.stringify(counterListtoDisplay))
+	}
+
+	//	2-5-1 вызывает метод counterListToDisplayChanged и обновляет localstorage 
+	_commitCounterListToDisplay(counterListToDisplay) {
+		this.counterListToDisplayChanged(counterListToDisplay); // Вызываем для обновления главного инпута во view после изменения модели
+		localStorage.setItem('countersToDisplay', JSON.stringify(counterListToDisplay));
+
 	}
 
 	//#1-3 Метод initialCounterList получает данные  о первоначальном списке li (полученные в классе view, переданные через controller) и преобразует в массив объектов вида [{id: 0, text: "спальни", cnt: "2"}, ...]), заносим в localStorage
@@ -56,39 +65,46 @@ class Model {
 		this.counters = JSON.parse(localStorage.getItem('counters'));
 	}
 
-	// #2-4 Метод changeCounter получает измененный каунтер и его text, проверяет все каунтеры, ищет по text каунтер, значение которого изменилось, меняет соответствующий каунтер в модели и вызывает метод _commit
+	// #2-4-1 Метод changeCounter получает измененный каунтер и его text, проверяет все каунтеры, ищет по text каунтер, значение которого изменилось, меняет соответствующий каунтер в модели и вызывает методы _commitCounterList и changeCounterToDisplay
 	changeCounter(text, editedCounter) {
 		//Формируем this.counters - они содержат все категории
 		this.counters = this.counters.map((counter) =>
 			counter.text === text ? { text: counter.text, type: counter.type, cnt: editedCounter } : counter,
 		)
+		this._commitCounterList(this.counters);
+		this.changeCounterToDisplay(this.counters);
+	}
 
-		//Формируем this.countersToDisplay - они могут объединять несколько категории в одну (например "Взрослые", "Дети" --> "Гости") в зависимости от типа категории 
+	// #2-4-2 Метод changeCounterToDisplay формирует this.countersToDisplay - они могут объединять несколько категории в одну (например "Взрослые", "Дети" --> "Гости") в зависимости от типа категории; затем вызывает  метод _commitCounterList
+	changeCounterToDisplay(changedCounters) {
+
+
 		//! Здесь еще нужно добавить склонение названий по падежам!
 		let arr = [];
-		for (let i = 0; i < this.counters.length; i++) {
+		for (let i = 0; i < changedCounters.length; i++) {
 			// Если категории такого типа еще нет
-			if (i == 0 || i > 0 && this.counters[i].type != this.counters[i - 1].type) {
+			if (i == 0 || i > 0 && changedCounters[i].type != changedCounters[i - 1].type) {
 				//console.log('НЕРАВНЫ');
-				let type = this.counters[i].type;
-				let cnt = this.counters[i].cnt;
+				let type = changedCounters[i].type;
+				let cnt = changedCounters[i].cnt;
 				let elem = {};
 				elem.type = type;
 				elem.cnt = cnt;
-				// То добавить в массив, который в конце будет присвоен this.countersToDisplay				
+				// То добавить в массив, который в конце будет присвоен changedCountersToDisplay				
 				arr.push(elem);
 			}
 			// Если  категория такого типа уже есть
-			if (i > 0 && this.counters[i].type == this.counters[i - 1].type) {
+			if (i > 0 && changedCounters[i].type == changedCounters[i - 1].type) {
 				//console.log('РАВНЫ');
-				let elem = arr.find(item => item.type == this.counters[i].type);
+				let elem = arr.find(item => item.type == changedCounters[i].type);
 				// То в массив не добавлять, а прибавить значение к значению счетчика этой категории				
-				elem.cnt = String(parseInt(elem.cnt) + parseInt(this.counters[i].cnt))
+				elem.cnt = String(parseInt(elem.cnt) + parseInt(changedCounters[i].cnt))
 			}
 		}
 		this.countersToDisplay = arr;
-		this._commit(this.counters, this.countersToDisplay);
+		this._commitCounterListToDisplay(this.countersToDisplay);
 	}
+
 }
 
 class View {
@@ -166,15 +182,8 @@ class View {
 		}
 	}
 
-	//#3-5 - Обновление view после каждого изменения модели
-	displayChangedCounters(counters, countersToDisplay) {
-		// обновляем INPUT
-		let value = '';
-		countersToDisplay.forEach(counter => {
-			value += counter.cnt + ' ' + counter.type + ', ';
-		});
-		this.input.value = value;
-		// обновляем значения в строках со счетчиками
+	//#3-5-1 - Обновление view после каждого изменения модели (обновляем значения в строках со счетчиками)
+	updateChangedCounters(counters) {
 		for (let i = 0; i < counters.length; i++) {
 
 			let cnt = counters[i].cnt;
@@ -192,6 +201,15 @@ class View {
 			}
 		}
 	}
+
+	//#3-5-2 - Обновление view после каждого изменения модели (обновляем главный INPUT)
+	updateChangedCountersToDisplay(countersToDisplay) {
+		let value = '';
+		countersToDisplay.forEach(counter => {
+			value += counter.cnt + ' ' + counter.type + ', ';
+		});
+		this.input.value = value;
+	}
 }
 
 class Controller {
@@ -200,7 +218,8 @@ class Controller {
 		this.view = view;
 		this.handleInitialCounterList(this.view.listElems);//#1-1 запускаем обработчик handleInitialCounterList  для передачи первоначального списка li (получен в классе view) в модель
 		this.view.bindChangeCounter(this.handleChangeCounter);// #2-2 запускаем обработчик handleChangeCounter при возникновении в view события клика по кнопкам "плюс" и "минус"
-		this.model.bindCounterListChanged(this.handleOnCounterListChanged)//#3-3 - запускаем обработчик handleOnCounterListChanged при возникновении в модели события ее изменения 
+		this.model.bindCounterListChanged(this.handleOnCounterListChanged)//#3-3-1 - запускаем обработчик handleOnCounterListChanged при возникновении в модели события ее изменения 
+		this.model.bindCounterListToDisplayChanged(this.handleOnCounterListToDisplayChanged)//#3-3-2 - запускаем обработчик handleOnCounterListToDisplayChanged при возникновении в модели события ее изменения 
 	}
 
 	//#1-2 Обработчик handleInitialCounterList вызывает метод initialCounterList в модели
@@ -214,9 +233,14 @@ class Controller {
 		this.model.changeCounter(text, editedCounter)
 	}
 
-	//#3-4 - Обработчик handleOnCounterListChanged вызывает метод displayChangedCounters в view
-	handleOnCounterListChanged = (counters, countersToDisplay) => {
-		this.view.displayChangedCounters(counters, countersToDisplay);
+	//#3-4-1 - Обработчик handleOnCounterListChanged вызывает метод updateChangedCounters в view
+	handleOnCounterListChanged = (counters) => {
+		this.view.updateChangedCounters(counters);
+	}
+
+	//#3-4-1 - Обработчик handleOnCounterListToDisplayChanged вызывает метод updateChangedCountersToDisplay в view
+	handleOnCounterListToDisplayChanged = (countersToDisplay) => {
+		this.view.updateChangedCountersToDisplay(countersToDisplay);
 	}
 }
 
