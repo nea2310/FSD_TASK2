@@ -91,68 +91,142 @@ class Model {
 	// #2-4-1 Метод changeCounter получает измененный каунтер и его text, проверяет все каунтеры, ищет по text каунтер, значение которого изменилось, меняет соответствующий каунтер в модели и вызывает методы _commitCounterList и changeCounterToDisplay
 	changeCounter(text, editedCounter) {
 		//Формируем this.counters - они содержат все категории
-		this.counters = this.counters.map((counter) =>
-			counter.text === text ? {
-				text: counter.text,
-				type: counter.type,
-				cnt: editedCounter,
-				minCnt: counter.minCnt,
-				maxCnt: counter.maxCnt,
-				isMin: counter.isMin,
-				isMax: counter.isMax
-			} : counter,
+		this.counters = this.counters.map(function test(counter) {
+			if (counter.text === text) {
+
+				return {
+					text: counter.text,
+					type: counter.type,
+					cnt: editedCounter,
+					minCnt: counter.minCnt,
+					maxCnt: counter.maxCnt,
+					isMin: counter.isMin,
+					isMax: counter.isMax
+				}
+
+			}
+			else return counter;
+		}
+
 		)
 		//Проверяем, достигнуто ли минимальное / максимальное значение счетчика и если да -  присваиваем true 
 		//соответствующему свойству объекта, иначе - присваиваем false
 		// НАДО ОПТИМИЗИРОВАТЬ ПОВТОРЯЮЩИЙСЯ КОД!!!
 
-		this.counters = this.counters.map((counter) =>
-			parseInt(counter.minCnt) >= parseInt(counter.cnt) ? {
-				text: counter.text,
-				type: counter.type,
-				cnt: counter.cnt,
-				minCnt: counter.minCnt,
-				maxCnt: counter.maxCnt,
-				isMin: true,
-				isMax: counter.isMax
-			} : counter,
+
+		// this.counters = this.counters.map(function (counter) {
+		// 	let obj = {
+		// 		text: counter.text,
+		// 		type: counter.type,
+		// 		cnt: editedCounter,
+		// 		minCnt: counter.minCnt,
+		// 		maxCnt: counter.maxCnt,
+		// 		isMin: counter.isMin,
+		// 		isMax: counter.isMax
+		// 	}
+
+		// 	if (parseInt(counter.cnt) <= parseInt(counter.minCnt)) {
+		// 		console.log('1111');
+		// 		obj.isMin = true;
+		// 		obj.isMax = counter.isMax
+		// 	}
+
+		// 	if (parseInt(counter.cnt) > parseInt(counter.minCnt)) {
+		// 		console.log('22222');
+		// 		obj.isMin = false;
+		// 		obj.isMax = counter.isMax
+		// 	}
+
+		// 	if (parseInt(counter.cnt) >= parseInt(counter.maxCnt)) {
+		// 		console.log('33333');
+		// 		obj.isMin = counter.isMin;
+		// 		obj.isMax = true;
+		// 	}
+
+		// 	if (parseInt(counter.cnt) < parseInt(counter.maxCnt)) {
+		// 		console.log('44444');
+		// 		obj.isMin = counter.isMin;
+		// 		obj.isMax = false
+		// 	}
+
+		// 	return obj;
+		// }
+		// )
+
+		this.counters = this.counters.map(function (counter) {
+			if (parseInt(counter.cnt) <= parseInt(counter.minCnt)) {
+				console.log(counter.cnt);
+				console.log('11111');
+				return {
+					text: counter.text,
+					type: counter.type,
+					cnt: counter.cnt,
+					minCnt: counter.minCnt,
+					maxCnt: counter.maxCnt,
+					isMin: true,
+					isMax: counter.isMax
+				}
+			}
+			else return counter
+		}
 		)
 
-		this.counters = this.counters.map((counter) =>
-			parseInt(counter.minCnt) < parseInt(counter.cnt) ? {
-				text: counter.text,
-				type: counter.type,
-				cnt: counter.cnt,
-				minCnt: counter.minCnt,
-				maxCnt: counter.maxCnt,
-				isMin: false,
-				isMax: counter.isMax
-			} : counter,
+		this.counters = this.counters.map(function (counter) {
+			if (parseInt(counter.cnt) > parseInt(counter.minCnt)) {
+				console.log('22222');
+				console.log(counter.cnt);
+				return {
+					text: counter.text,
+					type: counter.type,
+					cnt: counter.cnt,
+					minCnt: counter.minCnt,
+					maxCnt: counter.maxCnt,
+					isMin: false,
+					isMax: counter.isMax
+				}
+			} else return counter
+		}
 		)
 
-		this.counters = this.counters.map((counter) =>
-			parseInt(counter.maxCnt) <= parseInt(counter.cnt) ? {
-				text: counter.text,
-				type: counter.type,
-				cnt: counter.cnt,
-				minCnt: counter.minCnt,
-				maxCnt: counter.maxCnt,
-				isMin: counter.isMin,
-				isMax: true
-			} : counter,
+		this.counters = this.counters.map(function (counter) {
+			if (parseInt(counter.cnt) >= parseInt(counter.maxCnt)) {
+				console.log('33333');
+				console.log(counter.cnt);
+				return {
+					text: counter.text,
+					type: counter.type,
+					cnt: counter.cnt,
+					minCnt: counter.minCnt,
+					maxCnt: counter.maxCnt,
+					isMin: counter.isMin,
+					isMax: true
+				}
+			} else return counter
+		}
 		)
 
-		this.counters = this.counters.map((counter) =>
-			parseInt(counter.maxCnt) > parseInt(counter.cnt) ? {
-				text: counter.text,
-				type: counter.type,
-				cnt: counter.cnt,
-				minCnt: counter.minCnt,
-				maxCnt: counter.maxCnt,
-				isMin: counter.isMin,
-				isMax: false
-			} : counter,
+		this.counters = this.counters.map(function (counter) {
+			if (parseInt(counter.cnt) < parseInt(counter.maxCnt)) {
+				console.log('44444');
+				console.log(counter.cnt);
+				return {
+					text: counter.text,
+					type: counter.type,
+					cnt: counter.cnt,
+					minCnt: counter.minCnt,
+					maxCnt: counter.maxCnt,
+					isMin: counter.isMin,
+					isMax: false
+				}
+			} else return counter
+		}
 		)
+
+
+
+		console.log(this.counters);
+
+
 		this._commitCounterList(this.counters);
 		this.changeCounterToDisplay(this.counters);
 	}
@@ -230,11 +304,11 @@ class View {
 	}
 	//распарсить дата-атрибуты data-min и data-max на кнопках "плюс" и "минус" и сделать их неактивными, если начальное значение равно data-min или data-max
 	initializeDisableButtons(counterList) {
-		console.log(counterList);
+		//	console.log(counterList);
 		for (let i = 0; i < counterList.length; i++) {
-			console.log(counterList[i]);
+			//	console.log(counterList[i]);
 			let elem = this.listElems[i];
-			console.log(elem);
+			//	console.log(elem);
 			if (counterList[i].isMin) {
 				let minus = elem.querySelector('.count_decrem')
 				minus.disabled = true;
