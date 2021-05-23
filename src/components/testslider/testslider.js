@@ -1,4 +1,23 @@
 class sliderModel {
+
+	initialValAndRange(width, rangeMin, rangeMax, valueMin, valueMax) {
+		this.rangeMin = rangeMin;
+		this.rangeMax = rangeMax;
+		// console.log(width);
+		// console.log(rangeMin);
+		// console.log(rangeMax);
+		console.log(valueMax);
+
+		this.startLeft = (parseInt(valueMin) - rangeMin) * width / (rangeMax - rangeMin);
+		console.log(this.startLeft);
+
+		this.startRight = (parseInt(valueMax) - rangeMin - 0.3) * width / (rangeMax - rangeMin);
+		console.log(this.startRight);
+
+	}
+
+
+
 	/*метод moveControl получает элемент и его координаты в момент начала перемещения ползунка*/
 	moveControl(controlData) {
 
@@ -37,7 +56,35 @@ class sliderModel {
 			newLeft = this.secondControlCoords.rigth - this.secondControlCoords.left;
 		}
 
-		this.сurrentControlUpdated(this.currentControl, newLeft); //Вызываем для обновления положения ползунка
+
+		/*Определяем текущее значение ползунка*/
+		let value;
+		if (this.currentControlFlag == false) {
+			value = (newLeft / (this.parentElementCoords.width / (this.rangeMax - this.rangeMin)) + this.rangeMin).toFixed(1);
+			// console.log('newLeft:');
+			// console.log(newLeft);
+			// console.log('this.parentElementCoords.width:');
+			// console.log(this.parentElementCoords.width);
+			// console.log('this.rangeMax:');
+			// console.log(this.rangeMax);
+			// console.log('this.rangeMin');
+			// console.log(this.rangeMin);
+			// console.log('value');
+			// console.log(value);
+
+
+
+
+
+		} else {
+			value = (newLeft / (this.parentElementCoords.width / (this.rangeMax - this.rangeMin)) + 0.3 + this.rangeMin).toFixed(1);
+
+		}
+
+		console.log(value);
+
+
+		this.сurrentControlUpdated(this.currentControl, newLeft, value); //Вызываем для обновления положения ползунка
 	}
 
 	//Вызываем для обновления положения ползунка (обращение к контроллеру)
@@ -53,6 +100,19 @@ class sliderView {
 		/*Находим корневой элемент*/
 		this.slider = document.querySelector(conf.target);
 
+		this.rangeMin = +this.slider.querySelector('.rs__filter number:first-child').innerHTML;
+		this.rangeMax = +this.slider.querySelector('.rs__filter number:last-child').innerHTML;
+		this.valueMin = conf.values[0];
+		this.valueMax = conf.values[1];
+
+		//определяем родительский элемент ползунков и его координаты
+		this.sliderScale = this.slider.querySelector('.rs__slider');
+		this.sliderScaleCoords = this.getCoords(this.sliderScale);
+		this.sliderWidth = this.sliderScaleCoords.width;
+		console.log(this.sliderWidth);
+
+
+
 		/*Определяем зону окрашивания*/
 		this.colorRange = this.slider.querySelector('.rs__colorRange')
 
@@ -62,7 +122,7 @@ class sliderView {
 		this.minControlValue = this.slider.querySelector('.rs__value-min');
 		this.minControlValue.style.left = - this.minControlCoords.width / 2 + "px";
 		this.minControlValue.style.top = parseFloat(window.getComputedStyle(this.minControl).getPropertyValue('top')) - 10 + "px";
-		this.minControlValue.innerText = '&&&&&&&&'
+		//this.minControlValue.innerText = '&&&&&&&&'
 
 		/*Определяем ползунок максимального значения*/
 		this.maxControl = this.slider.querySelector('.rs__control-max');
@@ -70,12 +130,15 @@ class sliderView {
 		this.maxControlValue = this.slider.querySelector('.rs__value-max');
 		this.maxControlValue.style.left = - this.maxControlCoords.width / 2 + "px";
 		this.maxControlValue.style.top = parseFloat(window.getComputedStyle(this.maxControl).getPropertyValue('top')) - 10 + "px";
-		this.maxControlValue.innerText = '&&&&&&&&'
+		//this.maxControlValue.innerText = '&&&&&&&&'
 
 
 		this.slider.addEventListener('dragstart', function (e) {
 			e.preventDefault();
 		})
+
+
+		//updateСurrentControl(elem, newLeft, value)
 
 	}
 
@@ -123,10 +186,17 @@ class sliderView {
 
 	}
 
+
+
+
 	// Вызывается из модели через контроллер для установки ползунку новой позиции
-	updateСurrentControl(elem, newLeft) {
+	updateСurrentControl(elem, newLeft, value) {
 		/*устанавливаем отступ ползунку*/
 		elem.style.left = newLeft + 'px';
+
+		/*Выводим значение над ползунком*/
+		elem.firstChild.innerHTML = value;
+
 	}
 
 	// Вешаем обработчик события отпускания мыши
@@ -148,13 +218,27 @@ class sliderController {
 	constructor(model, view) {
 		this.model = model;
 		this.view = view;
-
+		this.handleInitialValAndRange(this.view.sliderWidth, this.view.rangeMin, this.view.rangeMax, this.view.valueMin, this.view.valueMax);//#1-1 запускаем обработчик handleInitialValAndRange для передачи диапазона и  первоначальных значений ползунков (получены в классе view) в модель
+		this.handleInitialControlPosition(this.view.minControl, this.model.startLeft, this.view.valueMin);
+		this.handleInitialControlPosition(this.view.maxControl, this.model.startRight, this.view.valueMax);
 		this.view.bindMoveControl(this.handleMoveControl);// #1-2 запускаем обработчик handleMoveControl при возникновении в view события перетаскивания ползунка
 		this.view.bindReleaseControl(this.handleReleaseControl);// #1-2 запускаем обработчик handleMoveControl при возникновении в view события перетаскивания ползунка
 		this.model.bindСurrentControlUpdated(this.handleOnСurrentControlUpdated)//#3-3-2 - запускаем обработчик handleOnCounterListToDisplayChanged при возникновении в модели события ее изменения 
 
 
 	}
+
+
+	handleInitialValAndRange = (width, rangeMin, rangeMax, valueMin, valueMax) => {
+		console.log(width);
+
+		this.model.initialValAndRange(width, rangeMin, rangeMax, valueMin, valueMax);
+	}
+
+	handleInitialControlPosition = (elem, newLeft, value) => {
+		this.view.updateСurrentControl(elem, newLeft, value);
+	}
+
 
 	// #1-3 Обработчик handleMoveControl вызывает метод moveControl в модели
 	handleMoveControl = (controlData) => {
@@ -182,8 +266,8 @@ class sliderController {
 	}
 
 
-	handleOnСurrentControlUpdated = (elem, newLeft) => {
-		this.view.updateСurrentControl(elem, newLeft);
+	handleOnСurrentControlUpdated = (elem, newLeft, value) => {
+		this.view.updateСurrentControl(elem, newLeft, value);
 	}
 
 
@@ -205,5 +289,6 @@ class sliderController {
 
 new sliderController(new sliderModel(), new sliderView({
 	target: '.rs__filter',
+	values: [6, 7]
 
 }))
