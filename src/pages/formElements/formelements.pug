@@ -21,6 +21,8 @@ include ../../components/button/button.pug
 include ../../components/dropdown/dropdown.pug
 include ../../components/label/label.pug
 include ../../components/logo/logo.pug
+include ../../components/testslider/testslider.pug
+
 
 block serv
 	-var serv
@@ -88,3 +90,4 @@ block serv
 			div(class='formelements__col')
 				div(class='formelements__card')
 					+feedback({imgpath: 'images/murad.svg', name: 'Мурад Сарафанов', date: '5 дней назад', text: 'Великолепный матрас на кровати в основной спальне! А пуфик вообще потрясающий.        И стены, действительно, шумоподавляющие. Выкрикивал комплименты повару — никто не жаловался из соседей.'})
+					+testslider({})
