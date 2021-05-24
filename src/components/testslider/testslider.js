@@ -57,21 +57,20 @@ class sliderModel {
 		let rigthEdge = this.parentElementCoords.width - (this.currentControlCoords.width + 1);
 
 		if (newLeft < 0) {
+
 			newLeft = 0;
 		} else if (newLeft > rigthEdge) {
+
 			newLeft = rigthEdge;
 		}
 
-		/*Определяем новое положение ползунка на шкале*/
-		if (this.currentControlFlag == false && pos > this.secondControlCoords.left - this.secondControlCoords.width) {
-			newLeft = this.secondControlCoords.left - this.secondControlCoords.width - parent.coords.leftX;
-		} else if (this.currentControlFlag == true && pos < this.secondControlCoords.rigth + 5) {
-			newLeft = this.secondControlCoords.rigth - this.secondControlCoords.left;
-		}
+		/*запрещаем ползункам перепрыгивать друг через друга*/
+		if ((!this.currentControlFlag && pos > this.secondControlCoords.left - this.secondControlCoords.width) ||
+			(this.currentControlFlag && pos < this.secondControlCoords.rigth - 3)) return
 
 		/*Определяем новое значение ползунка*/
 		let value;
-		if (this.currentControlFlag == false) {
+		if (!this.currentControlFlag) {
 			value = (newLeft / (this.parentElementCoords.width / (this.rangeMax - this.rangeMin)) + this.rangeMin).toFixed(1);
 		} else {
 			value = (newLeft / (this.parentElementCoords.width / (this.rangeMax - this.rangeMin)) + 0.3 + this.rangeMin).toFixed(1);
@@ -83,7 +82,7 @@ class sliderModel {
 		/*обновляем закрашенную область диапазона выбора*/
 
 
-		if (this.currentControlFlag == false) {
+		if (!this.currentControlFlag) {
 			selectedLeft = newLeft + this.currentControlCoords.width + "px";
 			selectedWidth = this.secondControlCoords.left - this.getCoords(this.currentControl).left - this.currentControlCoords.width + "px";
 
