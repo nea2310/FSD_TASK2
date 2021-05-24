@@ -1,37 +1,25 @@
 class sliderModel {
-
+	//#1-3 Сохраняем в объекте модели диапазон, рассчитываем и сохраняем положение ползунков в момент рендеринга страницы
 	initialValAndRange(width, rangeMin, rangeMax, valueMin, valueMax) {
 		this.rangeMin = rangeMin;
 		this.rangeMax = rangeMax;
-		// console.log(width);
-		// console.log(rangeMin);
-		// console.log(rangeMax);
-		console.log(valueMax);
-
 		this.startLeft = (parseInt(valueMin) - rangeMin) * width / (rangeMax - rangeMin);
-		console.log(this.startLeft);
-
 		this.startRight = (parseInt(valueMax) - rangeMin - 0.3) * width / (rangeMax - rangeMin);
-		console.log(this.startRight);
-
 	}
 
+	/*#2-4 метод mouseDownOnControl получает элемент ползунка, его координаты в момент начала перемещения ползунка, и сохраняет в объекте модели*/
+	mouseDownOnControl(controlData) {
 
-
-	/*метод moveControl получает элемент и его координаты в момент начала перемещения ползунка*/
-	moveControl(controlData) {
-
-		this.currentControl = controlData.currentControl;
+		this.currentControl = controlData.currentControl; // ползунок, за который тянут
 		this.currentControlCoords = controlData.currentControlCoords;
-		this.secondControl = controlData.secondControl;
+		this.secondControl = controlData.secondControl; // второй ползунок
 		this.secondControlCoords = controlData.secondControlCoords;
-		this.parentElement = controlData.parentElement;
 		this.parentElementCoords = controlData.parentElementCoords;
 		this.currentControlFlag = controlData.currentControlFlag;
 	}
 
-
-	moveMouse(e) {
+	/*#2-5 метод mouseMove получает событие движения мыши с захваченным ползунком и рассчитывает новое положение ползунка на шкале и нове значение*/
+	mouseMove(e) {
 
 		/*Определяем положение мыши в зависимости от устройства*/
 		/*На мобильных устройствах может фиксироваться несколько точек касания, поэтому используется массив targetTouches*/
@@ -50,44 +38,26 @@ class sliderModel {
 		} else if (newLeft > rigthEdge) {
 			newLeft = rigthEdge;
 		}
+
+		/*Определяем новое положение ползунка на шкале*/
 		if (this.currentControlFlag == false && pos > this.secondControlCoords.left - this.secondControlCoords.width) {
 			newLeft = this.secondControlCoords.left - this.secondControlCoords.width - parent.coords.leftX;
 		} else if (this.currentControlFlag == true && pos < this.secondControlCoords.rigth + 5) {
 			newLeft = this.secondControlCoords.rigth - this.secondControlCoords.left;
 		}
 
-
-		/*Определяем текущее значение ползунка*/
+		/*Определяем новое значение ползунка*/
 		let value;
 		if (this.currentControlFlag == false) {
 			value = (newLeft / (this.parentElementCoords.width / (this.rangeMax - this.rangeMin)) + this.rangeMin).toFixed(1);
-			// console.log('newLeft:');
-			// console.log(newLeft);
-			// console.log('this.parentElementCoords.width:');
-			// console.log(this.parentElementCoords.width);
-			// console.log('this.rangeMax:');
-			// console.log(this.rangeMax);
-			// console.log('this.rangeMin');
-			// console.log(this.rangeMin);
-			// console.log('value');
-			// console.log(value);
-
-
-
-
-
 		} else {
 			value = (newLeft / (this.parentElementCoords.width / (this.rangeMax - this.rangeMin)) + 0.3 + this.rangeMin).toFixed(1);
-
 		}
 
-		console.log(value);
-
-
-		this.сurrentControlUpdated(this.currentControl, newLeft, value); //Вызываем для обновления положения ползунка
+		this.сurrentControlUpdated(this.currentControl, newLeft, value); //Вызываем для обновления положения и значения ползунка в view
 	}
 
-	//Вызываем для обновления положения ползунка (обращение к контроллеру)
+	//#2-6 Вызываем для обновления положения  и значения ползунка (обращение к контроллеру)
 	bindСurrentControlUpdated(callback) {
 		this.сurrentControlUpdated = callback
 	}
@@ -99,50 +69,35 @@ class sliderView {
 	constructor(conf) {
 		/*Находим корневой элемент*/
 		this.slider = document.querySelector(conf.target);
-
-		this.rangeMin = +this.slider.querySelector('.rs__filter number:first-child').innerHTML;
-		this.rangeMax = +this.slider.querySelector('.rs__filter number:last-child').innerHTML;
+		//Получаем min и max значения диапазона и min и max предустановленные значения ползунков
+		this.rangeMin = conf.range[0];
+		this.rangeMax = conf.range[1];
 		this.valueMin = conf.values[0];
 		this.valueMax = conf.values[1];
+		//Устанавливаем min и max значения диапазона
+		this.rangeMinInput = this.slider.querySelector('.rs__range-min');
+		this.rangeMaxInput = this.slider.querySelector('.rs__range-max');
+		this.rangeMinInput.value = this.rangeMin;
+		this.rangeMaxInput.value = this.rangeMax;
 
-		//определяем родительский элемент ползунков и его координаты
+
+		//определяем родительский элемент ползунков и его ширину в момент рендеринга страницы
 		this.sliderScale = this.slider.querySelector('.rs__slider');
-		this.sliderScaleCoords = this.getCoords(this.sliderScale);
-		this.sliderWidth = this.sliderScaleCoords.width;
-		console.log(this.sliderWidth);
-
-
+		this.sliderWidth = this.sliderScale.offsetWidth;
 
 		/*Определяем зону окрашивания*/
 		this.colorRange = this.slider.querySelector('.rs__colorRange')
 
 		/*Определяем ползунок минимального значения*/
 		this.minControl = this.slider.querySelector('.rs__control-min');
-		this.minControlCoords = this.getCoords(this.minControl);
-		this.minControlValue = this.slider.querySelector('.rs__value-min');
-		this.minControlValue.style.left = - this.minControlCoords.width / 2 + "px";
-		this.minControlValue.style.top = parseFloat(window.getComputedStyle(this.minControl).getPropertyValue('top')) - 10 + "px";
-		//this.minControlValue.innerText = '&&&&&&&&'
 
 		/*Определяем ползунок максимального значения*/
 		this.maxControl = this.slider.querySelector('.rs__control-max');
-		this.maxControlCoords = this.getCoords(this.maxControl);
-		this.maxControlValue = this.slider.querySelector('.rs__value-max');
-		this.maxControlValue.style.left = - this.maxControlCoords.width / 2 + "px";
-		this.maxControlValue.style.top = parseFloat(window.getComputedStyle(this.maxControl).getPropertyValue('top')) - 10 + "px";
-		//this.maxControlValue.innerText = '&&&&&&&&'
-
 
 		this.slider.addEventListener('dragstart', function (e) {
 			e.preventDefault();
 		})
-
-
-		//updateСurrentControl(elem, newLeft, value)
-
 	}
-
-	/*Вешаем обработчики событий mousedown и touchstart */
 
 
 	getCoords(elem) {
@@ -155,11 +110,14 @@ class sliderView {
 			leftX: coords.left,
 			rigth: coords.left + window.pageXOffset + coords.width,
 			bottom: coords.top + window.pageYOffset + coords.height,
-			width: coords.width
+			width: coords.width,
+			height: coords.height,
+			top1: coords.top,
+			pageYoffset: window.pageYOffset
 		}
 	}
-	// #1-1 Вешаем обработчики события перетаскивания ползунка
-	bindMoveControl(handler) {
+	// #2-1 Вешаем обработчики события нажатия кнопки на ползунке ползунка (захвата ползунка) и перемещения ползунка
+	bindMoveControl(mouseDownOnControlHandler, mouseMoveHandler) {
 
 		this.slider.addEventListener('mousedown', (e) => {
 			if (e.target.classList.contains('rs__control')) {
@@ -172,37 +130,42 @@ class sliderView {
 				controlData.currentControl == this.minControl ? controlData.secondControl = this.maxControl : controlData.secondControl = this.minControl;
 				controlData.secondControlCoords = this.getCoords(controlData.secondControl);
 
-				//определяем родительский элемент ползунков и его координаты
-				controlData.parentElement = controlData.currentControl.parentElement;
-				controlData.parentElementCoords = this.getCoords(controlData.parentElement);
+				//определяем координаты родительского элемента ползунков в момент события
+				controlData.parentElementCoords = this.getCoords(this.sliderScale);
+
 
 				// Устанавливаем флаг, какой из ползунков (левый или правый) перемещается
 				controlData.currentControl == this.minControl ? controlData.currentControlFlag = false : controlData.currentControlFlag = true;
 
 
-				handler(controlData);// обращение к контроллеру
+				mouseDownOnControlHandler(controlData);// вызов хендлера захвата ползунка
+
+
+
+				document.addEventListener('mousemove', mouseMoveHandler);// навешивание обработчика перемещения ползунка
+				//	document.addEventListener('mouseup', this.handleMouseUp);
+				document.addEventListener('touchmove', mouseMoveHandler);// навешивание обработчика перемещения ползунка
+				//	document.addEventListener('touchend', this.handleMouseUp);
 			}
 		})
-
 	}
 
 
 
 
-	// Вызывается из модели через контроллер для установки ползунку новой позиции
+	//#2-9 Вызывается из модели через контроллер для установки ползунку новой позиции
 	updateСurrentControl(elem, newLeft, value) {
 		/*устанавливаем отступ ползунку*/
 		elem.style.left = newLeft + 'px';
 
 		/*Выводим значение над ползунком*/
-		elem.firstChild.innerHTML = value;
-
+		elem.firstChild.value = value;
 	}
 
-	// Вешаем обработчик события отпускания мыши
-	bindReleaseControl(handler) {
+	//3-1 Вешаем обработчик события отпускания мыши
+	bindMouseUp(mouseUpHandler) {
 		this.slider.addEventListener('mouseup', () => {
-			handler();
+			mouseUpHandler();
 		})
 	}
 
@@ -219,76 +182,56 @@ class sliderController {
 		this.model = model;
 		this.view = view;
 		this.handleInitialValAndRange(this.view.sliderWidth, this.view.rangeMin, this.view.rangeMax, this.view.valueMin, this.view.valueMax);//#1-1 запускаем обработчик handleInitialValAndRange для передачи диапазона и  первоначальных значений ползунков (получены в классе view) в модель
-		this.handleInitialControlPosition(this.view.minControl, this.model.startLeft, this.view.valueMin);
-		this.handleInitialControlPosition(this.view.maxControl, this.model.startRight, this.view.valueMax);
-		this.view.bindMoveControl(this.handleMoveControl);// #1-2 запускаем обработчик handleMoveControl при возникновении в view события перетаскивания ползунка
-		this.view.bindReleaseControl(this.handleReleaseControl);// #1-2 запускаем обработчик handleMoveControl при возникновении в view события перетаскивания ползунка
-		this.model.bindСurrentControlUpdated(this.handleOnСurrentControlUpdated)//#3-3-2 - запускаем обработчик handleOnCounterListToDisplayChanged при возникновении в модели события ее изменения 
-
-
+		this.handleInitialControlPosition(this.view.minControl, this.model.startLeft, this.view.valueMin);//#1-4 запускаем для передачи во view информации о начальном положениее левого ползунка
+		this.handleInitialControlPosition(this.view.maxControl, this.model.startRight, this.view.valueMax); //#1-5 запускаем для передачи во view информации о начальном положениее правого ползунка
+		this.view.bindMoveControl(this.handleMouseDownOnControl, this.handleMouseMove);// #2-2 запускаем обработчики handleMouseDownOnControl и handleMouseMove при возникновении в view события захвата и перетаскивания ползунка
+		this.model.bindСurrentControlUpdated(this.handleOnСurrentControlUpdated)//#2-7 Вызываем для обновления положения  и значения ползунка (обращение к view)
+		this.view.bindMouseUp(this.handleMouseUp);// #3-2 запускаем обработчик handleMouseUp при возникновении в view события отпускания кнопки (завершение перетаскивания ползунка)
 	}
 
-
+	//#1-2 Передаем диапазон и  первоначальные значения ползунков (получены в классе view) в модель
+	// Это нужно для установки начального положения ползунков на шкале
 	handleInitialValAndRange = (width, rangeMin, rangeMax, valueMin, valueMax) => {
-		console.log(width);
-
 		this.model.initialValAndRange(width, rangeMin, rangeMax, valueMin, valueMax);
 	}
-
+	//#1-6 Передаем информацию о расположении ползунков в view (newLeft был посчитан в модели)
 	handleInitialControlPosition = (elem, newLeft, value) => {
 		this.view.updateСurrentControl(elem, newLeft, value);
 	}
 
 
-	// #1-3 Обработчик handleMoveControl вызывает метод moveControl в модели
-	handleMoveControl = (controlData) => {
+	// #2-3 Обработчик handleMouseDownOnControl вызывает метод mouseDownOnControl в модели
+	handleMouseDownOnControl = (controlData) => {
 
-		console.log('MOUSEMOVE!');
-
-		document.addEventListener('mousemove', this.onMouseMove);
-		//	document.addEventListener('mouseup', this.onMouseUp);
-		document.addEventListener('touchmove', this.onMouseMove);
-		//	document.addEventListener('touchend', this.onMouseUp);
-
-		//console.log(this);
-
-
-		this.model.moveControl(controlData)
+		console.log('MOUSEDOWN!');
+		this.model.mouseDownOnControl(controlData)
 	}
 
-
-	handleReleaseControl = (e) => {
-		console.log('MOUSEUP!');
-		document.removeEventListener('mousemove', this.onMouseMove);
-		//	document.removeEventListener('mouseup', this.onMouseUp);
-		document.removeEventListener('touchmove', this.onMouseMove);
-		//	document.removeEventListener('touchend', this.onMouseUp);
+	// #2-4 Обработчик handleMouseMove вызывает метод mouseMove в модели
+	handleMouseMove = (e) => {
+		this.model.mouseMove(e);
 	}
 
-
+	//#2-8 Обработчик handleOnСurrentControlUpdated вызывает метод updateСurrentControl в view
 	handleOnСurrentControlUpdated = (elem, newLeft, value) => {
 		this.view.updateСurrentControl(elem, newLeft, value);
 	}
 
-
-	onMouseMove = (e) => {
-
-		this.model.moveMouse(e);
-
+	// #3-3 Обработчик handleMouseUp снимает обработчики, повешенные на событие перемещения мыши
+	handleMouseUp = (e) => {
+		console.log('MOUSEUP!');
+		document.removeEventListener('mousemove', this.handleMouseMove);
+		//	document.removeEventListener('mouseup', this.handleMouseUp);
+		document.removeEventListener('touchmove', this.handleMouseMove);
+		//	document.removeEventListener('touchend', this.handleMouseUp);
 	}
-
-	// onMouseUp = (e) => {
-	// 	//console.log('MOUSEUP');
-
-	// }
-
-
 }
 
 
 
 new sliderController(new sliderModel(), new sliderView({
 	target: '.rs__filter',
-	values: [6, 7]
+	range: [50, 100],
+	values: [56, 70]
 
 }))
