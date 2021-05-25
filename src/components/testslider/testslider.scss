@@ -54,9 +54,19 @@
 	width: 30px;
 }
 
-.rs__panel {
+.rs__panelWrapper {
 	border: 1px solid red;
 	position: absolute;
 	bottom: 120px;
 	left: 250px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.rs__panel {
+	border: 1px solid red;
+	width: 30px;
+	//position: absolute;
+	// bottom: 120px;
+	// left: 250px;
 }
