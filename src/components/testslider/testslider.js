@@ -51,7 +51,7 @@ class sliderModel {
 		let pos;
 		e.touches === undefined ? pos = e.clientX : pos = e.targetTouches[0].clientX;
 
-		/*Устанавливаем границы движения ползунка*/
+		/*Определяем новую позицию ползунка*/
 
 		let newLeft = pos - this.parentElementCoords.leftX;
 		let rigthEdge = this.parentElementCoords.width - (this.currentControlCoords.width + 1);
@@ -79,9 +79,7 @@ class sliderModel {
 		let selectedLeft;
 		let selectedWidth;
 
-		/*обновляем закрашенную область диапазона выбора*/
-
-
+		/*определяем закрашенную область шкалы*/
 		if (!this.currentControlFlag) {
 			selectedLeft = newLeft + this.currentControlCoords.width + "px";
 			selectedWidth = this.secondControlCoords.left - this.getCoords(this.currentControl).left - this.currentControlCoords.width + "px";
