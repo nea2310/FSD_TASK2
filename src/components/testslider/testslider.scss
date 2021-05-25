@@ -4,36 +4,23 @@
 .rs__wrapper {
 	padding: 30px;
 	width: 300px;
+	position: relative;
 }
-.rs__wrapper > div {
-	padding-top: 20px;
-	display: -webkit-flex;
-	display: -moz-flex;
-	display: -ms-flex;
-	display: -o-flex;
-	display: flex;
-	-webkit-flex-direction: column;
-	-moz-flex-direction: column;
-	-ms-flex-direction: column;
-	-o-flex-direction: column;
-	flex-direction: column;
-}
-.rs__wrapper > div > div {
-	display: -webkit-flex;
-	display: -moz-flex;
-	display: -ms-flex;
-	display: -o-flex;
+.rs__rangeWrapper {
 	display: flex;
 	justify-content: space-between;
-}
-.rs__wrapper .rs__slider {
 	margin-top: 10px;
+
+	//	flex-direction: column;
+}
+
+.rs__slider {
 	position: relative;
 	height: 6px;
 	background: #fff;
 	border: 1px solid #000;
 }
-.rs__wrapper .rs__colorRange {
+.rs__colorRange {
 	position: absolute;
 	background: var(--background-range, #000);
 	width: 95%;
@@ -41,8 +28,7 @@
 	height: 6px;
 	left: 15px;
 }
-.rs__wrapper .rs__control-min,
-.rs__control-max {
+.rs__control {
 	width: 15px;
 	height: 25px;
 	position: absolute;
@@ -53,7 +39,7 @@
 	border-radius: 4px;
 	z-index: 1;
 }
-.rs__wrapper .rs__control-max {
+.rs__control-max {
 	left: 95%;
 }
 
@@ -66,4 +52,11 @@
 
 .rs__range {
 	width: 30px;
+}
+
+.rs__panel {
+	border: 1px solid red;
+	position: absolute;
+	bottom: 120px;
+	left: 250px;
 }

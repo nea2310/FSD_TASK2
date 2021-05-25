@@ -18,11 +18,11 @@ class sliderModel {
 
 
 	//#1-3 Сохраняем в объекте модели диапазон, рассчитываем и сохраняем положение ползунков в момент рендеринга страницы
-	initialValAndRange(sliderWidth, minRangeVal, maxRangeVal, minControlStartVal, maxControlStartVal, minControl, maxControl) {
+	initialValAndRange(scaleWidth, minRangeVal, maxRangeVal, minControlStartVal, maxControlStartVal, minControl, maxControl) {
 		this.minRangeVal = minRangeVal;//минимальное значение диапазона
 		this.maxRangeVal = maxRangeVal;//максимальное значение диапазона
-		this.minControlStartPos = (parseInt(minControlStartVal) - minRangeVal) * sliderWidth / (maxRangeVal - minRangeVal);// начальнное положение левого ползунка на шкале
-		this.maxControlStartPos = (parseInt(maxControlStartVal) - minRangeVal - 0.3) * sliderWidth / (maxRangeVal - minRangeVal);// начальнное положение правого ползунка на шкале
+		this.minControlStartPos = (parseInt(minControlStartVal) - minRangeVal) * scaleWidth / (maxRangeVal - minRangeVal);// начальнное положение левого ползунка на шкале
+		this.maxControlStartPos = (parseInt(maxControlStartVal) - minRangeVal - 0.3) * scaleWidth / (maxRangeVal - minRangeVal);// начальнное положение правого ползунка на шкале
 		this.startWidth = this.maxControlStartPos - this.minControlStartPos; // начальная ширина активного диапазона
 		this.minControl = minControl;//левый ползунок
 		this.maxControl = maxControl;// правый ползунок
@@ -113,47 +113,46 @@ class sliderView {
 		/*Находим корневой элемент*/
 		this.conf = conf;
 		this.slider = document.querySelector(conf.target);
-		//Получаем min и max значения диапазона и min и max предустановленные значения ползунков
-		this.minRangeVal = conf.range[0];
-		this.maxRangeVal = conf.range[1];
-		this.minControlStartVal = conf.values[0];
-		this.maxControlStartVal = conf.values[1];
+
+		this.renderScale();// шкала
+		this.renderLeftControl(); //левый ползунок
+		this.renderRightControl();// правый ползунок
+
+	}
+	renderScale() {
+		//определяем родительский элемент ползунков и его ширину в момент рендеринга страницы
+		this.scale = this.slider.querySelector('.rs__slider');
+		this.scaleWidth = this.scale.offsetWidth;
+		/*Определяем зону окрашивания*/
+		this.scaleColored = this.slider.querySelector('.rs__colorRange')
+		//Получаем min и max значения диапазона
+		this.minRangeVal = this.conf.range[0];
+		this.maxRangeVal = this.conf.range[1];
+
+
+
 		//Устанавливаем min и max значения диапазона в инпуты
 		this.minRangeValInput = this.slider.querySelector('.rs__range-min');
 		this.maxRangeValInput = this.slider.querySelector('.rs__range-max');
 		this.minRangeValInput.value = this.minRangeVal;
 		this.maxRangeValInput.value = this.maxRangeVal;
 
-
-
-
-		/*Определяем зону окрашивания*/
-		this.colorRange = this.slider.querySelector('.rs__colorRange')
-
-
-
-
-		this.renderScale();
-		this.renderLeftControl();
-		this.renderRightControl();
-
-	}
-	renderScale() {
-		//определяем родительский элемент ползунков и его ширину в момент рендеринга страницы
-		this.sliderScale = this.slider.querySelector('.rs__slider');
-		this.sliderWidth = this.sliderScale.offsetWidth;
 	}
 
 	renderLeftControl() {
 		/*Определяем ползунок минимального значения*/
 		this.minControl = this.slider.querySelector('.rs__control-min');
 		this.minControl.firstChild.value = this.conf.values[0];
+		// Устанавливаем стартовое значение ползунка
+		this.minControlStartVal = this.conf.values[0];
 	}
 
 	renderRightControl() {
 		/*Определяем ползунок максимального значения*/
 		this.maxControl = this.slider.querySelector('.rs__control-max');
 		this.maxControl.firstChild.value = this.conf.values[1];
+		// Устанавливаем стартовое значение ползунка
+		this.maxControlStartVal = this.conf.values[1];
 	}
 
 
@@ -203,8 +202,8 @@ class sliderView {
 	/*#2-9 красим диапазон выбора (область шкалы между ползунками)*/
 	updateActiveRange(left, width) {
 
-		this.colorRange.style.left = left;
-		this.colorRange.style.width = width;
+		this.scaleColored.style.left = left;
+		this.scaleColored.style.width = width;
 	}
 
 	//3-1 Вешаем обработчик события отпускания мыши
@@ -216,14 +215,27 @@ class sliderView {
 
 }
 
+class sliderViewPanel extends sliderView {
+	constructor(conf) {
+		super(conf);
+		this.test()
+	}
+	test() {
 
+		console.log(this.conf);
+		let panel = document.createElement('input');
+		panel.value = 'PANEL';
+		panel.classList.add('rs__panel');
+		this.slider.prepend(panel);
+	}
+}
 
 
 class sliderController {
 	constructor(model, view) {
 		this.model = model;
 		this.view = view;
-		this.handleInitialValAndRange(this.view.sliderWidth, this.view.minRangeVal, this.view.maxRangeVal, this.view.minControlStartVal, this.view.maxControlStartVal, this.view.minControl, this.view.maxControl);//#1-1 запускаем обработчик handleInitialValAndRange для передачи диапазона и  первоначальных значений ползунков (получены в классе view) в модель
+		this.handleInitialValAndRange(this.view.scaleWidth, this.view.minRangeVal, this.view.maxRangeVal, this.view.minControlStartVal, this.view.maxControlStartVal, this.view.minControl, this.view.maxControl);//#1-1 запускаем обработчик handleInitialValAndRange для передачи диапазона и  первоначальных значений ползунков (получены в классе view) в модель
 		this.handleInitialControlPosition(this.view.minControl, this.model.minControlStartPos);//#1-4-1 запускаем для передачи во view информации о начальном положениее левого ползунка
 		this.handleInitialControlPosition(this.view.maxControl, this.model.maxControlStartPos); //#1-4-2 запускаем для передачи во view информации о начальном положениее правого ползунка
 		this.handleActiveRange(this.model.minControlStartPos, this.model.startWidth)// //#1-5 запускаем для передачи во view информации об активном диапазоне (чтобы покрасить внутреннюю часть шкалы между двумя ползунками)
@@ -234,8 +246,8 @@ class sliderController {
 
 	//#1-2 Передаем диапазон и  первоначальные значения ползунков (получены в классе view) в модель
 	// Это нужно для установки начального положения ползунков на шкале
-	handleInitialValAndRange = (sliderWidth, minRangeVal, maxRangeVal, minControlStartVal, maxControlStartVal, minControl, maxControl) => {
-		this.model.initialValAndRange(sliderWidth, minRangeVal, maxRangeVal, minControlStartVal, maxControlStartVal, minControl, maxControl);
+	handleInitialValAndRange = (scaleWidth, minRangeVal, maxRangeVal, minControlStartVal, maxControlStartVal, minControl, maxControl) => {
+		this.model.initialValAndRange(scaleWidth, minRangeVal, maxRangeVal, minControlStartVal, maxControlStartVal, minControl, maxControl);
 	}
 	//#1-6 Передаем информацию о расположении ползунков в view (newLeft был посчитан в модели) - ДЛЯ ПОЗИЦИОНИРОВАНИЯ ПОЛЗУНКОВ НА ШКАЛЕ И УКАЗАНИЯ ЗНАЧЕНИЯ
 	handleInitialControlPosition = (elem, newLeft) => {
@@ -285,4 +297,26 @@ new sliderController(new sliderModel(), new sliderView({
 	range: [0, 5],
 	values: [1, 4]
 
-}))
+}), new sliderViewPanel({
+	target: '.rs__wrapper',
+	range: [0, 5],
+	values: [1, 4]
+
+}));
+
+
+// let a = new sliderView({
+// 	target: '.rs__wrapper',
+// 	range: [0, 5],
+// 	values: [1, 4]
+
+// })
+
+
+
+// let b = new sliderViewPanel({
+// 	target: '.rs__wrapper',
+// 	range: [0, 5],
+// 	values: [1, 4]
+
+// });

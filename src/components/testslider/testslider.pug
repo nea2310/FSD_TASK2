@@ -1,14 +1,12 @@
 mixin testslider(options={})
 	div(class="rs__wrapper")
-		div
-			span Фильтр
-			div
-				input(class="rs__range rs__range-min", readonly="readonly") 
-				input(class="rs__range rs__range-max", readonly="readonly")  
-			div(id="rs__rating" class="rs__slider")
-				div(class="rs__control rs__control-min")
-					input(class="rs__value rs__value-min")
-				div(class="rs__colorRange")
-				div(class="rs__control rs__control-max")
-					input(class="rs__value rs__value-max")
+		div(id="rs__rating" class="rs__slider")
+			div(class="rs__control rs__control-min")
+				input(class="rs__value rs__value-min")
+			div(class="rs__colorRange")
+			div(class="rs__control rs__control-max")
+				input(class="rs__value rs__value-max")
+		div(class="rs__rangeWrapper")
+			input(class="rs__range rs__range-min", readonly="readonly") 
+			input(class="rs__range rs__range-max", readonly="readonly") 
 					
