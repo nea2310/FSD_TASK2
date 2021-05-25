@@ -1,11 +1,11 @@
 :root {
 	--background-range: #a4a4a4;
 }
-.rs__filter {
+.rs__wrapper {
 	padding: 30px;
 	width: 300px;
 }
-.rs__filter > div {
+.rs__wrapper > div {
 	padding-top: 20px;
 	display: -webkit-flex;
 	display: -moz-flex;
@@ -18,7 +18,7 @@
 	-o-flex-direction: column;
 	flex-direction: column;
 }
-.rs__filter > div > div {
+.rs__wrapper > div > div {
 	display: -webkit-flex;
 	display: -moz-flex;
 	display: -ms-flex;
@@ -26,14 +26,14 @@
 	display: flex;
 	justify-content: space-between;
 }
-.rs__filter .rs__slider {
+.rs__wrapper .rs__slider {
 	margin-top: 10px;
 	position: relative;
 	height: 6px;
 	background: #fff;
 	border: 1px solid #000;
 }
-.rs__filter .rs__colorRange {
+.rs__wrapper .rs__colorRange {
 	position: absolute;
 	background: var(--background-range, #000);
 	width: 95%;
@@ -41,7 +41,7 @@
 	height: 6px;
 	left: 15px;
 }
-.rs__filter .rs__control-min,
+.rs__wrapper .rs__control-min,
 .rs__control-max {
 	width: 15px;
 	height: 25px;
@@ -53,7 +53,7 @@
 	border-radius: 4px;
 	z-index: 1;
 }
-.rs__filter .rs__control-max {
+.rs__wrapper .rs__control-max {
 	left: 95%;
 }
 
