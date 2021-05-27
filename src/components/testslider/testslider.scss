@@ -19,8 +19,10 @@
 	height: 6px;
 	background: #fff;
 	border: 1px solid #000;
+	display: flex;
+	//	justify-content: space-between;
 }
-.rs__colorRange {
+.rs__progressBar {
 	position: absolute;
 	background: var(--background-range, #000);
 	width: 95%;
@@ -60,7 +62,7 @@
 	bottom: 120px;
 	left: 250px;
 	display: flex;
-	justify-content: space-between;
+	//justify-content: space-between;
 }
 
 .rs__panel {
@@ -69,4 +71,14 @@
 	//position: absolute;
 	// bottom: 120px;
 	// left: 250px;
+}
+
+.rs__mark {
+	margin-top: 8px;
+	height: 5px;
+	//width: 2px;
+	//position: absolute;
+	//border: 1px solid blue;
+	box-sizing: border-box;
+	background-color: #000;
 }

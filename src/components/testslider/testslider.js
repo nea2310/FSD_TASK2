@@ -1,3 +1,20 @@
+function getCoords(elem) {
+	/*Получаем координаты относительно окна браузера*/
+	let coords = elem.getBoundingClientRect();
+	/*Высчитываем значения координат относительно документа, вычисляя прокрутку документа*/
+	return {
+		top: coords.top + window.pageYOffset,
+		left: coords.left + window.pageXOffset,
+		leftX: coords.left,
+		rigth: coords.left + window.pageXOffset + coords.width,
+		bottom: coords.top + window.pageYOffset + coords.height,
+		width: coords.width,
+		height: coords.height,
+		top1: coords.top,
+		pageYoffset: window.pageYOffset
+	}
+}
+
 class sliderModel {
 	constructor(conf) {
 		/*Находим корневой элемент*/
@@ -52,11 +69,11 @@ class sliderModel {
 
 	/*Получаем событие движения мыши с захваченным ползунком и рассчитывает новое положение ползунка на шкале и новое значение*/
 	mouseMove(e) {
-
+		//	console.log(e);
 		/*Определяем положение мыши в зависимости от устройства*/
 		/*На мобильных устройствах может фиксироваться несколько точек касания, поэтому используется массив targetTouches*/
 		/*Мы будем брать только первое зафиксированое касание по экрану targetTouches[0]*/
-
+		//	console.log(e);
 		let pos;
 		e.touches === undefined ? pos = e.clientX : pos = e.targetTouches[0].clientX;
 
@@ -106,6 +123,9 @@ class sliderModel {
 
 
 
+
+
+
 	//Вызываем для обновления положения  и значения ползунка (обращение к контроллеру)
 	bindControlPosUpdated(callback) {
 
@@ -142,30 +162,115 @@ class sliderViewScale extends sliderView {
 	constructor(conf) {
 		super(conf);
 		this.renderScale();// шкала
+		this.renderMarks();
 	}
 	renderScale() {
 		//определяем родительский элемент ползунков и его ширину в момент рендеринга страницы
 		this.scale = this.slider.querySelector('.rs__slider');
 		this.scaleWidth = this.scale.offsetWidth;
 		/*Определяем зону окрашивания*/
-		this.progressBar = this.slider.querySelector('.rs__colorRange')
+		this.progressBar = this.slider.querySelector('.rs__progressBar')
 		//Получаем min и max значения диапазона
-		this.minRangeVal = this.conf.range[0];
-		this.maxRangeVal = this.conf.range[1];
+		//this.minRangeVal = this.conf.range[0];
+		//this.maxRangeVal = this.conf.range[1];
 
 		//Устанавливаем min и max значения диапазона в инпуты
 		this.minRangeValInput = this.slider.querySelector('.rs__range-min');
 		this.maxRangeValInput = this.slider.querySelector('.rs__range-max');
-		this.minRangeValInput.value = this.minRangeVal;
-		this.maxRangeValInput.value = this.maxRangeVal;
+		this.minRangeValInput.value = this.conf.range[0];
+		this.maxRangeValInput.value = this.conf.range[1];
+	}
+
+	renderMarks(marks = true) {
+		if (marks) {
+			this.step = this.conf.step;
+			let length = parseFloat(this.scaleWidth);
+
+			let singleIntervalCount = (this.conf.range[1] - this.conf.range[0])//кол-во единичных интервалов
+			let singleLength = length / singleIntervalCount;//ширина единичного интервала
+			let stepLength = singleLength * this.conf.step;// ширина шага (шаг может быть равен одному или нескольким единичным интервалам)
+			// console.log(this.conf.range[0]);
+			// console.log(this.conf.range[1]);
+			// console.log('this.conf.step: ' + this.conf.step);
+			// console.log('length: ' + length);
+			// console.log('singleIntervalCount: ' + singleIntervalCount);
+			// console.log('singleLength: ' + singleLength);
+			// console.log('stepLength: ' + stepLength);
+
+			let innerText = this.conf.range[0] + this.conf.step; //значение шага
+			while (length >= stepLength) { // создаем деления шкалы
+				let elem = document.createElement('div');
+				let elemWidth = 2;
+				elem.innerText = innerText;
+				elem.classList.add('rs__mark');
+				//	console.log(elem.offsetWidth);
+				elem.style.width = elemWidth + 'px';
+				elem.style.marginLeft = stepLength - elemWidth;
+				this.scale.appendChild(elem);
+				length = length - stepLength;
+				innerText = innerText + this.conf.step;
+			}
+		}
 	}
 
 	/*красим диапазон выбора (область шкалы между ползунками)*/
-	updateActiveRange(left, width) {
+	updateProgressBar(left, width) {
 
 		this.progressBar.style.left = left;
 		this.progressBar.style.width = width;
 	}
+
+
+
+
+	bindMoveControlDouble(mouseDownOnControlHandler, mouseMoveHandler) {
+
+		this.slider.addEventListener('click', (e) => {
+			if (e.target.classList.contains('rs__slider') || e.target.classList.contains('rs__progressBar')) {
+
+
+				this.leftControl = this.slider.querySelector('.rs__control-min');
+				this.rightControl = this.slider.querySelector('.rs__control-max');
+				let leftControlPos = getCoords(this.leftControl).leftX;
+				let rightControlPos = getCoords(this.rightControl).leftX;
+
+				let leftControlDist = Math.abs(leftControlPos - e.clientX);
+				let rightControlDist = Math.abs(rightControlPos - e.clientX);
+
+				// console.log('e.clientX: ' + e.clientX);
+				// console.log('leftControlPos: ' + leftControlPos);
+				// console.log('rightControlPos: ' + rightControlPos);
+				// console.log('leftControlDist: ' + leftControlDist);
+				// console.log('rightControlDist: ' + rightControlDist);
+
+				//	let a = e.clientX - 60
+				let controlData = {};
+
+
+
+
+				//определяем ползунок, за который тянут
+				leftControlDist <= rightControlDist ? controlData.currentControl = this.leftControl :
+					controlData.currentControl = this.rightControl;
+
+				//определяем второй ползунок
+				controlData.currentControl == this.leftControl ? controlData.secondControl = this.rightControl : controlData.secondControl = this.leftControl;
+
+				// Устанавливаем флаг, какой из ползунков (левый или правый) перемещается
+				controlData.currentControl == this.leftControl ? controlData.currentControlFlag = false : controlData.currentControlFlag = true;
+
+				mouseDownOnControlHandler(controlData);// вызов хендлера захвата ползунка
+
+				document.addEventListener('mousemove', mouseMoveHandler);// навешивание обработчика перемещения ползунка
+				//	document.addEventListener('mouseup', this.handleMouseUp);
+				document.addEventListener('touchmove', mouseMoveHandler);// навешивание обработчика перемещения ползунка
+				//	document.addEventListener('touchend', this.handleMouseUp);
+			}
+		})
+	}
+
+
+
 }
 
 class sliderViewDoubleControl extends sliderView {
@@ -214,8 +319,13 @@ class sliderViewDoubleControl extends sliderView {
 	//Вызывается из модели через контроллер для установки ползунку новой позиции, нового значения, закрашивания диапазона выбора (области шкалы между ползунками)
 	updateControlPos(elem, newLeft) {
 
+		//console.log(newLeft);
+
 		/*устанавливаем отступ ползунку*/
+		//	console.log(this.slider.getBoundingClientRect().left);
+		//	console.log(elem.style.left);
 		if (newLeft) elem.style.left = newLeft + 'px';
+		//	console.log(elem.style.left);
 
 	}
 }
@@ -269,8 +379,16 @@ class sliderController {
 		this.handleOnControlPosUpdated(this.viewDoubleControl.rightControl, this.model.rightControlStartPos); //передаем во view начальное положение левого ползунка
 		this.handleOnprogressBarUpdated(this.model.leftControlStartPos, this.model.progressBarStartWidth); // передаем во view начальное положение прогресс-бара
 
+
+		//this.viewScale.bindClickScale(this.clickScaleHandler);
 		this.viewDoubleControl.bindMoveControlDouble(this.handleMouseDownOnControl, this.handleMouseMove);// вешаем обработчики handleMouseDownOnControl и handleMouseMove для обработки в view события захвата и перетаскивания ползунка
+		this.viewScale.bindMoveControlDouble(this.handleMouseDownOnControl, this.handleMouseMove);// вешаем обработчики handleMouseDownOnControl и handleMouseMove для обработки в view события захвата и перетаскивания ползунка
+
+
 		this.view.bindMouseUp(this.handleMouseUp);//вешаем обработчик handleMouseUp для обработки в view события отпускания кнопки (завершение перетаскивания ползунка)
+
+
+
 
 		this.model.bindControlPosUpdated(this.handleOnControlPosUpdated)//Вызываем для обновления положения ползунка (обращение к view)
 		this.model.bindprogressBarUpdated(this.handleOnprogressBarUpdated)//Вызываем для обновления положения ползунка (обращение к view)
@@ -293,10 +411,14 @@ class sliderController {
 		this.model.mouseMove(e);
 	}
 
+	clickScaleHandler = (e) => {
+		this.model.clickScale(e);
+	}
+
 
 	//вызываем метод updateСurrentControl в view
 	handleOnprogressBarUpdated = (selectedLeft, selectedWidth) => {
-		this.viewScale.updateActiveRange(selectedLeft, selectedWidth);
+		this.viewScale.updateProgressBar(selectedLeft, selectedWidth);
 	}
 
 	//вызываем метод updateСurrentControl в view
@@ -321,34 +443,19 @@ class sliderController {
 	}
 }
 
-
+let conf = {
+	target: '.rs__wrapper',
+	range: [0, 100],
+	values: [25, 45],
+	step: 26
+}
 
 new sliderController(
-	new sliderModel({
-		target: '.rs__wrapper',
-		range: [0, 5],
-		values: [1, 4]
-	}),
-	new sliderView({
-		target: '.rs__wrapper',
-		range: [0, 5],
-		values: [1, 4]
-	}),
-	new sliderViewScale({
-		target: '.rs__wrapper',
-		range: [0, 5],
-		values: [1, 4]
-	}),
-	new sliderViewDoubleControl({
-		target: '.rs__wrapper',
-		range: [0, 5],
-		values: [1, 4]
-	}),
-	new sliderViewPanel({
-		target: '.rs__wrapper',
-		range: [0, 5],
-		values: [1, 4]
-	}),
+	new sliderModel(conf),
+	new sliderView(conf),
+	new sliderViewScale(conf),
+	new sliderViewDoubleControl(conf),
+	new sliderViewPanel(conf),
 );
 
 
