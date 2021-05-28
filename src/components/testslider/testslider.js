@@ -1,20 +1,3 @@
-function getCoords(elem) {
-	/*Получаем координаты относительно окна браузера*/
-	let coords = elem.getBoundingClientRect();
-	/*Высчитываем значения координат относительно документа, вычисляя прокрутку документа*/
-	return {
-		top: coords.top + window.pageYOffset,
-		left: coords.left + window.pageXOffset,
-		leftX: coords.left,
-		rigth: coords.left + window.pageXOffset + coords.width,
-		bottom: coords.top + window.pageYOffset + coords.height,
-		width: coords.width,
-		height: coords.height,
-		top1: coords.top,
-		pageYoffset: window.pageYOffset
-	}
-}
-
 class sliderModel {
 	constructor(conf) {
 		/*Находим корневой элемент*/
@@ -25,22 +8,6 @@ class sliderModel {
 		this.computeInitialPos();
 	}
 
-	getCoords(elem) {
-		/*Получаем координаты относительно окна браузера*/
-		let coords = elem.getBoundingClientRect();
-		/*Высчитываем значения координат относительно документа, вычисляя прокрутку документа*/
-		return {
-			top: coords.top + window.pageYOffset,
-			left: coords.left + window.pageXOffset,
-			leftX: coords.left,
-			rigth: coords.left + window.pageXOffset + coords.width,
-			bottom: coords.top + window.pageYOffset + coords.height,
-			width: coords.width,
-			height: coords.height,
-			top1: coords.top,
-			pageYoffset: window.pageYOffset
-		}
-	}
 	//Сохраняем в объекте модели диапазон, рассчитываем и сохраняем положение ползунков в момент рендеринга страницы
 	computeInitialPos() {
 		this.scale = this.slider.querySelector('.rs__slider');
@@ -62,10 +29,8 @@ class sliderModel {
 	mouseDownOnControl(controlData) {
 
 		this.currentControl = controlData.currentControl; // ползунок, за который тянут
-		this.currentControlCoords = this.getCoords(this.currentControl);
 		this.secondControl = controlData.secondControl; // второй ползунок
-		this.secondControlCoords = this.getCoords(this.secondControl);
-		this.parentElementCoords = this.getCoords(this.currentControl.parentElement);
+		this.parentElement = this.currentControl.parentElement;
 		this.currentControlFlag = controlData.currentControlFlag;
 	}
 
@@ -81,8 +46,8 @@ class sliderModel {
 
 		/*Определяем новую позицию ползунка*/
 
-		let newLeft = pos - this.parentElementCoords.leftX;
-		let rigthEdge = this.parentElementCoords.width - (this.currentControlCoords.width + 1);
+		let newLeft = pos - this.parentElement.getBoundingClientRect().left;
+		let rigthEdge = this.parentElement.offsetWidth - (this.currentControl.offsetWidth + 1);
 
 		if (newLeft < 0) {
 			newLeft = 0;
@@ -92,32 +57,34 @@ class sliderModel {
 		}
 
 		/*запрещаем ползункам перепрыгивать друг через друга*/
-		if ((!this.currentControlFlag && pos > this.secondControlCoords.left - this.secondControlCoords.width) ||
-			(this.currentControlFlag && pos < this.secondControlCoords.rigth - 3)) return
+		if ((!this.currentControlFlag && pos > this.secondControl.getBoundingClientRect().left + window.pageXOffset - this.secondControl.offsetWidth) ||
+			(this.currentControlFlag && pos < this.secondControl.getBoundingClientRect().left + this.secondControl.offsetWidth + window.pageXOffset - 3)) return
 
 		/*Определяем новое значение ползунка*/
 		let newValue;
 		if (!this.currentControlFlag) {
-			newValue = (newLeft / (this.parentElementCoords.width / (this.maxRangeVal - this.minRangeVal)) + this.minRangeVal).toFixed(1);
+			newValue = (newLeft / (this.parentElement.offsetWidth / (this.maxRangeVal - this.minRangeVal)) + this.minRangeVal).toFixed(1);
 		} else {
-			newValue = (newLeft / (this.parentElementCoords.width / (this.maxRangeVal - this.minRangeVal)) + 0.3 + this.minRangeVal).toFixed(1);
+			newValue = (newLeft / (this.parentElement.offsetWidth / (this.maxRangeVal - this.minRangeVal)) + 0.3 + this.minRangeVal).toFixed(1);
 		}
 
 		let selectedLeft;
 		let selectedWidth;
 
-		/*определяем закрашенную область шкалы*/
+		/*определяем прогресс-бар*/
+
 		selectedWidth = Math.abs(parseFloat(this.secondControl.style.left) - newLeft) + "px";
 		if (!this.currentControlFlag) { //перемещатся левый ползунок
-			selectedLeft = newLeft + this.currentControlCoords.width + "px";
+			selectedLeft = newLeft + this.currentControl.offsetWidth + "px";
 
 		} else {//перемещатся правый ползунок
-			selectedLeft = this.secondControlCoords.left - this.parentElementCoords.leftX + "px";
+			selectedLeft = this.secondControl.getBoundingClientRect().left + window.pageXOffset - this.parentElement.getBoundingClientRect().left + "px";
 		}
 
 		this.progressBarUpdated(selectedLeft, selectedWidth); //Вызываем для обновления закрашенной области шкалы в view
 		this.сontrolPosUpdated(this.currentControl, newLeft); //Вызываем для обновления положения ползунка в view
 		this.сontrolValueUpdated(this.currentControl, newValue); //Вызываем для обновления панели view
+
 	}
 
 	handleMouseClick(controlData, e) {
