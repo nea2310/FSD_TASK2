@@ -241,7 +241,37 @@ class sliderViewScale extends sliderView {
 		this.progressBar.style.width = width;
 	}
 
+	bindMoveEvent(firstEventHandler) {
 
+		this.slider.addEventListener('click', (e) => {
+			if (e.target.classList.contains('rs__slider') || e.target.classList.contains('rs__progressBar')) {
+
+
+				this.leftControl = this.slider.querySelector('.rs__control-min');
+				this.rightControl = this.slider.querySelector('.rs__control-max');
+				let leftControlPos = this.leftControl.getBoundingClientRect().left
+				let rightControlPos = this.rightControl.getBoundingClientRect().left
+
+				let leftControlDist = Math.abs(leftControlPos - e.clientX);
+				let rightControlDist = Math.abs(rightControlPos - e.clientX);
+
+				let controlData = {};
+
+				//определяем ползунок, находящийся ближе к позиции клика
+				leftControlDist <= rightControlDist ? controlData.currentControl = this.leftControl :
+					controlData.currentControl = this.rightControl;
+
+				//определяем второй ползунок
+				controlData.currentControl == this.leftControl ? controlData.secondControl = this.rightControl : controlData.secondControl = this.leftControl;
+
+				// Устанавливаем флаг, какой из ползунков (левый или правый) ближе к позиции клика
+				controlData.currentControl == this.leftControl ? controlData.currentControlFlag = false : controlData.currentControlFlag = true;
+
+				firstEventHandler(controlData, e);// вызов хендлера обработки события
+
+			}
+		})
+	}
 
 
 	bindClickOnScale(clickOnScaleHandler) {
@@ -298,7 +328,7 @@ class sliderViewDoubleControl extends sliderView {
 	}
 
 	// Вешаем обработчики события нажатия кнопки на ползунке (захвата ползунка) и перемещения ползунка
-	bindMoveControlDouble(mouseDownOnControlHandler, mouseMoveHandler) {
+	bindMoveEvent(firstEventHandler, secondEventHandler) {
 
 		this.slider.addEventListener('mousedown', (e) => {
 			if (e.target.classList.contains('rs__control')) {
@@ -313,12 +343,12 @@ class sliderViewDoubleControl extends sliderView {
 				controlData.currentControl == this.leftControl ? controlData.currentControlFlag = false : controlData.currentControlFlag = true;
 
 
-				mouseDownOnControlHandler(controlData, e);// вызов хендлера обработки события
-				//	mouseDownOnControlHandler(controlData);// вызов хендлера захвата ползунка
+				firstEventHandler(controlData);// вызов хендлера обработки события
 
-				document.addEventListener('mousemove', mouseMoveHandler);// навешивание обработчика перемещения ползунка
+
+				document.addEventListener('mousemove', secondEventHandler);// навешивание обработчика перемещения ползунка
 				//	document.addEventListener('mouseup', this.handleMouseUp);
-				document.addEventListener('touchmove', mouseMoveHandler);// навешивание обработчика перемещения ползунка
+				document.addEventListener('touchmove', secondEventHandler);// навешивание обработчика перемещения ползунка
 				//	document.addEventListener('touchend', this.handleMouseUp);
 			}
 		})
@@ -390,8 +420,9 @@ class sliderController {
 
 
 		//this.viewScale.bindClickScale(this.clickScaleHandler);
-		this.viewDoubleControl.bindMoveControlDouble(this.handleMouseDownOnControl, this.handleMouseMove);// вешаем обработчики handleMouseDownOnControl и handleMouseMove для обработки в view события захвата и перетаскивания ползунка
-		this.viewScale.bindClickOnScale(this.handleMouseClick);// вешаем обработчики handleMouseDownOnControl и handleMouseMove для обработки в view события захвата и перетаскивания ползунка
+		this.viewDoubleControl.bindMoveEvent(this.handleMouseDownOnControl, this.handleMouseMove);// вешаем обработчики handleMouseDownOnControl и handleMouseMove для обработки в view события захвата и перетаскивания ползунка
+		this.viewScale.bindMoveEvent(this.handleMouseClick);// вешаем обработчики handleMouseDownOnControl и handleMouseMove для обработки в view события захвата и перетаскивания ползунка
+		//this.viewScale.bindClickOnScale(this.handleMouseClick);// вешаем обработчики handleMouseDownOnControl и handleMouseMove для обработки в view события захвата и перетаскивания ползунка
 
 
 		this.view.bindMouseUp(this.handleMouseUp);//вешаем обработчик handleMouseUp для обработки в view события отпускания кнопки (завершение перетаскивания ползунка)
