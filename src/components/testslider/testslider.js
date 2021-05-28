@@ -265,6 +265,25 @@ class sliderViewDoubleControl extends sliderView {
 		if (newLeft) elem.style.left = newLeft + 'px';
 
 	}
+
+
+
+	doubleMode() {
+		console.log('DOUBLEMODE');
+		this.rightControl.classList.remove('rs__control-hidden')
+	}
+
+	singleMode() {
+		console.log('SINGLEMODE');
+		this.rightControl.classList.add('rs__control-hidden')
+	}
+
+
+
+	verticalMode() { console.log('VERTICALMODE') }
+
+	horizontalMode() { console.log('HORIZONTALMODE') }
+
 }
 
 
@@ -275,6 +294,8 @@ class sliderViewPanel extends sliderView {
 		this.renderPanelWrapper()
 		this.renderMinPanel();
 		this.renderMaxPanel();
+		this.renderIsVerticalToggle();
+		this.renderIsRangeToggle();
 	}
 	renderPanelWrapper() {
 		this.PanelWrapper = document.createElement('div');
@@ -298,6 +319,78 @@ class sliderViewPanel extends sliderView {
 		this.rightControlStartVal = this.conf.values[1];
 	}
 
+	renderIsVerticalToggle() {
+		this.isVerticalToggle = document.createElement('label');
+		//this.minPanelValue.value = this.conf.values[0];
+		this.isVerticalToggle.className = 'togglemark__wrapper';
+		this.PanelWrapper.append(this.isVerticalToggle);
+
+		this.isVerticalToggleInput = document.createElement('input');
+		this.isVerticalToggleInput.type = 'checkbox';
+		this.isVerticalToggleInput.checked = 'checked';
+
+		this.isVerticalToggleSpan = document.createElement('span');
+		this.isVerticalToggleSpan.className = 'togglemark';
+
+		this.isVerticalToggleLabel = document.createElement('label');
+		this.isVerticalToggleLabel.className = 'togglemark__label';
+		this.isVerticalToggleLabel.innerText = 'vertical';
+
+
+		this.isVerticalToggle.append(this.isVerticalToggleInput);
+		this.isVerticalToggle.append(this.isVerticalToggleSpan);
+		this.isVerticalToggle.append(this.isVerticalToggleLabel);
+
+	}
+
+
+
+	bindCheckIsVerticalControl(checkedEventHandler, notCheckedEventHandler) {
+
+		this.isVerticalToggleInput.addEventListener('change', () => {
+			console.log("Состояние чекбокса изменено!")
+			console.log(this.isVerticalToggleInput.checked)
+			this.isVerticalToggleInput.checked ? checkedEventHandler() : notCheckedEventHandler()
+		})
+	}
+
+
+
+	bindCheckIsRangeControl(checkedEventHandler, notCheckedEventHandler) {
+
+		this.isRangeToggleInput.addEventListener('change', () => {
+			console.log("Состояние чекбокса изменено")
+			console.log(this.isRangeToggleInput.checked)
+
+			this.isRangeToggleInput.checked ? checkedEventHandler() : notCheckedEventHandler()
+		})
+	}
+
+
+	renderIsRangeToggle() {
+		this.isRangeToggle = document.createElement('label');
+		//this.minPanelValue.value = this.conf.values[0];
+		this.isRangeToggle.className = 'togglemark__wrapper';
+		this.PanelWrapper.append(this.isRangeToggle);
+
+		this.isRangeToggleInput = document.createElement('input');
+		this.isRangeToggleInput.type = 'checkbox';
+		this.isRangeToggleInput.checked = 'checked';
+
+		this.isRangeToggleSpan = document.createElement('span');
+		this.isRangeToggleSpan.className = 'togglemark';
+
+		this.isRangeToggleLabel = document.createElement('label');
+		this.isRangeToggleLabel.className = 'togglemark__label';
+		this.isRangeToggleLabel.innerText = 'range';
+
+
+		this.isRangeToggle.append(this.isRangeToggleInput);
+		this.isRangeToggle.append(this.isRangeToggleSpan);
+		this.isRangeToggle.append(this.isRangeToggleLabel);
+
+	}
+
 	updatePanelValue(elem, newValue) {
 		elem.classList.contains('rs__control-min') ? this.minPanelValue.value = newValue : this.maxPanelValue.value = newValue;
 	}
@@ -318,6 +411,10 @@ class sliderController {
 
 		this.viewDoubleControl.bindMoveControl(this.handleGetControlData, this.handleProcessEvent);// вешаем обработчики handleGetControlData и handleProcessEvent для обработки в view события захвата и перетаскивания ползунка
 		this.viewScale.bindClickOnScale(this.handleGetControlData, this.handleProcessEvent);// вешаем обработчики handleGetControlData и handleProcessEvent для обработки в view события клика по шкале
+
+
+		this.viewPanel.bindCheckIsRangeControl(this.handleIsRangeChecked, this.handleIsRangeNotChecked);
+		this.viewPanel.bindCheckIsVerticalControl(this.handleIsVerticalChecked, this.handleIsVerticalNotChecked);
 
 		this.view.bindMouseUp(this.handleMouseUp);//вешаем обработчик handleMouseUp для обработки в view события отпускания кнопки (завершение перетаскивания ползунка)
 
@@ -358,6 +455,24 @@ class sliderController {
 	//вызываем метод updateСurrentControl в view
 	handleOnСontrolValueUpdated = (elem, newValue) => {
 		this.viewPanel.updatePanelValue(elem, newValue);
+	}
+
+
+	handleIsRangeChecked = () => {
+		this.viewDoubleControl.doubleMode();
+	}
+
+	handleIsRangeNotChecked = () => {
+		this.viewDoubleControl.singleMode();
+	}
+
+
+	handleIsVerticalChecked = () => {
+		this.viewDoubleControl.verticalMode();
+	}
+
+	handleIsVerticalNotChecked = () => {
+		this.viewDoubleControl.horisontalMode();
 	}
 
 
