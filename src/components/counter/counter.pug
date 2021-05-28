@@ -6,8 +6,8 @@ mixin counter(categories = {})
 
     each val, index in categories
       li(class='counter-category')
-        p(class='counter-category__name')=index
+        p(class='counter-category__name', data-type=val.type)=val.diasplayName
         div(class='count-wrapper')
-          a(class='count count_decrem count_inactive')=minus
-          span(class='count__value')=val
-          a(class='count count_increm')=plus
+          button(class='count count_decrem', data-min=val.minCnt)=minus
+          span(class='count__value')=val.defaultCnt
+          button(class='count count_increm', data-max=val.maxCnt)=plus
