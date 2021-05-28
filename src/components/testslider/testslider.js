@@ -32,6 +32,8 @@ class sliderModel {
 		this.secondControl = controlData.secondControl; // второй ползунок
 		this.parentElement = this.currentControl.parentElement;
 		this.currentControlFlag = controlData.currentControlFlag;
+		//console.log(this.secondControl);
+		//console.log(this.currentControlFlag);
 	}
 
 	/*Обрабатываем событие*/
@@ -56,10 +58,16 @@ class sliderModel {
 			newLeft = rigthEdge;
 		}
 
-		/*запрещаем ползункам перепрыгивать друг через друга*/
-		if ((!this.currentControlFlag && pos > this.secondControl.getBoundingClientRect().left + window.pageXOffset - this.secondControl.offsetWidth) ||
-			(this.currentControlFlag && pos < this.secondControl.getBoundingClientRect().left + this.secondControl.offsetWidth + window.pageXOffset - 3)) return
 
+
+		// console.log(newLeft);
+		// console.log(rigthEdge);
+
+		/*запрещаем ползункам перепрыгивать друг через друга, если это не single режим*/
+		if (!this.secondControl.classList.contains('rs__control-hidden')) {
+			if ((!this.currentControlFlag && pos > this.secondControl.getBoundingClientRect().left + window.pageXOffset - this.secondControl.offsetWidth) ||
+				(this.currentControlFlag && pos < this.secondControl.getBoundingClientRect().left + this.secondControl.offsetWidth + window.pageXOffset - 3)) return
+		}
 		/*Определяем новое значение ползунка*/
 		let newValue;
 		if (!this.currentControlFlag) {
@@ -73,13 +81,23 @@ class sliderModel {
 
 		/*определяем прогресс-бар*/
 
-		selectedWidth = Math.abs(parseFloat(this.secondControl.style.left) - newLeft) + "px";
-		if (!this.currentControlFlag) { //перемещатся левый ползунок
-			selectedLeft = newLeft + this.currentControl.offsetWidth + "px";
+		//режим Double
+		if (!this.secondControl.classList.contains('rs__control-hidden')) {
+			selectedWidth = Math.abs(parseFloat(this.secondControl.style.left) - newLeft) + "px";
+			if (!this.currentControlFlag) { //перемещатся левый ползунок
+				selectedLeft = newLeft + this.currentControl.offsetWidth + "px";
 
-		} else {//перемещатся правый ползунок
-			selectedLeft = this.secondControl.getBoundingClientRect().left + window.pageXOffset - this.parentElement.getBoundingClientRect().left + "px";
+			} else {//перемещатся правый ползунок
+				selectedLeft = this.secondControl.getBoundingClientRect().left + window.pageXOffset - this.parentElement.getBoundingClientRect().left + "px";
+			}
+		} else { //Режим Single
+			selectedLeft = 0;
+
+			selectedWidth = newLeft + "px";
 		}
+
+		//	console.log(parseFloat(this.currentControl.parentElement.getBoundingClientRect().left));
+
 
 		this.progressBarUpdated(selectedLeft, selectedWidth); //Вызываем для обновления прогресс бара в view
 		this.сontrolPosUpdated(this.currentControl, newLeft); //Вызываем для обновления положения ползунка в view
@@ -170,6 +188,21 @@ class sliderViewScale extends sliderView {
 			}
 		}
 	}
+
+
+
+
+	// doubleMode() {
+	// 	console.log('DOUBLEMODE');
+	// 	this.progressBar.classList.toggle('rs__progressBar-double');
+	// 	this.progressBar.classList.toggle('rs__progressBar-single')
+	// }
+
+	// singleMode() {
+	// 	console.log('SINGLEMODE');
+	// 	this.progressBar.classList.toggle('rs__progressBar-double');
+	// 	this.progressBar.classList.toggle('rs__progressBar-single')
+	// }
 
 	/*красим диапазон выбора (область шкалы между ползунками)*/
 	updateProgressBar(left, width) {
@@ -460,10 +493,12 @@ class sliderController {
 
 	handleIsRangeChecked = () => {
 		this.viewDoubleControl.doubleMode();
+		//	this.viewScale.doubleMode();
 	}
 
 	handleIsRangeNotChecked = () => {
 		this.viewDoubleControl.singleMode();
+		//	this.viewScale.singleMode();
 	}
 
 
