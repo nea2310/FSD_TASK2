@@ -69,7 +69,7 @@ class sliderModel {
 				(this.currentControlFlag && pos < this.secondControl.getBoundingClientRect().left + this.secondControl.offsetWidth + window.pageXOffset - 3)) return
 		}
 		/*Определяем новое значение ползунка*/
-		this.newValue;
+		//this.newValue;
 		if (!this.currentControlFlag) {
 			this.newValue = (this.newLeft / (this.parentElement.offsetWidth / (this.maxRangeVal - this.minRangeVal)) + this.minRangeVal).toFixed(1);
 		} else {
@@ -77,30 +77,30 @@ class sliderModel {
 		}
 
 
-		let selectedLeft;
-		let selectedWidth;
+		// let selectedLeft;
+		// let selectedWidth;
 
 		/*определяем прогресс-бар*/
 
 		//режим Double
 		if (!this.secondControl.classList.contains('rs__control-hidden')) {
-			selectedWidth = Math.abs(parseFloat(this.secondControl.style.left) - this.newLeft) + "px";
+			this.selectedWidth = Math.abs(parseFloat(this.secondControl.style.left) - this.newLeft) + "px";
 			if (!this.currentControlFlag) { //перемещатся левый ползунок
-				selectedLeft = this.newLeft + this.currentControl.offsetWidth + "px";
+				this.selectedLeft = this.newLeft + this.currentControl.offsetWidth + "px";
 
 			} else {//перемещатся правый ползунок
-				selectedLeft = this.secondControl.getBoundingClientRect().left + window.pageXOffset - this.parentElement.getBoundingClientRect().left + "px";
+				this.selectedLeft = this.secondControl.getBoundingClientRect().left + window.pageXOffset - this.parentElement.getBoundingClientRect().left + "px";
 			}
 		} else { //Режим Single
-			selectedLeft = 0;
+			this.selectedLeft = 0;
 
-			selectedWidth = this.newLeft + "px";
+			this.selectedWidth = this.newLeft + "px";
 		}
 
 		//	console.log(parseFloat(this.currentControl.parentElement.getBoundingClientRect().left));
 
 
-		this.progressBarUpdated(selectedLeft, selectedWidth); //Вызываем для обновления прогресс бара в view
+		this.progressBarUpdated(this.selectedLeft, this.selectedWidth); //Вызываем для обновления прогресс бара в view
 		this.сontrolPosUpdated(this.currentControl, this.newLeft); //Вызываем для обновления положения ползунка в view
 		this.сontrolValueUpdated(this.currentControl, this.newValue); //Вызываем для обновления панели view
 
