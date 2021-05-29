@@ -69,12 +69,13 @@ class sliderModel {
 				(this.currentControlFlag && pos < this.secondControl.getBoundingClientRect().left + this.secondControl.offsetWidth + window.pageXOffset - 3)) return
 		}
 		/*Определяем новое значение ползунка*/
-		let newValue;
+		this.newValue;
 		if (!this.currentControlFlag) {
-			newValue = (this.newLeft / (this.parentElement.offsetWidth / (this.maxRangeVal - this.minRangeVal)) + this.minRangeVal).toFixed(1);
+			this.newValue = (this.newLeft / (this.parentElement.offsetWidth / (this.maxRangeVal - this.minRangeVal)) + this.minRangeVal).toFixed(1);
 		} else {
-			newValue = (this.newLeft / (this.parentElement.offsetWidth / (this.maxRangeVal - this.minRangeVal)) + 0.3 + this.minRangeVal).toFixed(1);
+			this.newValue = (this.newLeft / (this.parentElement.offsetWidth / (this.maxRangeVal - this.minRangeVal)) + 0.3 + this.minRangeVal).toFixed(1);
 		}
+
 
 		let selectedLeft;
 		let selectedWidth;
@@ -101,7 +102,7 @@ class sliderModel {
 
 		this.progressBarUpdated(selectedLeft, selectedWidth); //Вызываем для обновления прогресс бара в view
 		this.сontrolPosUpdated(this.currentControl, this.newLeft); //Вызываем для обновления положения ползунка в view
-		this.сontrolValueUpdated(this.currentControl, newValue); //Вызываем для обновления панели view
+		this.сontrolValueUpdated(this.currentControl, this.newValue); //Вызываем для обновления панели view
 
 	}
 
