@@ -142,10 +142,15 @@ class sliderModel {
 
 		if (!this.changeMode) {/*Определяем новую позицию ползунка*/
 			this.newLeft = this.pos - this.parentElement.getBoundingClientRect().left;
-			let rigthEdge = this.parentElement.offsetWidth - (this.currentControl.offsetWidth + 1);
+			let rigthEdge = this.parentElement.offsetWidth //- parseFloat(window.getComputedStyle(this.parentElement).getPropertyValue("border-width"));
+			//console.log(window.getComputedStyle(this.parentElement).getPropertyValue("border-width"));
 
 			if (this.newLeft < 0) {
-				this.newLeft = 0;
+				console.log(this.newLeft);
+				console.log('newLeft < 0');
+				this.newLeft = -0.00001;
+				//this.newLeft = 0;
+
 			} else if (this.newLeft > rigthEdge) {
 
 				this.newLeft = rigthEdge;
@@ -158,18 +163,27 @@ class sliderModel {
 				if ((!this.currentControlFlag && this.pos > this.secondControl.getBoundingClientRect().left + window.pageXOffset - this.secondControl.offsetWidth) ||
 					(this.currentControlFlag && this.pos < this.secondControl.getBoundingClientRect().left + this.secondControl.offsetWidth + window.pageXOffset - 3)) return
 			}
+
+			//	console.log(this.newLeft);
 			this.сontrolPosUpdated(this.currentControl, this.newLeft); //Вызываем для обновления положения ползунка в view
 		}
+
+
+
+
 		this.computeControlValue();
 	}
 
 	computeControlValue() {		/*Определяем новое значение ползунка*/
 		if (!this.changeMode) {
 			if (!this.currentControlFlag) {
-				this.newValue = (this.newLeft / (this.parentElement.offsetWidth / (this.maxRangeVal - this.minRangeVal)) + this.minRangeVal).toFixed(1);
+				this.newValue = (this.newLeft / (this.parentElement.offsetWidth / (this.maxRangeVal - this.minRangeVal)) + this.minRangeVal).toFixed(0);
 			} else {
-				this.newValue = (this.newLeft / (this.parentElement.offsetWidth / (this.maxRangeVal - this.minRangeVal)) + 0.3 + this.minRangeVal).toFixed(1);
+				this.newValue = (this.newLeft / (this.parentElement.offsetWidth / (this.maxRangeVal - this.minRangeVal)) + this.minRangeVal).toFixed(0);
 			}
+
+			if (this.newValue == -0) this.newValue = 0;
+
 			this.сontrolValueUpdated(this.currentControl, this.newValue); //Вызываем для обновления панели view
 		}
 		this.computeProgressBar();
@@ -447,7 +461,9 @@ class sliderViewDoubleControl extends sliderView {
 	//Вызывается из модели через контроллер для установки ползунку новой позиции, нового значения, закрашивания диапазона выбора (области шкалы между ползунками)
 	updateControlPos(elem, newLeft) {
 		/*устанавливаем отступ ползунку*/
+		console.log(newLeft);
 		if (newLeft) elem.style.left = newLeft + 'px';
+		console.log(elem.style.left);
 
 	}
 
@@ -671,9 +687,9 @@ class sliderController {
 
 let conf = {
 	target: '.rs__wrapper',
-	range: [0, 100],
-	values: [25, 45],
-	step: 26
+	range: [0, 10000],
+	values: [2000, 7000],
+	step: 1000
 }
 
 new sliderController(
