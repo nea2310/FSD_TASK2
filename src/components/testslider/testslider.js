@@ -32,81 +32,230 @@ class sliderModel {
 		this.secondControl = controlData.secondControl; // второй ползунок
 		this.parentElement = this.currentControl.parentElement;
 		this.currentControlFlag = controlData.currentControlFlag;
-		//console.log(this.secondControl);
-		//console.log(this.currentControlFlag);
+
 	}
 
 	/*Обрабатываем событие*/
-	processEvent(e) {
+	// processEvent(e) {
+
+	// 	let pos;
+	// 	e.touches === undefined ? pos = e.clientX : pos = e.targetTouches[0].clientX;
+
+	// 	/*Определяем новую позицию ползунка*/
+
+	// 	this.newLeft = pos - this.parentElement.getBoundingClientRect().left;
+	// 	let rigthEdge = this.parentElement.offsetWidth - (this.currentControl.offsetWidth + 1);
+
+	// 	if (this.newLeft < 0) {
+	// 		this.newLeft = 0;
+	// 	} else if (this.newLeft > rigthEdge) {
+
+	// 		this.newLeft = rigthEdge;
+	// 	}
+
+	// 	/*запрещаем ползункам перепрыгивать друг через друга, если это не single режим*/
+	// 	if (!this.secondControl.classList.contains('rs__control-hidden')) {
+	// 		if ((!this.currentControlFlag && pos > this.secondControl.getBoundingClientRect().left + window.pageXOffset - this.secondControl.offsetWidth) ||
+	// 			(this.currentControlFlag && pos < this.secondControl.getBoundingClientRect().left + this.secondControl.offsetWidth + window.pageXOffset - 3)) return
+	// 	}
+	// 	/*Определяем новое значение ползунка*/
+
+	// 	if (!this.currentControlFlag) {
+	// 		this.newValue = (this.newLeft / (this.parentElement.offsetWidth / (this.maxRangeVal - this.minRangeVal)) + this.minRangeVal).toFixed(1);
+	// 	} else {
+	// 		this.newValue = (this.newLeft / (this.parentElement.offsetWidth / (this.maxRangeVal - this.minRangeVal)) + 0.3 + this.minRangeVal).toFixed(1);
+	// 	}
+
+
+	// 	/*определяем прогресс-бар*/
+
+	// 	//режим Double
+	// 	if (!this.secondControl.classList.contains('rs__control-hidden')) {
+	// 		this.selectedWidth = Math.abs(parseFloat(this.secondControl.style.left) - this.newLeft) + "px";
+	// 		if (!this.currentControlFlag) { //перемещатся левый ползунок
+	// 			this.selectedLeft = this.newLeft + this.currentControl.offsetWidth + "px";
+
+	// 		} else {//перемещатся правый ползунок
+	// 			this.selectedLeft = this.secondControl.getBoundingClientRect().left + window.pageXOffset - this.parentElement.getBoundingClientRect().left + "px";
+	// 		}
+	// 	} else { //Режим Single
+	// 		this.selectedLeft = 0;
+
+	// 		this.selectedWidth = this.newLeft + "px";
+	// 	}
+
+
+
+
+	// 	this.progressBarUpdated(this.selectedLeft, this.selectedWidth); //Вызываем для обновления прогресс бара в view
+	// 	this.сontrolPosUpdated(this.currentControl, this.newLeft); //Вызываем для обновления положения ползунка в view
+	// 	this.сontrolValueUpdated(this.currentControl, this.newValue); //Вызываем для обновления панели view
+
+	// }
+
+
+
+	computeControlPos(e) {
 		//	console.log(e);
 		/*Определяем положение мыши в зависимости от устройства*/
 		/*На мобильных устройствах может фиксироваться несколько точек касания, поэтому используется массив targetTouches*/
 		/*Мы будем брать только первое зафиксированое касание по экрану targetTouches[0]*/
 		//	console.log(e);
-		let pos;
-		e.touches === undefined ? pos = e.clientX : pos = e.targetTouches[0].clientX;
+		//	this.pos = pos;
+		if (e.type == 'change') {
+			this.changeMode = true;
 
-		/*Определяем новую позицию ползунка*/
+			if (e.target.classList.contains('rs__rangeModeToggle')) {
 
-		this.newLeft = pos - this.parentElement.getBoundingClientRect().left;
-		let rigthEdge = this.parentElement.offsetWidth - (this.currentControl.offsetWidth + 1);
+				this.switchToSingleMode;
+				this.switchToDoubleMode;
 
-		if (this.newLeft < 0) {
-			this.newLeft = 0;
-		} else if (this.newLeft > rigthEdge) {
+				this.rightControl.classList.contains('rs__control-hidden') ? this.switchToSingleMode = true : this.switchToSingleMode = false;
+				!this.rightControl.classList.contains('rs__control-hidden') ? this.switchToDoubleMode = true : this.switchToDoubleMode = false;
+			}
 
-			this.newLeft = rigthEdge;
+			if (e.target.classList.contains('rs__verticalModeToggle')) {
+
+				this.switchToVerticalMode;
+				this.switchToDoubleMode;
+
+
+				// [УСЛОВИЕ]? this.switchToVerticalMode = true : this.switchToVerticalMode = false;
+				// [УСЛОВИЕ] ? this.switchToDoubleMode = true : this.switchToDoubleMode = false;
+
+
+				console.log(this.switchToSingleMode);
+				console.log(this.switchToDoubleMode);
+			}
+		}
+
+		else if (e.type != 'change') {
+			this.changeMode = false;
+			this.switchToSingleMode = false;
+			this.switchToDoubleMode = false;
+			this.switchToVerticalMode = false;
+			this.switchToHorizontalMode = false;
+			e.touches === undefined ? this.pos = e.clientX : this.pos = e.targetTouches[0].clientX;
 		}
 
 
 
-		// console.log(this.newLeft);
-		// console.log(rigthEdge);
+		if (!this.changeMode) {/*Определяем новую позицию ползунка*/
+			this.newLeft = this.pos - this.parentElement.getBoundingClientRect().left;
+			let rigthEdge = this.parentElement.offsetWidth - (this.currentControl.offsetWidth + 1);
 
-		/*запрещаем ползункам перепрыгивать друг через друга, если это не single режим*/
-		if (!this.secondControl.classList.contains('rs__control-hidden')) {
-			if ((!this.currentControlFlag && pos > this.secondControl.getBoundingClientRect().left + window.pageXOffset - this.secondControl.offsetWidth) ||
-				(this.currentControlFlag && pos < this.secondControl.getBoundingClientRect().left + this.secondControl.offsetWidth + window.pageXOffset - 3)) return
+			if (this.newLeft < 0) {
+				this.newLeft = 0;
+			} else if (this.newLeft > rigthEdge) {
+
+				this.newLeft = rigthEdge;
+			}
+
+
+			/*запрещаем ползункам перепрыгивать друг через друга, если это не single режим*/
+			if (!this.secondControl.classList.contains('rs__control-hidden')) {
+
+				if ((!this.currentControlFlag && this.pos > this.secondControl.getBoundingClientRect().left + window.pageXOffset - this.secondControl.offsetWidth) ||
+					(this.currentControlFlag && this.pos < this.secondControl.getBoundingClientRect().left + this.secondControl.offsetWidth + window.pageXOffset - 3)) return
+			}
+			this.сontrolPosUpdated(this.currentControl, this.newLeft); //Вызываем для обновления положения ползунка в view
 		}
-		/*Определяем новое значение ползунка*/
-		//this.newValue;
-		if (!this.currentControlFlag) {
-			this.newValue = (this.newLeft / (this.parentElement.offsetWidth / (this.maxRangeVal - this.minRangeVal)) + this.minRangeVal).toFixed(1);
-		} else {
-			this.newValue = (this.newLeft / (this.parentElement.offsetWidth / (this.maxRangeVal - this.minRangeVal)) + 0.3 + this.minRangeVal).toFixed(1);
+		this.computeControlValue();
+	}
+
+	computeControlValue() {		/*Определяем новое значение ползунка*/
+		if (!this.changeMode) {
+			if (!this.currentControlFlag) {
+				this.newValue = (this.newLeft / (this.parentElement.offsetWidth / (this.maxRangeVal - this.minRangeVal)) + this.minRangeVal).toFixed(1);
+			} else {
+				this.newValue = (this.newLeft / (this.parentElement.offsetWidth / (this.maxRangeVal - this.minRangeVal)) + 0.3 + this.minRangeVal).toFixed(1);
+			}
+			this.сontrolValueUpdated(this.currentControl, this.newValue); //Вызываем для обновления панели view
 		}
+		this.computeProgressBar();
+	}
+
+	computeProgressBar() {
 
 
-		// let selectedLeft;
-		// let selectedWidth;
 
 		/*определяем прогресс-бар*/
 
 		//режим Double
-		if (!this.secondControl.classList.contains('rs__control-hidden')) {
-			this.selectedWidth = Math.abs(parseFloat(this.secondControl.style.left) - this.newLeft) + "px";
-			if (!this.currentControlFlag) { //перемещатся левый ползунок
-				this.selectedLeft = this.newLeft + this.currentControl.offsetWidth + "px";
+		if (!this.changeMode) {
+			if (!this.secondControl.classList.contains('rs__control-hidden')) {
+				this.selectedWidth = Math.abs(parseFloat(this.secondControl.style.left) - this.newLeft) + "px";
+				if (!this.currentControlFlag) { //перемещатся левый ползунок
+					this.selectedLeft = this.newLeft + this.currentControl.offsetWidth + "px";
 
-			} else {//перемещатся правый ползунок
-				this.selectedLeft = this.secondControl.getBoundingClientRect().left + window.pageXOffset - this.parentElement.getBoundingClientRect().left + "px";
+				} else {//перемещатся правый ползунок
+					this.selectedLeft = this.secondControl.getBoundingClientRect().left + window.pageXOffset - this.parentElement.getBoundingClientRect().left + "px";
+				}
+			} else { //Режим Single
+
+				this.selectedLeft = 0;
+
+				this.selectedWidth = this.newLeft + "px";
 			}
-		} else { //Режим Single
-			this.selectedLeft = 0;
+		}
+		else if (this.changeMode) {
 
-			this.selectedWidth = this.newLeft + "px";
+			if (this.switchToSingleMode) {
+				console.log('switchToSingleMode');
+				this.selectedLeft = 0;
+				this.selectedWidth = this.leftControl.style.left;
+
+			}
+
+
+			else if (this.switchToDoubleMode) {
+				console.log('switchToDoubleMode');
+
+			}
+
+			else if (this.switchToVerticalMode) {
+				console.log('switchToVerticalMode');
+
+			}
+
+			else if (this.switchToHorizontalMode) {
+				console.log('switchToHorizontalMode');
+
+			}
 		}
 
-		//	console.log(parseFloat(this.currentControl.parentElement.getBoundingClientRect().left));
-
+		//	console.log(this.selectedLeft);
 
 		this.progressBarUpdated(this.selectedLeft, this.selectedWidth); //Вызываем для обновления прогресс бара в view
-		this.сontrolPosUpdated(this.currentControl, this.newLeft); //Вызываем для обновления положения ползунка в view
-		this.сontrolValueUpdated(this.currentControl, this.newValue); //Вызываем для обновления панели view
-
 	}
 
 
+	// computeProgressBarTEST() {
+
+
+
+	// 	/*определяем прогресс-бар*/
+
+	// 	//режим Double
+
+
+	// 	if (!this.rightControl.classList.contains('rs__control-hidden')) {
+
+	// 		this.selectedWidth = Math.abs(parseFloat(this.secondControl.style.left) - this.newLeft) + "px";
+	// 		if (!this.currentControlFlag) { //перемещатся левый ползунок
+	// 			this.selectedLeft = this.newLeft + this.currentControl.offsetWidth + "px";
+
+	// 		} else {//перемещатся правый ползунок
+	// 			this.selectedLeft = this.secondControl.getBoundingClientRect().left + window.pageXOffset - this.parentElement.getBoundingClientRect().left + "px";
+	// 		}
+	// 	} else { //Режим Single
+
+	// 		this.selectedLeft = 0;
+
+	// 		this.selectedWidth = this.newLeft + "px";
+	// 	}
+	// 	this.progressBarUpdated(this.selectedLeft, this.selectedWidth); //Вызываем для обновления прогресс бара в view
+	// }
 
 
 	//Вызываем для обновления положения  и значения ползунка (обращение к контроллеру)
@@ -220,8 +369,7 @@ class sliderViewScale extends sliderView {
 	bindClickOnScale(firstEventHandler, secondEventHandler) {
 
 		this.slider.addEventListener('click', (e) => {
-			if (e.target.classList.contains('rs__slider') || e.target.classList.contains('rs__progressBar')) {
-
+			if (e.target.classList.contains('rs__slider') || e.target.classList.contains('rs__progressBar') || e.isTrusted == false) {
 
 				this.leftControl = this.slider.querySelector('.rs__control-min');
 				this.rightControl = this.slider.querySelector('.rs__control-max');
@@ -306,20 +454,20 @@ class sliderViewDoubleControl extends sliderView {
 
 
 	doubleMode() {
-		console.log('DOUBLEMODE');
 		this.rightControl.classList.remove('rs__control-hidden')
 	}
 
 	singleMode() {
-		console.log('SINGLEMODE');
 		this.rightControl.classList.add('rs__control-hidden')
 	}
 
 
 
-	verticalMode() { console.log('VERTICALMODE') }
+	verticalMode() { //console.log('VERTICALMODE') 
+	}
 
-	horizontalMode() { console.log('HORIZONTALMODE') }
+	horizontalMode() { //console.log('HORIZONTALMODE')
+	}
 
 }
 
@@ -365,6 +513,7 @@ class sliderViewPanel extends sliderView {
 		this.isVerticalToggleInput = document.createElement('input');
 		this.isVerticalToggleInput.type = 'checkbox';
 		this.isVerticalToggleInput.checked = 'checked';
+		this.isVerticalToggleInput.className = 'rs__verticalModeToggle';
 
 		this.isVerticalToggleSpan = document.createElement('span');
 		this.isVerticalToggleSpan.className = 'togglemark';
@@ -384,10 +533,8 @@ class sliderViewPanel extends sliderView {
 
 	bindCheckIsVerticalControl(checkedEventHandler, notCheckedEventHandler) {
 
-		this.isVerticalToggleInput.addEventListener('change', () => {
-			console.log("Состояние чекбокса изменено!")
-			console.log(this.isVerticalToggleInput.checked)
-			this.isVerticalToggleInput.checked ? checkedEventHandler() : notCheckedEventHandler()
+		this.isVerticalToggleInput.addEventListener('change', (e) => {
+			this.isVerticalToggleInput.checked ? checkedEventHandler(e) : notCheckedEventHandler(e)
 		})
 	}
 
@@ -395,11 +542,8 @@ class sliderViewPanel extends sliderView {
 
 	bindCheckIsRangeControl(checkedEventHandler, notCheckedEventHandler) {
 
-		this.isRangeToggleInput.addEventListener('change', () => {
-			console.log("Состояние чекбокса изменено")
-			console.log(this.isRangeToggleInput.checked)
-
-			this.isRangeToggleInput.checked ? checkedEventHandler() : notCheckedEventHandler()
+		this.isRangeToggleInput.addEventListener('change', (e) => {
+			this.isRangeToggleInput.checked ? checkedEventHandler(e) : notCheckedEventHandler(e)
 		})
 	}
 
@@ -413,6 +557,8 @@ class sliderViewPanel extends sliderView {
 		this.isRangeToggleInput = document.createElement('input');
 		this.isRangeToggleInput.type = 'checkbox';
 		this.isRangeToggleInput.checked = 'checked';
+		this.isRangeToggleInput.className = 'rs__rangeModeToggle';
+
 
 		this.isRangeToggleSpan = document.createElement('span');
 		this.isRangeToggleSpan.className = 'togglemark';
@@ -446,8 +592,8 @@ class sliderController {
 		this.handleOnControlPosUpdated(this.viewDoubleControl.rightControl, this.model.rightControlStartPos); //передаем во view начальное положение левого ползунка
 		this.handleOnprogressBarUpdated(this.model.leftControlStartPos, this.model.progressBarStartWidth); // передаем во view начальное положение прогресс-бара
 
-		this.viewDoubleControl.bindMoveControl(this.handleGetControlData, this.handleProcessEvent);// вешаем обработчики handleGetControlData и handleProcessEvent для обработки в view события захвата и перетаскивания ползунка
-		this.viewScale.bindClickOnScale(this.handleGetControlData, this.handleProcessEvent);// вешаем обработчики handleGetControlData и handleProcessEvent для обработки в view события клика по шкале
+		this.viewDoubleControl.bindMoveControl(this.handleGetControlData, this.handleComputeControlPos);// вешаем обработчики handleGetControlData и handleComputeControlPos для обработки в view события захвата и перетаскивания ползунка
+		this.viewScale.bindClickOnScale(this.handleGetControlData, this.handleComputeControlPos);// вешаем обработчики handleGetControlData и handleComputeControlPos для обработки в view события клика по шкале
 
 
 		this.viewPanel.bindCheckIsRangeControl(this.handleIsRangeChecked, this.handleIsRangeNotChecked);
@@ -466,15 +612,13 @@ class sliderController {
 
 	//вызываем метод GetControlData в модели
 	handleGetControlData = (controlData) => {
-
-		console.log('MOUSEDOWN!');
 		this.model.getControlData(controlData)
 	}
 
 
-	// вызываем метод processEvent в модели
-	handleProcessEvent = (e) => {
-		this.model.processEvent(e);
+	// вызываем метод computeControlPos в модели
+	handleComputeControlPos = (e) => {
+		this.model.computeControlPos(e);
 	}
 
 
@@ -485,7 +629,6 @@ class sliderController {
 
 	//вызываем метод updateСurrentControl в view
 	handleOnControlPosUpdated = (elem, newLeft) => {
-		//	console.log(this.viewDoubleControl);
 		this.viewDoubleControl.updateControlPos(elem, newLeft);
 	}
 
@@ -495,14 +638,16 @@ class sliderController {
 	}
 
 
-	handleIsRangeChecked = () => {
+	handleIsRangeChecked = (e) => {
 		this.viewDoubleControl.doubleMode();
-		//	this.viewScale.doubleMode();
+		this.model.computeControlPos(e);
+
 	}
 
-	handleIsRangeNotChecked = () => {
+	handleIsRangeNotChecked = (e) => {
 		this.viewDoubleControl.singleMode();
-		//	this.viewScale.singleMode();
+		this.model.computeControlPos(e);
+
 	}
 
 
@@ -517,10 +662,9 @@ class sliderController {
 
 	// снимаем обработчики, повешенные на событие перемещения мыши
 	handleMouseUp = (e) => {
-		console.log('MOUSEUP!');
-		document.removeEventListener('mousemove', this.handleProcessEvent);
+		document.removeEventListener('mousemove', this.handleComputeControlPos);
 		//	document.removeEventListener('mouseup', this.handleMouseUp);
-		document.removeEventListener('touchmove', this.handleProcessEvent);
+		document.removeEventListener('touchmove', this.handleComputeControlPos);
 		//	document.removeEventListener('touchend', this.handleMouseUp);
 	}
 }
