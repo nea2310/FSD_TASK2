@@ -32,66 +32,7 @@ class sliderModel {
 		this.secondControl = controlData.secondControl; // второй ползунок
 		this.parentElement = this.currentControl.parentElement;
 		this.currentControlFlag = controlData.currentControlFlag;
-
 	}
-
-	/*Обрабатываем событие*/
-	// processEvent(e) {
-
-	// 	let pos;
-	// 	e.touches === undefined ? pos = e.clientX : pos = e.targetTouches[0].clientX;
-
-	// 	/*Определяем новую позицию ползунка*/
-
-	// 	this.newLeft = pos - this.parentElement.getBoundingClientRect().left;
-	// 	let rigthEdge = this.parentElement.offsetWidth - (this.currentControl.offsetWidth + 1);
-
-	// 	if (this.newLeft < 0) {
-	// 		this.newLeft = 0;
-	// 	} else if (this.newLeft > rigthEdge) {
-
-	// 		this.newLeft = rigthEdge;
-	// 	}
-
-	// 	/*запрещаем ползункам перепрыгивать друг через друга, если это не single режим*/
-	// 	if (!this.secondControl.classList.contains('rs__control-hidden')) {
-	// 		if ((!this.currentControlFlag && pos > this.secondControl.getBoundingClientRect().left + window.pageXOffset - this.secondControl.offsetWidth) ||
-	// 			(this.currentControlFlag && pos < this.secondControl.getBoundingClientRect().left + this.secondControl.offsetWidth + window.pageXOffset - 3)) return
-	// 	}
-	// 	/*Определяем новое значение ползунка*/
-
-	// 	if (!this.currentControlFlag) {
-	// 		this.newValue = (this.newLeft / (this.parentElement.offsetWidth / (this.maxRangeVal - this.minRangeVal)) + this.minRangeVal).toFixed(1);
-	// 	} else {
-	// 		this.newValue = (this.newLeft / (this.parentElement.offsetWidth / (this.maxRangeVal - this.minRangeVal)) + 0.3 + this.minRangeVal).toFixed(1);
-	// 	}
-
-
-	// 	/*определяем прогресс-бар*/
-
-	// 	//режим Double
-	// 	if (!this.secondControl.classList.contains('rs__control-hidden')) {
-	// 		this.selectedWidth = Math.abs(parseFloat(this.secondControl.style.left) - this.newLeft) + "px";
-	// 		if (!this.currentControlFlag) { //перемещатся левый ползунок
-	// 			this.selectedLeft = this.newLeft + this.currentControl.offsetWidth + "px";
-
-	// 		} else {//перемещатся правый ползунок
-	// 			this.selectedLeft = this.secondControl.getBoundingClientRect().left + window.pageXOffset - this.parentElement.getBoundingClientRect().left + "px";
-	// 		}
-	// 	} else { //Режим Single
-	// 		this.selectedLeft = 0;
-
-	// 		this.selectedWidth = this.newLeft + "px";
-	// 	}
-
-
-
-
-	// 	this.progressBarUpdated(this.selectedLeft, this.selectedWidth); //Вызываем для обновления прогресс бара в view
-	// 	this.сontrolPosUpdated(this.currentControl, this.newLeft); //Вызываем для обновления положения ползунка в view
-	// 	this.сontrolValueUpdated(this.currentControl, this.newValue); //Вызываем для обновления панели view
-
-	// }
 
 
 
@@ -100,8 +41,7 @@ class sliderModel {
 		/*Определяем положение мыши в зависимости от устройства*/
 		/*На мобильных устройствах может фиксироваться несколько точек касания, поэтому используется массив targetTouches*/
 		/*Мы будем брать только первое зафиксированое касание по экрану targetTouches[0]*/
-		//	console.log(e);
-		//	this.pos = pos;
+
 		if (e.type == 'change') {
 			this.changeMode = true;
 
@@ -142,15 +82,12 @@ class sliderModel {
 
 		if (!this.changeMode) {/*Определяем новую позицию ползунка*/
 			this.newLeft = this.pos - this.parentElement.getBoundingClientRect().left;
-			let rigthEdge = this.parentElement.offsetWidth //- parseFloat(window.getComputedStyle(this.parentElement).getPropertyValue("border-width"));
-			//console.log(window.getComputedStyle(this.parentElement).getPropertyValue("border-width"));
+			let rigthEdge = this.parentElement.offsetWidth;
 
 			if (this.newLeft < 0) {
 				console.log(this.newLeft);
 				console.log('newLeft < 0');
 				this.newLeft = -0.00001;
-				//this.newLeft = 0;
-
 			} else if (this.newLeft > rigthEdge) {
 
 				this.newLeft = rigthEdge;
@@ -164,12 +101,8 @@ class sliderModel {
 					(this.currentControlFlag && this.pos < this.secondControl.getBoundingClientRect().left + this.secondControl.offsetWidth + window.pageXOffset - 3)) return
 			}
 
-			//	console.log(this.newLeft);
 			this.сontrolPosUpdated(this.currentControl, this.newLeft); //Вызываем для обновления положения ползунка в view
 		}
-
-
-
 
 		this.computeControlValue();
 	}
@@ -238,38 +171,8 @@ class sliderModel {
 
 			}
 		}
-
-
 		this.progressBarUpdated(this.selectedLeft, this.selectedWidth); //Вызываем для обновления прогресс бара в view
 	}
-
-
-	// computeProgressBarTEST() {
-
-
-
-	// 	/*определяем прогресс-бар*/
-
-	// 	//режим Double
-
-
-	// 	if (!this.rightControl.classList.contains('rs__control-hidden')) {
-
-	// 		this.selectedWidth = Math.abs(parseFloat(this.secondControl.style.left) - this.newLeft) + "px";
-	// 		if (!this.currentControlFlag) { //перемещатся левый ползунок
-	// 			this.selectedLeft = this.newLeft + this.currentControl.offsetWidth + "px";
-
-	// 		} else {//перемещатся правый ползунок
-	// 			this.selectedLeft = this.secondControl.getBoundingClientRect().left + window.pageXOffset - this.parentElement.getBoundingClientRect().left + "px";
-	// 		}
-	// 	} else { //Режим Single
-
-	// 		this.selectedLeft = 0;
-
-	// 		this.selectedWidth = this.newLeft + "px";
-	// 	}
-	// 	this.progressBarUpdated(this.selectedLeft, this.selectedWidth); //Вызываем для обновления прогресс бара в view
-	// }
 
 
 	//Вызываем для обновления положения  и значения ползунка (обращение к контроллеру)
@@ -356,20 +259,6 @@ class sliderViewScale extends sliderView {
 		}
 	}
 
-
-
-
-	// doubleMode() {
-	// 	console.log('DOUBLEMODE');
-	// 	this.progressBar.classList.toggle('rs__progressBar-double');
-	// 	this.progressBar.classList.toggle('rs__progressBar-single')
-	// }
-
-	// singleMode() {
-	// 	console.log('SINGLEMODE');
-	// 	this.progressBar.classList.toggle('rs__progressBar-double');
-	// 	this.progressBar.classList.toggle('rs__progressBar-single')
-	// }
 
 	/*красим диапазон выбора (область шкалы между ползунками)*/
 	updateProgressBar(left, width) {
@@ -522,7 +411,6 @@ class sliderViewPanel extends sliderView {
 
 	renderIsVerticalToggle() {
 		this.isVerticalToggle = document.createElement('label');
-		//this.minPanelValue.value = this.conf.values[0];
 		this.isVerticalToggle.className = 'togglemark__wrapper';
 		this.PanelWrapper.append(this.isVerticalToggle);
 
@@ -542,9 +430,7 @@ class sliderViewPanel extends sliderView {
 		this.isVerticalToggle.append(this.isVerticalToggleInput);
 		this.isVerticalToggle.append(this.isVerticalToggleSpan);
 		this.isVerticalToggle.append(this.isVerticalToggleLabel);
-
 	}
-
 
 
 	bindCheckIsVerticalControl(checkedEventHandler, notCheckedEventHandler) {
@@ -555,14 +441,12 @@ class sliderViewPanel extends sliderView {
 	}
 
 
-
 	bindCheckIsRangeControl(checkedEventHandler, notCheckedEventHandler) {
 
 		this.isRangeToggleInput.addEventListener('change', (e) => {
 			this.isRangeToggleInput.checked ? checkedEventHandler(e) : notCheckedEventHandler(e)
 		})
 	}
-
 
 	renderIsRangeToggle() {
 		this.isRangeToggle = document.createElement('label');
@@ -587,7 +471,6 @@ class sliderViewPanel extends sliderView {
 		this.isRangeToggle.append(this.isRangeToggleInput);
 		this.isRangeToggle.append(this.isRangeToggleSpan);
 		this.isRangeToggle.append(this.isRangeToggleLabel);
-
 	}
 
 	updatePanelValue(elem, newValue) {
