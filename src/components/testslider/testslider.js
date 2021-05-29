@@ -192,15 +192,13 @@ class sliderModel {
 					this.selectedLeft = this.secondControl.getBoundingClientRect().left + window.pageXOffset - this.parentElement.getBoundingClientRect().left + "px";
 				}
 			} else { //Режим Single
-
 				this.selectedLeft = 0;
-
 				this.selectedWidth = this.newLeft + "px";
 			}
 		}
 		else if (this.changeMode) {
 
-			if (this.switchToSingleMode) {
+			if (this.switchToSingleMode) {//переключение в одинарный режим
 				console.log('switchToSingleMode');
 				this.selectedLeft = 0;
 				this.selectedWidth = this.leftControl.style.left;
@@ -208,23 +206,25 @@ class sliderModel {
 			}
 
 
-			else if (this.switchToDoubleMode) {
+			else if (this.switchToDoubleMode) {//переключение в двойной режим
 				console.log('switchToDoubleMode');
+
+				this.selectedLeft = parseFloat(this.leftControl.style.left);
+				this.selectedWidth = parseFloat(this.rightControl.style.left) - parseFloat(this.leftControl.style.left) + 'px';
 
 			}
 
-			else if (this.switchToVerticalMode) {
+			else if (this.switchToVerticalMode) {//переключение в вертикальный режим
 				console.log('switchToVerticalMode');
 
 			}
 
-			else if (this.switchToHorizontalMode) {
+			else if (this.switchToHorizontalMode) {//переключение в горизонтальный режим
 				console.log('switchToHorizontalMode');
 
 			}
 		}
 
-		//	console.log(this.selectedLeft);
 
 		this.progressBarUpdated(this.selectedLeft, this.selectedWidth); //Вызываем для обновления прогресс бара в view
 	}
