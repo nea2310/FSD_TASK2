@@ -48,19 +48,19 @@ class sliderModel {
 
 		/*Определяем новую позицию ползунка*/
 
-		let newLeft = pos - this.parentElement.getBoundingClientRect().left;
+		this.newLeft = pos - this.parentElement.getBoundingClientRect().left;
 		let rigthEdge = this.parentElement.offsetWidth - (this.currentControl.offsetWidth + 1);
 
-		if (newLeft < 0) {
-			newLeft = 0;
-		} else if (newLeft > rigthEdge) {
+		if (this.newLeft < 0) {
+			this.newLeft = 0;
+		} else if (this.newLeft > rigthEdge) {
 
-			newLeft = rigthEdge;
+			this.newLeft = rigthEdge;
 		}
 
 
 
-		// console.log(newLeft);
+		// console.log(this.newLeft);
 		// console.log(rigthEdge);
 
 		/*запрещаем ползункам перепрыгивать друг через друга, если это не single режим*/
@@ -71,9 +71,9 @@ class sliderModel {
 		/*Определяем новое значение ползунка*/
 		let newValue;
 		if (!this.currentControlFlag) {
-			newValue = (newLeft / (this.parentElement.offsetWidth / (this.maxRangeVal - this.minRangeVal)) + this.minRangeVal).toFixed(1);
+			newValue = (this.newLeft / (this.parentElement.offsetWidth / (this.maxRangeVal - this.minRangeVal)) + this.minRangeVal).toFixed(1);
 		} else {
-			newValue = (newLeft / (this.parentElement.offsetWidth / (this.maxRangeVal - this.minRangeVal)) + 0.3 + this.minRangeVal).toFixed(1);
+			newValue = (this.newLeft / (this.parentElement.offsetWidth / (this.maxRangeVal - this.minRangeVal)) + 0.3 + this.minRangeVal).toFixed(1);
 		}
 
 		let selectedLeft;
@@ -83,9 +83,9 @@ class sliderModel {
 
 		//режим Double
 		if (!this.secondControl.classList.contains('rs__control-hidden')) {
-			selectedWidth = Math.abs(parseFloat(this.secondControl.style.left) - newLeft) + "px";
+			selectedWidth = Math.abs(parseFloat(this.secondControl.style.left) - this.newLeft) + "px";
 			if (!this.currentControlFlag) { //перемещатся левый ползунок
-				selectedLeft = newLeft + this.currentControl.offsetWidth + "px";
+				selectedLeft = this.newLeft + this.currentControl.offsetWidth + "px";
 
 			} else {//перемещатся правый ползунок
 				selectedLeft = this.secondControl.getBoundingClientRect().left + window.pageXOffset - this.parentElement.getBoundingClientRect().left + "px";
@@ -93,17 +93,20 @@ class sliderModel {
 		} else { //Режим Single
 			selectedLeft = 0;
 
-			selectedWidth = newLeft + "px";
+			selectedWidth = this.newLeft + "px";
 		}
 
 		//	console.log(parseFloat(this.currentControl.parentElement.getBoundingClientRect().left));
 
 
 		this.progressBarUpdated(selectedLeft, selectedWidth); //Вызываем для обновления прогресс бара в view
-		this.сontrolPosUpdated(this.currentControl, newLeft); //Вызываем для обновления положения ползунка в view
+		this.сontrolPosUpdated(this.currentControl, this.newLeft); //Вызываем для обновления положения ползунка в view
 		this.сontrolValueUpdated(this.currentControl, newValue); //Вызываем для обновления панели view
 
 	}
+
+
+
 
 	//Вызываем для обновления положения  и значения ползунка (обращение к контроллеру)
 	bindControlPosUpdated(callback) {
