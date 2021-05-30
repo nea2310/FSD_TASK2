@@ -24,17 +24,16 @@ class sliderModel {
 		this.progressBarStartWidth = this.rightControlStartPos - this.leftControlStartPos; // начальная ширина активного диапазона
 	}
 	computeControlPosFromVal(val, isInitialRendering = true, control) {
-		controlStartPos = (parseInt(val) - this.minRangeVal) * this.scaleWidth / (this.maxRangeVal - this.minRangeVal);// начальное положение левого ползунка на шкале
+		this.newLeft = (parseInt(val) - this.minRangeVal) * this.scaleWidth / (this.maxRangeVal - this.minRangeVal);// начальное положение левого ползунка на шкале
 		if (isInitialRendering) {
-			return controlStartPos
+			return this.newLeft
 		}
 		if (!isInitialRendering) {
-			//	this.newLeft = controlStartPos;
-			this.сontrolPosUpdated(control, controlStartPos);
+			this.сontrolPosUpdated(control, this.newLeft);
 			this.getControlData({
 				currentControl: control,
 			})
-			//this.computeProgressBar();
+			this.computeProgressBar();
 		}
 	}
 
@@ -139,6 +138,18 @@ class sliderModel {
 		//режим Double
 		if (!this.changeMode) {
 			if (!this.rightControl.classList.contains('rs__control-hidden')) {
+
+				if (this.secondControl == undefined) {
+
+					if (this.currentControl.classList.contains('rs__control-min')) {
+						this.secondControl = this.rightControl;
+						this.currentControlFlag = false;
+					} else {
+						this.secondControl = this.leftControl;
+						this.currentControlFlag = true;
+					}
+				}
+
 				this.selectedWidth = Math.abs(parseFloat(this.secondControl.style.left) - this.newLeft) + "px";
 				if (!this.currentControlFlag) { //перемещатся левый ползунок
 					this.selectedLeft = this.newLeft + this.currentControl.offsetWidth + "px";
@@ -695,13 +706,11 @@ class sliderController {
 	}
 
 	handleFromChanged = (val) => {
-		console.log(val);
 		this.model.computeControlPosFromVal(val, false, this.viewDoubleControl.leftControl);
 	}
 
 
 	handleToChanged = (val) => {
-		console.log(val);
 		this.model.computeControlPosFromVal(val, false, this.viewDoubleControl.rightControl);
 	}
 	handleIsVerticalChecked = () => {
