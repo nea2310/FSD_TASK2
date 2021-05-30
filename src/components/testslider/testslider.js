@@ -589,11 +589,34 @@ class sliderViewPanel extends sliderView {
 		})
 	}
 
+	//Эмуляция события ввода в инпут
+	createEvent(input, pos) {
+
+		input.value = this.conf.range[1] * pos;
+		let event = new Event('input', {
+			bubbles: true,
+			cancelable: true,
+		});
+
+		this.fromInput.dispatchEvent(event);
+	}
+
+
 	//щелчок по чекбоксу RANGE
 	bindCheckIsRangeControl(checkedEventHandler, notCheckedEventHandler) {
 
 		this.isRangeToggleInput.addEventListener('change', (e) => {
-			this.isRangeToggleInput.checked ? checkedEventHandler(e) : notCheckedEventHandler(e)
+
+
+			if (this.isRangeToggleInput.checked) {
+
+				if (parseInt(this.fromInput.value) >= parseInt(this.toInput.value))
+					this.createEvent(this.fromInput, 0.0001);
+				checkedEventHandler(e)
+			}
+			else {
+				notCheckedEventHandler(e)
+			}
 		})
 	}
 
