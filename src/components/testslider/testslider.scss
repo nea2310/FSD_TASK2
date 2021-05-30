@@ -10,13 +10,13 @@
 	width: 100%;
 	position: relative;
 }
-.rs__rangeWrapper {
-	display: flex;
-	justify-content: space-between;
-	margin-top: 10px;
+// .rs__rangeWrapper {
+// 	display: flex;
+// 	justify-content: space-between;
+// 	margin-top: 10px;
 
-	//	flex-direction: column;
-}
+// 	//	flex-direction: column;
+// }
 
 .rs__slider {
 	position: relative;
@@ -69,20 +69,27 @@
 	width: 30px;
 }
 
-.rs__range {
-	width: 30px;
-}
+// .rs__range {
+// 	width: 30px;
+// }
 
 .rs__panelWrapper {
 	border: 1px solid red;
-	position: absolute;
-	bottom: 120px;
-	left: 250px;
-	display: flex;
+	// position: absolute;
+	// bottom: 120px;
+	//left: 250px;
+	//	display: flex;
+	margin-top: 30px;
+	width: 100%;
 	//justify-content: space-between;
 }
 
 .rs__panel {
+	display: flex;
+	justify-content: space-between;
+}
+
+.rs__input {
 	border: 1px solid red;
 	width: 50px;
 	//position: absolute;

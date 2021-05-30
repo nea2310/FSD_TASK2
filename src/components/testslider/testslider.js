@@ -209,14 +209,8 @@ class sliderViewScale extends sliderView {
 		//определяем родительский элемент ползунков и его ширину в момент рендеринга страницы
 		this.scale = this.slider.querySelector('.rs__slider');
 		this.scaleWidth = this.scale.offsetWidth;
-		/*Определяем зону окрашивания*/
+		/*Определяем progress bar*/
 		this.progressBar = this.slider.querySelector('.rs__progressBar')
-
-		//Устанавливаем min и max значения диапазона в инпуты
-		this.minRangeValInput = this.slider.querySelector('.rs__range-min');
-		this.maxRangeValInput = this.slider.querySelector('.rs__range-max');
-		this.minRangeValInput.value = this.conf.range[0];
-		this.maxRangeValInput.value = this.conf.range[1];
 	}
 
 	renderMarks(marks = true) {
@@ -376,37 +370,90 @@ class sliderViewPanel extends sliderView {
 		super(conf);
 
 		this.renderPanelWrapper()
-		this.renderMinPanel();
-		this.renderMaxPanel();
+		this.renderMinInput();
+		this.renderMaxInput();
+		this.renderStepInput();
+		this.renderFromInput();
+		this.renderToInput();
 		this.renderIsVerticalToggle();
 		this.renderIsRangeToggle();
+		this.renderIsScaleToggle();
+		this.renderIsBarToggle();
+		this.renderIsTipToggle();
 	}
 	renderPanelWrapper() {
-		this.PanelWrapper = document.createElement('div');
-		this.PanelWrapper.className = 'rs__panelWrapper';
-		this.slider.prepend(this.PanelWrapper);
+		this.panelWrapper = document.createElement('div');
+		this.panelWrapper.className = 'rs__panelWrapper';
+		this.slider.append(this.panelWrapper);
+		this.panelTop = document.createElement('div');
+		this.panelTop.className = 'rs__panel rs__panel-top';
+		this.panelWrapper.append(this.panelTop);
+		this.panelBottom = document.createElement('div');
+		this.panelBottom.className = 'rs__panel rs__panel-bottom';
+		this.panelWrapper.append(this.panelBottom);
 	}
 
-	renderMinPanel() {
-		this.minPanelValue = document.createElement('input');
-		this.minPanelValue.value = this.conf.values[0];
-		this.minPanelValue.className = 'rs__panel rs__panel-min';
-		this.PanelWrapper.append(this.minPanelValue);
+
+	renderMinInput() {
+		this.minLabel = document.createElement('label');
+		this.minLabel.innerText = 'min';
+		this.minInput = document.createElement('input');
+		this.minInput.value = this.conf.range[0];
+		this.minInput.className = 'rs__input rs__input-min';
+		this.minLabel.append(this.minInput);
+		this.panelTop.append(this.minLabel);
+	}
+
+
+	renderMaxInput() {
+		this.maxLabel = document.createElement('label');
+		this.maxLabel.innerText = 'max';
+		this.maxInput = document.createElement('input');
+		this.maxInput.value = this.conf.range[1];
+		this.maxInput.className = 'rs__input rs__input-max';
+		this.maxLabel.append(this.maxInput);
+		this.panelTop.append(this.maxLabel);
+	}
+
+
+	renderStepInput() {
+		this.stepLabel = document.createElement('label');
+		this.stepLabel.innerText = 'step';
+		this.stepInput = document.createElement('input');
+		this.stepInput.value = this.conf.step;
+		this.stepInput.className = 'rs__input rs__input-step';
+		this.stepLabel.append(this.stepInput);
+		this.panelTop.append(this.stepLabel);
+	}
+
+
+
+	renderFromInput() {
+		this.fromLabel = document.createElement('label');
+		this.fromLabel.innerText = 'from';
+		this.fromInput = document.createElement('input');
+		this.fromInput.value = this.conf.values[0];
+		this.fromInput.className = 'rs__input rs__input-from';
+		this.fromLabel.append(this.fromInput);
 		this.leftControlStartVal = this.conf.values[0];
+		this.panelTop.append(this.fromLabel);
 	}
 
-	renderMaxPanel() {
-		this.maxPanelValue = document.createElement('input');
-		this.maxPanelValue.value = this.conf.values[1];
-		this.maxPanelValue.className = 'rs__panel rs__panel-max';
-		this.PanelWrapper.append(this.maxPanelValue);
+	renderToInput() {
+		this.toLabel = document.createElement('label');
+		this.toLabel.innerText = 'to';
+		this.toInput = document.createElement('input');
+		this.toInput.value = this.conf.values[1];
+		this.toInput.className = 'rs__input rs__input-to';
+		this.toLabel.append(this.toInput);
 		this.rightControlStartVal = this.conf.values[1];
+		this.panelTop.append(this.toLabel);
 	}
 
 	renderIsVerticalToggle() {
 		this.isVerticalToggle = document.createElement('label');
 		this.isVerticalToggle.className = 'togglemark__wrapper';
-		this.PanelWrapper.append(this.isVerticalToggle);
+		this.panelBottom.append(this.isVerticalToggle);
 
 		this.isVerticalToggleInput = document.createElement('input');
 		this.isVerticalToggleInput.type = 'checkbox';
@@ -426,27 +473,10 @@ class sliderViewPanel extends sliderView {
 		this.isVerticalToggle.append(this.isVerticalToggleLabel);
 	}
 
-
-	bindCheckIsVerticalControl(checkedEventHandler, notCheckedEventHandler) {
-
-		this.isVerticalToggleInput.addEventListener('change', (e) => {
-			this.isVerticalToggleInput.checked ? checkedEventHandler(e) : notCheckedEventHandler(e)
-		})
-	}
-
-
-	bindCheckIsRangeControl(checkedEventHandler, notCheckedEventHandler) {
-
-		this.isRangeToggleInput.addEventListener('change', (e) => {
-			this.isRangeToggleInput.checked ? checkedEventHandler(e) : notCheckedEventHandler(e)
-		})
-	}
-
 	renderIsRangeToggle() {
 		this.isRangeToggle = document.createElement('label');
-		//this.minPanelValue.value = this.conf.values[0];
 		this.isRangeToggle.className = 'togglemark__wrapper';
-		this.PanelWrapper.append(this.isRangeToggle);
+		this.panelBottom.append(this.isRangeToggle);
 
 		this.isRangeToggleInput = document.createElement('input');
 		this.isRangeToggleInput.type = 'checkbox';
@@ -467,8 +497,104 @@ class sliderViewPanel extends sliderView {
 		this.isRangeToggle.append(this.isRangeToggleLabel);
 	}
 
+
+
+
+	renderIsScaleToggle() {
+		this.isScaleToggle = document.createElement('label');
+		this.isScaleToggle.className = 'togglemark__wrapper';
+		this.panelBottom.append(this.isScaleToggle);
+
+		this.isScaleToggleInput = document.createElement('input');
+		this.isScaleToggleInput.type = 'checkbox';
+		this.isScaleToggleInput.checked = 'checked';
+		this.isScaleToggleInput.className = 'rs__scaleModeToggle';
+
+
+		this.isScaleToggleSpan = document.createElement('span');
+		this.isScaleToggleSpan.className = 'togglemark';
+
+		this.isScaleToggleLabel = document.createElement('label');
+		this.isScaleToggleLabel.className = 'togglemark__label';
+		this.isScaleToggleLabel.innerText = 'scale';
+
+
+		this.isScaleToggle.append(this.isScaleToggleInput);
+		this.isScaleToggle.append(this.isScaleToggleSpan);
+		this.isScaleToggle.append(this.isScaleToggleLabel);
+	}
+
+
+	renderIsBarToggle() {
+		this.isBarToggle = document.createElement('label');
+		this.isBarToggle.className = 'togglemark__wrapper';
+		this.panelBottom.append(this.isBarToggle);
+
+		this.isBarToggleInput = document.createElement('input');
+		this.isBarToggleInput.type = 'checkbox';
+		this.isBarToggleInput.checked = 'checked';
+		this.isBarToggleInput.className = 'rs__barModeToggle';
+
+
+		this.isBarToggleSpan = document.createElement('span');
+		this.isBarToggleSpan.className = 'togglemark';
+
+		this.isBarToggleLabel = document.createElement('label');
+		this.isBarToggleLabel.className = 'togglemark__label';
+		this.isBarToggleLabel.innerText = 'bar';
+
+
+		this.isBarToggle.append(this.isBarToggleInput);
+		this.isBarToggle.append(this.isBarToggleSpan);
+		this.isBarToggle.append(this.isBarToggleLabel);
+	}
+
+
+	renderIsTipToggle() {
+		this.isTipToggle = document.createElement('label');
+		this.isTipToggle.className = 'togglemark__wrapper';
+		this.panelBottom.append(this.isTipToggle);
+
+		this.isTipToggleInput = document.createElement('input');
+		this.isTipToggleInput.type = 'checkbox';
+		this.isTipToggleInput.checked = 'checked';
+		this.isTipToggleInput.className = 'rs__tipModeToggle';
+
+
+		this.isTipToggleSpan = document.createElement('span');
+		this.isTipToggleSpan.className = 'togglemark';
+
+		this.isTipToggleLabel = document.createElement('label');
+		this.isTipToggleLabel.className = 'togglemark__label';
+		this.isTipToggleLabel.innerText = 'tip';
+
+
+		this.isTipToggle.append(this.isTipToggleInput);
+		this.isTipToggle.append(this.isTipToggleSpan);
+		this.isTipToggle.append(this.isTipToggleLabel);
+	}
+
+
+
+	bindCheckIsVerticalControl(checkedEventHandler, notCheckedEventHandler) {
+
+		this.isVerticalToggleInput.addEventListener('change', (e) => {
+			this.isVerticalToggleInput.checked ? checkedEventHandler(e) : notCheckedEventHandler(e)
+		})
+	}
+
+
+	bindCheckIsRangeControl(checkedEventHandler, notCheckedEventHandler) {
+
+		this.isRangeToggleInput.addEventListener('change', (e) => {
+			this.isRangeToggleInput.checked ? checkedEventHandler(e) : notCheckedEventHandler(e)
+		})
+	}
+
+
+
 	updatePanelValue(elem, newValue) {
-		elem.classList.contains('rs__control-min') ? this.minPanelValue.value = newValue : this.maxPanelValue.value = newValue;
+		elem.classList.contains('rs__control-min') ? this.fromInput.value = newValue : this.toInput.value = newValue;
 	}
 }
 
