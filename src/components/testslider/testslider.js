@@ -203,16 +203,20 @@ class sliderViewScale extends sliderView {
 	}
 	renderScale() {
 		//определяем родительский элемент ползунков и его ширину в момент рендеринга страницы
-		console.log(this.slider);
+
 		this.scale = document.createElement('div');
 		this.scale.className = 'rs__slider';
 		this.slider.append(this.scale);
-		console.log(this.scale);
 
-		//this.scale = this.slider.querySelector('.rs__slider');
+
+
 		this.scaleWidth = this.scale.offsetWidth;
+
 		/*Определяем progress bar*/
-		this.progressBar = this.slider.querySelector('.rs__progressBar')
+		this.progressBar = document.createElement('div');
+		this.progressBar.className = 'rs__progressBar';
+		this.scale.append(this.progressBar);
+
 	}
 
 	renderMarks(marks = true) {
