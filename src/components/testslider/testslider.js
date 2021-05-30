@@ -8,6 +8,17 @@ class sliderModel {
 		this.computeInitialPos();
 	}
 
+
+
+	/*Получаем элемент ползунка, определяем координаты в момент начала перемещения ползунка, и сохраняем в объекте модели*/
+	getControlData(controlData) {
+
+		this.currentControl = controlData.currentControl; // ползунок, за который тянут
+		this.secondControl = controlData.secondControl; // второй ползунок
+		this.parentElement = this.currentControl.parentElement;
+		this.currentControlFlag = controlData.currentControlFlag;
+	}
+
 	//Сохраняем в объекте модели диапазон, рассчитываем и сохраняем положение ползунков в момент рендеринга страницы
 	computeInitialPos() {
 		this.scale = this.slider.querySelector('.rs__slider');
@@ -23,75 +34,62 @@ class sliderModel {
 		this.rightControlStartPos = this.computeControlPosFromVal(this.rightControlStartVal);// начальное положение правого ползунка на шкале
 		this.progressBarStartWidth = this.rightControlStartPos - this.leftControlStartPos; // начальная ширина активного диапазона
 	}
+
+	//Рассчитываем положение ползунка на основании значения, введенного в панели конфигурирования или в объекте конфигурации
 	computeControlPosFromVal(val, isInitialRendering = true, control) {
 		this.newLeft = (parseInt(val) - this.minRangeVal) * this.scaleWidth / (this.maxRangeVal - this.minRangeVal);// начальное положение левого ползунка на шкале
 		if (isInitialRendering) {
 			return this.newLeft
 		}
 		if (!isInitialRendering) {
+			if (control.classList.contains('rs__control-min')) {
+				this.secondControl = this.rightControl;
+				this.currentControlFlag = false;
+			} else {
+				this.secondControl = this.leftControl;
+				this.currentControlFlag = true;
+			}
+
 			this.сontrolPosUpdated(control, this.newLeft);
 			this.getControlData({
 				currentControl: control,
+				secondControl: this.secondControl,
+				currentControlFlag: this.currentControlFlag
 			})
 			this.computeProgressBar();
 		}
 	}
 
-	/*Получаем элемент ползунка, определяем координаты в момент начала перемещения ползунка, и сохраняем в объекте модели*/
-	getControlData(controlData) {
-
-		this.currentControl = controlData.currentControl; // ползунок, за который тянут
-		this.secondControl = controlData.secondControl; // второй ползунок
-		this.parentElement = this.currentControl.parentElement;
-		this.currentControlFlag = controlData.currentControlFlag;
-	}
 
 
-
+	//Рассчитываем положение ползунка при возникновении события перетяшивания ползунка или щелчка по шкале
 	computeControlPosFromEvent(e) {
 		/*Определяем положение мыши в зависимости от устройства*/
 		/*На мобильных устройствах может фиксироваться несколько точек касания, поэтому используется массив targetTouches*/
 		/*Мы будем брать только первое зафиксированое касание по экрану targetTouches[0]*/
 
-		if (e.type == 'change') {
+		if (e.type == 'change') {//если переключили чекбокс на панели конфигурации (например смена режима Double -> Single)
 			this.changeMode = true;
-
-			if (e.target.classList.contains('rs__rangeModeToggle')) {
-
-				this.switchToSingleMode;
-				this.switchToDoubleMode;
-
+			if (e.target.classList.contains('rs__rangeModeToggle')) { //меняется режим double->single или наоборот
 				this.rightControl.classList.contains('rs__control-hidden') ? this.switchToSingleMode = true : this.switchToSingleMode = false;
 				!this.rightControl.classList.contains('rs__control-hidden') ? this.switchToDoubleMode = true : this.switchToDoubleMode = false;
 			}
 
-			if (e.target.classList.contains('rs__verticalModeToggle')) {
-
-				this.switchToVerticalMode;
-				this.switchToDoubleMode;
-
-
+			if (e.target.classList.contains('rs__verticalModeToggle')) { //меняется режим vertical->horizontal или наоборот
 				// [УСЛОВИЕ]? this.switchToVerticalMode = true : this.switchToVerticalMode = false;
 				// [УСЛОВИЕ] ? this.switchToDoubleMode = true : this.switchToDoubleMode = false;
-
-
-				console.log(this.switchToSingleMode);
-				console.log(this.switchToDoubleMode);
 			}
 		}
 
-		else if (e.type != 'change') {
+		else if (e.type == 'click' || e.type == 'mousemove') { //если потянули ползунок или кликнули по шкале
 			this.changeMode = false;
 			this.switchToSingleMode = false;
 			this.switchToDoubleMode = false;
 			this.switchToVerticalMode = false;
 			this.switchToHorizontalMode = false;
 			e.touches === undefined ? this.pos = e.clientX : this.pos = e.targetTouches[0].clientX;
-		}
 
 
-
-		if (!this.changeMode) {/*Определяем новую позицию ползунка*/
 			this.newLeft = this.pos - this.parentElement.getBoundingClientRect().left;
 			let rigthEdge = this.parentElement.offsetWidth;
 
@@ -107,7 +105,6 @@ class sliderModel {
 				if ((!this.currentControlFlag && this.pos > this.secondControl.getBoundingClientRect().left + window.pageXOffset - this.secondControl.offsetWidth) ||
 					(this.currentControlFlag && this.pos < this.secondControl.getBoundingClientRect().left + this.secondControl.offsetWidth + window.pageXOffset - 3)) return
 			}
-
 			this.сontrolPosUpdated(this.currentControl, this.newLeft); //Вызываем для обновления положения ползунка в view
 		}
 
@@ -116,75 +113,51 @@ class sliderModel {
 
 	computeControlValue() {		/*Определяем новое значение ползунка*/
 		if (!this.changeMode) {
-			if (!this.currentControlFlag) {
-				this.newValue = (this.newLeft / (this.parentElement.offsetWidth / (this.maxRangeVal - this.minRangeVal)) + this.minRangeVal).toFixed(0);
-			} else {
-				this.newValue = (this.newLeft / (this.parentElement.offsetWidth / (this.maxRangeVal - this.minRangeVal)) + this.minRangeVal).toFixed(0);
+			this.newValue = (this.newLeft / (this.parentElement.offsetWidth / (this.maxRangeVal - this.minRangeVal)) + this.minRangeVal).toFixed(0);
+			if (this.newValue == -0) {//Значение -0 возникает из-за строки this.newLeft = -0.00001;
+				this.newValue = 0;
 			}
-
-			if (this.newValue == -0) this.newValue = 0;//Значение -0 возникает из-за строки this.newLeft = -0.00001;
-
 			this.сontrolValueUpdated(this.currentControl, this.newValue); //Вызываем для обновления панели view
 		}
 		this.computeProgressBar();
 	}
 
 	computeProgressBar() {
-
-
-
 		/*определяем прогресс-бар*/
 
-		//режим Double
-		if (!this.changeMode) {
+		if (!this.changeMode) { //Если это не переключение режима
+			//режим Double
 			if (!this.rightControl.classList.contains('rs__control-hidden')) {
-
-				if (this.secondControl == undefined) {
-
-					if (this.currentControl.classList.contains('rs__control-min')) {
-						this.secondControl = this.rightControl;
-						this.currentControlFlag = false;
-					} else {
-						this.secondControl = this.leftControl;
-						this.currentControlFlag = true;
-					}
-				}
-
 				this.selectedWidth = Math.abs(parseFloat(this.secondControl.style.left) - this.newLeft) + "px";
 				if (!this.currentControlFlag) { //перемещатся левый ползунок
 					this.selectedLeft = this.newLeft + this.currentControl.offsetWidth + "px";
-
 				} else {//перемещатся правый ползунок
 					this.selectedLeft = this.secondControl.getBoundingClientRect().left + window.pageXOffset - this.parentElement.getBoundingClientRect().left + "px";
 				}
-			} else { //Режим Single
+				//Режим Single
+			} else {
 				this.selectedLeft = 0;
 				this.selectedWidth = this.newLeft + "px";
 			}
 		}
+		//Если это переключение режима
 		else if (this.changeMode) {
-			if (this.switchToSingleMode) {//переключение в одинарный режим
+			if (this.switchToSingleMode) {//переключение в Single режим
 				this.selectedLeft = 0;
 				this.selectedWidth = this.leftControl.style.left;
 			}
 
-
-			else if (this.switchToDoubleMode) {//переключение в двойной режим
-				console.log('switchToDoubleMode');
-
+			else if (this.switchToDoubleMode) {//переключение в Double режим
 				this.selectedLeft = parseFloat(this.leftControl.style.left);
 				this.selectedWidth = parseFloat(this.rightControl.style.left) - parseFloat(this.leftControl.style.left) + 'px';
-
 			}
 
 			else if (this.switchToVerticalMode) {//переключение в вертикальный режим
 				console.log('switchToVerticalMode');
-
 			}
 
 			else if (this.switchToHorizontalMode) {//переключение в горизонтальный режим
 				console.log('switchToHorizontalMode');
-
 			}
 		}
 		this.progressBarUpdated(this.selectedLeft, this.selectedWidth); //Вызываем для обновления прогресс бара в view
@@ -193,7 +166,6 @@ class sliderModel {
 
 	//Вызываем для обновления положения  и значения ползунка (обращение к контроллеру)
 	bindControlPosUpdated(callback) {
-
 		this.сontrolPosUpdated = callback
 	}
 
@@ -269,14 +241,14 @@ class sliderViewScale extends sliderView {
 	}
 
 
-	/*красим диапазон выбора (область шкалы между ползунками)*/
+	/*красим Progress Bar*/
 	updateProgressBar(left, width) {
 
 		this.progressBar.style.left = left;
 		this.progressBar.style.width = width;
 	}
 
-
+	//Клик по шкале
 
 	bindClickOnScale(firstEventHandler, secondEventHandler) {
 
@@ -298,7 +270,7 @@ class sliderViewScale extends sliderView {
 					controlData.currentControlFlag = false;
 				}
 
-				else {				//определяем ползунок, находящийся ближе к позиции клика
+				else {//определяем ползунок, находящийся ближе к позиции клика
 					leftControlDist <= rightControlDist ? controlData.currentControl = this.leftControl :
 						controlData.currentControl = this.rightControl;
 
@@ -367,8 +339,6 @@ class sliderViewDoubleControl extends sliderView {
 		/*устанавливаем отступ ползунку*/
 		if (newLeft) elem.style.left = newLeft + 'px';
 	}
-
-
 
 	doubleMode() {
 		this.rightControl.classList.remove('rs__control-hidden')
@@ -597,20 +567,21 @@ class sliderViewPanel extends sliderView {
 		this.isTipToggle.append(this.isTipToggleSpan);
 		this.isTipToggle.append(this.isTipToggleLabel);
 	}
+	//ввод значения FROM
 	bindFromChange(eventHandler) {
 		this.fromInput.addEventListener('input', (e) => {
 			eventHandler(this.fromInput.value);
 		})
 	}
 
-
+	//ввод значения TO
 	bindToChange(eventHandler) {
 		this.toInput.addEventListener('input', (e) => {
 			eventHandler(this.toInput.value);
 		})
 	}
 
-
+	//щелчок по чекбоксу VERTICAL
 	bindCheckIsVerticalControl(checkedEventHandler, notCheckedEventHandler) {
 
 		this.isVerticalToggleInput.addEventListener('change', (e) => {
@@ -618,7 +589,7 @@ class sliderViewPanel extends sliderView {
 		})
 	}
 
-
+	//щелчок по чекбоксу RANGE
 	bindCheckIsRangeControl(checkedEventHandler, notCheckedEventHandler) {
 
 		this.isRangeToggleInput.addEventListener('change', (e) => {
@@ -627,8 +598,8 @@ class sliderViewPanel extends sliderView {
 	}
 
 
-
-	updatePanelValue(elem, newValue) {
+	//Обновление значений инпутов FROM и TO при перемещении ползунков
+	updateFromTo(elem, newValue) {
 		elem.classList.contains('rs__control-min') ? this.fromInput.value = newValue : this.toInput.value = newValue;
 	}
 }
@@ -689,7 +660,7 @@ class sliderController {
 
 	//вызываем метод updateСurrentControl в view
 	handleOnСontrolValueUpdated = (elem, newValue) => {
-		this.viewPanel.updatePanelValue(elem, newValue);
+		this.viewPanel.updateFromTo(elem, newValue);
 	}
 
 
