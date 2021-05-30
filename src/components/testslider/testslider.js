@@ -305,6 +305,11 @@ class sliderViewDoubleControl extends sliderView {
 		this.leftControl = document.createElement('div');
 		this.leftControl.className = 'rs__control rs__control-min';
 		this.scale.append(this.leftControl);
+
+
+		this.leftTip = document.createElement('input');
+		this.leftTip.className = 'rs__tip rs__tip-min';
+		this.leftControl.append(this.leftTip);
 	}
 
 	renderRightControl() {
@@ -313,6 +318,11 @@ class sliderViewDoubleControl extends sliderView {
 		this.rightControl = document.createElement('div');
 		this.rightControl.className = 'rs__control rs__control-max';
 		this.scale.append(this.rightControl);
+
+
+		this.rightTip = document.createElement('input');
+		this.rightTip.className = 'rs__tip rs__tip-max';
+		this.rightControl.append(this.rightTip);
 	}
 
 	// Вешаем обработчики события нажатия кнопки на ползунке (захвата ползунка) и перемещения ползунка
@@ -380,6 +390,7 @@ class sliderViewPanel extends sliderView {
 		this.renderIsScaleToggle();
 		this.renderIsBarToggle();
 		this.renderIsTipToggle();
+		//	this.tip();
 	}
 	renderPanelWrapper() {
 		this.panelWrapper = document.createElement('div');
@@ -573,6 +584,15 @@ class sliderViewPanel extends sliderView {
 		this.isTipToggle.append(this.isTipToggleSpan);
 		this.isTipToggle.append(this.isTipToggleLabel);
 	}
+
+
+
+	// tip() {
+	// 	this.leftTip = this.slider.firstChild.childNodes[this.slider.firstChild.childNodes.length - 2].firstChild;
+	// 	console.log(this.leftTip);
+	// 	this.leftTip.value = this.minInput.value;
+	// }
+
 	//ввод значения FROM
 	bindFromChange(eventHandler) {
 		this.fromInput.addEventListener('input', (e) => {
