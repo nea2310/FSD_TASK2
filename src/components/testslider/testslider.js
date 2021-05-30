@@ -203,7 +203,13 @@ class sliderViewScale extends sliderView {
 	}
 	renderScale() {
 		//определяем родительский элемент ползунков и его ширину в момент рендеринга страницы
-		this.scale = this.slider.querySelector('.rs__slider');
+		console.log(this.slider);
+		this.scale = document.createElement('div');
+		this.scale.className = 'rs__slider';
+		this.slider.append(this.scale);
+		console.log(this.scale);
+
+		//this.scale = this.slider.querySelector('.rs__slider');
 		this.scaleWidth = this.scale.offsetWidth;
 		/*Определяем progress bar*/
 		this.progressBar = this.slider.querySelector('.rs__progressBar')
@@ -298,12 +304,22 @@ class sliderViewDoubleControl extends sliderView {
 
 	renderLeftControl() {
 		/*Определяем ползунок минимального значения*/
-		this.leftControl = this.slider.querySelector('.rs__control-min');
+		console.log(this.slider);
+		this.scale = this.slider.firstChild;
+		console.log(this.scale);
+		this.leftControl = document.createElement('div');
+		this.leftControl.className = 'rs__control rs__control-min';
+		this.scale.append(this.leftControl);
+		//this.leftControl = this.slider.querySelector('.rs__control-min');
 	}
 
 	renderRightControl() {
 		/*Определяем ползунок максимального значения*/
-		this.rightControl = this.slider.querySelector('.rs__control-max');
+
+		this.rightControl = document.createElement('div');
+		this.rightControl.className = 'rs__control rs__control-max';
+		this.scale.append(this.rightControl);
+		//this.rightControl = this.slider.querySelector('.rs__control-max');
 	}
 
 	// Вешаем обработчики события нажатия кнопки на ползунке (захвата ползунка) и перемещения ползунка
@@ -629,7 +645,7 @@ class sliderViewPanel extends sliderView {
 
 
 class sliderController {
-	constructor(model, view, viewScale, viewDoubleControl, viewPanel) {
+	constructor(view, viewScale, viewDoubleControl, viewPanel, model,) {
 		this.model = model;
 		this.view = view;
 		this.viewScale = viewScale;
@@ -733,11 +749,12 @@ let conf = {
 }
 
 new sliderController(
-	new sliderModel(conf),
 	new sliderView(conf),
 	new sliderViewScale(conf),
 	new sliderViewDoubleControl(conf),
 	new sliderViewPanel(conf),
+	new sliderModel(conf),
+
 );
 
 
