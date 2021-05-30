@@ -23,6 +23,7 @@ class sliderModel {
 		this.rightControlStartPos = this.computeControlPosFromVal(this.rightControlStartVal);// начальное положение правого ползунка на шкале
 		this.progressBarStartWidth = this.rightControlStartPos - this.leftControlStartPos; // начальная ширина активного диапазона
 	}
+
 	computeControlPosFromVal(val, isInitialRendering = true, control) {
 		controlStartPos = (parseInt(val) - this.minRangeVal) * this.scaleWidth / (this.maxRangeVal - this.minRangeVal);// начальное положение левого ползунка на шкале
 		if (isInitialRendering) {
@@ -34,9 +35,10 @@ class sliderModel {
 			this.getControlData({
 				currentControl: control,
 			})
-			//this.computeProgressBar();
+			this.computeProgressBar();
 		}
 	}
+
 
 	/*Получаем элемент ползунка, определяем координаты в момент начала перемещения ползунка, и сохраняем в объекте модели*/
 	getControlData(controlData) {
@@ -139,11 +141,24 @@ class sliderModel {
 		//режим Double
 		if (!this.changeMode) {
 			if (!this.rightControl.classList.contains('rs__control-hidden')) {
+				console.log(this.currentControl);
+
+				if (this.currentControl.classList.contains('rs__control-min') && this.secondControl == undefined) {
+					this.secondControl = this.rightControl;
+					this.currentControlFlag = false;
+				} else {
+					this.secondControl = this.leftControl;
+					this.currentControlFlag = true;
+				}
+
 				this.selectedWidth = Math.abs(parseFloat(this.secondControl.style.left) - this.newLeft) + "px";
+				console.log(this.newLeft);
 				if (!this.currentControlFlag) { //перемещатся левый ползунок
+					console.log(111);
 					this.selectedLeft = this.newLeft + this.currentControl.offsetWidth + "px";
 
 				} else {//перемещатся правый ползунок
+					console.log(222);
 					this.selectedLeft = this.secondControl.getBoundingClientRect().left + window.pageXOffset - this.parentElement.getBoundingClientRect().left + "px";
 				}
 			} else { //Режим Single
@@ -586,6 +601,7 @@ class sliderViewPanel extends sliderView {
 		this.isTipToggle.append(this.isTipToggleSpan);
 		this.isTipToggle.append(this.isTipToggleLabel);
 	}
+
 	bindFromChange(eventHandler) {
 		this.fromInput.addEventListener('input', (e) => {
 			eventHandler(this.fromInput.value);
@@ -598,7 +614,6 @@ class sliderViewPanel extends sliderView {
 			eventHandler(this.toInput.value);
 		})
 	}
-
 
 	bindCheckIsVerticalControl(checkedEventHandler, notCheckedEventHandler) {
 
@@ -641,8 +656,12 @@ class sliderController {
 
 		this.viewPanel.bindCheckIsRangeControl(this.handleIsRangeChecked, this.handleIsRangeNotChecked);
 		this.viewPanel.bindCheckIsVerticalControl(this.handleIsVerticalChecked, this.handleIsVerticalNotChecked);
+
 		this.viewPanel.bindFromChange(this.handleFromChanged);
 		this.viewPanel.bindToChange(this.handleToChanged);
+
+
+
 		this.view.bindMouseUp(this.handleMouseUp);//вешаем обработчик handleMouseUp для обработки в view события отпускания кнопки (завершение перетаскивания ползунка)
 
 
@@ -694,6 +713,7 @@ class sliderController {
 
 	}
 
+
 	handleFromChanged = (val) => {
 		console.log(val);
 		this.model.computeControlPosFromVal(val, false, this.viewDoubleControl.leftControl);
@@ -704,6 +724,9 @@ class sliderController {
 		console.log(val);
 		this.model.computeControlPosFromVal(val, false, this.viewDoubleControl.rightControl);
 	}
+
+
+
 	handleIsVerticalChecked = () => {
 		this.viewDoubleControl.verticalMode();
 	}
