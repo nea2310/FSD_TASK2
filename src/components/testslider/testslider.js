@@ -37,7 +37,6 @@ class sliderModel {
 
 
 	computeControlPos(e) {
-		//	console.log(e);
 		/*Определяем положение мыши в зависимости от устройства*/
 		/*На мобильных устройствах может фиксироваться несколько точек касания, поэтому используется массив targetTouches*/
 		/*Мы будем брать только первое зафиксированое касание по экрану targetTouches[0]*/
@@ -85,18 +84,14 @@ class sliderModel {
 			let rigthEdge = this.parentElement.offsetWidth;
 
 			if (this.newLeft < 0) {
-				console.log(this.newLeft);
-				console.log('newLeft < 0');
-				this.newLeft = -0.00001;
+				this.newLeft = -0.00001; // если здесь поставить this.newLeft =0, то по какой-то причине левый ползунок не доходит до самого края шкалы (т.е. вместо elem.style.left=0px ему присваивается 2px)
 			} else if (this.newLeft > rigthEdge) {
 
 				this.newLeft = rigthEdge;
 			}
 
-
 			/*запрещаем ползункам перепрыгивать друг через друга, если это не single режим*/
-			if (!this.secondControl.classList.contains('rs__control-hidden')) {
-
+			if (!this.rightControl.classList.contains('rs__control-hidden')) {
 				if ((!this.currentControlFlag && this.pos > this.secondControl.getBoundingClientRect().left + window.pageXOffset - this.secondControl.offsetWidth) ||
 					(this.currentControlFlag && this.pos < this.secondControl.getBoundingClientRect().left + this.secondControl.offsetWidth + window.pageXOffset - 3)) return
 			}
@@ -115,7 +110,7 @@ class sliderModel {
 				this.newValue = (this.newLeft / (this.parentElement.offsetWidth / (this.maxRangeVal - this.minRangeVal)) + this.minRangeVal).toFixed(0);
 			}
 
-			if (this.newValue == -0) this.newValue = 0;
+			if (this.newValue == -0) this.newValue = 0;//Значение -0 возникает из-за строки this.newLeft = -0.00001;
 
 			this.сontrolValueUpdated(this.currentControl, this.newValue); //Вызываем для обновления панели view
 		}
@@ -130,7 +125,7 @@ class sliderModel {
 
 		//режим Double
 		if (!this.changeMode) {
-			if (!this.secondControl.classList.contains('rs__control-hidden')) {
+			if (!this.rightControl.classList.contains('rs__control-hidden')) {
 				this.selectedWidth = Math.abs(parseFloat(this.secondControl.style.left) - this.newLeft) + "px";
 				if (!this.currentControlFlag) { //перемещатся левый ползунок
 					this.selectedLeft = this.newLeft + this.currentControl.offsetWidth + "px";
@@ -144,12 +139,9 @@ class sliderModel {
 			}
 		}
 		else if (this.changeMode) {
-
 			if (this.switchToSingleMode) {//переключение в одинарный режим
-				console.log('switchToSingleMode');
 				this.selectedLeft = 0;
 				this.selectedWidth = this.leftControl.style.left;
-
 			}
 
 
@@ -249,7 +241,6 @@ class sliderViewScale extends sliderView {
 				let elemWidth = 2;
 				elem.innerText = innerText;
 				elem.classList.add('rs__mark');
-				//	console.log(elem.offsetWidth);
 				elem.style.width = elemWidth + 'px';
 				elem.style.marginLeft = stepLength - elemWidth;
 				this.scale.appendChild(elem);
@@ -283,16 +274,22 @@ class sliderViewScale extends sliderView {
 				let rightControlDist = Math.abs(rightControlPos - e.clientX);
 
 				let controlData = {};
+				if (this.rightControl.classList.contains('rs__control-hidden')) {
+					controlData.currentControl = this.leftControl;
+					controlData.secondControl = this.rightControl;
+					controlData.currentControlFlag = false;
+				}
 
-				//определяем ползунок, находящийся ближе к позиции клика
-				leftControlDist <= rightControlDist ? controlData.currentControl = this.leftControl :
-					controlData.currentControl = this.rightControl;
+				else {				//определяем ползунок, находящийся ближе к позиции клика
+					leftControlDist <= rightControlDist ? controlData.currentControl = this.leftControl :
+						controlData.currentControl = this.rightControl;
 
-				//определяем второй ползунок
-				controlData.currentControl == this.leftControl ? controlData.secondControl = this.rightControl : controlData.secondControl = this.leftControl;
+					//определяем второй ползунок
+					controlData.currentControl == this.leftControl ? controlData.secondControl = this.rightControl : controlData.secondControl = this.leftControl;
 
-				// Устанавливаем флаг, какой из ползунков (левый или правый) ближе к позиции клика
-				controlData.currentControl == this.leftControl ? controlData.currentControlFlag = false : controlData.currentControlFlag = true;
+					// Устанавливаем флаг, какой из ползунков (левый или правый) ближе к позиции клика
+					controlData.currentControl == this.leftControl ? controlData.currentControlFlag = false : controlData.currentControlFlag = true;
+				}
 
 				firstEventHandler(controlData);// вызов хендлера обработки события
 				secondEventHandler(e);
@@ -350,10 +347,7 @@ class sliderViewDoubleControl extends sliderView {
 	//Вызывается из модели через контроллер для установки ползунку новой позиции, нового значения, закрашивания диапазона выбора (области шкалы между ползунками)
 	updateControlPos(elem, newLeft) {
 		/*устанавливаем отступ ползунку*/
-		console.log(newLeft);
 		if (newLeft) elem.style.left = newLeft + 'px';
-		console.log(elem.style.left);
-
 	}
 
 
