@@ -422,7 +422,7 @@ class sliderViewPanel extends sliderView {
 		this.renderIsScaleToggle();
 		this.renderIsBarToggle();
 		this.renderIsTipToggle();
-		//	this.tip();
+
 	}
 	renderPanelWrapper() {
 		this.panelWrapper = document.createElement('div');
