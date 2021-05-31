@@ -759,6 +759,9 @@ class sliderController {
 		// 	console.log('RESIZE');
 		// 	this.view.deleteSlider();
 		// 	this.render();
+		// 	this.handleOnControlPosUpdated(this.viewDoubleControl.leftControl, this.model.leftControlStartPos);//передаем во view начальное положение левого ползунка
+		// 	this.handleOnControlPosUpdated(this.viewDoubleControl.rightControl, this.model.rightControlStartPos); //передаем во view начальное положение левого ползунка
+		// 	this.handleOnprogressBarUpdated(this.model.leftControlStartPos, this.model.progressBarStartWidth); // передаем во view начальное положение прогресс-бара
 		// })
 
 	}
