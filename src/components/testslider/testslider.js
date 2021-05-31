@@ -61,7 +61,7 @@ class sliderModel {
 
 
 
-	//Рассчитываем положение ползунка при возникновении события перетяшивания ползунка или щелчка по шкале
+	//Рассчитываем положение ползунка при возникновении события перетягивания ползунка или щелчка по шкале
 	computeControlPosFromEvent(e) {
 		/*Определяем положение мыши в зависимости от устройства*/
 		/*На мобильных устройствах может фиксироваться несколько точек касания, поэтому используется массив targetTouches*/
@@ -110,7 +110,9 @@ class sliderModel {
 		this.computeControlValue();
 	}
 
-	computeControlValue() {		/*Определяем новое значение ползунка*/
+	/*Рассчитываем новое значение ползунка*/
+
+	computeControlValue() {
 		if (!this.changeMode) {
 			this.newValue = (this.newLeft / (this.parentElement.offsetWidth / (this.maxRangeVal - this.minRangeVal)) + this.minRangeVal).toFixed(0);
 			if (this.newValue == -0) {//Значение -0 возникает из-за строки this.newLeft = -0.00001;
@@ -121,8 +123,9 @@ class sliderModel {
 		this.computeProgressBar();
 	}
 
+	/*Рассчитываем ширину и позицию left прогресс-бара*/
 	computeProgressBar() {
-		/*определяем прогресс-бар*/
+
 
 		if (!this.changeMode) { //Если это не переключение режима
 			//режим Double
@@ -163,16 +166,16 @@ class sliderModel {
 	}
 
 
-	//Вызываем для обновления положения  и значения ползунка (обращение к контроллеру)
+	//Вызываем для обновления положения ползунка (обращение к контроллеру)
 	bindControlPosUpdated(callback) {
 		this.сontrolPosUpdated = callback
 	}
 
+	//Вызываем для обновления положения прогресс-бара (обращение к контроллеру)
 	bindprogressBarUpdated(callback) {
 		this.progressBarUpdated = callback
 	}
-
-	//Вызываем для обновления панели (обращение к контроллеру)
+	//Вызываем для обновления значения ползунка (обращение к контроллеру)
 	bindСontrolValueUpdated(callback) {
 		this.сontrolValueUpdated = callback
 	}
@@ -197,22 +200,22 @@ class sliderViewScale extends sliderView {
 	constructor(conf) {
 		super(conf);
 		this.renderScale();// шкала
-		this.renderMarks();
+		this.renderMarks();//деления шкалы
 	}
 	renderScale() {
-		//определяем родительский элемент ползунков и его ширину в момент рендеринга страницы
+		//создаем шкалу
 
 		this.scale = document.createElement('div');
 		this.scale.className = 'rs__slider';
 		this.slider.append(this.scale);
 		this.scaleWidth = this.scale.offsetWidth;
 
-		/*Определяем progress bar*/
+		//создаем progress bar
 		this.progressBar = document.createElement('div');
 		this.progressBar.className = 'rs__progressBar';
 		this.scale.append(this.progressBar);
 	}
-
+	//создаем деления шкалы
 	renderMarks(marks = true) {
 		if (marks) {
 			this.step = conf.step;
@@ -242,14 +245,6 @@ class sliderViewScale extends sliderView {
 				innerText = innerText + conf.step;
 			}
 		}
-	}
-
-
-	/*красим Progress Bar*/
-	updateProgressBar(left, width) {
-
-		this.progressBar.style.left = left;
-		this.progressBar.style.width = width;
 	}
 
 	//Клик по шкале
@@ -290,6 +285,14 @@ class sliderViewScale extends sliderView {
 			}
 		})
 	}
+
+	/*красим Progress Bar (вызывается из контроллера)*/
+	updateProgressBar(left, width) {
+
+		this.progressBar.style.left = left;
+		this.progressBar.style.width = width;
+	}
+
 }
 
 class sliderViewDoubleControl extends sliderView {
@@ -300,7 +303,7 @@ class sliderViewDoubleControl extends sliderView {
 	}
 
 	renderLeftControl() {
-		/*Определяем ползунок минимального значения*/
+		/*Создаем ползунок минимального значения*/
 		this.scale = this.slider.firstChild;
 		this.leftControl = document.createElement('div');
 		this.leftControl.className = 'rs__control rs__control-min';
@@ -314,7 +317,7 @@ class sliderViewDoubleControl extends sliderView {
 	}
 
 	renderRightControl() {
-		/*Определяем ползунок максимального значения*/
+		/*Создаем ползунок максимального значения*/
 
 		this.rightControl = document.createElement('div');
 		this.rightControl.className = 'rs__control rs__control-max';
@@ -351,17 +354,14 @@ class sliderViewDoubleControl extends sliderView {
 		})
 	}
 
-
-	//Вызывается из модели через контроллер для установки ползунку новой позиции
+	//Обновляем позицию ползунка (вызывается через контроллер)
 	updateControlPos(elem, newLeft) {
-		/*устанавливаем отступ ползунку*/
 		if (newLeft) elem.style.left = newLeft + 'px';
 	}
 
 
-	//Обновление значений tip при перемещении ползунков
+	//Обновляем значение tip при перемещении ползунков (вызывается через контроллер)
 	updateFromTo(elem, newValue) {
-
 		elem.classList.contains('rs__control-min') ? this.leftTip.value = newValue : this.rightTip.value = newValue;
 	}
 
@@ -385,13 +385,13 @@ class sliderViewDoubleControl extends sliderView {
 
 
 	tipMode() {
-		console.log('TIP');
+		//	console.log('TIP');
 		this.rightTip.classList.remove('hidden');
 		this.leftTip.classList.remove('hidden');
 	}
 
 	noTipMode() {
-		console.log('NO TIP');
+		//	console.log('NO TIP');
 		this.rightTip.classList.add('hidden');
 		this.leftTip.classList.add('hidden');
 	}
