@@ -365,12 +365,35 @@ class sliderViewDoubleControl extends sliderView {
 		elem.classList.contains('rs__control-min') ? this.leftTip.value = newValue : this.rightTip.value = newValue;
 	}
 
+
+
+	setFromTip(val) {
+		this.leftTip.value = val;
+	};
+
+	setToTip(val) {
+		this.rightTip.value = val;
+	};
+
 	doubleMode() {
-		this.rightControl.classList.remove('rs__control-hidden')
+		this.rightControl.classList.remove('hidden')
 	}
 
 	singleMode() {
-		this.rightControl.classList.add('rs__control-hidden')
+		this.rightControl.classList.add('hidden')
+	}
+
+
+	tipMode() {
+		console.log('TIP');
+		this.rightTip.classList.remove('hidden');
+		this.leftTip.classList.remove('hidden');
+	}
+
+	noTipMode() {
+		console.log('NO TIP');
+		this.rightTip.classList.add('hidden');
+		this.leftTip.classList.add('hidden');
 	}
 
 
@@ -645,8 +668,25 @@ class sliderViewPanel extends sliderView {
 
 			if (this.isRangeToggleInput.checked) {
 
-				if (parseInt(this.fromInput.value) >= parseInt(this.toInput.value))
+				if (parseInt(this.fromInput.value) >= parseInt(this.toInput.value)) {
 					this.createEvent(this.fromInput, 0.0001);
+				}
+				checkedEventHandler(e)
+			}
+			else {
+				notCheckedEventHandler(e)
+			}
+		})
+	}
+
+
+	//щелчок по чекбоксу TIP
+	bindCheckIsTipControl(checkedEventHandler, notCheckedEventHandler) {
+
+		this.isTipToggleInput.addEventListener('change', (e) => {
+
+
+			if (this.isTipToggleInput.checked) {
 				checkedEventHandler(e)
 			}
 			else {
@@ -678,7 +718,7 @@ class sliderController {
 		this.viewDoubleControl.bindMoveControl(this.handleGetControlData, this.handlecomputeControlPosFromEvent);// вешаем обработчики handleGetControlData и handlecomputeControlPosFromEvent для обработки в view события захвата и перетаскивания ползунка
 		this.viewScale.bindClickOnScale(this.handleGetControlData, this.handlecomputeControlPosFromEvent);// вешаем обработчики handleGetControlData и handlecomputeControlPosFromEvent для обработки в view события клика по шкале
 
-
+		this.viewPanel.bindCheckIsTipControl(this.handleIsTipChecked, this.handleIsTipNotChecked);
 		this.viewPanel.bindCheckIsRangeControl(this.handleIsRangeChecked, this.handleIsRangeNotChecked);
 		this.viewPanel.bindCheckIsVerticalControl(this.handleIsVerticalChecked, this.handleIsVerticalNotChecked);
 		this.viewPanel.bindFromChange(this.handleFromChanged);
@@ -723,6 +763,19 @@ class sliderController {
 	}
 
 
+	handleIsTipChecked = (e) => {
+		this.viewDoubleControl.tipMode();
+		//	this.model.computeControlPosFromEvent(e);
+
+	}
+
+	handleIsTipNotChecked = (e) => {
+		this.viewDoubleControl.noTipMode();
+		//	this.model.computeControlPosFromEvent(e);
+
+	}
+
+
 	handleIsRangeChecked = (e) => {
 		this.viewDoubleControl.doubleMode();
 		this.model.computeControlPosFromEvent(e);
@@ -737,11 +790,13 @@ class sliderController {
 
 	handleFromChanged = (val) => {
 		this.model.computeControlPosFromVal(val, false, this.viewDoubleControl.leftControl);
+		this.viewDoubleControl.setFromTip(val);
 	}
 
 
 	handleToChanged = (val) => {
 		this.model.computeControlPosFromVal(val, false, this.viewDoubleControl.rightControl);
+		this.viewDoubleControl.setToTip(val);
 	}
 	handleIsVerticalChecked = () => {
 		this.viewDoubleControl.verticalMode();
