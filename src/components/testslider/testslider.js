@@ -1,25 +1,12 @@
 class sliderModel {
-	constructor(conf) {
-		/*Находим корневой элемент*/
+
+	/*Получаем элемент ползунка, определяем координаты в момент начала перемещения ползунка, и сохраняем в объекте модели*/
+
+	init() {
 		this.slider = document.querySelector(conf.target);
 		this.leftControl = this.slider.querySelector('.rs__control-min');
 		this.rightControl = this.slider.querySelector('.rs__control-max');
-		this.computeInitialPos();
-	}
 
-
-
-	/*Получаем элемент ползунка, определяем координаты в момент начала перемещения ползунка, и сохраняем в объекте модели*/
-	getControlData(controlData) {
-
-		this.currentControl = controlData.currentControl; // ползунок, за который тянут
-		this.secondControl = controlData.secondControl; // второй ползунок
-		this.parentElement = this.currentControl.parentElement;
-		this.currentControlFlag = controlData.currentControlFlag;
-	}
-
-	//Сохраняем в объекте модели диапазон, рассчитываем и сохраняем положение ползунков в момент рендеринга страницы
-	computeInitialPos() {
 		this.scale = this.slider.querySelector('.rs__slider');
 		this.scaleWidth = this.scale.offsetWidth;
 
@@ -32,7 +19,17 @@ class sliderModel {
 		this.leftControlStartPos = this.computeControlPosFromVal(this.leftControlStartVal);// начальное положение левого ползунка на шкале
 		this.rightControlStartPos = this.computeControlPosFromVal(this.rightControlStartVal);// начальное положение правого ползунка на шкале
 		this.progressBarStartWidth = this.rightControlStartPos - this.leftControlStartPos; // начальная ширина активного диапазона
+
 	}
+	getControlData(controlData) {
+
+		this.currentControl = controlData.currentControl; // ползунок, за который тянут
+		this.secondControl = controlData.secondControl; // второй ползунок
+		this.parentElement = this.currentControl.parentElement;
+		this.currentControlFlag = controlData.currentControlFlag;
+	}
+
+
 
 	//Рассчитываем положение ползунка на основании значения, введенного в панели конфигурирования или в объекте конфигурации
 	computeControlPosFromVal(val, isInitialRendering = true, control) {
@@ -199,6 +196,10 @@ class sliderViewScale extends sliderView {
 
 	constructor(conf) {
 		super(conf);
+	}
+
+
+	init() {
 		this.renderScale();// шкала
 		this.renderMarks();//деления шкалы
 	}
@@ -298,6 +299,9 @@ class sliderViewScale extends sliderView {
 class sliderViewDoubleControl extends sliderView {
 	constructor(conf) {
 		super(conf);
+	}
+
+	init() {
 		this.renderLeftControl();
 		this.renderRightControl();
 	}
@@ -410,7 +414,8 @@ class sliderViewDoubleControl extends sliderView {
 class sliderViewPanel extends sliderView {
 	constructor(conf) {
 		super(conf);
-
+	}
+	init() {
 		this.renderPanelWrapper()
 		this.renderMinInput();
 		this.renderMaxInput();
@@ -619,11 +624,7 @@ class sliderViewPanel extends sliderView {
 
 
 
-	// tip() {
-	// 	this.leftTip = this.slider.firstChild.childNodes[this.slider.firstChild.childNodes.length - 2].firstChild;
-	// 	console.log(this.leftTip);
-	// 	this.leftTip.value = this.minInput.value;
-	// }
+
 
 	//ввод значения FROM
 	bindFromChange(eventHandler) {
@@ -711,6 +712,8 @@ class sliderController {
 		this.viewDoubleControl = viewDoubleControl;
 		this.viewPanel = viewPanel;
 
+		this.render();
+
 		this.handleOnControlPosUpdated(this.viewDoubleControl.leftControl, this.model.leftControlStartPos);//передаем во view начальное положение левого ползунка
 		this.handleOnControlPosUpdated(this.viewDoubleControl.rightControl, this.model.rightControlStartPos); //передаем во view начальное положение левого ползунка
 		this.handleOnprogressBarUpdated(this.model.leftControlStartPos, this.model.progressBarStartWidth); // передаем во view начальное положение прогресс-бара
@@ -732,7 +735,12 @@ class sliderController {
 
 	}
 
-
+	render = () => {
+		this.viewScale.init();
+		this.viewDoubleControl.init();
+		this.viewPanel.init();
+		this.model.init();
+	}
 
 	//вызываем метод GetControlData в модели
 	handleGetControlData = (controlData) => {
