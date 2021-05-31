@@ -309,6 +309,7 @@ class sliderViewDoubleControl extends sliderView {
 
 		this.leftTip = document.createElement('input');
 		this.leftTip.className = 'rs__tip rs__tip-min';
+		this.leftTip.value = conf.values[0];
 		this.leftControl.append(this.leftTip);
 	}
 
@@ -322,6 +323,7 @@ class sliderViewDoubleControl extends sliderView {
 
 		this.rightTip = document.createElement('input');
 		this.rightTip.className = 'rs__tip rs__tip-max';
+		this.rightTip.value = conf.values[1];
 		this.rightControl.append(this.rightTip);
 	}
 
@@ -350,10 +352,17 @@ class sliderViewDoubleControl extends sliderView {
 	}
 
 
-	//Вызывается из модели через контроллер для установки ползунку новой позиции, нового значения, закрашивания диапазона выбора (области шкалы между ползунками)
+	//Вызывается из модели через контроллер для установки ползунку новой позиции
 	updateControlPos(elem, newLeft) {
 		/*устанавливаем отступ ползунку*/
 		if (newLeft) elem.style.left = newLeft + 'px';
+	}
+
+
+	//Обновление значений tip при перемещении ползунков
+	updateFromTo(elem, newValue) {
+
+		elem.classList.contains('rs__control-min') ? this.leftTip.value = newValue : this.rightTip.value = newValue;
 	}
 
 	doubleMode() {
@@ -710,6 +719,7 @@ class sliderController {
 	//вызываем метод updateСurrentControl в view
 	handleOnСontrolValueUpdated = (elem, newValue) => {
 		this.viewPanel.updateFromTo(elem, newValue);
+		this.viewDoubleControl.updateFromTo(elem, newValue);
 	}
 
 
