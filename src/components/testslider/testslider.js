@@ -28,6 +28,8 @@ class sliderModel {
 
 		this.leftControlStartPos = this.computeControlPosFromVal(this.leftControlStartVal);// начальное положение левого ползунка на шкале
 		this.rightControlStartPos = this.computeControlPosFromVal(this.rightControlStartVal);// начальное положение правого ползунка на шкале
+		console.log(this.leftControlStartPos);
+		console.log(this.rightControlStartPos);
 		this.progressBarStartWidth = this.rightControlStartPos - this.leftControlStartPos; // начальная ширина активного диапазона
 
 	}
@@ -270,7 +272,6 @@ class sliderViewScale extends sliderView {
 
 		this.slider.addEventListener('click', (e) => {
 			if (e.target.classList.contains('rs__slider') || e.target.classList.contains('rs__progressBar')) {
-				//	console.log(this.leftControl);
 				this.leftControl = this.slider.querySelector('.rs__control-min');
 				this.rightControl = this.slider.querySelector('.rs__control-max');
 				let leftControlPos = this.leftControl.getBoundingClientRect().left
@@ -898,6 +899,9 @@ class sliderController {
 
 					_this.view.deleteSlider();
 					_this.render();
+					_this.handleOnControlPosUpdated(_this.viewDoubleControl.leftControl, _this.model.leftControlStartPos);//передаем во view начальное положение левого ползунка
+					_this.handleOnControlPosUpdated(_this.viewDoubleControl.rightControl, _this.model.rightControlStartPos); //передаем во view начальное положение левого ползунка
+					_this.handleOnprogressBarUpdated(_this.model.leftControlStartPos, _this.model.progressBarStartWidth); // передаем во view начальное положение прогресс-бара
 
 				}
 			}
@@ -929,7 +933,6 @@ new sliderController(
 	new sliderViewDoubleControl(conf),
 	new sliderViewPanel(conf),
 	new sliderModel(conf),
-
 );
 
 
