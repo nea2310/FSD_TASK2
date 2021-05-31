@@ -1,3 +1,13 @@
+// function resizedw() {
+// 	console.log('Havent resized in 100ms!');// 
+// }
+
+// let doit;
+// window.onresize = function () {
+// 	clearTimeout(doit);
+// 	doit = setTimeout(resizedw, 100);
+// };
+
 class sliderModel {
 
 	/*Получаем элемент ползунка, определяем координаты в момент начала перемещения ползунка, и сохраняем в объекте модели*/
@@ -190,6 +200,12 @@ class sliderView {
 			mouseUpHandler();
 		})
 	}
+
+
+	deleteSlider() {
+		this.slider.firstChild.remove();
+		this.slider.lastChild.remove();
+	}
 }
 
 class sliderViewScale extends sliderView {
@@ -254,7 +270,7 @@ class sliderViewScale extends sliderView {
 
 		this.slider.addEventListener('click', (e) => {
 			if (e.target.classList.contains('rs__slider') || e.target.classList.contains('rs__progressBar')) {
-				console.log(this.leftControl);
+				//	console.log(this.leftControl);
 				this.leftControl = this.slider.querySelector('.rs__control-min');
 				this.rightControl = this.slider.querySelector('.rs__control-max');
 				let leftControlPos = this.leftControl.getBoundingClientRect().left
@@ -429,6 +445,9 @@ class sliderViewPanel extends sliderView {
 		this.renderIsTipToggle();
 
 	}
+
+
+
 	renderPanelWrapper() {
 		this.panelWrapper = document.createElement('div');
 		this.panelWrapper.className = 'rs__panelWrapper';
@@ -733,7 +752,18 @@ class sliderController {
 		this.model.bindprogressBarUpdated(this.handleOnprogressBarUpdated)//Вызываем для обновления положения ползунка (обращение к view)
 		this.model.bindСontrolValueUpdated(this.handleOnСontrolValueUpdated)//Вызываем для обновления панели (обращение к view)
 
+		this.getResizeWrap();
+
+		// window.addEventListener('resize', () => {
+		// 	console.log('RESIZE');
+		// 	this.view.deleteSlider();
+		// 	this.render();
+		// })
+
 	}
+
+
+
 
 	render = () => {
 		this.viewScale.init();
@@ -822,6 +852,68 @@ class sliderController {
 		document.removeEventListener('touchmove', this.handlecomputeControlPosFromEvent);
 		//	document.removeEventListener('touchend', this.handleMouseUp);
 	}
+
+
+
+
+	// изменяем слайдер при изменении ширины окна (ресайзинг)
+	getResizeWrap() {
+
+		let _this = this;
+		let sleep = 100; // --------- задержка в миллесекундах
+		let rtime = 0;  // ---------- для хранения отрезка времени
+		let timeout = false; // ----- флаг для запрета лишний раз вызывать функцию resizeend
+
+		let startWidth = _this.view.slider.parentNode.offsetWidth; // ----------------- запоминаем ширину враппера до ресайза
+
+		(function () { // ------------------------------------------------- функция которая сразу исполняеться (она повесит искуственное событие optimizedResize)
+			let throttle = function (type, name, obj = window) {
+				let running = false;  // ------------------------------------ флаг начала события
+				let func = function () { //---------------------------------- функция создающая оптимизированное отслеживание ресайза 60 запросов в сек. 
+					if (running) { return; } // ------------------------------ выйти если мы ещё не сделали dispatchEvent
+					running = true;
+					requestAnimationFrame(function () {  // ------------------ делаем отрисовку Анимации - то есть вызовим функцию при следующей отрисовке и частота опроса не больше 60 раз в сек
+						obj.dispatchEvent(new CustomEvent(name)); //----------- создаём искуственное событие - которое будет вешаться раз 60 раз в сек
+						running = false; // ----------------------------------- даём знать что requestAnimationFrame можно будет выполнить в след раз
+					});
+				};
+				obj.addEventListener(type, func); // ------------------------ на виндовс вешаем событие ресайза и отслеживаем его как только ресайз будет - вызовиться функция func
+			};
+			throttle("resize", "optimizedResize");
+		})();
+
+
+		function resizeend() {
+			if (new Date() - rtime < sleep) { // -------------------------- сверяем отрезок времени с задержкой - если мы уже давно не ресайзимся то скорей всего остановились
+				console.log('RESIZE NOT END');
+				setTimeout(resizeend, sleep); // --------------------------- если отрезок времени короче чем sleep то ждём ещё  миллисекунд на sleep... 
+			} else { // --------------------------------------------------- если времени прошло достаточно а ресайза не было то можно считать что мы остановились
+				timeout = false;
+
+				let totalWidth = _this.view.slider.offsetWidth; // ----------------------------------- получаем ширину после ресайза
+				if (totalWidth != startWidth) { // -------------------------------------------------- если до и после отличаеться 
+					_this.totalWidth = totalWidth; // ------------------------------------------------ фексируем новую ширину
+					startWidth = totalWidth;//-------------------------------------------------------- запоминаем новую ширину враппера до ресайза
+					console.log('RESIZE END');
+
+					_this.view.deleteSlider();
+					_this.render();
+
+				}
+			}
+		}
+
+		window.addEventListener("optimizedResize", function () { // ------- метод будет вызван 60 раз в сек
+			rtime = new Date(); // ----------------------------------------- каждый раз получаем текущее время
+			if (timeout === false) { // ------------------------------------ пропускать только если мы дождались setTimeout
+				timeout = true; // ------------------------------------------ даём понять что нам не нужно лишний раз вызывать setTimeout пока мы полностью не дождались конца ресайза
+				setTimeout(resizeend, sleep); // ---------------------------- ждём (когда ресайз кончиться) и вызовим метод что бы проверить что он кончился
+			}
+		});
+	}
+
+
+
 }
 
 let conf = {
