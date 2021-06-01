@@ -194,6 +194,7 @@ class sliderView {
 	constructor(conf) {
 		/*Находим корневой элемент*/
 		this.slider = document.querySelector(conf.target);
+		this.throttleTEST();
 	}
 
 	//3-1 Вешаем обработчик события отпускания мыши
@@ -204,6 +205,61 @@ class sliderView {
 	}
 
 
+
+	// bindMoveControl(firstEventHandler, secondEventHandler) {
+
+	// 	this.slider.addEventListener('mousedown', (e) => {
+	// 		if (e.target.classList.contains('rs__control')) {
+	// 			let controlData = {};
+	// 			//определяем ползунок, за который тянут
+	// 			controlData.currentControl = e.target;
+
+	// 			//определяем второй ползунок
+	// 			controlData.currentControl == this.leftControl ? controlData.secondControl = this.rightControl : controlData.secondControl = this.leftControl;
+
+	// 			// Устанавливаем флаг, какой из ползунков (левый или правый) перемещается
+	// 			controlData.currentControl == this.leftControl ? controlData.currentControlFlag = false : controlData.currentControlFlag = true;
+	// 			firstEventHandler(controlData);// вызов хендлера обработки события
+
+	// 			document.addEventListener('mousemove', secondEventHandler);// навешивание обработчика перемещения ползунка
+	// 			//	document.addEventListener('mouseup', this.handleMouseUp);
+	// 			document.addEventListener('touchmove', secondEventHandler);// навешивание обработчика перемещения ползунка
+	// 			//	document.addEventListener('touchend', this.handleMouseUp);
+	// 		}
+	// 	})
+	// }
+
+
+	throttleTEST() { // ------------------------------------------------- функция которая сразу исполняеться (она повесит искуственное событие optimizedResize)
+		let throttle = function (type, name, obj = window) {
+			let running = false;  // ------------------------------------ флаг начала события
+			let func = function () { //---------------------------------- функция создающая оптимизированное отслеживание ресайза 60 запросов в сек. 
+				if (running) { return; } // ------------------------------ выйти если мы ещё не сделали dispatchEvent
+				running = true;
+				requestAnimationFrame(function () {  // ------------------ делаем отрисовку Анимации - то есть вызовим функцию при следующей отрисовке и частота опроса не больше 60 раз в сек
+					obj.dispatchEvent(new CustomEvent(name)); //----------- создаём искуственное событие - которое будет вешаться раз 60 раз в сек
+					running = false; // ----------------------------------- даём знать что requestAnimationFrame можно будет выполнить в след раз
+				});
+			};
+			obj.addEventListener(type, func); // ------------------------ на виндовс вешаем событие ресайза и отслеживаем его как только ресайз будет - вызовиться функция func
+		};
+		throttle("resize", "optimizedResize");
+	};
+
+	bindResize(handler) {
+
+		window.addEventListener("optimizedResize", (e) => { // ------- метод будет вызван 60 раз в сек
+			console.log(e);
+			handler(e);
+
+			// rtime = new Date(); // ----------------------------------------- каждый раз получаем текущее время
+			// if (timeout === false) { // ------------------------------------ пропускать только если мы дождались setTimeout
+			// 	timeout = true; // ------------------------------------------ даём понять что нам не нужно лишний раз вызывать setTimeout пока мы полностью не дождались конца ресайза
+			// 	setTimeout(resizeend, sleep); // ---------------------------- ждём (когда ресайз кончиться) и вызовим метод что бы проверить что он кончился
+			// }
+		})
+
+	}
 	deleteSlider() {
 		this.slider.firstChild.remove();
 		this.slider.lastChild.remove();
@@ -747,6 +803,7 @@ class sliderController {
 		this.viewPanel.bindFromChange(this.handleFromChanged);
 		this.viewPanel.bindToChange(this.handleToChanged);
 		this.view.bindMouseUp(this.handleMouseUp);//вешаем обработчик handleMouseUp для обработки в view события отпускания кнопки (завершение перетаскивания ползунка)
+		this.view.bindResize(this.handleResize);
 
 
 		this.model.bindControlPosUpdated(this.handleOnControlPosUpdated)//Вызываем для обновления положения ползунка (обращение к view)
@@ -755,9 +812,9 @@ class sliderController {
 
 
 
-		this.throttleTEST();
+		//	this.throttleTEST();
 
-		this.getResizeWrap();
+		//	this.getResizeWrap();
 
 		// window.addEventListener('resize', () => {
 		// 	console.log('RESIZE');
@@ -862,25 +919,25 @@ class sliderController {
 	}
 
 
-	throttleTEST() { // ------------------------------------------------- функция которая сразу исполняеться (она повесит искуственное событие optimizedResize)
-		let throttle = function (type, name, obj = window) {
-			let running = false;  // ------------------------------------ флаг начала события
-			let func = function () { //---------------------------------- функция создающая оптимизированное отслеживание ресайза 60 запросов в сек. 
-				if (running) { return; } // ------------------------------ выйти если мы ещё не сделали dispatchEvent
-				running = true;
-				requestAnimationFrame(function () {  // ------------------ делаем отрисовку Анимации - то есть вызовим функцию при следующей отрисовке и частота опроса не больше 60 раз в сек
-					obj.dispatchEvent(new CustomEvent(name)); //----------- создаём искуственное событие - которое будет вешаться раз 60 раз в сек
-					running = false; // ----------------------------------- даём знать что requestAnimationFrame можно будет выполнить в след раз
-				});
-			};
-			obj.addEventListener(type, func); // ------------------------ на виндовс вешаем событие ресайза и отслеживаем его как только ресайз будет - вызовиться функция func
-		};
-		throttle("resize", "optimizedResize");
-	};
+	// throttleTEST() { // ------------------------------------------------- функция которая сразу исполняеться (она повесит искуственное событие optimizedResize)
+	// 	let throttle = function (type, name, obj = window) {
+	// 		let running = false;  // ------------------------------------ флаг начала события
+	// 		let func = function () { //---------------------------------- функция создающая оптимизированное отслеживание ресайза 60 запросов в сек. 
+	// 			if (running) { return; } // ------------------------------ выйти если мы ещё не сделали dispatchEvent
+	// 			running = true;
+	// 			requestAnimationFrame(function () {  // ------------------ делаем отрисовку Анимации - то есть вызовим функцию при следующей отрисовке и частота опроса не больше 60 раз в сек
+	// 				obj.dispatchEvent(new CustomEvent(name)); //----------- создаём искуственное событие - которое будет вешаться раз 60 раз в сек
+	// 				running = false; // ----------------------------------- даём знать что requestAnimationFrame можно будет выполнить в след раз
+	// 			});
+	// 		};
+	// 		obj.addEventListener(type, func); // ------------------------ на виндовс вешаем событие ресайза и отслеживаем его как только ресайз будет - вызовиться функция func
+	// 	};
+	// 	throttle("resize", "optimizedResize");
+	// };
 
 	// изменяем слайдер при изменении ширины окна (ресайзинг)
-	getResizeWrap() {
-
+	handleResize = (e) => {
+		console.log(this);
 		let _this = this;
 		let sleep = 100; // --------- задержка в миллесекундах
 		let rtime = 0;  // ---------- для хранения отрезка времени
@@ -888,7 +945,7 @@ class sliderController {
 
 		let startWidth = _this.view.slider.parentNode.offsetWidth; // ----------------- запоминаем ширину враппера до ресайза
 
-
+		resizeend();
 
 
 		function resizeend() {
@@ -916,13 +973,13 @@ class sliderController {
 			}
 		}
 
-		window.addEventListener("optimizedResize", function () { // ------- метод будет вызван 60 раз в сек
-			rtime = new Date(); // ----------------------------------------- каждый раз получаем текущее время
-			if (timeout === false) { // ------------------------------------ пропускать только если мы дождались setTimeout
-				timeout = true; // ------------------------------------------ даём понять что нам не нужно лишний раз вызывать setTimeout пока мы полностью не дождались конца ресайза
-				setTimeout(resizeend, sleep); // ---------------------------- ждём (когда ресайз кончиться) и вызовим метод что бы проверить что он кончился
-			}
-		});
+		// window.addEventListener("optimizedResize", function () { // ------- метод будет вызван 60 раз в сек
+		// 	rtime = new Date(); // ----------------------------------------- каждый раз получаем текущее время
+		// 	if (timeout === false) { // ------------------------------------ пропускать только если мы дождались setTimeout
+		// 		timeout = true; // ------------------------------------------ даём понять что нам не нужно лишний раз вызывать setTimeout пока мы полностью не дождались конца ресайза
+		// 		setTimeout(resizeend, sleep); // ---------------------------- ждём (когда ресайз кончиться) и вызовим метод что бы проверить что он кончился
+		// 	}
+		// });
 	}
 
 
