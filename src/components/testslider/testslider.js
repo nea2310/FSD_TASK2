@@ -79,8 +79,14 @@ class sliderModel {
 		if (e.type == 'change') {//если переключили чекбокс на панели конфигурации (например смена режима Double -> Single)
 			this.changeMode = true;
 			if (e.target.classList.contains('rs__rangeModeToggle')) { //меняется режим double->single или наоборот
-				this.rightControl.classList.contains('rs__control-hidden') ? this.switchToSingleMode = true : this.switchToSingleMode = false;
-				!this.rightControl.classList.contains('rs__control-hidden') ? this.switchToDoubleMode = true : this.switchToDoubleMode = false;
+				if (this.rightControl.classList.contains('hidden')) {
+					this.switchToSingleMode = true;
+					this.switchToDoubleMode = false;
+				}
+				else {
+					this.switchToDoubleMode = true;
+					this.switchToSingleMode = false;
+				}
 			}
 
 			if (e.target.classList.contains('rs__verticalModeToggle')) { //меняется режим vertical->horizontal или наоборот
@@ -109,7 +115,7 @@ class sliderModel {
 			}
 
 			/*запрещаем ползункам перепрыгивать друг через друга, если это не single режим*/
-			if (!this.rightControl.classList.contains('rs__control-hidden')) {
+			if (!this.rightControl.classList.contains('hidden')) {
 				if ((!this.currentControlFlag && this.pos > this.secondControl.getBoundingClientRect().left + window.pageXOffset - this.secondControl.offsetWidth) ||
 					(this.currentControlFlag && this.pos < this.secondControl.getBoundingClientRect().left + this.secondControl.offsetWidth + window.pageXOffset - 3)) return
 			}
@@ -138,7 +144,7 @@ class sliderModel {
 
 		if (!this.changeMode) { //Если это не переключение режима
 			//режим Double
-			if (!this.rightControl.classList.contains('rs__control-hidden')) {
+			if (!this.rightControl.classList.contains('hidden')) {
 				this.selectedWidth = Math.abs(parseFloat(this.secondControl.style.left) - this.newLeft) + "px";
 				if (!this.currentControlFlag) { //перемещатся левый ползунок
 					this.selectedLeft = this.newLeft + this.currentControl.offsetWidth + "px";
@@ -154,6 +160,7 @@ class sliderModel {
 		//Если это переключение режима
 		else if (this.changeMode) {
 			if (this.switchToSingleMode) {//переключение в Single режим
+				console.log('SWITCH TO SINGLE');
 				this.selectedLeft = 0;
 				this.selectedWidth = this.leftControl.style.left;
 			}
@@ -164,7 +171,7 @@ class sliderModel {
 			}
 
 			else if (this.switchToVerticalMode) {//переключение в вертикальный режим
-				console.log('switchToVerticalMode');
+				//	console.log('switchToVerticalMode');
 			}
 
 			else if (this.switchToHorizontalMode) {//переключение в горизонтальный режим
@@ -302,7 +309,7 @@ class sliderViewScale extends sliderView {
 				let rightControlDist = Math.abs(rightControlPos - e.clientX);
 
 				let controlData = {};
-				if (this.rightControl.classList.contains('rs__control-hidden')) {
+				if (this.rightControl.classList.contains('hidden')) {
 					controlData.currentControl = this.leftControl;
 					controlData.secondControl = this.rightControl;
 					controlData.currentControlFlag = false;
@@ -721,11 +728,11 @@ class sliderViewPanel extends sliderView {
 					this.createEvent(this.fromInput, 0.0001);
 				}
 				checkedEventHandler(e);
-				console.log('CHECKED');
+				//console.log('CHECKED');
 			}
 			else {
 				notCheckedEventHandler(e);
-				console.log('NOT CHECKED');
+				//		console.log('NOT CHECKED');
 			}
 		})
 	}
@@ -779,7 +786,7 @@ class sliderController {
 		this.viewPanel.bindFromChange(this.handleFromToChanged);
 		this.viewPanel.bindToChange(this.handleFromToChanged);
 
-		//	this.viewPanel.bindFromToChange(this.handleToChanged);
+
 
 
 		this.view.bindMouseUp(this.handleMouseUp);//вешаем обработчик handleMouseUp для обработки в view события отпускания кнопки (завершение перетаскивания ползунка)
@@ -850,6 +857,7 @@ class sliderController {
 	}
 
 	handleIsRangeNotChecked = (e) => {
+		//	console.log(e);
 		this.viewDoubleControl.singleMode();
 		this.model.computeControlPosFromEvent(e);
 
