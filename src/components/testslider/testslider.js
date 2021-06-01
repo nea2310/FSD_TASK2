@@ -203,14 +203,14 @@ class sliderView {
 		this.slider = document.querySelector(conf.target);
 	}
 
-	//3-1 Вешаем обработчик события отпускания мыши
+	//Вешаем обработчик события отпускания мыши
 	bindMouseUp(mouseUpHandler) {
 		this.slider.addEventListener('mouseup', () => {
 			mouseUpHandler();
 		})
 	}
 
-
+	//Вешаем обработчик события озавершения ресайза
 	bindWindowResize(handler) {
 
 		window.addEventListener("resize", () => { //Подключаем событие изменения размеров окна
@@ -231,7 +231,7 @@ class sliderView {
 		};
 	}
 
-
+	// Удаление слайдера
 	deleteSlider() {
 		this.slider.firstChild.remove();
 		this.slider.lastChild.remove();
@@ -249,9 +249,8 @@ class sliderViewScale extends sliderView {
 		this.renderScale();// шкала
 		this.renderMarks();//деления шкалы
 	}
+	//создаем шкалу
 	renderScale() {
-		//создаем шкалу
-
 		this.scale = document.createElement('div');
 		this.scale.className = 'rs__slider';
 		this.slider.append(this.scale);
@@ -350,9 +349,8 @@ class sliderViewDoubleControl extends sliderView {
 		this.renderLeftControl();
 		this.renderRightControl();
 	}
-
+	/*Создаем ползунок минимального значения*/
 	renderLeftControl() {
-		/*Создаем ползунок минимального значения*/
 		this.scale = this.slider.firstChild;
 		this.leftControl = document.createElement('div');
 		this.leftControl.className = 'rs__control rs__control-min';
@@ -364,10 +362,8 @@ class sliderViewDoubleControl extends sliderView {
 		this.leftTip.value = conf.values[0];
 		this.leftControl.append(this.leftTip);
 	}
-
+	/*Создаем ползунок максимального значения*/
 	renderRightControl() {
-		/*Создаем ползунок максимального значения*/
-
 		this.rightControl = document.createElement('div');
 		this.rightControl.className = 'rs__control rs__control-max';
 		this.scale.append(this.rightControl);
@@ -417,14 +413,6 @@ class sliderViewDoubleControl extends sliderView {
 	setFromToTip(val, isFrom) {
 		isFrom ? this.leftTip.value = val : this.rightTip.value = val;
 	};
-
-	// setFromTip(val) {
-	// 	this.leftTip.value = val;
-	// };
-
-	// setToTip(val) {
-	// 	this.rightTip.value = val;
-	// };
 
 	doubleMode() {
 		this.rightControl.classList.remove('hidden')
@@ -673,27 +661,18 @@ class sliderViewPanel extends sliderView {
 	}
 
 
-
-	// //ввод значения FROM / TO
-	// bindFromToChange(eventHandler) {
-	// 	this.fromInput.addEventListener('input', (e) => {
-	// 		eventHandler(this.fromInput.value);
-	// 	})
-	// }
-
-	//ввод значения FROM
-	bindFromChange(eventHandler) {
+	//ввод значения FROM/TO
+	bindFromToChange(eventHandler) {
 		this.fromInput.addEventListener('input', (e) => {
 			eventHandler(this.fromInput.value, e);
-		})
-	}
+		});
 
-	//ввод значения TO
-	bindToChange(eventHandler) {
 		this.toInput.addEventListener('input', (e) => {
 			eventHandler(this.toInput.value, e);
-		})
+		});
 	}
+
+
 
 	//щелчок по чекбоксу VERTICAL
 	bindCheckIsVerticalControl(checkedEventHandler, notCheckedEventHandler) {
@@ -783,10 +762,7 @@ class sliderController {
 		this.viewPanel.bindCheckIsVerticalControl(this.handleIsVerticalChecked, this.handleIsVerticalNotChecked);
 
 
-		this.viewPanel.bindFromChange(this.handleFromToChanged);
-		this.viewPanel.bindToChange(this.handleFromToChanged);
-
-
+		this.viewPanel.bindFromToChange(this.handleFromToChanged);
 
 
 		this.view.bindMouseUp(this.handleMouseUp);//вешаем обработчик handleMouseUp для обработки в view события отпускания кнопки (завершение перетаскивания ползунка)
@@ -863,16 +839,6 @@ class sliderController {
 
 	}
 
-	// handleFromChanged = (val) => {
-	// 	this.model.computeControlPosFromVal(val, false, this.viewDoubleControl.leftControl);
-	// 	this.viewDoubleControl.setFromTip(val);
-	// }
-
-
-	// handleToChanged = (val) => {
-	// 	this.model.computeControlPosFromVal(val, false, this.viewDoubleControl.rightControl);
-	// 	this.viewDoubleControl.setToTip(val);
-	// }
 
 	handleFromToChanged = (val, e) => {
 		if (e.target.classList.contains('rs__input-from')) {
@@ -913,10 +879,6 @@ class sliderController {
 		this.handleOnprogressBarUpdated(this.model.leftControlStartPos, this.model.progressBarStartWidth); // передаем во view начальное положение прогресс-бара
 	};
 }
-
-
-
-
 
 
 
