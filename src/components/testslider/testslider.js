@@ -194,7 +194,6 @@ class sliderView {
 	constructor(conf) {
 		/*Находим корневой элемент*/
 		this.slider = document.querySelector(conf.target);
-		//this.throttleTEST();
 	}
 
 	//3-1 Вешаем обработчик события отпускания мыши
@@ -205,24 +204,25 @@ class sliderView {
 	}
 
 
+	bindWindowResize(handler) {
 
+		window.addEventListener("resize", () => { //Подключаем событие изменения размеров окна
+			windowResizeStart(); //Вызываем функцию Обработки окна
+			return false
+		});
 
+		let resizeTimeoutId; //Таймер задержки исполнения
 
-	// throttleTEST() { // ------------------------------------------------- функция которая сразу исполняеться (она повесит искуственное событие optimizedResize)
-	// 	let throttle = function (type, name, obj = window) {
-	// 		let running = false;  // ------------------------------------ флаг начала события
-	// 		let func = function () { //---------------------------------- функция создающая оптимизированное отслеживание ресайза 60 запросов в сек. 
-	// 			if (running) { return; } // ------------------------------ выйти если мы ещё не сделали dispatchEvent
-	// 			running = true;
-	// 			requestAnimationFrame(function () {  // ------------------ делаем отрисовку Анимации - то есть вызовим функцию при следующей отрисовке и частота опроса не больше 60 раз в сек
-	// 				obj.dispatchEvent(new CustomEvent(name)); //----------- создаём искуственное событие - которое будет вешаться раз 60 раз в сек
-	// 				running = false; // ----------------------------------- даём знать что requestAnimationFrame можно будет выполнить в след раз
-	// 			});
-	// 		};
-	// 		obj.addEventListener(type, func); // ------------------------ на виндовс вешаем событие ресайза и отслеживаем его как только ресайз будет - вызовиться функция func
-	// 	};
-	// 	throttle("resize", "optimizedResize");
-	// };
+		function windowResizeStart() {
+			clearTimeout(resizeTimeoutId); //удаляем все предыдущие события "Дребезга контактов"
+			resizeTimeoutId = setTimeout(windowResizeStop, 200);
+		}
+
+		function windowResizeStop() {
+			console.log("Есть смена размера окна ");
+			handler();
+		};
+	}
 
 
 	deleteSlider() {
@@ -768,14 +768,12 @@ class sliderController {
 		this.viewPanel.bindFromChange(this.handleFromChanged);
 		this.viewPanel.bindToChange(this.handleToChanged);
 		this.view.bindMouseUp(this.handleMouseUp);//вешаем обработчик handleMouseUp для обработки в view события отпускания кнопки (завершение перетаскивания ползунка)
-		//this.view.bindResize(this.handleResize);
-
+		this.view.bindWindowResize(this.handleWindowResize)
 
 		this.model.bindControlPosUpdated(this.handleOnControlPosUpdated)//Вызываем для обновления положения ползунка (обращение к view)
 		this.model.bindprogressBarUpdated(this.handleOnprogressBarUpdated)//Вызываем для обновления положения ползунка (обращение к view)
 		this.model.bindСontrolValueUpdated(this.handleOnСontrolValueUpdated)//Вызываем для обновления панели (обращение к view)
 
-		this.test();
 	}
 
 
@@ -870,39 +868,20 @@ class sliderController {
 	}
 
 
-	test() {
-
-		window.addEventListener("resize", () => { //Подключам событие изменение размеров Окна
-			window_resize(); //Вызываем функцию Обработки окна
-			return false
-		});
-		console.log(this);
-		let resizeTimeoutId; //Таймер задержки исполнения
-		let _this = this;
-		function window_resize() {
-			clearTimeout(resizeTimeoutId); //удаляем все предыдущие события "Дребезга контактов"
-			resizeTimeoutId = setTimeout(alert_And_ResizeCode, 100);
-			console.log(this);
-		}
-
-		function alert_And_ResizeCode() {
-			console.log(this);
-			console.log("Есть Cмена размера окна ");
-			_this.view.deleteSlider();
-			_this.render();
-			_this.handleOnControlPosUpdated(_this.viewDoubleControl.leftControl, _this.model.leftControlStartPos);//передаем во view начальное положение левого ползунка
-			_this.handleOnControlPosUpdated(_this.viewDoubleControl.rightControl, _this.model.rightControlStartPos); //передаем во view начальное положение левого ползунка
-			_this.handleOnprogressBarUpdated(_this.model.leftControlStartPos, _this.model.progressBarStartWidth); // передаем во view начальное положение прогресс-бара
-
-			console.log("Есть Cмена размера окна ");
-		};
-	}
-
-
-
-
-
+	handleWindowResize = () => {
+		this.view.deleteSlider();
+		this.render();
+		this.handleOnControlPosUpdated(this.viewDoubleControl.leftControl, this.model.leftControlStartPos);//передаем во view начальное положение левого ползунка
+		this.handleOnControlPosUpdated(this.viewDoubleControl.rightControl, this.model.rightControlStartPos); //передаем во view начальное положение левого ползунка
+		this.handleOnprogressBarUpdated(this.model.leftControlStartPos, this.model.progressBarStartWidth); // передаем во view начальное положение прогресс-бара
+	};
 }
+
+
+
+
+
+
 
 let conf = {
 	target: '.rs__wrapper',
