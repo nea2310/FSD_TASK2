@@ -407,15 +407,17 @@ class sliderViewDoubleControl extends sliderView {
 		elem.classList.contains('rs__control-min') ? this.leftTip.value = newValue : this.rightTip.value = newValue;
 	}
 
-
-
-	setFromTip(val) {
-		this.leftTip.value = val;
+	setFromToTip(val, isFrom) {
+		isFrom ? this.leftTip.value = val : this.rightTip.value = val;
 	};
 
-	setToTip(val) {
-		this.rightTip.value = val;
-	};
+	// setFromTip(val) {
+	// 	this.leftTip.value = val;
+	// };
+
+	// setToTip(val) {
+	// 	this.rightTip.value = val;
+	// };
 
 	doubleMode() {
 		this.rightControl.classList.remove('hidden')
@@ -665,19 +667,24 @@ class sliderViewPanel extends sliderView {
 
 
 
-
+	// //ввод значения FROM / TO
+	// bindFromToChange(eventHandler) {
+	// 	this.fromInput.addEventListener('input', (e) => {
+	// 		eventHandler(this.fromInput.value);
+	// 	})
+	// }
 
 	//ввод значения FROM
 	bindFromChange(eventHandler) {
 		this.fromInput.addEventListener('input', (e) => {
-			eventHandler(this.fromInput.value);
+			eventHandler(this.fromInput.value, e);
 		})
 	}
 
 	//ввод значения TO
 	bindToChange(eventHandler) {
 		this.toInput.addEventListener('input', (e) => {
-			eventHandler(this.toInput.value);
+			eventHandler(this.toInput.value, e);
 		})
 	}
 
@@ -713,10 +720,12 @@ class sliderViewPanel extends sliderView {
 				if (parseInt(this.fromInput.value) >= parseInt(this.toInput.value)) {
 					this.createEvent(this.fromInput, 0.0001);
 				}
-				checkedEventHandler(e)
+				checkedEventHandler(e);
+				console.log('CHECKED');
 			}
 			else {
-				notCheckedEventHandler(e)
+				notCheckedEventHandler(e);
+				console.log('NOT CHECKED');
 			}
 		})
 	}
@@ -765,8 +774,14 @@ class sliderController {
 		this.viewPanel.bindCheckIsTipControl(this.handleIsTipChecked, this.handleIsTipNotChecked);
 		this.viewPanel.bindCheckIsRangeControl(this.handleIsRangeChecked, this.handleIsRangeNotChecked);
 		this.viewPanel.bindCheckIsVerticalControl(this.handleIsVerticalChecked, this.handleIsVerticalNotChecked);
-		this.viewPanel.bindFromChange(this.handleFromChanged);
-		this.viewPanel.bindToChange(this.handleToChanged);
+
+
+		this.viewPanel.bindFromChange(this.handleFromToChanged);
+		this.viewPanel.bindToChange(this.handleFromToChanged);
+
+		//	this.viewPanel.bindFromToChange(this.handleToChanged);
+
+
 		this.view.bindMouseUp(this.handleMouseUp);//вешаем обработчик handleMouseUp для обработки в view события отпускания кнопки (завершение перетаскивания ползунка)
 		this.view.bindWindowResize(this.handleWindowResize)
 
@@ -840,16 +855,30 @@ class sliderController {
 
 	}
 
-	handleFromChanged = (val) => {
-		this.model.computeControlPosFromVal(val, false, this.viewDoubleControl.leftControl);
-		this.viewDoubleControl.setFromTip(val);
+	// handleFromChanged = (val) => {
+	// 	this.model.computeControlPosFromVal(val, false, this.viewDoubleControl.leftControl);
+	// 	this.viewDoubleControl.setFromTip(val);
+	// }
+
+
+	// handleToChanged = (val) => {
+	// 	this.model.computeControlPosFromVal(val, false, this.viewDoubleControl.rightControl);
+	// 	this.viewDoubleControl.setToTip(val);
+	// }
+
+	handleFromToChanged = (val, e) => {
+		if (e.target.classList.contains('rs__input-from')) {
+			this.model.computeControlPosFromVal(val, false, this.viewDoubleControl.leftControl);
+			this.viewDoubleControl.setFromToTip(val, true);
+		} else {
+			this.model.computeControlPosFromVal(val, false, this.viewDoubleControl.rightControl);
+			this.viewDoubleControl.setFromToTip(val, false);
+		}
 	}
 
 
-	handleToChanged = (val) => {
-		this.model.computeControlPosFromVal(val, false, this.viewDoubleControl.rightControl);
-		this.viewDoubleControl.setToTip(val);
-	}
+
+
 	handleIsVerticalChecked = () => {
 		this.viewDoubleControl.verticalMode();
 	}
