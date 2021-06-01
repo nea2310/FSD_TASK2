@@ -753,6 +753,10 @@ class sliderController {
 		this.model.bindprogressBarUpdated(this.handleOnprogressBarUpdated)//Вызываем для обновления положения ползунка (обращение к view)
 		this.model.bindСontrolValueUpdated(this.handleOnСontrolValueUpdated)//Вызываем для обновления панели (обращение к view)
 
+
+
+		this.throttleTEST();
+
 		this.getResizeWrap();
 
 		// window.addEventListener('resize', () => {
@@ -858,7 +862,21 @@ class sliderController {
 	}
 
 
-
+	throttleTEST() { // ------------------------------------------------- функция которая сразу исполняеться (она повесит искуственное событие optimizedResize)
+		let throttle = function (type, name, obj = window) {
+			let running = false;  // ------------------------------------ флаг начала события
+			let func = function () { //---------------------------------- функция создающая оптимизированное отслеживание ресайза 60 запросов в сек. 
+				if (running) { return; } // ------------------------------ выйти если мы ещё не сделали dispatchEvent
+				running = true;
+				requestAnimationFrame(function () {  // ------------------ делаем отрисовку Анимации - то есть вызовим функцию при следующей отрисовке и частота опроса не больше 60 раз в сек
+					obj.dispatchEvent(new CustomEvent(name)); //----------- создаём искуственное событие - которое будет вешаться раз 60 раз в сек
+					running = false; // ----------------------------------- даём знать что requestAnimationFrame можно будет выполнить в след раз
+				});
+			};
+			obj.addEventListener(type, func); // ------------------------ на виндовс вешаем событие ресайза и отслеживаем его как только ресайз будет - вызовиться функция func
+		};
+		throttle("resize", "optimizedResize");
+	};
 
 	// изменяем слайдер при изменении ширины окна (ресайзинг)
 	getResizeWrap() {
@@ -870,21 +888,7 @@ class sliderController {
 
 		let startWidth = _this.view.slider.parentNode.offsetWidth; // ----------------- запоминаем ширину враппера до ресайза
 
-		(function () { // ------------------------------------------------- функция которая сразу исполняеться (она повесит искуственное событие optimizedResize)
-			let throttle = function (type, name, obj = window) {
-				let running = false;  // ------------------------------------ флаг начала события
-				let func = function () { //---------------------------------- функция создающая оптимизированное отслеживание ресайза 60 запросов в сек. 
-					if (running) { return; } // ------------------------------ выйти если мы ещё не сделали dispatchEvent
-					running = true;
-					requestAnimationFrame(function () {  // ------------------ делаем отрисовку Анимации - то есть вызовим функцию при следующей отрисовке и частота опроса не больше 60 раз в сек
-						obj.dispatchEvent(new CustomEvent(name)); //----------- создаём искуственное событие - которое будет вешаться раз 60 раз в сек
-						running = false; // ----------------------------------- даём знать что requestAnimationFrame можно будет выполнить в след раз
-					});
-				};
-				obj.addEventListener(type, func); // ------------------------ на виндовс вешаем событие ресайза и отслеживаем его как только ресайз будет - вызовиться функция func
-			};
-			throttle("resize", "optimizedResize");
-		})();
+
 
 
 		function resizeend() {
@@ -893,6 +897,8 @@ class sliderController {
 				setTimeout(resizeend, sleep); // --------------------------- если отрезок времени короче чем sleep то ждём ещё  миллисекунд на sleep... 
 			} else { // --------------------------------------------------- если времени прошло достаточно а ресайза не было то можно считать что мы остановились
 				timeout = false;
+
+				console.log(_this);
 
 				let totalWidth = _this.view.slider.offsetWidth; // ----------------------------------- получаем ширину после ресайза
 				if (totalWidth != startWidth) { // -------------------------------------------------- если до и после отличаеться 
