@@ -28,8 +28,8 @@ class sliderModel {
 
 		this.leftControlStartPos = this.computeControlPosFromVal(this.leftControlStartVal);// начальное положение левого ползунка на шкале
 		this.rightControlStartPos = this.computeControlPosFromVal(this.rightControlStartVal);// начальное положение правого ползунка на шкале
-		console.log(this.leftControlStartPos);
-		console.log(this.rightControlStartPos);
+		//console.log(this.leftControlStartPos);
+		//console.log(this.rightControlStartPos);
 		this.progressBarStartWidth = this.rightControlStartPos - this.leftControlStartPos; // начальная ширина активного диапазона
 
 	}
@@ -673,6 +673,18 @@ class sliderViewPanel extends sliderView {
 	}
 
 
+	//ввод значения MIN/MAX
+	bindMinMaxChange(eventHandler) {
+		this.minInput.addEventListener('change', (e) => {
+			eventHandler(this.minInput.value, e);
+		});
+
+		this.maxInput.addEventListener('change', (e) => {
+			eventHandler(this.maxInput.value, e);
+		});
+	}
+
+
 
 	//щелчок по чекбоксу VERTICAL
 	bindCheckIsVerticalControl(checkedEventHandler, notCheckedEventHandler) {
@@ -764,6 +776,8 @@ class sliderController {
 
 		this.viewPanel.bindFromToChange(this.handleFromToChanged);
 
+		this.viewPanel.bindMinMaxChange(this.handleWindowResize);
+
 
 		this.view.bindMouseUp(this.handleMouseUp);//вешаем обработчик handleMouseUp для обработки в view события отпускания кнопки (завершение перетаскивания ползунка)
 		this.view.bindWindowResize(this.handleWindowResize)
@@ -851,6 +865,20 @@ class sliderController {
 	}
 
 
+	handleMinMaxChanged = (val, e) => {
+
+		this.handleWindowResize();
+
+		// if (e.target.classList.contains('rs__input-from')) {
+		// 	this.model.computeControlPosFromVal(val, false, this.viewDoubleControl.leftControl);
+		// 	this.viewDoubleControl.setFromToTip(val, true);
+		// } else {
+		// 	this.model.computeControlPosFromVal(val, false, this.viewDoubleControl.rightControl);
+		// 	this.viewDoubleControl.setFromToTip(val, false);
+		// }
+	}
+
+
 
 
 	handleIsVerticalChecked = () => {
@@ -873,6 +901,7 @@ class sliderController {
 
 	handleWindowResize = () => {
 		this.view.deleteSlider();
+		console.log('DELETED');
 		this.render();
 		this.handleOnControlPosUpdated(this.viewDoubleControl.leftControl, this.model.leftControlStartPos);//передаем во view начальное положение левого ползунка
 		this.handleOnControlPosUpdated(this.viewDoubleControl.rightControl, this.model.rightControlStartPos); //передаем во view начальное положение левого ползунка
