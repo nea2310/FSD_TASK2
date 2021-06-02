@@ -1,18 +1,10 @@
-// function resizedw() {
-// 	console.log('Havent resized in 100ms!');// 
-// }
 
-// let doit;
-// window.onresize = function () {
-// 	clearTimeout(doit);
-// 	doit = setTimeout(resizedw, 100);
-// };
 
 class sliderModel {
 
 	/*Получаем элемент ползунка, определяем координаты в момент начала перемещения ползунка, и сохраняем в объекте модели*/
 
-	init() {
+	init(conf) {
 		this.slider = document.querySelector(conf.target);
 		this.leftControl = this.slider.querySelector('.rs__control-min');
 		this.rightControl = this.slider.querySelector('.rs__control-max');
@@ -160,7 +152,7 @@ class sliderModel {
 		//Если это переключение режима
 		else if (this.changeMode) {
 			if (this.switchToSingleMode) {//переключение в Single режим
-				console.log('SWITCH TO SINGLE');
+				//	console.log('SWITCH TO SINGLE');
 				this.selectedLeft = 0;
 				this.selectedWidth = this.leftControl.style.left;
 			}
@@ -175,7 +167,7 @@ class sliderModel {
 			}
 
 			else if (this.switchToHorizontalMode) {//переключение в горизонтальный режим
-				console.log('switchToHorizontalMode');
+				//	console.log('switchToHorizontalMode');
 			}
 		}
 		this.progressBarUpdated(this.selectedLeft, this.selectedWidth); //Вызываем для обновления прогресс бара в view
@@ -198,16 +190,12 @@ class sliderModel {
 }
 
 class sliderView {
-	constructor(conf) {
+	constructor(root) {
 		/*Находим корневой элемент*/
-		this.slider = document.querySelector(conf.target);
-		//this.test();
+		this.slider = document.querySelector(root);
+		//	console.log(this.slider);
 	}
 
-	// test() {
-	// 	this.conf = conf;
-	// 	console.log(this.conf);
-	// }
 
 	//Вешаем обработчик события отпускания мыши
 	bindMouseUp(mouseUpHandler) {
@@ -241,24 +229,25 @@ class sliderView {
 	deleteSlider() {
 		this.slider.firstChild.remove();
 		this.slider.lastChild.remove();
-		console.log(this);
+		//	console.log(this);
 	}
 }
 
 class sliderViewScale extends sliderView {
 
-	// constructor(conf) {
-	// 	super(conf);
-	// }
+	constructor(root) {
+		super(root);
+	}
 
 
 	init(conf) {
-		console.log(conf);
+		//	console.log(conf);
 		this.renderScale(conf);// шкала
 		this.renderMarks(conf);//деления шкалы
 	}
 	//создаем шкалу
 	renderScale(conf) {
+		//	console.log(this.slider);
 		this.scale = document.createElement('div');
 		this.scale.className = 'rs__slider';
 		this.slider.append(this.scale);
@@ -349,16 +338,17 @@ class sliderViewScale extends sliderView {
 }
 
 class sliderViewDoubleControl extends sliderView {
-	constructor(conf) {
-		super(conf);
+	constructor(root) {
+		super(root);
 	}
 
-	init() {
-		this.renderLeftControl();
-		this.renderRightControl();
+	init(conf) {
+		this.renderLeftControl(conf);
+		this.renderRightControl(conf);
 	}
 	/*Создаем ползунок минимального значения*/
 	renderLeftControl() {
+		//	console.log(this.slider);
 		this.scale = this.slider.firstChild;
 		this.leftControl = document.createElement('div');
 		this.leftControl.className = 'rs__control rs__control-min';
@@ -455,21 +445,21 @@ class sliderViewDoubleControl extends sliderView {
 
 
 class sliderViewPanel extends sliderView {
-	constructor(conf) {
-		super(conf);
+	constructor(root) {
+		super(root);
 	}
-	init() {
-		this.renderPanelWrapper()
-		this.renderMinInput();
-		this.renderMaxInput();
-		this.renderStepInput();
-		this.renderFromInput();
-		this.renderToInput();
-		this.renderIsVerticalToggle();
-		this.renderIsRangeToggle();
-		this.renderIsScaleToggle();
-		this.renderIsBarToggle();
-		this.renderIsTipToggle();
+	init(conf) {
+		this.renderPanelWrapper(conf)
+		this.renderMinInput(conf);
+		this.renderMaxInput(conf);
+		this.renderStepInput(conf);
+		this.renderFromInput(conf);
+		this.renderToInput(conf);
+		this.renderIsVerticalToggle(conf);
+		this.renderIsRangeToggle(conf);
+		this.renderIsScaleToggle(conf);
+		this.renderIsBarToggle(conf);
+		this.renderIsTipToggle(conf);
 
 	}
 
@@ -727,11 +717,11 @@ class sliderViewPanel extends sliderView {
 					this.createEvent(this.fromInput, 0.0001);
 				}
 				checkedEventHandler(e);
-				//console.log('CHECKED');
+				console.log('CHECKED');
 			}
 			else {
 				notCheckedEventHandler(e);
-				//		console.log('NOT CHECKED');
+				console.log('NOT CHECKED');
 			}
 		})
 	}
@@ -767,7 +757,7 @@ class sliderController {
 		this.viewScale = viewScale;
 		this.viewDoubleControl = viewDoubleControl;
 		this.viewPanel = viewPanel;
-		this.test();
+		this.prepareConfiguration();
 		this.render(this.conf);
 
 		this.handleOnControlPosUpdated(this.viewDoubleControl.leftControl, this.model.leftControlStartPos);//передаем во view начальное положение левого ползунка
@@ -796,18 +786,18 @@ class sliderController {
 
 	}
 
-	test() {
+	prepareConfiguration() {
 		this.conf = conf;
-		console.log(this.conf);
+		//console.log(this.conf);
 	}
 
 
 	render = (conf) => {
-		console.log(conf);
+		//console.log(conf);
 		this.viewScale.init(this.conf);
-		this.viewDoubleControl.init();
-		this.viewPanel.init();
-		this.model.init();
+		this.viewDoubleControl.init(this.conf);
+		this.viewPanel.init(this.conf);
+		this.model.init(this.conf);
 	}
 
 	//вызываем метод GetControlData в модели
@@ -853,6 +843,7 @@ class sliderController {
 
 
 	handleIsRangeChecked = (e) => {
+		console.log('!');
 		this.viewDoubleControl.doubleMode();
 		this.model.computeControlPosFromEvent(e);
 
@@ -913,7 +904,7 @@ class sliderController {
 
 	handleWindowResize = () => {
 		this.view.deleteSlider();
-		console.log('DELETED');
+		//console.log('DELETED');
 		this.render();
 		this.handleOnControlPosUpdated(this.viewDoubleControl.leftControl, this.model.leftControlStartPos);//передаем во view начальное положение левого ползунка
 		this.handleOnControlPosUpdated(this.viewDoubleControl.rightControl, this.model.rightControlStartPos); //передаем во view начальное положение левого ползунка
@@ -923,8 +914,8 @@ class sliderController {
 
 	handleWindowReRender = () => {
 		this.view.deleteSlider();
-		console.log(this);
-		console.log('DELETED');
+		//	console.log(this);
+		//	console.log('DELETED');
 		this.render();
 		this.handleOnControlPosUpdated(this.viewDoubleControl.leftControl, this.model.leftControlStartPos);//передаем во view начальное положение левого ползунка
 		this.handleOnControlPosUpdated(this.viewDoubleControl.rightControl, this.model.rightControlStartPos); //передаем во view начальное положение левого ползунка
@@ -933,7 +924,7 @@ class sliderController {
 
 }
 
-
+let root = '.rs__wrapper';
 
 let conf = {
 	target: '.rs__wrapper',
@@ -943,11 +934,11 @@ let conf = {
 }
 
 new sliderController(conf,
-	new sliderView(conf),
-	new sliderViewScale(conf),
-	new sliderViewDoubleControl(conf),
-	new sliderViewPanel(conf),
-	new sliderModel(conf),
+	new sliderView(root),
+	new sliderViewScale(root),
+	new sliderViewDoubleControl(root),
+	new sliderViewPanel(root),
+	new sliderModel(),
 );
 
 
