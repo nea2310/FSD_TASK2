@@ -774,7 +774,7 @@ class sliderController {
 
 		this.viewPanel.bindFromToChange(this.handleFromToChanged);
 
-		this.viewPanel.bindMinMaxChange(this.handleWindowReRender);
+		this.viewPanel.bindMinMaxChange(this.handleMinMaxChanged);
 
 
 		this.view.bindMouseUp(this.handleMouseUp);//вешаем обработчик handleMouseUp для обработки в view события отпускания кнопки (завершение перетаскивания ползунка)
@@ -859,9 +859,11 @@ class sliderController {
 
 	handleFromToChanged = (val, e) => {
 		if (e.target.classList.contains('rs__input-from')) {
+			this.conf.values[0] = parseInt(val);
 			this.model.computeControlPosFromVal(val, false, this.viewDoubleControl.leftControl);
 			this.viewDoubleControl.setFromToTip(val, true);
 		} else {
+			this.conf.values[1] = parseInt(val);
 			this.model.computeControlPosFromVal(val, false, this.viewDoubleControl.rightControl);
 			this.viewDoubleControl.setFromToTip(val, false);
 		}
@@ -869,16 +871,26 @@ class sliderController {
 
 
 	handleMinMaxChanged = (val, e) => {
+		// console.log(val);
+		// console.log(e.target);
+		// console.log(this.conf);
+
+
+
+		if (e.target.classList.contains('rs__input-min')) {
+
+			this.conf.range[0] = parseInt(val);
+			this.model.computeControlPosFromVal(val, false, this.viewDoubleControl.leftControl);
+			this.viewDoubleControl.setFromToTip(val, true);
+		} else if (e.target.classList.contains('rs__input-max')) {
+
+			this.conf.range[1] = parseInt(val);
+			this.model.computeControlPosFromVal(val, false, this.viewDoubleControl.rightControl);
+			this.viewDoubleControl.setFromToTip(val, false);
+		}
+		// console.log(this.conf);
 
 		this.handleWindowResize();
-
-		// if (e.target.classList.contains('rs__input-from')) {
-		// 	this.model.computeControlPosFromVal(val, false, this.viewDoubleControl.leftControl);
-		// 	this.viewDoubleControl.setFromToTip(val, true);
-		// } else {
-		// 	this.model.computeControlPosFromVal(val, false, this.viewDoubleControl.rightControl);
-		// 	this.viewDoubleControl.setFromToTip(val, false);
-		// }
 	}
 
 
@@ -912,15 +924,7 @@ class sliderController {
 	};
 
 
-	handleWindowReRender = () => {
-		this.view.deleteSlider();
-		//	console.log(this);
-		//	console.log('DELETED');
-		this.render();
-		this.handleOnControlPosUpdated(this.viewDoubleControl.leftControl, this.model.leftControlStartPos);//передаем во view начальное положение левого ползунка
-		this.handleOnControlPosUpdated(this.viewDoubleControl.rightControl, this.model.rightControlStartPos); //передаем во view начальное положение левого ползунка
-		this.handleOnprogressBarUpdated(this.model.leftControlStartPos, this.model.progressBarStartWidth); // передаем во view начальное положение прогресс-бара
-	};
+
 
 }
 
