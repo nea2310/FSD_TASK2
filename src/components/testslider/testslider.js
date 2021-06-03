@@ -440,18 +440,19 @@ class sliderViewPanel extends sliderView {
 		super(root);
 	}
 	init(conf) {
-		this.renderPanelWrapper(conf)
-		this.renderMinInput(conf);
-		this.renderMaxInput(conf);
-		this.renderStepInput(conf);
-		this.renderFromInput(conf);
-		this.renderToInput(conf);
-		this.renderIsVerticalToggle(conf);
-		this.renderIsRangeToggle(conf);
-		this.renderIsScaleToggle(conf);
-		this.renderIsBarToggle(conf);
-		this.renderIsTipToggle(conf);
-
+		this.conf = conf;
+		this.renderPanelWrapper()
+		this.renderMinInput();
+		this.renderMaxInput();
+		this.renderStepInput();
+		this.renderFromInput();
+		this.renderToInput();
+		this.renderIsVerticalToggle();
+		this.renderIsRangeToggle();
+		this.renderIsScaleToggle();
+		this.renderIsBarToggle();
+		this.renderIsTipToggle();
+		console.log(conf);
 	}
 
 
@@ -470,13 +471,16 @@ class sliderViewPanel extends sliderView {
 
 
 	renderMinInput() {
+		console.log(this.conf);
 		this.minLabel = document.createElement('label');
 		this.minLabel.innerText = 'min';
 		this.minInput = document.createElement('input');
-		this.minInput.value = conf.min;
+		this.minInput.value = this.conf.min;
 		this.minInput.className = 'rs__input rs__input-min';
 		this.minLabel.append(this.minInput);
 		this.panelTop.append(this.minLabel);
+		//	console.log(this.conf.min);
+		console.log(this.minInput.value);
 	}
 
 
@@ -484,7 +488,7 @@ class sliderViewPanel extends sliderView {
 		this.maxLabel = document.createElement('label');
 		this.maxLabel.innerText = 'max';
 		this.maxInput = document.createElement('input');
-		this.maxInput.value = conf.max;
+		this.maxInput.value = this.conf.max;
 		this.maxInput.className = 'rs__input rs__input-max';
 		this.maxLabel.append(this.maxInput);
 		this.panelTop.append(this.maxLabel);
@@ -495,7 +499,7 @@ class sliderViewPanel extends sliderView {
 		this.stepLabel = document.createElement('label');
 		this.stepLabel.innerText = 'step';
 		this.stepInput = document.createElement('input');
-		this.stepInput.value = conf.step;
+		this.stepInput.value = this.conf.step;
 		this.stepInput.className = 'rs__input rs__input-step';
 		this.stepLabel.append(this.stepInput);
 		this.panelTop.append(this.stepLabel);
@@ -507,10 +511,10 @@ class sliderViewPanel extends sliderView {
 		this.fromLabel = document.createElement('label');
 		this.fromLabel.innerText = 'from';
 		this.fromInput = document.createElement('input');
-		this.fromInput.value = conf.from;
+		this.fromInput.value = this.conf.from;
 		this.fromInput.className = 'rs__input rs__input-from';
 		this.fromLabel.append(this.fromInput);
-		this.leftControlStartVal = conf.from;
+		this.leftControlStartVal = this.conf.from;
 		this.panelTop.append(this.fromLabel);
 	}
 
@@ -518,10 +522,10 @@ class sliderViewPanel extends sliderView {
 		this.toLabel = document.createElement('label');
 		this.toLabel.innerText = 'to';
 		this.toInput = document.createElement('input');
-		this.toInput.value = conf.to;
+		this.toInput.value = this.conf.to;
 		this.toInput.className = 'rs__input rs__input-to';
 		this.toLabel.append(this.toInput);
-		this.rightControlStartVal = conf.to;
+		this.rightControlStartVal = this.conf.to;
 		this.panelTop.append(this.toLabel);
 	}
 
@@ -785,9 +789,10 @@ class sliderController {
 
 
 	render = (conf) => {
-		console.log(this.conf);
+		//	console.log(this.conf);
 		this.viewScale.init(this.conf);
 		this.viewDoubleControl.init(this.conf);
+		console.log('!!!!');
 		this.viewPanel.init(this.conf);
 		this.model.init(this.conf);
 	}
@@ -929,8 +934,8 @@ class sliderController {
 
 
 	handleWindowReRendering = () => {
-		console.log('RERENDERING');
-		console.log(this.conf);
+		//	console.log('RERENDERING');
+		//console.log(this.conf);
 		//console.log(this);
 		this.view.deleteSlider();
 		//this.prepareConfiguration();
