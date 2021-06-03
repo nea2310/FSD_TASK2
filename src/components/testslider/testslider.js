@@ -12,11 +12,11 @@ class sliderModel {
 		this.scale = this.slider.querySelector('.rs__slider');
 		this.scaleWidth = this.scale.offsetWidth;
 
-		this.minRangeVal = conf.range[0];//минимальное значение диапазон
-		this.maxRangeVal = conf.range[1];//максимальное значение диапазона
+		this.minRangeVal = conf.min;//минимальное значение диапазон
+		this.maxRangeVal = conf.max;//максимальное значение диапазона
 
-		this.leftControlStartVal = conf.values[0];
-		this.rightControlStartVal = conf.values[1];
+		this.leftControlStartVal = conf.from;
+		this.rightControlStartVal = conf.to;
 
 		this.leftControlStartPos = this.computeControlPosFromVal(this.leftControlStartVal);// начальное положение левого ползунка на шкале
 		this.rightControlStartPos = this.computeControlPosFromVal(this.rightControlStartVal);// начальное положение правого ползунка на шкале
@@ -258,18 +258,18 @@ class sliderViewScale extends sliderView {
 			this.step = conf.step;
 			let length = parseFloat(this.scaleWidth);
 
-			let singleIntervalCount = (conf.range[1] - conf.range[0])//кол-во единичных интервалов
+			let singleIntervalCount = (conf.max - conf.min)//кол-во единичных интервалов
 			let singleLength = length / singleIntervalCount;//ширина единичного интервала
 			let stepLength = singleLength * conf.step;// ширина шага (шаг может быть равен одному или нескольким единичным интервалам)
-			// console.log(conf.range[0]);
-			// console.log(conf.range[1]);
+			// console.log(conf.min);
+			// console.log(conf.max);
 			// console.log('conf.step: ' + conf.step);
 			// console.log('length: ' + length);
 			// console.log('singleIntervalCount: ' + singleIntervalCount);
 			// console.log('singleLength: ' + singleLength);
 			// console.log('stepLength: ' + stepLength);
 
-			let innerText = conf.range[0] + conf.step; //значение шага
+			let innerText = conf.min + conf.step; //значение шага
 			while (length >= stepLength) { // создаем деления шкалы
 				let elem = document.createElement('div');
 				let elemWidth = 2;
@@ -350,7 +350,7 @@ class sliderViewDoubleControl extends sliderView {
 
 		this.leftTip = document.createElement('input');
 		this.leftTip.className = 'rs__tip rs__tip-min';
-		this.leftTip.value = conf.values[0];
+		this.leftTip.value = conf.from;
 		this.leftControl.append(this.leftTip);
 	}
 	/*Создаем ползунок максимального значения*/
@@ -362,7 +362,7 @@ class sliderViewDoubleControl extends sliderView {
 
 		this.rightTip = document.createElement('input');
 		this.rightTip.className = 'rs__tip rs__tip-max';
-		this.rightTip.value = conf.values[1];
+		this.rightTip.value = conf.to;
 		this.rightControl.append(this.rightTip);
 	}
 
@@ -473,7 +473,7 @@ class sliderViewPanel extends sliderView {
 		this.minLabel = document.createElement('label');
 		this.minLabel.innerText = 'min';
 		this.minInput = document.createElement('input');
-		this.minInput.value = conf.range[0];
+		this.minInput.value = conf.min;
 		this.minInput.className = 'rs__input rs__input-min';
 		this.minLabel.append(this.minInput);
 		this.panelTop.append(this.minLabel);
@@ -484,7 +484,7 @@ class sliderViewPanel extends sliderView {
 		this.maxLabel = document.createElement('label');
 		this.maxLabel.innerText = 'max';
 		this.maxInput = document.createElement('input');
-		this.maxInput.value = conf.range[1];
+		this.maxInput.value = conf.max;
 		this.maxInput.className = 'rs__input rs__input-max';
 		this.maxLabel.append(this.maxInput);
 		this.panelTop.append(this.maxLabel);
@@ -507,10 +507,10 @@ class sliderViewPanel extends sliderView {
 		this.fromLabel = document.createElement('label');
 		this.fromLabel.innerText = 'from';
 		this.fromInput = document.createElement('input');
-		this.fromInput.value = conf.values[0];
+		this.fromInput.value = conf.from;
 		this.fromInput.className = 'rs__input rs__input-from';
 		this.fromLabel.append(this.fromInput);
-		this.leftControlStartVal = conf.values[0];
+		this.leftControlStartVal = conf.from;
 		this.panelTop.append(this.fromLabel);
 	}
 
@@ -518,10 +518,10 @@ class sliderViewPanel extends sliderView {
 		this.toLabel = document.createElement('label');
 		this.toLabel.innerText = 'to';
 		this.toInput = document.createElement('input');
-		this.toInput.value = conf.values[1];
+		this.toInput.value = conf.to;
 		this.toInput.className = 'rs__input rs__input-to';
 		this.toLabel.append(this.toInput);
-		this.rightControlStartVal = conf.values[1];
+		this.rightControlStartVal = conf.to;
 		this.panelTop.append(this.toLabel);
 	}
 
@@ -686,7 +686,7 @@ class sliderViewPanel extends sliderView {
 	//Эмуляция события ввода в инпут
 	createEvent(input, pos) {
 
-		input.value = conf.range[1] * pos;
+		input.value = conf.max * pos;
 		let event = new Event('input', {
 			bubbles: true,
 			cancelable: true,
@@ -740,7 +740,7 @@ class sliderViewPanel extends sliderView {
 
 
 class sliderController {
-	constructor(conf, view, viewScale, viewDoubleControl, viewPanel, model) {
+	constructor(conf, root, view, viewScale, viewDoubleControl, viewPanel, model) {
 		this.model = model;
 		this.view = view;
 		this.viewScale = viewScale;
@@ -754,11 +754,38 @@ class sliderController {
 	}
 
 	prepareConfiguration() {
-		this.conf = conf;
+		this.defaultConf = {
+			min: 1,
+			max: 10,
+			from: 3,
+			to: 7,
+			vertical: false,
+			range: true,
+			scale: true,
+			bar: true,
+			tip: true
+
+		}
+
+		this.defaultConf.step = (this.defaultConf.max - this.defaultConf.min) / 5,
+
+			//	console.log(this.defaultConf);
+
+			this.customConf = conf;
+		this.customConf.target = root;//это нужно для модели
+
+
+
+		// console.log(this.defaultConf);
+		// console.log(this.customConf);
+
+		this.conf = Object.assign(this.defaultConf, this.customConf);
+		//	console.log(this.conf);
 	}
 
 
 	render = (conf) => {
+		console.log(this.conf);
 		this.viewScale.init(this.conf);
 		this.viewDoubleControl.init(this.conf);
 		this.viewPanel.init(this.conf);
@@ -768,6 +795,7 @@ class sliderController {
 
 
 	init() {
+
 		this.handleOnControlPosUpdated(this.viewDoubleControl.leftControl, this.model.leftControlStartPos);//передаем во view начальное положение левого ползунка
 		this.handleOnControlPosUpdated(this.viewDoubleControl.rightControl, this.model.rightControlStartPos); //передаем во view начальное положение левого ползунка
 		this.handleOnprogressBarUpdated(this.model.leftControlStartPos, this.model.progressBarStartWidth); // передаем во view начальное положение прогресс-бара
@@ -851,11 +879,11 @@ class sliderController {
 
 	handleFromToChanged = (val, e) => {
 		if (e.target.classList.contains('rs__input-from')) {
-			this.conf.values[0] = parseInt(val);
+			this.conf.from = parseInt(val);
 			this.model.computeControlPosFromVal(val, false, this.viewDoubleControl.leftControl);
 			this.viewDoubleControl.setFromToTip(val, true);
 		} else {
-			this.conf.values[1] = parseInt(val);
+			this.conf.to = parseInt(val);
 			this.model.computeControlPosFromVal(val, false, this.viewDoubleControl.rightControl);
 			this.viewDoubleControl.setFromToTip(val, false);
 		}
@@ -866,12 +894,12 @@ class sliderController {
 
 		if (e.target.classList.contains('rs__input-min')) {
 
-			this.conf.range[0] = parseInt(val);
+			this.conf.min = parseInt(val);
 			this.model.computeControlPosFromVal(val, false, this.viewDoubleControl.leftControl);
 			this.viewDoubleControl.setFromToTip(val, true);
 		} else if (e.target.classList.contains('rs__input-max')) {
 
-			this.conf.range[1] = parseInt(val);
+			this.conf.max = parseInt(val);
 			this.model.computeControlPosFromVal(val, false, this.viewDoubleControl.rightControl);
 			this.viewDoubleControl.setFromToTip(val, false);
 		}
@@ -901,7 +929,11 @@ class sliderController {
 
 
 	handleWindowReRendering = () => {
+		console.log('RERENDERING');
+		console.log(this.conf);
+		//console.log(this);
 		this.view.deleteSlider();
+		//this.prepareConfiguration();
 		this.render();
 		this.init();
 	};
@@ -914,13 +946,14 @@ class sliderController {
 let root = '.rs__wrapper';
 
 let conf = {
-	target: '.rs__wrapper',
-	range: [0, 10000],
-	values: [2000, 7000],
+	min: 0,
+	max: 10000,
+	from: 2000,
+	to: 7000,
 	step: 1000
 }
 
-new sliderController(conf,
+new sliderController(conf, root,
 	new sliderView(root),
 	new sliderViewScale(root),
 	new sliderViewDoubleControl(root),
