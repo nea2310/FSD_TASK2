@@ -20,8 +20,6 @@ class sliderModel {
 
 		this.leftControlStartPos = this.computeControlPosFromVal(this.leftControlStartVal);// начальное положение левого ползунка на шкале
 		this.rightControlStartPos = this.computeControlPosFromVal(this.rightControlStartVal);// начальное положение правого ползунка на шкале
-		//console.log(this.leftControlStartPos);
-		//console.log(this.rightControlStartPos);
 		this.progressBarStartWidth = this.rightControlStartPos - this.leftControlStartPos; // начальная ширина активного диапазона
 
 	}
@@ -152,7 +150,6 @@ class sliderModel {
 		//Если это переключение режима
 		else if (this.changeMode) {
 			if (this.switchToSingleMode) {//переключение в Single режим
-				//	console.log('SWITCH TO SINGLE');
 				this.selectedLeft = 0;
 				this.selectedWidth = this.leftControl.style.left;
 			}
@@ -193,7 +190,6 @@ class sliderView {
 	constructor(root) {
 		/*Находим корневой элемент*/
 		this.slider = document.querySelector(root);
-		//	console.log(this.slider);
 	}
 
 
@@ -229,7 +225,6 @@ class sliderView {
 	deleteSlider() {
 		this.slider.firstChild.remove();
 		this.slider.lastChild.remove();
-		//	console.log(this);
 	}
 }
 
@@ -247,7 +242,6 @@ class sliderViewScale extends sliderView {
 	}
 	//создаем шкалу
 	renderScale(conf) {
-		//	console.log(this.slider);
 		this.scale = document.createElement('div');
 		this.scale.className = 'rs__slider';
 		this.slider.append(this.scale);
@@ -348,7 +342,6 @@ class sliderViewDoubleControl extends sliderView {
 	}
 	/*Создаем ползунок минимального значения*/
 	renderLeftControl() {
-		//	console.log(this.slider);
 		this.scale = this.slider.firstChild;
 		this.leftControl = document.createElement('div');
 		this.leftControl.className = 'rs__control rs__control-min';
@@ -422,13 +415,11 @@ class sliderViewDoubleControl extends sliderView {
 
 
 	tipMode() {
-		//	console.log('TIP');
 		this.rightTip.classList.remove('hidden');
 		this.leftTip.classList.remove('hidden');
 	}
 
 	noTipMode() {
-		//	console.log('NO TIP');
 		this.rightTip.classList.add('hidden');
 		this.leftTip.classList.add('hidden');
 	}
@@ -717,11 +708,9 @@ class sliderViewPanel extends sliderView {
 					this.createEvent(this.fromInput, 0.0001);
 				}
 				checkedEventHandler(e);
-				console.log('CHECKED');
 			}
 			else {
 				notCheckedEventHandler(e);
-				console.log('NOT CHECKED');
 			}
 		})
 	}
@@ -751,7 +740,7 @@ class sliderViewPanel extends sliderView {
 
 
 class sliderController {
-	constructor(conf, view, viewScale, viewDoubleControl, viewPanel, model,) {
+	constructor(conf, view, viewScale, viewDoubleControl, viewPanel, model) {
 		this.model = model;
 		this.view = view;
 		this.viewScale = viewScale;
@@ -759,7 +748,26 @@ class sliderController {
 		this.viewPanel = viewPanel;
 		this.prepareConfiguration();
 		this.render(this.conf);
+		this.init();
 
+
+	}
+
+	prepareConfiguration() {
+		this.conf = conf;
+	}
+
+
+	render = (conf) => {
+		this.viewScale.init(this.conf);
+		this.viewDoubleControl.init(this.conf);
+		this.viewPanel.init(this.conf);
+		this.model.init(this.conf);
+	}
+
+
+
+	init() {
 		this.handleOnControlPosUpdated(this.viewDoubleControl.leftControl, this.model.leftControlStartPos);//передаем во view начальное положение левого ползунка
 		this.handleOnControlPosUpdated(this.viewDoubleControl.rightControl, this.model.rightControlStartPos); //передаем во view начальное положение левого ползунка
 		this.handleOnprogressBarUpdated(this.model.leftControlStartPos, this.model.progressBarStartWidth); // передаем во view начальное положение прогресс-бара
@@ -778,26 +786,12 @@ class sliderController {
 
 
 		this.view.bindMouseUp(this.handleMouseUp);//вешаем обработчик handleMouseUp для обработки в view события отпускания кнопки (завершение перетаскивания ползунка)
-		this.view.bindWindowResize(this.handleWindowResize)
+		this.view.bindWindowResize(this.handleWindowReRendering)
 
 		this.model.bindControlPosUpdated(this.handleOnControlPosUpdated)//Вызываем для обновления положения ползунка (обращение к view)
 		this.model.bindprogressBarUpdated(this.handleOnprogressBarUpdated)//Вызываем для обновления положения ползунка (обращение к view)
 		this.model.bindСontrolValueUpdated(this.handleOnСontrolValueUpdated)//Вызываем для обновления панели (обращение к view)
 
-	}
-
-	prepareConfiguration() {
-		this.conf = conf;
-		//console.log(this.conf);
-	}
-
-
-	render = (conf) => {
-		//console.log(conf);
-		this.viewScale.init(this.conf);
-		this.viewDoubleControl.init(this.conf);
-		this.viewPanel.init(this.conf);
-		this.model.init(this.conf);
 	}
 
 	//вызываем метод GetControlData в модели
@@ -843,14 +837,12 @@ class sliderController {
 
 
 	handleIsRangeChecked = (e) => {
-		console.log('!');
 		this.viewDoubleControl.doubleMode();
 		this.model.computeControlPosFromEvent(e);
 
 	}
 
 	handleIsRangeNotChecked = (e) => {
-		//	console.log(e);
 		this.viewDoubleControl.singleMode();
 		this.model.computeControlPosFromEvent(e);
 
@@ -871,11 +863,6 @@ class sliderController {
 
 
 	handleMinMaxChanged = (val, e) => {
-		// console.log(val);
-		// console.log(e.target);
-		// console.log(this.conf);
-
-
 
 		if (e.target.classList.contains('rs__input-min')) {
 
@@ -888,9 +875,8 @@ class sliderController {
 			this.model.computeControlPosFromVal(val, false, this.viewDoubleControl.rightControl);
 			this.viewDoubleControl.setFromToTip(val, false);
 		}
-		// console.log(this.conf);
 
-		this.handleWindowResize();
+		this.handleWindowReRendering();
 	}
 
 
@@ -914,13 +900,10 @@ class sliderController {
 	}
 
 
-	handleWindowResize = () => {
+	handleWindowReRendering = () => {
 		this.view.deleteSlider();
-		//console.log('DELETED');
 		this.render();
-		this.handleOnControlPosUpdated(this.viewDoubleControl.leftControl, this.model.leftControlStartPos);//передаем во view начальное положение левого ползунка
-		this.handleOnControlPosUpdated(this.viewDoubleControl.rightControl, this.model.rightControlStartPos); //передаем во view начальное положение левого ползунка
-		this.handleOnprogressBarUpdated(this.model.leftControlStartPos, this.model.progressBarStartWidth); // передаем во view начальное положение прогресс-бара
+		this.init();
 	};
 
 
