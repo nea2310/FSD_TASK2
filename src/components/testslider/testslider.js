@@ -5,22 +5,49 @@ class sliderModel {
 	/*Получаем элемент ползунка, определяем координаты в момент начала перемещения ползунка, и сохраняем в объекте модели*/
 
 	init(conf) {
-		this.slider = document.querySelector(conf.target);
-		this.leftControl = this.slider.querySelector('.rs__control-min');
-		this.rightControl = this.slider.querySelector('.rs__control-max');
+		this.conf = conf;
+		console.log(this.conf);
+		if (this.conf.range == true) {
+			console.log('DOUBLE');
+			this.slider = document.querySelector(conf.target);
+			this.leftControl = this.slider.querySelector('.rs__control-min');
+			this.rightControl = this.slider.querySelector('.rs__control-max');
 
-		this.scale = this.slider.querySelector('.rs__slider');
-		this.scaleWidth = this.scale.offsetWidth;
+			this.scale = this.slider.querySelector('.rs__slider');
+			this.scaleWidth = this.scale.offsetWidth;
 
-		this.minRangeVal = conf.min;//минимальное значение диапазон
-		this.maxRangeVal = conf.max;//максимальное значение диапазона
+			this.minRangeVal = conf.min;//минимальное значение диапазон
+			this.maxRangeVal = conf.max;//максимальное значение диапазона
 
-		this.leftControlStartVal = conf.from;
-		this.rightControlStartVal = conf.to;
+			this.leftControlStartVal = conf.from;
+			this.rightControlStartVal = conf.to;
 
-		this.leftControlStartPos = this.computeControlPosFromVal(this.leftControlStartVal);// начальное положение левого ползунка на шкале
-		this.rightControlStartPos = this.computeControlPosFromVal(this.rightControlStartVal);// начальное положение правого ползунка на шкале
-		this.progressBarStartWidth = this.rightControlStartPos - this.leftControlStartPos; // начальная ширина активного диапазона
+			this.leftControlStartPos = this.computeControlPosFromVal(this.leftControlStartVal);// начальное положение левого ползунка на шкале
+			this.rightControlStartPos = this.computeControlPosFromVal(this.rightControlStartVal);// начальное положение правого ползунка на шкале
+			this.progressBarStartPos = this.leftControlStartPos; // начальная ширина прогресс-бара
+			this.progressBarStartWidth = this.rightControlStartPos - this.leftControlStartPos; // начальная ширина активного диапазона
+		}
+
+		else if (this.conf.range == false) {
+			console.log('SINGLE');
+			this.slider = document.querySelector(conf.target);
+			this.leftControl = this.slider.querySelector('.rs__control-min');
+			this.rightControl = this.slider.querySelector('.rs__control-max');
+
+			this.scale = this.slider.querySelector('.rs__slider');
+			this.scaleWidth = this.scale.offsetWidth;
+
+			this.minRangeVal = conf.min;//минимальное значение диапазон
+			this.maxRangeVal = conf.max;//максимальное значение диапазона
+
+			this.leftControlStartVal = conf.from;
+			this.rightControlStartVal = conf.to;
+
+			this.leftControlStartPos = this.computeControlPosFromVal(this.leftControlStartVal);// начальное положение левого ползунка на шкале
+			this.rightControlStartPos = this.computeControlPosFromVal(this.rightControlStartVal);// начальное положение правого ползунка на шкале
+			this.progressBarStartPos = 0; // начальная ширина прогресс-бара
+			this.progressBarStartWidth = this.leftControlStartPos; // начальная ширина активного диапазона
+		}
 
 	}
 	getControlData(controlData) {
@@ -353,6 +380,13 @@ class sliderViewDoubleControl extends sliderView {
 		this.leftTip.className = 'rs__tip rs__tip-min';
 		this.leftTip.value = this.conf.from;
 		this.leftControl.append(this.leftTip);
+
+		if (this.conf.tip == false) {
+			console.log('NO TIP MODE');
+			this.leftTip.classList.add('hidden');
+		}
+
+
 	}
 	/*Создаем ползунок максимального значения*/
 	renderRightControl() {
@@ -365,6 +399,18 @@ class sliderViewDoubleControl extends sliderView {
 		this.rightTip.className = 'rs__tip rs__tip-max';
 		this.rightTip.value = this.conf.to;
 		this.rightControl.append(this.rightTip);
+
+		if (this.conf.range == false) {
+			console.log('SINGLE MODE');
+			this.rightControl.classList.add('hidden');
+			this.rightTip.classList.add('hidden');
+		}
+
+		if (this.conf.tip == false) {
+			console.log('NO TIP MODE');
+			this.rightTip.classList.add('hidden');
+		}
+
 	}
 
 	// Вешаем обработчики события нажатия кнопки на ползунке (захвата ползунка) и перемещения ползунка
@@ -406,6 +452,14 @@ class sliderViewDoubleControl extends sliderView {
 		isFrom ? this.leftTip.value = val : this.rightTip.value = val;
 	};
 
+
+
+	verticalMode() { //console.log('VERTICALMODE') 
+	}
+
+	horizontalMode() { //console.log('HORIZONTALMODE')
+	}
+
 	doubleMode() {
 		this.rightControl.classList.remove('hidden')
 	}
@@ -413,6 +467,27 @@ class sliderViewDoubleControl extends sliderView {
 	singleMode() {
 		this.rightControl.classList.add('hidden')
 	}
+
+
+
+
+
+	scaleMode() { //console.log('scaleMode') 
+	}
+
+	noScaleMode() { //console.log('NO scaleMode')
+	}
+
+
+	barMode() { //console.log('BAR MODE') 
+	}
+
+	noBarMode() { //console.log('no BAR mode')
+	}
+
+
+
+
 
 
 	tipMode() {
@@ -427,11 +502,7 @@ class sliderViewDoubleControl extends sliderView {
 
 
 
-	verticalMode() { //console.log('VERTICALMODE') 
-	}
 
-	horizontalMode() { //console.log('HORIZONTALMODE')
-	}
 
 }
 
@@ -537,7 +608,16 @@ class sliderViewPanel extends sliderView {
 
 		this.isVerticalToggleInput = document.createElement('input');
 		this.isVerticalToggleInput.type = 'checkbox';
-		this.isVerticalToggleInput.checked = 'checked';
+		//	this.isVerticalToggleInput.checked = 'checked';
+
+		if (this.conf.vertical == true) {
+			console.log('ADD CHECKED');
+			this.isVerticalToggleInput.checked = 'checked'
+		} else {
+			console.log('REMOVE CHECKED');
+			this.isVerticalToggleInput.removeAttribute('checked')
+		}
+
 		this.isVerticalToggleInput.className = 'rs__verticalModeToggle';
 
 		this.isVerticalToggleSpan = document.createElement('span');
@@ -551,6 +631,17 @@ class sliderViewPanel extends sliderView {
 		this.isVerticalToggle.append(this.isVerticalToggleInput);
 		this.isVerticalToggle.append(this.isVerticalToggleSpan);
 		this.isVerticalToggle.append(this.isVerticalToggleLabel);
+
+
+
+		if (this.conf.vertical == true) {
+			console.log('ADD CHECKED');
+			this.isVerticalToggleInput.checked = 'checked'
+		} else {
+			console.log('REMOVE CHECKED');
+			this.isVerticalToggleInput.removeAttribute('checked')
+		}
+
 	}
 
 	renderIsRangeToggle() {
@@ -568,8 +659,6 @@ class sliderViewPanel extends sliderView {
 		} else {
 			console.log('REMOVE CHECKED');
 			this.isRangeToggleInput.removeAttribute('checked')
-
-			//elem.removeAttribute("scope")
 		}
 
 		//	this.conf.range ? this.isRangeToggleInput.checked = 'checked' : this.isRangeToggleInput.checked = 'not checked'
@@ -600,7 +689,16 @@ class sliderViewPanel extends sliderView {
 
 		this.isScaleToggleInput = document.createElement('input');
 		this.isScaleToggleInput.type = 'checkbox';
-		this.isScaleToggleInput.checked = 'checked';
+		//	this.isScaleToggleInput.checked = 'checked';
+
+		if (this.conf.scale == true) {
+			console.log('ADD CHECKED');
+			this.isScaleToggleInput.checked = 'checked'
+		} else {
+			console.log('REMOVE CHECKED');
+			this.isScaleToggleInput.removeAttribute('checked')
+		}
+
 		this.isScaleToggleInput.className = 'rs__scaleModeToggle';
 
 
@@ -625,7 +723,16 @@ class sliderViewPanel extends sliderView {
 
 		this.isBarToggleInput = document.createElement('input');
 		this.isBarToggleInput.type = 'checkbox';
-		this.isBarToggleInput.checked = 'checked';
+		//this.isBarToggleInput.checked = 'checked';
+
+		if (this.conf.bar == true) {
+			console.log('ADD CHECKED');
+			this.isBarToggleInput.checked = 'checked'
+		} else {
+			console.log('REMOVE CHECKED');
+			this.isBarToggleInput.removeAttribute('checked')
+		}
+
 		this.isBarToggleInput.className = 'rs__barModeToggle';
 
 
@@ -650,7 +757,16 @@ class sliderViewPanel extends sliderView {
 
 		this.isTipToggleInput = document.createElement('input');
 		this.isTipToggleInput.type = 'checkbox';
-		this.isTipToggleInput.checked = 'checked';
+		//	this.isTipToggleInput.checked = 'checked';
+
+		if (this.conf.tip == true) {
+			console.log('ADD CHECKED');
+			this.isTipToggleInput.checked = 'checked'
+		} else {
+			console.log('REMOVE CHECKED');
+			this.isTipToggleInput.removeAttribute('checked')
+		}
+
 		this.isTipToggleInput.className = 'rs__tipModeToggle';
 
 
@@ -732,6 +848,42 @@ class sliderViewPanel extends sliderView {
 			}
 		})
 	}
+
+
+
+
+	//щелчок по чекбоксу SCALE
+	bindCheckIsScaleControl(checkedEventHandler, notCheckedEventHandler) {
+
+		this.isScaleToggleInput.addEventListener('change', (e) => {
+
+
+			if (this.isScaleToggleInput.checked) {
+				checkedEventHandler(e)
+			}
+			else {
+				notCheckedEventHandler(e)
+			}
+		})
+	}
+
+
+
+	//щелчок по чекбоксу BAR
+	bindCheckIsBarControl(checkedEventHandler, notCheckedEventHandler) {
+
+		this.isBarToggleInput.addEventListener('change', (e) => {
+
+
+			if (this.isBarToggleInput.checked) {
+				checkedEventHandler(e)
+			}
+			else {
+				notCheckedEventHandler(e)
+			}
+		})
+	}
+
 
 
 	//щелчок по чекбоксу TIP
@@ -816,14 +968,22 @@ class sliderController {
 
 		this.handleOnControlPosUpdated(this.viewDoubleControl.leftControl, this.model.leftControlStartPos);//передаем во view начальное положение левого ползунка
 		this.handleOnControlPosUpdated(this.viewDoubleControl.rightControl, this.model.rightControlStartPos); //передаем во view начальное положение левого ползунка
-		this.handleOnprogressBarUpdated(this.model.leftControlStartPos, this.model.progressBarStartWidth); // передаем во view начальное положение прогресс-бара
+
+
+		this.handleOnprogressBarUpdated(this.model.progressBarStartPos, this.model.progressBarStartWidth); // передаем во view начальное положение прогресс-бара
 
 		this.viewDoubleControl.bindMoveControl(this.handleGetControlData, this.handlecomputeControlPosFromEvent);// вешаем обработчики handleGetControlData и handlecomputeControlPosFromEvent для обработки в view события захвата и перетаскивания ползунка
 		this.viewScale.bindClickOnScale(this.handleGetControlData, this.handlecomputeControlPosFromEvent);// вешаем обработчики handleGetControlData и handlecomputeControlPosFromEvent для обработки в view события клика по шкале
 
-		this.viewPanel.bindCheckIsTipControl(this.handleIsTipChecked, this.handleIsTipNotChecked);
-		this.viewPanel.bindCheckIsRangeControl(this.handleIsRangeChecked, this.handleIsRangeNotChecked);
+
+
 		this.viewPanel.bindCheckIsVerticalControl(this.handleIsVerticalChecked, this.handleIsVerticalNotChecked);
+		this.viewPanel.bindCheckIsRangeControl(this.handleIsRangeChecked, this.handleIsRangeNotChecked);
+		this.viewPanel.bindCheckIsScaleControl(this.handleIsScaleChecked, this.handleIsScaleNotChecked);
+		this.viewPanel.bindCheckIsBarControl(this.handleIsBarChecked, this.handleIsBarNotChecked);
+		this.viewPanel.bindCheckIsTipControl(this.handleIsTipChecked, this.handleIsTipNotChecked);
+
+
 
 
 		this.viewPanel.bindFromToChange(this.handleFromToChanged);
@@ -872,19 +1032,15 @@ class sliderController {
 	}
 
 
-	handleIsTipChecked = (e) => {
-		this.conf.tip = true;
-		this.viewDoubleControl.tipMode();
-		//	this.model.computeControlPosFromEvent(e);
 
+	handleIsVerticalChecked = () => {
+		this.conf.vertical = true;
+		this.viewDoubleControl.verticalMode();
 	}
 
-	handleIsTipNotChecked = (e) => {
-
-		this.conf.tip = false;
-		this.viewDoubleControl.noTipMode();
-		//	this.model.computeControlPosFromEvent(e);
-
+	handleIsVerticalNotChecked = () => {
+		this.conf.vertical = false;
+		this.viewDoubleControl.horisontalMode();
 	}
 
 
@@ -904,6 +1060,54 @@ class sliderController {
 		this.model.computeControlPosFromEvent(e);
 
 	}
+
+
+
+
+	handleIsScaleChecked = () => {
+		this.conf.scale = true;
+		this.viewDoubleControl.scaleMode();
+	}
+
+	handleIsScaleNotChecked = () => {
+		this.conf.scale = false;
+		this.viewDoubleControl.noScaleMode();
+	}
+
+
+
+
+
+	handleIsBarChecked = () => {
+		this.conf.bar = true;
+		this.viewDoubleControl.barMode();
+	}
+
+	handleIsBarNotChecked = () => {
+		this.conf.bar = false;
+		this.viewDoubleControl.noBarMode();
+	}
+
+
+
+	handleIsTipChecked = (e) => {
+		this.conf.tip = true;
+		this.viewDoubleControl.tipMode();
+		//	this.model.computeControlPosFromEvent(e);
+
+	}
+
+	handleIsTipNotChecked = (e) => {
+
+		this.conf.tip = false;
+		this.viewDoubleControl.noTipMode();
+		//	this.model.computeControlPosFromEvent(e);
+
+	}
+
+
+
+
 
 
 	handleFromToChanged = (val, e) => {
@@ -939,15 +1143,7 @@ class sliderController {
 
 
 
-	handleIsVerticalChecked = () => {
-		this.conf.vertical = true;
-		this.viewDoubleControl.verticalMode();
-	}
 
-	handleIsVerticalNotChecked = () => {
-		this.conf.vertical = false;
-		this.viewDoubleControl.horisontalMode();
-	}
 
 
 	// снимаем обработчики, повешенные на событие перемещения мыши
