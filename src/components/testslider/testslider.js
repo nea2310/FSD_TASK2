@@ -337,8 +337,9 @@ class sliderViewDoubleControl extends sliderView {
 	}
 
 	init(conf) {
-		this.renderLeftControl(conf);
-		this.renderRightControl(conf);
+		this.conf = conf;
+		this.renderLeftControl();
+		this.renderRightControl();
 	}
 	/*Создаем ползунок минимального значения*/
 	renderLeftControl() {
@@ -350,7 +351,7 @@ class sliderViewDoubleControl extends sliderView {
 
 		this.leftTip = document.createElement('input');
 		this.leftTip.className = 'rs__tip rs__tip-min';
-		this.leftTip.value = conf.from;
+		this.leftTip.value = this.conf.from;
 		this.leftControl.append(this.leftTip);
 	}
 	/*Создаем ползунок максимального значения*/
@@ -362,7 +363,7 @@ class sliderViewDoubleControl extends sliderView {
 
 		this.rightTip = document.createElement('input');
 		this.rightTip.className = 'rs__tip rs__tip-max';
-		this.rightTip.value = conf.to;
+		this.rightTip.value = this.conf.to;
 		this.rightControl.append(this.rightTip);
 	}
 
