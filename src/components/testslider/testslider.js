@@ -453,7 +453,7 @@ class sliderViewPanel extends sliderView {
 		this.renderIsScaleToggle();
 		this.renderIsBarToggle();
 		this.renderIsTipToggle();
-		console.log(conf);
+		//	console.log(conf);
 	}
 
 
@@ -472,7 +472,7 @@ class sliderViewPanel extends sliderView {
 
 
 	renderMinInput() {
-		console.log(this.conf);
+		//	console.log(this.conf);
 		this.minLabel = document.createElement('label');
 		this.minLabel.innerText = 'min';
 		this.minInput = document.createElement('input');
@@ -481,7 +481,7 @@ class sliderViewPanel extends sliderView {
 		this.minLabel.append(this.minInput);
 		this.panelTop.append(this.minLabel);
 		//	console.log(this.conf.min);
-		console.log(this.minInput.value);
+		//	console.log(this.minInput.value);
 	}
 
 
@@ -560,7 +560,20 @@ class sliderViewPanel extends sliderView {
 
 		this.isRangeToggleInput = document.createElement('input');
 		this.isRangeToggleInput.type = 'checkbox';
-		this.isRangeToggleInput.checked = 'checked';
+
+
+		if (this.conf.range == true) {
+			console.log('ADD CHECKED');
+			this.isRangeToggleInput.checked = 'checked'
+		} else {
+			console.log('REMOVE CHECKED');
+			this.isRangeToggleInput.removeAttribute('checked')
+
+			//elem.removeAttribute("scope")
+		}
+
+		//	this.conf.range ? this.isRangeToggleInput.checked = 'checked' : this.isRangeToggleInput.checked = 'not checked'
+		//this.isRangeToggleInput.checked = 'checked';
 		this.isRangeToggleInput.className = 'rs__rangeModeToggle';
 
 
@@ -769,7 +782,6 @@ class sliderController {
 			scale: true,
 			bar: true,
 			tip: true
-
 		}
 
 		this.defaultConf.step = (this.defaultConf.max - this.defaultConf.min) / 5,
@@ -793,7 +805,7 @@ class sliderController {
 		//	console.log(this.conf);
 		this.viewScale.init(this.conf);
 		this.viewDoubleControl.init(this.conf);
-		console.log('!!!!');
+		//	console.log('!!!!');
 		this.viewPanel.init(this.conf);
 		this.model.init(this.conf);
 	}
@@ -852,18 +864,24 @@ class sliderController {
 
 	//вызываем метод updateСurrentControl в view
 	handleOnСontrolValueUpdated = (elem, newValue) => {
+		//	console.log(elem);
+
+		elem.classList.contains('rs__control-min') ? this.conf.from = parseInt(newValue) : this.conf.to = parseInt(newValue);
 		this.viewPanel.updateFromTo(elem, newValue);
 		this.viewDoubleControl.updateFromTo(elem, newValue);
 	}
 
 
 	handleIsTipChecked = (e) => {
+		this.conf.tip = true;
 		this.viewDoubleControl.tipMode();
 		//	this.model.computeControlPosFromEvent(e);
 
 	}
 
 	handleIsTipNotChecked = (e) => {
+
+		this.conf.tip = false;
 		this.viewDoubleControl.noTipMode();
 		//	this.model.computeControlPosFromEvent(e);
 
@@ -871,12 +889,17 @@ class sliderController {
 
 
 	handleIsRangeChecked = (e) => {
+		console.log('CHECKED');
+		this.conf.range = true;
 		this.viewDoubleControl.doubleMode();
 		this.model.computeControlPosFromEvent(e);
 
 	}
 
 	handleIsRangeNotChecked = (e) => {
+
+		console.log('NOT CHECKED');
+		this.conf.range = false;
 		this.viewDoubleControl.singleMode();
 		this.model.computeControlPosFromEvent(e);
 
@@ -917,10 +940,12 @@ class sliderController {
 
 
 	handleIsVerticalChecked = () => {
+		this.conf.vertical = true;
 		this.viewDoubleControl.verticalMode();
 	}
 
 	handleIsVerticalNotChecked = () => {
+		this.conf.vertical = false;
 		this.viewDoubleControl.horisontalMode();
 	}
 
