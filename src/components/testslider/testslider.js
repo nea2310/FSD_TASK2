@@ -284,14 +284,18 @@ class sliderViewScale extends sliderView {
 	//создаем деления шкалы
 	renderMarks(conf, marks = true) {
 		if (marks) {
+			let currentMarkList = this.scale.querySelectorAll('.rs__mark');
+			for (let elem of currentMarkList) {
+				elem.remove();
+			}
 			this.step = conf.step;
 			let length = parseFloat(this.scaleWidth);
 
 			let singleIntervalCount = (conf.max - conf.min)//кол-во единичных интервалов
 			let singleLength = length / singleIntervalCount;//ширина единичного интервала
 			let stepLength = singleLength * conf.step;// ширина шага (шаг может быть равен одному или нескольким единичным интервалам)
-			// console.log(conf.min);
-			// console.log(conf.max);
+			// console.log('conf.min: ' + conf.min);
+			// console.log('conf.max: ' + conf.max);
 			// console.log('conf.step: ' + conf.step);
 			// console.log('length: ' + length);
 			// console.log('singleIntervalCount: ' + singleIntervalCount);
@@ -739,6 +743,15 @@ class sliderViewPanel extends sliderView {
 	}
 
 
+
+	//ввод значения STEP
+	bindStepChange(eventHandler) {
+		this.stepInput.addEventListener('change', (e) => {
+			eventHandler(this.stepInput.value, e);
+		});
+	}
+
+
 	//ввод значения MIN/MAX
 	bindMinMaxChange(eventHandler) {
 		this.minInput.addEventListener('change', (e) => {
@@ -906,10 +919,11 @@ class sliderController {
 
 
 
-
+		this.viewPanel.bindMinMaxChange(this.handleMinMaxChanged);
+		this.viewPanel.bindStepChange(this.handleStepChanged);
 		this.viewPanel.bindFromToChange(this.handleFromToChanged);
 
-		this.viewPanel.bindMinMaxChange(this.handleMinMaxChanged);
+
 
 
 		this.view.bindMouseUp(this.handleMouseUp);//вешаем обработчик handleMouseUp для обработки в view события отпускания кнопки (завершение перетаскивания ползунка)
@@ -1044,6 +1058,17 @@ class sliderController {
 
 		this.handleWindowReRendering();
 	}
+
+
+
+
+
+	handleStepChanged = (val) => {
+		this.conf.step = parseInt(val);
+		this.viewScale.renderMarks(this.conf);
+	}
+
+
 
 	// снимаем обработчики, повешенные на событие перемещения мыши
 	handleMouseUp = (e) => {
