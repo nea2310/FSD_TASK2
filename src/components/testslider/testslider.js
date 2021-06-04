@@ -434,14 +434,9 @@ class sliderViewDoubleControl extends sliderView {
 	}
 
 
-	//Обновляем значение tip при перемещении ползунков (вызывается через контроллер)
-	updateFromTo(elem, newValue) {
-		console.log('updateFromTo');
-		elem.classList.contains('rs__control-min') ? this.leftTip.value = newValue : this.rightTip.value = newValue;
-	}
+	//Обновляем значение tip
 
-	setFromToTip(val, isFrom) {
-		console.log('setFromToTip');
+	updateTipVal(val, isFrom) {
 		isFrom ? this.leftTip.value = val : this.rightTip.value = val;
 	};
 
@@ -938,14 +933,6 @@ class sliderController {
 		this.viewDoubleControl.updateControlPos(elem, newLeft);
 	}
 
-	//вызываем метод updateСurrentControl в view
-	handleOnСontrolValueUpdated = (elem, newValue) => {
-		elem.classList.contains('rs__control-min') ? this.conf.from = parseInt(newValue) : this.conf.to = parseInt(newValue);
-		this.viewPanel.updateFromTo(elem, newValue);
-		this.viewDoubleControl.updateFromTo(elem, newValue);
-	}
-
-
 
 	handleIsVerticalChecked = () => {
 		this.conf.vertical = true;
@@ -969,10 +956,7 @@ class sliderController {
 		this.conf.range = false;
 		this.viewDoubleControl.updateRangeMode(false);
 		this.model.computeControlPosFromEvent(e);
-
 	}
-
-
 
 
 	handleIsScaleChecked = () => {
@@ -1012,13 +996,27 @@ class sliderController {
 		if (e.target.classList.contains('rs__input-from')) {
 			this.conf.from = parseInt(val);
 			this.model.computeControlPosFromVal(val, false, this.viewDoubleControl.leftControl);
-			this.viewDoubleControl.setFromToTip(val, true);
+			this.viewDoubleControl.updateTipVal(val, true);
 		} else {
 			this.conf.to = parseInt(val);
 			this.model.computeControlPosFromVal(val, false, this.viewDoubleControl.rightControl);
-			this.viewDoubleControl.setFromToTip(val, false);
+			this.viewDoubleControl.updateTipVal(val, false);
 		}
 	}
+
+
+	//вызываем метод updateСurrentControl в view
+	handleOnСontrolValueUpdated = (elem, newValue) => {
+		console.log(elem);
+		elem.classList.contains('rs__control-min') ? this.conf.from = parseInt(newValue) : this.conf.to = parseInt(newValue);
+		this.viewPanel.updateFromTo(elem, newValue);
+		elem.classList.contains('rs__control-min') ? this.viewDoubleControl.updateTipVal(newValue, true) :
+			this.viewDoubleControl.updateTipVal(newValue, false);
+
+	}
+
+
+
 
 
 	handleMinMaxChanged = (val, e) => {
@@ -1027,12 +1025,12 @@ class sliderController {
 
 			this.conf.min = parseInt(val);
 			this.model.computeControlPosFromVal(val, false, this.viewDoubleControl.leftControl);
-			this.viewDoubleControl.setFromToTip(val, true);
+			this.viewDoubleControl.updateTipVal(val, true);
 		} else if (e.target.classList.contains('rs__input-max')) {
 
 			this.conf.max = parseInt(val);
 			this.model.computeControlPosFromVal(val, false, this.viewDoubleControl.rightControl);
-			this.viewDoubleControl.setFromToTip(val, false);
+			this.viewDoubleControl.updateTipVal(val, false);
 		}
 
 		this.handleWindowReRendering();
