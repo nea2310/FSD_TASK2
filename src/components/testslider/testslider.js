@@ -61,7 +61,9 @@ class sliderModel {
 
 	//Рассчитываем положение ползунка на основании значения, введенного в панели конфигурирования или в объекте конфигурации
 	computeControlPosFromVal(val, isInitialRendering = true, control) {
-		this.newLeft = (parseInt(val) - this.minRangeVal) * this.scaleWidth / (this.maxRangeVal - this.minRangeVal);// начальное положение левого ползунка на шкале
+		if (parseInt(val) != this.minRangeVal) { this.newLeft = (parseInt(val) - this.minRangeVal) * this.scaleWidth / (this.maxRangeVal - this.minRangeVal); }// начальное положение левого ползунка на шкале
+		else this.newLeft = 0.00001;
+
 		if (isInitialRendering) {
 			return this.newLeft
 		}
@@ -749,14 +751,12 @@ class sliderViewPanel extends sliderView {
 	}
 
 	//Эмуляция события ввода в инпут
-	createEvent(input, pos) {
-
-		input.value = conf.max * pos;
+	createEvent(input) {
+		input.value = this.conf.min;
 		let event = new Event('input', {
 			bubbles: true,
 			cancelable: true,
 		});
-
 		this.fromInput.dispatchEvent(event);
 	}
 
@@ -770,7 +770,7 @@ class sliderViewPanel extends sliderView {
 			if (this.isRangeToggleInput.checked) {
 
 				if (parseInt(this.fromInput.value) >= parseInt(this.toInput.value)) {
-					this.createEvent(this.fromInput, 0.0001);
+					this.createEvent(this.fromInput);
 				}
 				checkedEventHandler(e);
 			}
@@ -1007,7 +1007,6 @@ class sliderController {
 
 	//вызываем метод updateСurrentControl в view
 	handleOnСontrolValueUpdated = (elem, newValue) => {
-		console.log(elem);
 		elem.classList.contains('rs__control-min') ? this.conf.from = parseInt(newValue) : this.conf.to = parseInt(newValue);
 		this.viewPanel.updateFromTo(elem, newValue);
 		elem.classList.contains('rs__control-min') ? this.viewDoubleControl.updateTipVal(newValue, true) :
