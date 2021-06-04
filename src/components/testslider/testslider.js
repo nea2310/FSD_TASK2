@@ -266,7 +266,7 @@ class sliderViewScale extends sliderView {
 
 	// Инициализация
 	init(conf) {
-		this.renderScale();// шкала
+		this.renderScale(conf);// шкала
 		this.renderMarks(conf);//деления шкалы
 	}
 	//создаем шкалу
@@ -280,14 +280,19 @@ class sliderViewScale extends sliderView {
 		this.progressBar = document.createElement('div');
 		this.progressBar.className = 'rs__progressBar';
 		this.scale.append(this.progressBar);
+		if (!conf.bar) {
+			this.progressBar.classList.add('hidden')
+		}
 	}
 	//создаем деления шкалы
 	renderMarks(conf, marks = true) {
 		if (marks) {
-			let currentMarkList = this.scale.querySelectorAll('.rs__mark');
-			for (let elem of currentMarkList) {
-				elem.remove();
+			if (this.markList) {
+				for (let elem of this.markList) {
+					elem.remove();
+				}
 			}
+
 			this.step = conf.step;
 			let length = parseFloat(this.scaleWidth);
 
@@ -315,6 +320,7 @@ class sliderViewScale extends sliderView {
 				innerText = innerText + conf.step;
 			}
 		}
+		this.markList = this.scale.querySelectorAll('.rs__mark');
 	}
 
 	//Вешаем обработчик клика по шкале
@@ -359,6 +365,28 @@ class sliderViewScale extends sliderView {
 		this.progressBar.style.left = left;
 		this.progressBar.style.width = width;
 	}
+
+
+
+	updateScaleMode(isScale) {
+		if (isScale) {
+			for (let elem of this.markList) {
+				elem.classList.remove('hidden');
+			}
+		} else {
+			for (let elem of this.markList) {
+				elem.classList.add('hidden');
+			}
+		}
+
+	}
+
+
+	updateBarMode(isBar) {
+		isBar ? this.progressBar.classList.remove('hidden') : this.progressBar.classList.add('hidden');
+	}
+
+
 
 }
 
@@ -457,20 +485,20 @@ class sliderViewDoubleControl extends sliderView {
 	updateRangeMode(isDouble) {
 		if (isDouble) {
 			this.rightControl.classList.remove('hidden');
-			this.rightTip.classList.remove('hidden')
+			if (this.conf.tip) {
+				this.rightTip.classList.remove('hidden')
+			}
+
 		} else {
 			this.rightControl.classList.add('hidden');
+			console.log(this.conf);
 			this.rightTip.classList.add('hidden');
 		}
 	}
 
-	updateScaleMode(isScale) {
-		isScale ? console.log('SCALE MODE') : console.log('NO SCALE MODE');
-	}
 
-	updateBarMode(isBar) {
-		isBar ? console.log('BAR MODE') : console.log('NO BAR MODE');
-	}
+
+
 
 
 	updateTipMode(isTip) {
@@ -881,10 +909,16 @@ class sliderController {
 			tip: true
 		}
 
-		this.defaultConf.step = (this.defaultConf.max - this.defaultConf.min) / 5,
-			this.customConf = conf;
+		this.customConf = conf;
 		this.customConf.target = root;//это нужно для модели
 		this.conf = Object.assign(this.defaultConf, this.customConf);
+
+		if (!this.conf.hasOwnProperty('step')) {
+			this.conf.step = (this.conf.max - this.conf.min) / 5;
+		}
+
+		console.log(this.conf.step);
+
 	}
 
 
@@ -984,22 +1018,22 @@ class sliderController {
 
 	handleIsScaleChecked = () => {
 		this.conf.scale = true;
-		this.viewDoubleControl.updateScaleMode(true);
+		this.viewScale.updateScaleMode(true);
 	}
 
 	handleIsScaleNotChecked = () => {
 		this.conf.scale = false;
-		this.viewDoubleControl.updateScaleMode(false);
+		this.viewScale.updateScaleMode(false);
 	}
 
 	handleIsBarChecked = () => {
 		this.conf.bar = true;
-		this.viewDoubleControl.updateBarMode(true);
+		this.viewScale.updateBarMode(true);
 	}
 
 	handleIsBarNotChecked = () => {
 		this.conf.bar = false;
-		this.viewDoubleControl.updateBarMode(false);
+		this.viewScale.updateBarMode(false);
 	}
 
 
@@ -1092,7 +1126,7 @@ let conf = {
 	max: 10000,
 	from: 2000,
 	to: 7000,
-	step: 1000
+	step: 1500
 }
 
 new sliderController(conf, root,
