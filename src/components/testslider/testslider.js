@@ -451,53 +451,75 @@ class sliderViewDoubleControl extends sliderView {
 		isFrom ? this.leftTip.value = val : this.rightTip.value = val;
 	};
 
-
-
-	verticalMode() { //console.log('VERTICALMODE') 
+	updateVerticalMode(isVertical) {
+		isVertical ? console.log('VERTICALMODE') : console.log('HORIZONTALMODE');
 	}
 
-	horizontalMode() { //console.log('HORIZONTALMODE')
+	// verticalMode() { //console.log('VERTICALMODE') 
+	// }
+
+	// horizontalMode() { //console.log('HORIZONTALMODE')
+	// }
+
+	// doubleMode() {
+	// 	this.rightControl.classList.remove('hidden')
+	// }
+
+	// singleMode() {
+	// 	this.rightControl.classList.add('hidden')
+	// }
+
+	updateRangeMode(isDouble) {
+
+		isDouble ? this.rightControl.classList.remove('hidden') : this.rightControl.classList.add('hidden');
+
 	}
 
-	doubleMode() {
-		this.rightControl.classList.remove('hidden')
+	updateScaleMode(isScale) {
+		isScale ? console.log('SCALE MODE') : console.log('NO SCALE MODE');
 	}
 
-	singleMode() {
-		this.rightControl.classList.add('hidden')
+	updateBarMode(isBar) {
+		isBar ? console.log('BAR MODE') : console.log('NO BAR MODE');
+	}
+
+	// scaleMode() { //console.log('scaleMode') 
+	// }
+
+	// noScaleMode() { //console.log('NO scaleMode')
+	// }
+
+
+	// barMode() { //console.log('BAR MODE') 
+	// }
+
+	// noBarMode() { //console.log('no BAR mode')
+	// }
+
+
+
+	updateTipMode(isTip) {
+		if (isTip) {
+			this.rightTip.classList.remove('hidden');
+			this.leftTip.classList.remove('hidden');
+		} else {
+			this.rightTip.classList.add('hidden');
+			this.leftTip.classList.add('hidden');
+		}
+
+
 	}
 
 
+	// tipMode() {
+	// 	this.rightTip.classList.remove('hidden');
+	// 	this.leftTip.classList.remove('hidden');
+	// }
 
-
-
-	scaleMode() { //console.log('scaleMode') 
-	}
-
-	noScaleMode() { //console.log('NO scaleMode')
-	}
-
-
-	barMode() { //console.log('BAR MODE') 
-	}
-
-	noBarMode() { //console.log('no BAR mode')
-	}
-
-
-
-
-
-
-	tipMode() {
-		this.rightTip.classList.remove('hidden');
-		this.leftTip.classList.remove('hidden');
-	}
-
-	noTipMode() {
-		this.rightTip.classList.add('hidden');
-		this.leftTip.classList.add('hidden');
-	}
+	// noTipMode() {
+	// 	this.rightTip.classList.add('hidden');
+	// 	this.leftTip.classList.add('hidden');
+	// }
 
 
 
@@ -1034,19 +1056,22 @@ class sliderController {
 
 	handleIsVerticalChecked = () => {
 		this.conf.vertical = true;
-		this.viewDoubleControl.verticalMode();
+		this.viewDoubleControl.updateVerticalMode(true);
+		//this.viewDoubleControl.verticalMode();
 	}
 
 	handleIsVerticalNotChecked = () => {
 		this.conf.vertical = false;
-		this.viewDoubleControl.horisontalMode();
+		this.viewDoubleControl.updateVerticalMode(true);
+		//this.viewDoubleControl.horisontalMode();
 	}
 
 
 	handleIsRangeChecked = (e) => {
 		console.log('CHECKED');
 		this.conf.range = true;
-		this.viewDoubleControl.doubleMode();
+		//	this.viewDoubleControl.doubleMode();
+		this.viewDoubleControl.updateRangeMode(true);
 		this.model.computeControlPosFromEvent(e);
 
 	}
@@ -1055,7 +1080,8 @@ class sliderController {
 
 		console.log('NOT CHECKED');
 		this.conf.range = false;
-		this.viewDoubleControl.singleMode();
+		//this.viewDoubleControl.singleMode();
+		this.viewDoubleControl.updateRangeMode(false);
 		this.model.computeControlPosFromEvent(e);
 
 	}
@@ -1065,12 +1091,14 @@ class sliderController {
 
 	handleIsScaleChecked = () => {
 		this.conf.scale = true;
-		this.viewDoubleControl.scaleMode();
+		this.viewDoubleControl.updateScaleMode(true);
+		//this.viewDoubleControl.scaleMode();
 	}
 
 	handleIsScaleNotChecked = () => {
 		this.conf.scale = false;
-		this.viewDoubleControl.noScaleMode();
+		this.viewDoubleControl.updateScaleMode(false);
+		//this.viewDoubleControl.noScaleMode();
 	}
 
 
@@ -1079,19 +1107,22 @@ class sliderController {
 
 	handleIsBarChecked = () => {
 		this.conf.bar = true;
-		this.viewDoubleControl.barMode();
+		this.viewDoubleControl.updateBarMode(true);
+		//	this.viewDoubleControl.barMode();
 	}
 
 	handleIsBarNotChecked = () => {
 		this.conf.bar = false;
-		this.viewDoubleControl.noBarMode();
+		this.viewDoubleControl.updateBarMode(false);
+		//	this.viewDoubleControl.noBarMode();
 	}
 
 
 
 	handleIsTipChecked = (e) => {
 		this.conf.tip = true;
-		this.viewDoubleControl.tipMode();
+		this.viewDoubleControl.updateTipMode(true);
+		//this.viewDoubleControl.tipMode();
 		//	this.model.computeControlPosFromEvent(e);
 
 	}
@@ -1099,7 +1130,8 @@ class sliderController {
 	handleIsTipNotChecked = (e) => {
 
 		this.conf.tip = false;
-		this.viewDoubleControl.noTipMode();
+		this.viewDoubleControl.updateTipMode(false);
+		//this.viewDoubleControl.noTipMode();
 		//	this.model.computeControlPosFromEvent(e);
 
 	}
