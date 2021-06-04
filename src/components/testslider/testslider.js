@@ -6,9 +6,7 @@ class sliderModel {
 
 	init(conf) {
 		this.conf = conf;
-		console.log(this.conf);
 		if (this.conf.range == true) {
-			console.log('DOUBLE');
 			this.slider = document.querySelector(conf.target);
 			this.leftControl = this.slider.querySelector('.rs__control-min');
 			this.rightControl = this.slider.querySelector('.rs__control-max');
@@ -29,7 +27,6 @@ class sliderModel {
 		}
 
 		else if (this.conf.range == false) {
-			console.log('SINGLE');
 			this.slider = document.querySelector(conf.target);
 			this.leftControl = this.slider.querySelector('.rs__control-min');
 			this.rightControl = this.slider.querySelector('.rs__control-max');
@@ -189,11 +186,9 @@ class sliderModel {
 			}
 
 			else if (this.switchToVerticalMode) {//переключение в вертикальный режим
-				//	console.log('switchToVerticalMode');
 			}
 
 			else if (this.switchToHorizontalMode) {//переключение в горизонтальный режим
-				//	console.log('switchToHorizontalMode');
 			}
 		}
 		this.progressBarUpdated(this.selectedLeft, this.selectedWidth); //Вызываем для обновления прогресс бара в view
@@ -241,7 +236,7 @@ class sliderView {
 
 		function windowResizeStart() {
 			clearTimeout(resizeTimeoutId); //удаляем все предыдущие события "Дребезга контактов"
-			resizeTimeoutId = setTimeout(windowResizeStop, 200);
+			resizeTimeoutId = setTimeout(windowResizeStop, 1000);
 		}
 
 		function windowResizeStop() {
@@ -265,7 +260,6 @@ class sliderViewScale extends sliderView {
 
 	// Инициализация
 	init(conf) {
-		//	console.log(conf);
 		this.renderScale();// шкала
 		this.renderMarks(conf);//деления шкалы
 	}
@@ -323,7 +317,6 @@ class sliderViewScale extends sliderView {
 				this.rightControl = this.slider.querySelector('.rs__control-max');
 				let leftControlPos = this.leftControl.getBoundingClientRect().left
 				let rightControlPos = this.rightControl.getBoundingClientRect().left
-
 				let leftControlDist = Math.abs(leftControlPos - e.clientX);
 				let rightControlDist = Math.abs(rightControlPos - e.clientX);
 
@@ -353,7 +346,6 @@ class sliderViewScale extends sliderView {
 
 	/*красим Progress Bar (вызывается из контроллера)*/
 	updateProgressBar(left, width) {
-
 		this.progressBar.style.left = left;
 		this.progressBar.style.width = width;
 	}
@@ -444,10 +436,12 @@ class sliderViewDoubleControl extends sliderView {
 
 	//Обновляем значение tip при перемещении ползунков (вызывается через контроллер)
 	updateFromTo(elem, newValue) {
+		console.log('updateFromTo');
 		elem.classList.contains('rs__control-min') ? this.leftTip.value = newValue : this.rightTip.value = newValue;
 	}
 
 	setFromToTip(val, isFrom) {
+		console.log('setFromToTip');
 		isFrom ? this.leftTip.value = val : this.rightTip.value = val;
 	};
 
@@ -455,24 +449,8 @@ class sliderViewDoubleControl extends sliderView {
 		isVertical ? console.log('VERTICALMODE') : console.log('HORIZONTALMODE');
 	}
 
-	// verticalMode() { //console.log('VERTICALMODE') 
-	// }
-
-	// horizontalMode() { //console.log('HORIZONTALMODE')
-	// }
-
-	// doubleMode() {
-	// 	this.rightControl.classList.remove('hidden')
-	// }
-
-	// singleMode() {
-	// 	this.rightControl.classList.add('hidden')
-	// }
-
 	updateRangeMode(isDouble) {
-
 		isDouble ? this.rightControl.classList.remove('hidden') : this.rightControl.classList.add('hidden');
-
 	}
 
 	updateScaleMode(isScale) {
@@ -483,20 +461,6 @@ class sliderViewDoubleControl extends sliderView {
 		isBar ? console.log('BAR MODE') : console.log('NO BAR MODE');
 	}
 
-	// scaleMode() { //console.log('scaleMode') 
-	// }
-
-	// noScaleMode() { //console.log('NO scaleMode')
-	// }
-
-
-	// barMode() { //console.log('BAR MODE') 
-	// }
-
-	// noBarMode() { //console.log('no BAR mode')
-	// }
-
-
 
 	updateTipMode(isTip) {
 		if (isTip) {
@@ -506,25 +470,7 @@ class sliderViewDoubleControl extends sliderView {
 			this.rightTip.classList.add('hidden');
 			this.leftTip.classList.add('hidden');
 		}
-
-
 	}
-
-
-	// tipMode() {
-	// 	this.rightTip.classList.remove('hidden');
-	// 	this.leftTip.classList.remove('hidden');
-	// }
-
-	// noTipMode() {
-	// 	this.rightTip.classList.add('hidden');
-	// 	this.leftTip.classList.add('hidden');
-	// }
-
-
-
-
-
 }
 
 
@@ -545,7 +491,6 @@ class sliderViewPanel extends sliderView {
 		this.renderIsScaleToggle();
 		this.renderIsBarToggle();
 		this.renderIsTipToggle();
-		//	console.log(conf);
 	}
 
 
@@ -564,7 +509,6 @@ class sliderViewPanel extends sliderView {
 
 
 	renderMinInput() {
-		//	console.log(this.conf);
 		this.minLabel = document.createElement('label');
 		this.minLabel.innerText = 'min';
 		this.minInput = document.createElement('input');
@@ -572,8 +516,6 @@ class sliderViewPanel extends sliderView {
 		this.minInput.className = 'rs__input rs__input-min';
 		this.minLabel.append(this.minInput);
 		this.panelTop.append(this.minLabel);
-		//	console.log(this.conf.min);
-		//	console.log(this.minInput.value);
 	}
 
 
@@ -629,13 +571,10 @@ class sliderViewPanel extends sliderView {
 
 		this.isVerticalToggleInput = document.createElement('input');
 		this.isVerticalToggleInput.type = 'checkbox';
-		//	this.isVerticalToggleInput.checked = 'checked';
 
 		if (this.conf.vertical == true) {
-			console.log('ADD CHECKED');
 			this.isVerticalToggleInput.checked = 'checked'
 		} else {
-			console.log('REMOVE CHECKED');
 			this.isVerticalToggleInput.removeAttribute('checked')
 		}
 
@@ -656,10 +595,8 @@ class sliderViewPanel extends sliderView {
 
 
 		if (this.conf.vertical == true) {
-			console.log('ADD CHECKED');
 			this.isVerticalToggleInput.checked = 'checked'
 		} else {
-			console.log('REMOVE CHECKED');
 			this.isVerticalToggleInput.removeAttribute('checked')
 		}
 
@@ -675,26 +612,17 @@ class sliderViewPanel extends sliderView {
 
 
 		if (this.conf.range == true) {
-			console.log('ADD CHECKED');
 			this.isRangeToggleInput.checked = 'checked'
 		} else {
-			console.log('REMOVE CHECKED');
 			this.isRangeToggleInput.removeAttribute('checked')
 		}
 
-		//	this.conf.range ? this.isRangeToggleInput.checked = 'checked' : this.isRangeToggleInput.checked = 'not checked'
-		//this.isRangeToggleInput.checked = 'checked';
 		this.isRangeToggleInput.className = 'rs__rangeModeToggle';
-
-
 		this.isRangeToggleSpan = document.createElement('span');
 		this.isRangeToggleSpan.className = 'togglemark';
-
 		this.isRangeToggleLabel = document.createElement('label');
 		this.isRangeToggleLabel.className = 'togglemark__label';
 		this.isRangeToggleLabel.innerText = 'range';
-
-
 		this.isRangeToggle.append(this.isRangeToggleInput);
 		this.isRangeToggle.append(this.isRangeToggleSpan);
 		this.isRangeToggle.append(this.isRangeToggleLabel);
@@ -710,13 +638,10 @@ class sliderViewPanel extends sliderView {
 
 		this.isScaleToggleInput = document.createElement('input');
 		this.isScaleToggleInput.type = 'checkbox';
-		//	this.isScaleToggleInput.checked = 'checked';
 
 		if (this.conf.scale == true) {
-			console.log('ADD CHECKED');
 			this.isScaleToggleInput.checked = 'checked'
 		} else {
-			console.log('REMOVE CHECKED');
 			this.isScaleToggleInput.removeAttribute('checked')
 		}
 
@@ -744,19 +669,14 @@ class sliderViewPanel extends sliderView {
 
 		this.isBarToggleInput = document.createElement('input');
 		this.isBarToggleInput.type = 'checkbox';
-		//this.isBarToggleInput.checked = 'checked';
 
 		if (this.conf.bar == true) {
-			console.log('ADD CHECKED');
 			this.isBarToggleInput.checked = 'checked'
 		} else {
-			console.log('REMOVE CHECKED');
 			this.isBarToggleInput.removeAttribute('checked')
 		}
 
 		this.isBarToggleInput.className = 'rs__barModeToggle';
-
-
 		this.isBarToggleSpan = document.createElement('span');
 		this.isBarToggleSpan.className = 'togglemark';
 
@@ -778,19 +698,14 @@ class sliderViewPanel extends sliderView {
 
 		this.isTipToggleInput = document.createElement('input');
 		this.isTipToggleInput.type = 'checkbox';
-		//	this.isTipToggleInput.checked = 'checked';
 
 		if (this.conf.tip == true) {
-			console.log('ADD CHECKED');
 			this.isTipToggleInput.checked = 'checked'
 		} else {
-			console.log('REMOVE CHECKED');
 			this.isTipToggleInput.removeAttribute('checked')
 		}
 
 		this.isTipToggleInput.className = 'rs__tipModeToggle';
-
-
 		this.isTipToggleSpan = document.createElement('span');
 		this.isTipToggleSpan.className = 'togglemark';
 
@@ -877,8 +792,6 @@ class sliderViewPanel extends sliderView {
 	bindCheckIsScaleControl(checkedEventHandler, notCheckedEventHandler) {
 
 		this.isScaleToggleInput.addEventListener('change', (e) => {
-
-
 			if (this.isScaleToggleInput.checked) {
 				checkedEventHandler(e)
 			}
@@ -892,10 +805,7 @@ class sliderViewPanel extends sliderView {
 
 	//щелчок по чекбоксу BAR
 	bindCheckIsBarControl(checkedEventHandler, notCheckedEventHandler) {
-
 		this.isBarToggleInput.addEventListener('change', (e) => {
-
-
 			if (this.isBarToggleInput.checked) {
 				checkedEventHandler(e)
 			}
@@ -909,10 +819,7 @@ class sliderViewPanel extends sliderView {
 
 	//щелчок по чекбоксу TIP
 	bindCheckIsTipControl(checkedEventHandler, notCheckedEventHandler) {
-
 		this.isTipToggleInput.addEventListener('change', (e) => {
-
-
 			if (this.isTipToggleInput.checked) {
 				checkedEventHandler(e)
 			}
@@ -958,27 +865,15 @@ class sliderController {
 		}
 
 		this.defaultConf.step = (this.defaultConf.max - this.defaultConf.min) / 5,
-
-			//	console.log(this.defaultConf);
-
 			this.customConf = conf;
 		this.customConf.target = root;//это нужно для модели
-
-
-
-		// console.log(this.defaultConf);
-		// console.log(this.customConf);
-
 		this.conf = Object.assign(this.defaultConf, this.customConf);
-		//	console.log(this.conf);
 	}
 
 
 	render = (conf) => {
-		//	console.log(this.conf);
 		this.viewScale.init(this.conf);
 		this.viewDoubleControl.init(this.conf);
-		//	console.log('!!!!');
 		this.viewPanel.init(this.conf);
 		this.model.init(this.conf);
 	}
@@ -1045,8 +940,6 @@ class sliderController {
 
 	//вызываем метод updateСurrentControl в view
 	handleOnСontrolValueUpdated = (elem, newValue) => {
-		//	console.log(elem);
-
 		elem.classList.contains('rs__control-min') ? this.conf.from = parseInt(newValue) : this.conf.to = parseInt(newValue);
 		this.viewPanel.updateFromTo(elem, newValue);
 		this.viewDoubleControl.updateFromTo(elem, newValue);
@@ -1057,30 +950,23 @@ class sliderController {
 	handleIsVerticalChecked = () => {
 		this.conf.vertical = true;
 		this.viewDoubleControl.updateVerticalMode(true);
-		//this.viewDoubleControl.verticalMode();
 	}
 
 	handleIsVerticalNotChecked = () => {
 		this.conf.vertical = false;
 		this.viewDoubleControl.updateVerticalMode(true);
-		//this.viewDoubleControl.horisontalMode();
 	}
 
 
 	handleIsRangeChecked = (e) => {
-		console.log('CHECKED');
 		this.conf.range = true;
-		//	this.viewDoubleControl.doubleMode();
 		this.viewDoubleControl.updateRangeMode(true);
 		this.model.computeControlPosFromEvent(e);
 
 	}
 
 	handleIsRangeNotChecked = (e) => {
-
-		console.log('NOT CHECKED');
 		this.conf.range = false;
-		//this.viewDoubleControl.singleMode();
 		this.viewDoubleControl.updateRangeMode(false);
 		this.model.computeControlPosFromEvent(e);
 
@@ -1092,29 +978,21 @@ class sliderController {
 	handleIsScaleChecked = () => {
 		this.conf.scale = true;
 		this.viewDoubleControl.updateScaleMode(true);
-		//this.viewDoubleControl.scaleMode();
 	}
 
 	handleIsScaleNotChecked = () => {
 		this.conf.scale = false;
 		this.viewDoubleControl.updateScaleMode(false);
-		//this.viewDoubleControl.noScaleMode();
 	}
-
-
-
-
 
 	handleIsBarChecked = () => {
 		this.conf.bar = true;
 		this.viewDoubleControl.updateBarMode(true);
-		//	this.viewDoubleControl.barMode();
 	}
 
 	handleIsBarNotChecked = () => {
 		this.conf.bar = false;
 		this.viewDoubleControl.updateBarMode(false);
-		//	this.viewDoubleControl.noBarMode();
 	}
 
 
@@ -1122,24 +1000,13 @@ class sliderController {
 	handleIsTipChecked = (e) => {
 		this.conf.tip = true;
 		this.viewDoubleControl.updateTipMode(true);
-		//this.viewDoubleControl.tipMode();
-		//	this.model.computeControlPosFromEvent(e);
-
 	}
 
 	handleIsTipNotChecked = (e) => {
 
 		this.conf.tip = false;
 		this.viewDoubleControl.updateTipMode(false);
-		//this.viewDoubleControl.noTipMode();
-		//	this.model.computeControlPosFromEvent(e);
-
 	}
-
-
-
-
-
 
 	handleFromToChanged = (val, e) => {
 		if (e.target.classList.contains('rs__input-from')) {
@@ -1171,12 +1038,6 @@ class sliderController {
 		this.handleWindowReRendering();
 	}
 
-
-
-
-
-
-
 	// снимаем обработчики, повешенные на событие перемещения мыши
 	handleMouseUp = (e) => {
 		document.removeEventListener('mousemove', this.handlecomputeControlPosFromEvent);
@@ -1187,18 +1048,10 @@ class sliderController {
 
 
 	handleWindowReRendering = () => {
-		//	console.log('RERENDERING');
-		//console.log(this.conf);
-		//console.log(this);
 		this.view.deleteSlider();
-		//this.prepareConfiguration();
 		this.render();
 		this.init();
 	};
-
-
-
-
 }
 
 let root = '.rs__wrapper';
