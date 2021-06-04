@@ -2,7 +2,7 @@
 
 class sliderModel {
 
-	/*Получаем элемент ползунка, определяем координаты в момент начала перемещения ползунка, и сохраняем в объекте модели*/
+	/*Инициализация. Получаем элемент ползунка, определяем расположение ползунков и прогресс-бара в момент создания слайдера */
 
 	init(conf) {
 		this.conf = conf;
@@ -50,6 +50,8 @@ class sliderModel {
 		}
 
 	}
+
+	//Получаем и сохраняем в объекте модели данные о перемещаемом ползунке (при перетягивании ползунка или клике по шкале)
 	getControlData(controlData) {
 
 		this.currentControl = controlData.currentControl; // ползунок, за который тянут
@@ -227,7 +229,7 @@ class sliderView {
 		})
 	}
 
-	//Вешаем обработчик события о завершения ресайза
+	//Вешаем обработчик события завершения ресайза
 	bindWindowResize(handler) {
 
 		window.addEventListener("resize", () => { //Подключаем событие изменения размеров окна
@@ -261,10 +263,10 @@ class sliderViewScale extends sliderView {
 		super(root);
 	}
 
-
+	// Инициализация
 	init(conf) {
 		//	console.log(conf);
-		this.renderScale(conf);// шкала
+		this.renderScale();// шкала
 		this.renderMarks(conf);//деления шкалы
 	}
 	//создаем шкалу
@@ -311,7 +313,7 @@ class sliderViewScale extends sliderView {
 		}
 	}
 
-	//Клик по шкале
+	//Вешаем обработчик клика по шкале
 
 	bindClickOnScale(firstEventHandler, secondEventHandler) {
 
@@ -362,7 +364,7 @@ class sliderViewDoubleControl extends sliderView {
 	constructor(root) {
 		super(root);
 	}
-
+	// Инициализация
 	init(conf) {
 		this.conf = conf;
 		this.renderLeftControl();
@@ -381,8 +383,7 @@ class sliderViewDoubleControl extends sliderView {
 		this.leftTip.value = this.conf.from;
 		this.leftControl.append(this.leftTip);
 
-		if (this.conf.tip == false) {
-			console.log('NO TIP MODE');
+		if (this.conf.tip == false) { // no tip mode
 			this.leftTip.classList.add('hidden');
 		}
 
@@ -400,14 +401,12 @@ class sliderViewDoubleControl extends sliderView {
 		this.rightTip.value = this.conf.to;
 		this.rightControl.append(this.rightTip);
 
-		if (this.conf.range == false) {
-			console.log('SINGLE MODE');
+		if (this.conf.range == false) {// single mode
 			this.rightControl.classList.add('hidden');
 			this.rightTip.classList.add('hidden');
 		}
 
-		if (this.conf.tip == false) {
-			console.log('NO TIP MODE');
+		if (this.conf.tip == false) {// no tip mode
 			this.rightTip.classList.add('hidden');
 		}
 
