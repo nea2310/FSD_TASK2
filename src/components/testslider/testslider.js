@@ -731,6 +731,25 @@ class sliderViewPanel extends sliderView {
 	}
 
 
+	//ввод значения MIN/MAX
+	bindMinMaxChange(eventHandler) {
+		this.minInput.addEventListener('input', (e) => {
+			eventHandler(this.minInput.value, e);
+		});
+
+		this.maxInput.addEventListener('input', (e) => {
+			eventHandler(this.maxInput.value, e);
+		});
+	}
+
+	//ввод значения STEP
+	bindStepChange(eventHandler) {
+		this.stepInput.addEventListener('input', (e) => {
+			eventHandler(this.stepInput.value, e);
+		});
+	}
+
+
 	//ввод значения FROM/TO
 	bindFromToChange(eventHandler) {
 		this.fromInput.addEventListener('input', (e) => {
@@ -742,26 +761,6 @@ class sliderViewPanel extends sliderView {
 		});
 	}
 
-
-
-	//ввод значения STEP
-	bindStepChange(eventHandler) {
-		this.stepInput.addEventListener('change', (e) => {
-			eventHandler(this.stepInput.value, e);
-		});
-	}
-
-
-	//ввод значения MIN/MAX
-	bindMinMaxChange(eventHandler) {
-		this.minInput.addEventListener('change', (e) => {
-			eventHandler(this.minInput.value, e);
-		});
-
-		this.maxInput.addEventListener('change', (e) => {
-			eventHandler(this.maxInput.value, e);
-		});
-	}
 
 
 
