@@ -6,46 +6,31 @@ class sliderModel {
 
 	init(conf) {
 		this.conf = conf;
+		//	if (this.conf.range == true) {
+		this.slider = document.querySelector(conf.target);
+		this.leftControl = this.slider.querySelector('.rs__control-min');
+		this.rightControl = this.slider.querySelector('.rs__control-max');
+
+		this.scale = this.slider.querySelector('.rs__slider');
+		this.scaleWidth = this.scale.offsetWidth;
+
+		this.minRangeVal = conf.min;//минимальное значение диапазон
+		this.maxRangeVal = conf.max;//максимальное значение диапазона
+
+		this.leftControlStartVal = conf.from;
+		this.rightControlStartVal = conf.to;
+
+		this.leftControlStartPos = this.computeControlPosFromVal(this.leftControlStartVal);// начальное положение левого ползунка на шкале
+		this.rightControlStartPos = this.computeControlPosFromVal(this.rightControlStartVal);// начальное положение правого ползунка на шкале
+
+
 		if (this.conf.range == true) {
-			this.slider = document.querySelector(conf.target);
-			this.leftControl = this.slider.querySelector('.rs__control-min');
-			this.rightControl = this.slider.querySelector('.rs__control-max');
-
-			this.scale = this.slider.querySelector('.rs__slider');
-			this.scaleWidth = this.scale.offsetWidth;
-
-			this.minRangeVal = conf.min;//минимальное значение диапазон
-			this.maxRangeVal = conf.max;//максимальное значение диапазона
-
-			this.leftControlStartVal = conf.from;
-			this.rightControlStartVal = conf.to;
-
-			this.leftControlStartPos = this.computeControlPosFromVal(this.leftControlStartVal);// начальное положение левого ползунка на шкале
-			this.rightControlStartPos = this.computeControlPosFromVal(this.rightControlStartVal);// начальное положение правого ползунка на шкале
 			this.progressBarStartPos = this.leftControlStartPos; // начальная ширина прогресс-бара
 			this.progressBarStartWidth = this.rightControlStartPos - this.leftControlStartPos; // начальная ширина активного диапазона
-		}
-
-		else if (this.conf.range == false) {
-			this.slider = document.querySelector(conf.target);
-			this.leftControl = this.slider.querySelector('.rs__control-min');
-			this.rightControl = this.slider.querySelector('.rs__control-max');
-
-			this.scale = this.slider.querySelector('.rs__slider');
-			this.scaleWidth = this.scale.offsetWidth;
-
-			this.minRangeVal = conf.min;//минимальное значение диапазон
-			this.maxRangeVal = conf.max;//максимальное значение диапазона
-
-			this.leftControlStartVal = conf.from;
-			this.rightControlStartVal = conf.to;
-
-			this.leftControlStartPos = this.computeControlPosFromVal(this.leftControlStartVal);// начальное положение левого ползунка на шкале
-			this.rightControlStartPos = this.computeControlPosFromVal(this.rightControlStartVal);// начальное положение правого ползунка на шкале
+		} else {
 			this.progressBarStartPos = 0; // начальная ширина прогресс-бара
 			this.progressBarStartWidth = this.leftControlStartPos; // начальная ширина активного диапазона
 		}
-
 	}
 
 	//Получаем и сохраняем в объекте модели данные о перемещаемом ползунке (при перетягивании ползунка или клике по шкале)
@@ -491,7 +476,6 @@ class sliderViewDoubleControl extends sliderView {
 
 		} else {
 			this.rightControl.classList.add('hidden');
-			console.log(this.conf);
 			this.rightTip.classList.add('hidden');
 		}
 	}
@@ -916,9 +900,6 @@ class sliderController {
 		if (!this.conf.hasOwnProperty('step')) {
 			this.conf.step = (this.conf.max - this.conf.min) / 5;
 		}
-
-		console.log(this.conf.step);
-
 	}
 
 
