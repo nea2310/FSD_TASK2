@@ -61,8 +61,12 @@ class sliderModel {
 
 	//Рассчитываем положение ползунка на основании значения, введенного в панели конфигурирования или в объекте конфигурации
 	computeControlPosFromVal(val, isInitialRendering = true, control) {
-		if (parseInt(val) != this.minRangeVal) { this.newLeft = (parseInt(val) - this.minRangeVal) * this.scaleWidth / (this.maxRangeVal - this.minRangeVal); }// начальное положение левого ползунка на шкале
-		else this.newLeft = 0.00001;
+		if (parseInt(val) != this.minRangeVal) {
+			this.newLeft = (parseInt(val) - this.minRangeVal) * this.scaleWidth / (this.maxRangeVal - this.minRangeVal);
+		}
+		else {
+			this.newLeft = 0.00001; // начальное положение левого ползунка на шкале
+		}
 
 		if (isInitialRendering) {
 			return this.newLeft
@@ -447,7 +451,13 @@ class sliderViewDoubleControl extends sliderView {
 	}
 
 	updateRangeMode(isDouble) {
-		isDouble ? this.rightControl.classList.remove('hidden') : this.rightControl.classList.add('hidden');
+		if (isDouble) {
+			this.rightControl.classList.remove('hidden');
+			this.rightTip.classList.remove('hidden')
+		} else {
+			this.rightControl.classList.add('hidden');
+			this.rightTip.classList.add('hidden');
+		}
 	}
 
 	updateScaleMode(isScale) {
