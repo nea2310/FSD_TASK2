@@ -24,6 +24,7 @@
 	border: none;
 	height: 6px;
 	left: 15px;
+	z-index: 2;
 }
 
 .rs__control {
@@ -31,6 +32,7 @@
 	height: 25px;
 	position: absolute;
 	left: 0;
+
 	top: -11.5px;
 	background: green;
 	border-radius: 50%;
@@ -58,10 +60,6 @@
 	width: 30px;
 }
 
-// .rs__range {
-// 	width: 30px;
-// }
-
 .rs__panelWrapper {
 	display: flex;
 	flex-wrap: wrap;
@@ -86,4 +84,28 @@
 	margin-top: 8px;
 	height: 5px;
 	background-color: #000;
+}
+
+.rs__slider.vertical {
+	//border: 1px solid yellow;
+	height: 100%;
+	width: 6px;
+}
+
+.rs__control.vertical {
+	left: -9.5px;
+}
+
+.rs__wrapper.vertical {
+	//border: 1px solid yellow;
+}
+
+.rs__progressBar.vertical {
+	background-color: blueviolet;
+
+	position: absolute;
+	width: 6px;
+	border: none;
+	//height: 100%;
+	left: 0px;
 }
