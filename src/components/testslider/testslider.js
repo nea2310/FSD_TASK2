@@ -181,102 +181,59 @@ class sliderModel {
 				this.newValue = ((this.newPos + this.shift) / (this.parentElement.offsetHeight / (this.maxRangeVal - this.minRangeVal)) + this.minRangeVal).toFixed(0);
 				this.сontrolValueUpdated(this.currentControl, this.newValue); //Вызываем для обновления панели view
 			}
-
 		}
 		this.computeProgressBar();
 	}
 
-	/*Рассчитываем ширину и позицию left прогресс-бара*/
+	/*Рассчитываем ширину и позицию left (top) прогресс-бара*/
 	computeProgressBar() {
-		console.log('COMPUTE PROGRESS BAR');
-
-		if (!this.conf.vertical) { //горизонтальный режим
-			if (!this.changeMode) { //Если это не переключение режима
-				//режим Double
-				console.log('NO CHANGE MODE');
-				if (!this.rightControl.classList.contains('hidden')) {
-					this.selectedWidth = Math.abs(parseFloat(this.secondControl.style.left) - this.newPos) + "px";
-					if (!this.currentControlFlag) { //перемещатся левый ползунок
-						this.selectedLeft = this.newPos + this.currentControl.offsetWidth + "px";
-					} else {//перемещатся правый ползунок
-						this.selectedLeft = this.secondControl.getBoundingClientRect().left + window.pageXOffset - this.parentElement.getBoundingClientRect().left + "px";
-					}
-					//Режим Single
-				} else {
-					this.selectedLeft = 0;
-					this.selectedWidth = this.newPos + "px";
-				}
+		if (this.conf.vertical) { //Вертикальный режим
+			if (!this.changeMode) {
+				this.a = this.secondControl.style.top;
+			} else {
+				this.b = this.leftControl.style.top;
+				this.c = this.rightControl.style.top;
 			}
-			//Если это переключение режима
-			else if (this.changeMode) {
-				if (this.switchToSingleMode) {//переключение в Single режим
-					console.log('SWITCH TO SINGLE MODE');
-					this.selectedLeft = 0;
-					this.selectedWidth = this.leftControl.style.left;
-				}
-
-				else if (this.switchToDoubleMode) {//переключение в Double режим
-					console.log('SWITCH TO DOUBLE MODE');
-					this.selectedLeft = parseFloat(this.leftControl.style.left);
-					this.selectedWidth = parseFloat(this.rightControl.style.left) - parseFloat(this.leftControl.style.left) + 'px';
-				}
-
-				else if (this.switchToVerticalMode) {//переключение в вертикальный режим
-				}
-
-				else if (this.switchToHorizontalMode) {//переключение в горизонтальный режим
-				}
+		} else {// Горизонтальный режим
+			if (!this.changeMode) {
+				this.a = this.secondControl.style.left;
+			} else {
+				this.b = this.leftControl.style.left;
+				this.c = this.rightControl.style.left;
 			}
-
-			this.progressBarUpdated(this.selectedLeft, this.selectedWidth); //Вызываем для обновления прогресс бара в view
-
 		}
-
-
-
-
-		else {//вертикальный режим
-			if (!this.changeMode) { //Если это не переключение режима
-				//режим Double
-				if (!this.rightControl.classList.contains('hidden')) {
-					this.selectedHeight = Math.abs(parseFloat(this.secondControl.style.top) - this.newPos) + "px";
-					if (!this.currentControlFlag) { //перемещатся левый ползунок
-						this.selectedTop = this.newPos + this.currentControl.offsetHeight + "px";
-					} else {//перемещатся правый ползунок
-						this.selectedTop = this.secondControl.getBoundingClientRect().top - this.parentElement.getBoundingClientRect().top + "px";
-					}
-					//Режим Single
-				} else {
-					this.selectedTop = 0;
-					this.selectedHeight = this.newPos + "px";
+		if (!this.changeMode) { //Если это не переключение режима
+			//режим Double
+			if (!this.rightControl.classList.contains('hidden')) {
+				this.selectedWidth = Math.abs(parseFloat(this.a) - this.newPos) + "px";
+				if (!this.currentControlFlag) { //перемещатся левый ползунок
+					this.selectedPos = this.newPos + this.shift * 2 + "px";
+				} else {//перемещатся правый ползунок
+					this.selectedPos = this.secondControlPos - this.parentPos + "px";
 				}
+				//Режим Single
+			} else {
+				this.selectedPos = 0;
+				this.selectedWidth = this.newPos + "px";
 			}
-			//Если это переключение режима
-			else if (this.changeMode) {
-				if (this.switchToSingleMode) {//переключение в Single режим
-					console.log('SWITCH TO SINGLE MODE');
-					this.selectedTop = 0;
-					this.selectedHeight = this.leftControl.style.top;
-				}
-
-				else if (this.switchToDoubleMode) {//переключение в Double режим
-					console.log('SWITCH TO DOUBLE MODE');
-					this.selectedTop = parseFloat(this.leftControl.style.top);
-					this.selectedHeight = parseFloat(this.rightControl.style.top) - parseFloat(this.leftControl.style.top) + 'px';
-				}
-
-				else if (this.switchToVerticalMode) {//переключение в вертикальный режим
-				}
-
-				else if (this.switchToHorizontalMode) {//переключение в горизонтальный режим
-				}
-			}
-
-			this.progressBarUpdated(this.selectedTop, this.selectedHeight); //Вызываем для обновления прогресс бара в view
-
 		}
-
-
+		//Если это переключение режима
+		else if (this.changeMode) {
+			if (this.switchToSingleMode) {//переключение в Single режим
+				this.selectedPos = 0;
+				this.selectedWidth = this.b;
+			}
+			else if (this.switchToDoubleMode) {//переключение в Double режим
+				console.log('SWITCH TO DOUBLE MODE');
+				this.selectedPos = parseFloat(this.b);
+				this.selectedWidth = parseFloat(this.c) - parseFloat(this.b) + 'px';
+			}
+			else if (this.switchToVerticalMode) {//переключение в вертикальный режим
+			}
+			else if (this.switchToHorizontalMode) {//переключение в горизонтальный режим
+			}
+		}
+		this.progressBarUpdated(this.selectedPos, this.selectedWidth); //Вызываем для обновления прогресс бара в view
 	}
 
 
@@ -1091,8 +1048,8 @@ class sliderController {
 
 
 	//вызываем метод updateСurrentControl в view
-	handleOnprogressBarUpdated = (selectedLeft, selectedWidth) => {
-		this.viewScale.updateProgressBar(selectedLeft, selectedWidth);
+	handleOnprogressBarUpdated = (selectedPos, selectedWidth) => {
+		this.viewScale.updateProgressBar(selectedPos, selectedWidth);
 	}
 
 	//вызываем метод updateСurrentControl в view
