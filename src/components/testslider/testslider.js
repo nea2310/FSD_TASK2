@@ -142,17 +142,7 @@ class sliderModel {
 				this.secondControlPos = this.secondControl.getBoundingClientRect().left;
 				this.parentPos = this.parentElement.getBoundingClientRect().left;
 			}
-
-			//	if (!this.conf.vertical) { //горизонтальный режим
 			this.newPos = this.pos - this.parentPos - this.shift;
-
-
-			//this.newPos = this.parentElement.offsetHeight - this.pos - this.shift;
-
-			// console.log('this.parentElement.offsetHeight: ' + this.parentElement.offsetHeight);
-			// console.log('this.pos: ' + this.pos);
-			// console.log('this.shift: ' + this.shift);
-			// console.log('this.newPos: ' + this.newPos);
 
 			if (this.newPos < this.shift * (-1)) {
 				this.newPos = this.shift * (-1); // если здесь поставить this.newPos =0, то по какой-то причине левый ползунок не доходит до самого края шкалы (т.е. вместо elem.style.left=0px ему присваивается 2px)
@@ -185,16 +175,6 @@ class sliderModel {
 				this.сontrolValueUpdated(this.currentControl, this.newValue); //Вызываем для обновления панели view
 			} else {
 				this.newValue = ((this.parentElement.offsetHeight - (this.newPos + this.shift)) / (this.parentElement.offsetHeight / (this.maxRangeVal - this.minRangeVal)) + this.minRangeVal).toFixed(0);
-
-				// console.log('this.newPos: ' + this.newPos);
-				// console.log('this.shift: ' + this.shift);
-				// console.log('this.parentElement.offsetHeight: ' + this.parentElement.offsetHeight);
-				// console.log('this.maxRangeVal: ' + this.maxRangeVal);
-				// console.log('this.minRangeVal: ' + this.minRangeVal);
-
-
-				// console.log('this.newValue: ' + this.newValue);
-
 				this.сontrolValueUpdated(this.currentControl, this.newValue); //Вызываем для обновления панели view
 			}
 		}
@@ -581,7 +561,11 @@ class sliderViewDoubleControl extends sliderView {
 	//Обновляем значение tip
 
 	updateTipVal(val, isFrom) {
-		isFrom ? this.leftTip.value = val : this.rightTip.value = val;
+		if (this.conf.vertical) {
+			isFrom ? this.rightTip.value = val : this.leftTip.value = val;
+		} else {
+			isFrom ? this.leftTip.value = val : this.rightTip.value = val;
+		}
 	};
 
 	updateVerticalMode(isVertical) {
