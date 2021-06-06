@@ -112,6 +112,7 @@ class sliderModel {
 					this.switchToDoubleMode = true;
 					this.switchToSingleMode = false;
 				}
+
 			}
 
 			if (e.target.classList.contains('rs__verticalModeToggle')) { //меняется режим vertical->horizontal или наоборот
@@ -180,16 +181,19 @@ class sliderModel {
 				this.newValue = ((this.newPos + this.shift) / (this.parentElement.offsetHeight / (this.maxRangeVal - this.minRangeVal)) + this.minRangeVal).toFixed(0);
 				this.сontrolValueUpdated(this.currentControl, this.newValue); //Вызываем для обновления панели view
 			}
-			this.computeProgressBar();
+
 		}
+		this.computeProgressBar();
 	}
 
 	/*Рассчитываем ширину и позицию left прогресс-бара*/
 	computeProgressBar() {
+		console.log('COMPUTE PROGRESS BAR');
 
 		if (!this.conf.vertical) { //горизонтальный режим
 			if (!this.changeMode) { //Если это не переключение режима
 				//режим Double
+				console.log('NO CHANGE MODE');
 				if (!this.rightControl.classList.contains('hidden')) {
 					this.selectedWidth = Math.abs(parseFloat(this.secondControl.style.left) - this.newPos) + "px";
 					if (!this.currentControlFlag) { //перемещатся левый ползунок
@@ -206,11 +210,13 @@ class sliderModel {
 			//Если это переключение режима
 			else if (this.changeMode) {
 				if (this.switchToSingleMode) {//переключение в Single режим
+					console.log('SWITCH TO SINGLE MODE');
 					this.selectedLeft = 0;
 					this.selectedWidth = this.leftControl.style.left;
 				}
 
 				else if (this.switchToDoubleMode) {//переключение в Double режим
+					console.log('SWITCH TO DOUBLE MODE');
 					this.selectedLeft = parseFloat(this.leftControl.style.left);
 					this.selectedWidth = parseFloat(this.rightControl.style.left) - parseFloat(this.leftControl.style.left) + 'px';
 				}
@@ -248,11 +254,13 @@ class sliderModel {
 			//Если это переключение режима
 			else if (this.changeMode) {
 				if (this.switchToSingleMode) {//переключение в Single режим
+					console.log('SWITCH TO SINGLE MODE');
 					this.selectedTop = 0;
 					this.selectedHeight = this.leftControl.style.top;
 				}
 
 				else if (this.switchToDoubleMode) {//переключение в Double режим
+					console.log('SWITCH TO DOUBLE MODE');
 					this.selectedTop = parseFloat(this.leftControl.style.top);
 					this.selectedHeight = parseFloat(this.rightControl.style.top) - parseFloat(this.leftControl.style.top) + 'px';
 				}
@@ -1229,7 +1237,7 @@ let conf = {
 	from: 2000,
 	to: 7000,
 	step: 1500,
-	//vertical: true
+	vertical: true
 }
 
 new sliderController(conf, root,
