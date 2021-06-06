@@ -116,49 +116,55 @@ class sliderModel {
 			}
 		}
 
-		else if (e.type == 'click' || e.type == 'mousemove') {
+		else if (e.type == 'click' || e.type == 'mousemove') {//если потянули ползунок или кликнули по шкале
 
 			this.changeMode = false;
 			this.switchToSingleMode = false;
 			this.switchToDoubleMode = false;
 			this.switchToVerticalMode = false;
 			this.switchToHorizontalMode = false;
+			this.shiftHorizontalMode = this.currentControl.offsetWidth / 2;
+			this.shiftVertikalMode = (this.currentControl.offsetHeight) / 2;
 
-			if (!this.conf.vertical) { //если потянули ползунок или кликнули по шкале
+			if (!this.conf.vertical) { //горизонтальный режим
 
 				e.touches === undefined ? this.pos = e.clientX : this.pos = e.targetTouches[0].clientX;
 
 
-				this.newLeft = this.pos - this.parentElement.getBoundingClientRect().left;
+				this.newLeft = this.pos - this.parentElement.getBoundingClientRect().left - this.shiftHorizontalMode;
 				let rigthEdge = this.parentElement.offsetWidth;
 
-				if (this.newLeft < 0) {
-					this.newLeft = -0.00001; // если здесь поставить this.newLeft =0, то по какой-то причине левый ползунок не доходит до самого края шкалы (т.е. вместо elem.style.left=0px ему присваивается 2px)
-				} else if (this.newLeft > rigthEdge) {
+				if (this.newLeft < this.shiftHorizontalMode * (-1)) {
+					this.newLeft = this.shiftHorizontalMode * (-1); // если здесь поставить this.newLeft =0, то по какой-то причине левый ползунок не доходит до самого края шкалы (т.е. вместо elem.style.left=0px ему присваивается 2px)
+				} else if (this.newLeft > rigthEdge - this.shiftHorizontalMode) {
 
-					this.newLeft = rigthEdge;
+					this.newLeft = rigthEdge - this.shiftHorizontalMode;
 				}
 
 				/*запрещаем ползункам перепрыгивать друг через друга, если это не single режим*/
 				if (!this.rightControl.classList.contains('hidden')) {
-					if ((!this.currentControlFlag && this.pos > this.secondControl.getBoundingClientRect().left - this.secondControl.offsetWidth) ||
-						(this.currentControlFlag && this.pos < this.secondControl.getBoundingClientRect().left + this.secondControl.offsetWidth)) return
+					if ((!this.currentControlFlag &&
+						this.pos > this.secondControl.getBoundingClientRect().left - this.secondControl.offsetWidth) ||
+						(this.currentControlFlag &&
+							this.pos < this.secondControl.getBoundingClientRect().left + this.secondControl.offsetWidth)) {
+						return
+					}
 				}
 				this.сontrolPosUpdated(this.currentControl, this.newLeft); //Вызываем для обновления положения ползунка в view
-			} else {
+			} else {//вертикальный режим
 
 
 				e.touches === undefined ? this.pos = e.clientY : this.pos = e.targetTouches[0].clientY;
 
 
-				this.newTop = this.pos - this.parentElement.getBoundingClientRect().top;
+				this.newTop = this.pos - this.parentElement.getBoundingClientRect().top - this.shiftVertikalMode;
 				let rigthEdge = this.parentElement.offsetHeight;
 
-				if (this.newTop < 0) {
-					this.newTop = -0.00001; // если здесь поставить this.newLeft =0, то по какой-то причине левый ползунок не доходит до самого края шкалы (т.е. вместо elem.style.left=0px ему присваивается 2px)
-				} else if (this.newTop > rigthEdge) {
+				if (this.newTop < this.shiftVertikalMode * (-1)) {
+					this.newTop = this.shiftVertikalMode * (-1); // если здесь поставить this.newLeft =0, то по какой-то причине левый ползунок не доходит до самого края шкалы (т.е. вместо elem.style.left=0px ему присваивается 2px)
+				} else if (this.newTop > rigthEdge - this.shiftVertikalMode) {
 
-					this.newTop = rigthEdge;
+					this.newTop = rigthEdge - this.shiftVertikalMode;
 				}
 
 				/*запрещаем ползункам перепрыгивать друг через друга, если это не single режим*/
@@ -167,15 +173,6 @@ class sliderModel {
 						this.pos > this.secondControl.getBoundingClientRect().top - this.secondControl.offsetHeight) ||
 						(this.currentControlFlag &&
 							this.pos < this.secondControl.getBoundingClientRect().top + this.secondControl.offsetHeight)) {
-
-						// console.log('this.pos: ' + this.pos);
-						// console.log('this.secondControl.getBoundingClientRect().top: ' + this.secondControl.getBoundingClientRect().top);
-						// console.log('this.secondControl.offsetHeight: ' + this.secondControl.offsetHeight);
-						// console.log('window.pageYOffset: ' + window.pageYOffset);
-						// let result = this.secondControl.getBoundingClientRect().top + this.secondControl.offsetHeight + window.pageYOffset - 3;
-						// console.log('result: ' + result);
-
-						// console.log('RETURN');
 						return
 					}
 				}
@@ -194,20 +191,11 @@ class sliderModel {
 	computeControlValue() {
 		if (!this.changeMode) {
 			if (!this.conf.vertical) {
-				this.newValue = (this.newLeft / (this.parentElement.offsetWidth / (this.maxRangeVal - this.minRangeVal)) + this.minRangeVal).toFixed(0);
-				if (this.newValue == -0) {//Значение -0 возникает из-за строки this.newLeft = -0.00001;
-					this.newValue = 0;
-				}
+				this.newValue = ((this.newLeft + this.shiftHorizontalMode) / (this.parentElement.offsetWidth / (this.maxRangeVal - this.minRangeVal)) + this.minRangeVal).toFixed(0);
 				this.сontrolValueUpdated(this.currentControl, this.newValue); //Вызываем для обновления панели view
 			} else {
-
-				this.newValue = (this.newTop / (this.parentElement.offsetHeight / (this.maxRangeVal - this.minRangeVal)) + this.minRangeVal).toFixed(0);
-
-				if (this.newValue == -0) {//Значение -0 возникает из-за строки this.newLeft = -0.00001;
-					this.newValue = 0;
-				}
+				this.newValue = ((this.newTop + this.shiftVertikalMode) / (this.parentElement.offsetHeight / (this.maxRangeVal - this.minRangeVal)) + this.minRangeVal).toFixed(0);
 				this.сontrolValueUpdated(this.currentControl, this.newValue); //Вызываем для обновления панели view
-
 			}
 			this.computeProgressBar();
 		}

@@ -20,11 +20,12 @@
 .rs__progressBar {
 	position: absolute;
 	background: var(--background-range, #000);
+
 	width: 95%;
 	border: none;
 	height: 6px;
 	left: 15px;
-	z-index: 2;
+	//z-index: 2;
 }
 
 .rs__control {
@@ -37,6 +38,7 @@
 	background: green;
 	border-radius: 50%;
 	z-index: 1;
+	opacity: 0.5;
 }
 
 .hidden {
