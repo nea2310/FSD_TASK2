@@ -25,6 +25,14 @@ class sliderModel {
 		this.leftControlStartPos = this.computeControlPosFromVal(this.leftControlStartVal);// начальное положение левого ползунка на шкале
 		this.rightControlStartPos = this.computeControlPosFromVal(this.rightControlStartVal);// начальное положение правого ползунка на шкале
 
+		console.log('!!!!');
+		console.log(this.leftControl);
+		console.log(this.leftControlStartPos);
+		console.log(this.rightControl);
+		console.log(this.rightControlStartPos);
+		console.log('!!!!');
+
+
 		if (this.conf.range == true) {
 			this.progressBarStartPos = this.leftControlStartPos; // начальная позиция прогресс-бара
 			this.progressBarStartWidth = this.rightControlStartPos - this.leftControlStartPos; // начальная ширина прогресс-бара
@@ -36,16 +44,10 @@ class sliderModel {
 
 	//Получаем и сохраняем в объекте модели данные о перемещаемом ползунке (при перетягивании ползунка или клике по шкале)
 	getControlData(controlData) {
-		console.log(this.currentControl);
 		this.currentControl = controlData.currentControl; // ползунок, за который тянут
 		this.secondControl = controlData.secondControl; // второй ползунок
 		this.parentElement = this.currentControl.parentElement;
 		this.currentControlFlag = controlData.currentControlFlag;
-		// console.log(this.currentControl);
-		// console.log(this.secondControl);
-		// console.log(this.parentElement);
-		// console.log(this.currentControlFlag);
-
 	}
 
 
@@ -53,13 +55,26 @@ class sliderModel {
 	//Рассчитываем положение ползунка на основании значения, введенного в панели конфигурирования или в объекте конфигурации
 	computeControlPosFromVal(val, isInitialRendering = true, control) {
 
+
 		if (parseInt(val) != this.minRangeVal) {
+			console.log(this.scaleHeight);
+			console.log(parseInt(val));
+			console.log(this.maxRangeVal);
+			console.log(this.minRangeVal);
 
 			if (this.conf.vertical) {
-				this.newPos = (parseInt(val) - this.minRangeVal) * this.scaleHeight / (this.maxRangeVal - this.minRangeVal); //!
+
+				//	let a = ((parseInt(val) - this.minRangeVal) * 100) / (this.maxRangeVal - this.minRangeVal); // %
+				//console.log(a);
+				this.newPos = this.scaleHeight * ((parseInt(val) - this.minRangeVal)) / (this.maxRangeVal - this.minRangeVal);
+
+
+
 			} else {
 				this.newPos = (parseInt(val) - this.minRangeVal) * this.scaleWidth / (this.maxRangeVal - this.minRangeVal);
 			}
+
+			console.log(this.newPos);
 		}
 		else {
 			this.newPos = 0.00001; // начальное положение левого ползунка на шкале
@@ -71,13 +86,26 @@ class sliderModel {
 		}
 		if (!isInitialRendering) {
 
-			console.log(this.conf);
-			if (control.classList.contains('rs__control-min')) {
-				this.secondControl = this.rightControl;
-				this.currentControlFlag = false;
+
+			if (this.conf.vertical == true) {
+				if (control.classList.contains('rs__control-min')) {
+					this.secondControl = this.rightControl;
+					this.currentControlFlag = false;
+				} else {
+					this.secondControl = this.leftControl;
+					this.currentControlFlag = true;
+				}
+
+
+
 			} else {
-				this.secondControl = this.leftControl;
-				this.currentControlFlag = true;
+				if (control.classList.contains('rs__control-min')) {
+					this.secondControl = this.rightControl;
+					this.currentControlFlag = false;
+				} else {
+					this.secondControl = this.leftControl;
+					this.currentControlFlag = true;
+				}
 			}
 
 			this.сontrolPosUpdated(control, this.newPos);
@@ -101,7 +129,6 @@ class sliderModel {
 
 		if (e.type == 'change') {//если переключили чекбокс на панели конфигурации (например смена режима Double -> Single)
 			this.changeMode = true;
-			//	console.log(this.rightControl);
 			if (e.target.classList.contains('rs__rangeModeToggle')) { //меняется режим double->single или наоборот
 				if (this.rightControl.classList.contains('hidden')) {
 					this.switchToSingleMode = true;
@@ -152,15 +179,34 @@ class sliderModel {
 
 			/*запрещаем ползункам перепрыгивать друг через друга, если это не single режим*/
 			if (!this.rightControl.classList.contains('hidden')) {
-				if ((!this.currentControlFlag &&
-					this.pos > this.secondControlPos - this.shift * 2) ||
-					(this.currentControlFlag &&
-						this.pos < this.secondControlPos + this.shift * 2)) {
-					console.log('RETURN');
-					return
+
+
+				//console.log(this.currentControlFlag);
+				// console.log(this.pos);
+				// console.log(this.secondControlPos);
+				// console.log(this.shift * 2);
+
+				if (this.conf.vertical) {
+					if ((!this.currentControlFlag &&
+						this.pos < this.secondControlPos + this.shift * 2) ||
+						(this.currentControlFlag &&
+							this.pos > this.secondControlPos - this.shift * 2)) {
+						console.log('RETURN');
+						return
+					}
+				} else {
+					if ((!this.currentControlFlag &&
+						this.pos > this.secondControlPos - this.shift * 2) ||
+						(this.currentControlFlag &&
+							this.pos < this.secondControlPos + this.shift * 2)) {
+						console.log('RETURN');
+						return
+					}
 				}
+
+
+
 			}
-			//	console.log(this.currentControl);
 			this.сontrolPosUpdated(this.currentControl, this.newPos); //Вызываем для обновления положения ползунка в view
 		}
 
@@ -220,7 +266,7 @@ class sliderModel {
 				}
 				else if (this.switchToDoubleMode) {//переключение в Double режим
 					this.selectedPos = this.rightControl.style.top;
-					this.selectedWidth = this.leftControl.parentElement.offsetHeight - (parseInt(this.leftControl.style.top) - parseInt(this.rightControl.style.top));
+					this.selectedWidth = (parseInt(this.leftControl.style.top) - parseInt(this.rightControl.style.top));
 				}
 				else if (this.switchToVerticalMode) {//переключение в вертикальный режим
 				}
@@ -398,15 +444,6 @@ class sliderViewScale extends sliderView {
 					this.rightControlDist = Math.abs(this.rightControlPos - e.clientY);
 				}
 
-
-				console.log(this.leftControl);
-				console.log(this.rightControl);
-				console.log(this.leftControlPos);
-				console.log(this.rightControlPos);
-				console.log(this.leftControlDist);
-				console.log(this.rightControlDist);
-
-
 				let controlData = {};
 				if (this.rightControl.classList.contains('hidden')) {
 					controlData.currentControl = this.leftControl;
@@ -440,8 +477,6 @@ class sliderViewScale extends sliderView {
 					}
 
 				}
-
-				console.log(controlData);
 				firstEventHandler(controlData);// вызов хендлера обработки события
 				secondEventHandler(e);
 
@@ -502,15 +537,12 @@ class sliderViewDoubleControl extends sliderView {
 		this.leftTip = document.createElement('input');
 
 
-		if (this.conf.vertical == true) { // vertical mode
-			this.leftControl.className = 'rs__control rs__control-max';
-			this.leftTip.className = 'rs__tip rs__tip-max';
-			this.leftTip.value = this.conf.to;
-		} else {
-			this.leftControl.className = 'rs__control rs__control-min';
-			this.leftTip.className = 'rs__tip rs__tip-min';
-			this.leftTip.value = this.conf.from;
-		}
+		this.leftControl.className = 'rs__control rs__control-min';
+		this.leftTip.className = 'rs__tip rs__tip-min';
+		this.leftTip.value = this.conf.from;
+
+
+
 		this.scale.append(this.leftControl);
 
 
@@ -537,15 +569,12 @@ class sliderViewDoubleControl extends sliderView {
 
 		this.rightTip = document.createElement('input');
 
-		if (this.conf.vertical == true) { // vertical mode
-			this.rightControl.className = 'rs__control rs__control-min';
-			this.rightTip.className = 'rs__tip rs__tip-min';
-			this.rightTip.value = this.conf.from;
-		} else {
-			this.rightControl.className = 'rs__control rs__control-max';
-			this.rightTip.className = 'rs__tip rs__tip-max';
-			this.rightTip.value = this.conf.to;
-		}
+
+		this.rightControl.className = 'rs__control rs__control-max';
+		this.rightTip.className = 'rs__tip rs__tip-max';
+		this.rightTip.value = this.conf.to;
+
+
 
 		this.rightControl.append(this.rightTip);
 
@@ -591,13 +620,16 @@ class sliderViewDoubleControl extends sliderView {
 
 	//Обновляем позицию ползунка (вызывается через контроллер)
 	updateControlPos(elem, newPos) {
+		console.log(elem);
+		console.log(newPos);
 		if (newPos) {
 			if (!this.conf.vertical) {
 				elem.style.left = newPos + 'px';
 			}
-			//console.log(this.conf);
 			if (this.conf.vertical) {
-				elem.style.top = newPos + 'px';
+				elem.style.bottom = newPos + 'px';
+				//elem.style.bottom = '139px';
+
 			}
 		}
 
@@ -619,8 +651,6 @@ class sliderViewDoubleControl extends sliderView {
 	}
 
 	updateRangeMode(isDouble) {
-		console.log(this.conf);
-
 		if (this.conf.vertical == true) {
 			if (isDouble) {
 				this.leftControl.classList.remove('hidden');
@@ -1034,7 +1064,12 @@ class sliderViewPanel extends sliderView {
 
 	//Обновление значений инпутов FROM и TO при перемещении ползунков
 	updateFromTo(elem, newValue) {
-		elem.classList.contains('rs__control-min') ? this.fromInput.value = newValue : this.toInput.value = newValue;
+
+		if (this.conf.vertical == true) {
+			elem.classList.contains('rs__control-min') ? this.toInput.value = newValue : this.fromInput.value = newValue;
+		} else {
+			elem.classList.contains('rs__control-min') ? this.fromInput.value = newValue : this.toInput.value = newValue;
+		}
 	}
 }
 
@@ -1204,13 +1239,26 @@ class sliderController {
 	}
 
 	handleFromToChanged = (val, e) => {
+
 		if (e.target.classList.contains('rs__input-from')) {
+			console.log('FROM');
 			this.conf.from = parseInt(val);
-			this.model.computeControlPosFromVal(val, false, this.viewDoubleControl.leftControl);
+
+			if (this.conf.vertical == true) {
+				this.model.computeControlPosFromVal(val, false, this.viewDoubleControl.rightControl);
+			} else {
+				this.model.computeControlPosFromVal(val, false, this.viewDoubleControl.leftControl);
+			}
 			this.viewDoubleControl.updateTipVal(val, true);
 		} else {
+			console.log('TO');
 			this.conf.to = parseInt(val);
-			this.model.computeControlPosFromVal(val, false, this.viewDoubleControl.rightControl);
+
+			if (this.conf.vertical == true) {
+				this.model.computeControlPosFromVal(val, false, this.viewDoubleControl.leftControl);
+			} else {
+				this.model.computeControlPosFromVal(val, false, this.viewDoubleControl.rightControl);
+			}
 			this.viewDoubleControl.updateTipVal(val, false);
 		}
 	}
@@ -1276,10 +1324,10 @@ class sliderController {
 let root = '.rs__wrapper';
 
 let conf = {
-	min: 0,
+	min: 1000,
 	max: 10000,
 	from: 2000,
-	to: 7000,
+	to: 4000,
 	step: 1500,
 	vertical: true
 }

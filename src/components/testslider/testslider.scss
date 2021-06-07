@@ -33,12 +33,16 @@
 	height: 25px;
 	position: absolute;
 	left: 0;
-
-	top: -11.5px;
+	//top: 100%;
 	background: green;
 	border-radius: 50%;
 	z-index: 1;
 	opacity: 0.5;
+	//margin-bottom: 10px;
+}
+
+.rs__control-max {
+	background-color: $color_blue;
 }
 
 .hidden {
