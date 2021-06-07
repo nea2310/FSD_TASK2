@@ -36,7 +36,7 @@ class sliderModel {
 
 	//Получаем и сохраняем в объекте модели данные о перемещаемом ползунке (при перетягивании ползунка или клике по шкале)
 	getControlData(controlData) {
-
+		console.log(this.currentControl);
 		this.currentControl = controlData.currentControl; // ползунок, за который тянут
 		this.secondControl = controlData.secondControl; // второй ползунок
 		this.parentElement = this.currentControl.parentElement;
@@ -67,13 +67,11 @@ class sliderModel {
 		}
 
 		if (isInitialRendering) {
-			if (!this.conf.vertical) {
-				return this.newPos
-			} else if (this.conf.vertical) {
-				return this.newPos //!
-			}
+			return this.newPos;
 		}
 		if (!isInitialRendering) {
+
+			console.log(this.conf);
 			if (control.classList.contains('rs__control-min')) {
 				this.secondControl = this.rightControl;
 				this.currentControlFlag = false;
@@ -157,9 +155,11 @@ class sliderModel {
 					this.pos > this.secondControlPos - this.shift * 2) ||
 					(this.currentControlFlag &&
 						this.pos < this.secondControlPos + this.shift * 2)) {
+					console.log('RETURN');
 					return
 				}
 			}
+			//	console.log(this.currentControl);
 			this.сontrolPosUpdated(this.currentControl, this.newPos); //Вызываем для обновления положения ползунка в view
 		}
 
@@ -368,12 +368,32 @@ class sliderViewScale extends sliderView {
 
 		this.slider.addEventListener('click', (e) => {
 			if (e.target.classList.contains('rs__slider') || e.target.classList.contains('rs__progressBar')) {
-				this.leftControl = this.slider.querySelector('.rs__control-min');
-				this.rightControl = this.slider.querySelector('.rs__control-max');
-				let leftControlPos = this.leftControl.getBoundingClientRect().left
-				let rightControlPos = this.rightControl.getBoundingClientRect().left
-				let leftControlDist = Math.abs(leftControlPos - e.clientX);
-				let rightControlDist = Math.abs(rightControlPos - e.clientX);
+				if (!conf.vertical) {
+					console.log('horizontal');
+					this.leftControl = this.slider.querySelector('.rs__control-min');
+					this.rightControl = this.slider.querySelector('.rs__control-max');
+					this.leftControlPos = this.leftControl.getBoundingClientRect().left
+					this.rightControlPos = this.rightControl.getBoundingClientRect().left
+					this.leftControlDist = Math.abs(this.leftControlPos - e.clientX);
+					this.rightControlDist = Math.abs(this.rightControlPos - e.clientX);
+				} else {
+					console.log('vertical');
+					this.leftControl = this.slider.querySelector('.rs__control-min');
+					this.rightControl = this.slider.querySelector('.rs__control-max');
+					this.leftControlPos = this.leftControl.getBoundingClientRect().top
+					this.rightControlPos = this.rightControl.getBoundingClientRect().top
+					this.leftControlDist = Math.abs(this.leftControlPos - e.clientY);
+					this.rightControlDist = Math.abs(this.rightControlPos - e.clientY);
+				}
+
+
+				console.log(this.leftControl);
+				console.log(this.rightControl);
+				console.log(this.leftControlPos);
+				console.log(this.rightControlPos);
+				console.log(this.leftControlDist);
+				console.log(this.rightControlDist);
+
 
 				let controlData = {};
 				if (this.rightControl.classList.contains('hidden')) {
@@ -383,15 +403,33 @@ class sliderViewScale extends sliderView {
 				}
 
 				else {//определяем ползунок, находящийся ближе к позиции клика
-					leftControlDist <= rightControlDist ? controlData.currentControl = this.leftControl :
-						controlData.currentControl = this.rightControl;
 
-					//определяем второй ползунок
-					controlData.currentControl == this.leftControl ? controlData.secondControl = this.rightControl : controlData.secondControl = this.leftControl;
+					if (!conf.vertical) {
+						this.leftControlDist <= this.rightControlDist ? controlData.currentControl = this.leftControl :
+							controlData.currentControl = this.rightControl;
 
-					// Устанавливаем флаг, какой из ползунков (левый или правый) ближе к позиции клика
-					controlData.currentControl == this.leftControl ? controlData.currentControlFlag = false : controlData.currentControlFlag = true;
+						//определяем второй ползунок
+						controlData.currentControl == this.leftControl ? controlData.secondControl = this.rightControl : controlData.secondControl = this.leftControl;
+
+						// Устанавливаем флаг, какой из ползунков (левый или правый) ближе к позиции клика
+						controlData.currentControl == this.leftControl ? controlData.currentControlFlag = false : controlData.currentControlFlag = true;
+					} else {
+
+
+						this.leftControlDist <= this.rightControlDist ? controlData.currentControl = this.leftControl :
+							controlData.currentControl = this.rightControl;
+
+						//определяем второй ползунок
+						controlData.currentControl == this.leftControl ? controlData.secondControl = this.rightControl : controlData.secondControl = this.leftControl;
+
+						// Устанавливаем флаг, какой из ползунков (левый или правый) ближе к позиции клика
+						controlData.currentControl == this.leftControl ? controlData.currentControlFlag = true : controlData.currentControlFlag = false;
+
+					}
+
 				}
+
+				console.log(controlData);
 				firstEventHandler(controlData);// вызов хендлера обработки события
 				secondEventHandler(e);
 
@@ -542,13 +580,9 @@ class sliderViewDoubleControl extends sliderView {
 	//Обновляем позицию ползунка (вызывается через контроллер)
 	updateControlPos(elem, newPos) {
 		if (newPos) {
-			// console.log(elem);
-			// console.log(newPos);
-
 			if (!this.conf.vertical) {
 				elem.style.left = newPos + 'px';
 			}
-
 			//console.log(this.conf);
 			if (this.conf.vertical) {
 				elem.style.top = newPos + 'px';
