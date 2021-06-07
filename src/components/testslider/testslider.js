@@ -200,8 +200,15 @@ class sliderModel {
 				}
 				//Режим Single
 			} else {
-				this.selectedPos = 0;
-				this.selectedWidth = this.newPos + "px";
+				if (this.conf.vertical == true) {
+					this.selectedPos = this.leftControl.style.top;
+					this.selectedWidth = this.leftControl.parentElement.offsetHeight - parseInt(this.leftControl.style.top);
+				}
+
+				else {
+					this.selectedPos = 0;
+					this.selectedWidth = this.newPos + "px";
+				}
 			}
 		}
 		//Если это переключение режима
