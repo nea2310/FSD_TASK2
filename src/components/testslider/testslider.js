@@ -101,6 +101,7 @@ class sliderModel {
 
 		if (e.type == 'change') {//если переключили чекбокс на панели конфигурации (например смена режима Double -> Single)
 			this.changeMode = true;
+			//	console.log(this.rightControl);
 			if (e.target.classList.contains('rs__rangeModeToggle')) { //меняется режим double->single или наоборот
 				if (this.rightControl.classList.contains('hidden')) {
 					this.switchToSingleMode = true;
@@ -183,25 +184,15 @@ class sliderModel {
 
 	/*Рассчитываем ширину и позицию left (top) прогресс-бара*/
 	computeProgressBar() {
-		if (this.conf.vertical) { //Вертикальный режим
-			if (!this.changeMode) {
-				this.a = this.secondControl.style.top;
-			} else {
-				this.b = this.leftControl.style.top;
-				this.c = this.rightControl.style.top;
-			}
-		} else {// Горизонтальный режим
-			if (!this.changeMode) {
-				this.a = this.secondControl.style.left;
-			} else {
-				this.b = this.leftControl.style.left;
-				this.c = this.rightControl.style.left;
-			}
-		}
 		if (!this.changeMode) { //Если это не переключение режима
+			if (this.conf.vertical == true) {//вертикальный слайдер
+				this.secondControlPos = this.secondControl.style.top;
+			} else {// горизонтальный слайдер
+				this.secondControlPos = this.secondControl.style.left;
+			}
 			//режим Double
 			if (!this.rightControl.classList.contains('hidden')) {
-				this.selectedWidth = Math.abs(parseFloat(this.a) - this.newPos) + "px";
+				this.selectedWidth = Math.abs(parseFloat(this.secondControlPos) - this.newPos) + "px";
 				if (!this.currentControlFlag) { //перемещатся левый ползунок
 					this.selectedPos = this.newPos + this.shift * 2 + "px";
 				} else {//перемещатся правый ползунок
@@ -214,19 +205,33 @@ class sliderModel {
 			}
 		}
 		//Если это переключение режима
-		else if (this.changeMode) {
-			if (this.switchToSingleMode) {//переключение в Single режим
-				this.selectedPos = 0;
-				this.selectedWidth = this.b;
-			}
-			else if (this.switchToDoubleMode) {//переключение в Double режим
-				console.log('SWITCH TO DOUBLE MODE');
-				this.selectedPos = parseFloat(this.b);
-				this.selectedWidth = parseFloat(this.c) - parseFloat(this.b) + 'px';
-			}
-			else if (this.switchToVerticalMode) {//переключение в вертикальный режим
-			}
-			else if (this.switchToHorizontalMode) {//переключение в горизонтальный режим
+		else if (this.changeMode) {// если это переключение режима
+			if (this.conf.vertical == true) {// вертикальный слайдер
+				if (this.switchToSingleMode) {//переключение в Single режим
+					this.selectedPos = this.leftControl.style.top;
+					this.selectedWidth = this.leftControl.parentElement.offsetHeight - parseInt(this.leftControl.style.top);
+				}
+				else if (this.switchToDoubleMode) {//переключение в Double режим
+					this.selectedPos = this.rightControl.style.top;
+					this.selectedWidth = this.leftControl.parentElement.offsetHeight - (parseInt(this.leftControl.style.top) - parseInt(this.rightControl.style.top));
+				}
+				else if (this.switchToVerticalMode) {//переключение в вертикальный режим
+				}
+				else if (this.switchToHorizontalMode) {//переключение в горизонтальный режим
+				}
+			} else {// горизонтальный слайдер
+				if (this.switchToSingleMode) {//переключение в Single режим
+					this.selectedPos = 0;
+					this.selectedWidth = this.leftControl.style.left;
+				}
+				else if (this.switchToDoubleMode) {//переключение в Double режим
+					this.selectedPos = parseFloat(this.leftControl.style.left);
+					this.selectedWidth = parseFloat(this.rightControl.style.left) - parseFloat(this.leftControl.style.left) + 'px';
+				}
+				else if (this.switchToVerticalMode) {//переключение в вертикальный режим
+				}
+				else if (this.switchToHorizontalMode) {//переключение в горизонтальный режим
+				}
 			}
 		}
 		this.progressBarUpdated(this.selectedPos, this.selectedWidth); //Вызываем для обновления прогресс бара в view
@@ -607,17 +612,39 @@ class sliderViewDoubleControl extends sliderView {
 	}
 
 	updateRangeMode(isDouble) {
-		if (isDouble) {
-			this.rightControl.classList.remove('hidden');
-			if (this.conf.tip) {
-				this.rightTip.classList.remove('hidden')
-			}
+		console.log(this.conf);
 
+		if (this.conf.vertical == true) {
+			if (isDouble) {
+				this.leftControl.classList.remove('hidden');
+				if (this.conf.tip) {
+					this.leftTip.classList.remove('hidden')
+				}
+
+			} else {
+				this.leftControl.classList.add('hidden');
+				this.leftTip.classList.add('hidden');
+			}
 		} else {
-			this.rightControl.classList.add('hidden');
-			this.rightTip.classList.add('hidden');
+
+			if (isDouble) {
+				this.rightControl.classList.remove('hidden');
+				if (this.conf.tip) {
+					this.rightTip.classList.remove('hidden')
+				}
+
+			} else {
+				this.rightControl.classList.add('hidden');
+				this.rightTip.classList.add('hidden');
+			}
 		}
 	}
+
+
+
+
+
+
 
 
 
