@@ -438,8 +438,8 @@ class sliderViewScale extends sliderView {
 					console.log('vertical');
 					this.leftControl = this.slider.querySelector('.rs__control-min');
 					this.rightControl = this.slider.querySelector('.rs__control-max');
-					this.leftControlPos = this.leftControl.getBoundingClientRect().top
-					this.rightControlPos = this.rightControl.getBoundingClientRect().top
+					this.leftControlPos = this.leftControl.getBoundingClientRect().bottom;
+					this.rightControlPos = this.rightControl.getBoundingClientRect().bottom;
 					this.leftControlDist = Math.abs(this.leftControlPos - e.clientY);
 					this.rightControlDist = Math.abs(this.rightControlPos - e.clientY);
 				}
@@ -452,30 +452,12 @@ class sliderViewScale extends sliderView {
 				}
 
 				else {//определяем ползунок, находящийся ближе к позиции клика
-
-					if (!conf.vertical) {
-						this.leftControlDist <= this.rightControlDist ? controlData.currentControl = this.leftControl :
-							controlData.currentControl = this.rightControl;
-
-						//определяем второй ползунок
-						controlData.currentControl == this.leftControl ? controlData.secondControl = this.rightControl : controlData.secondControl = this.leftControl;
-
-						// Устанавливаем флаг, какой из ползунков (левый или правый) ближе к позиции клика
-						controlData.currentControl == this.leftControl ? controlData.currentControlFlag = false : controlData.currentControlFlag = true;
-					} else {
-
-
-						this.leftControlDist <= this.rightControlDist ? controlData.currentControl = this.leftControl :
-							controlData.currentControl = this.rightControl;
-
-						//определяем второй ползунок
-						controlData.currentControl == this.leftControl ? controlData.secondControl = this.rightControl : controlData.secondControl = this.leftControl;
-
-						// Устанавливаем флаг, какой из ползунков (левый или правый) ближе к позиции клика
-						controlData.currentControl == this.leftControl ? controlData.currentControlFlag = true : controlData.currentControlFlag = false;
-
-					}
-
+					this.leftControlDist <= this.rightControlDist ? controlData.currentControl = this.leftControl :
+						controlData.currentControl = this.rightControl;
+					//определяем второй ползунок
+					controlData.currentControl == this.leftControl ? controlData.secondControl = this.rightControl : controlData.secondControl = this.leftControl;
+					// Устанавливаем флаг, какой из ползунков (левый или правый/ верхний или нижний) ближе к позиции клика
+					controlData.currentControl == this.leftControl ? controlData.currentControlFlag = false : controlData.currentControlFlag = true;
 				}
 				firstEventHandler(controlData);// вызов хендлера обработки события
 				secondEventHandler(e);
