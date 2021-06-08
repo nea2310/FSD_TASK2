@@ -27,9 +27,9 @@ class sliderModel {
 
 		// console.log('!!!!');
 		// console.log(this.leftControl);
-		console.log(this.leftControlStartPos);
+		//console.log(this.leftControlStartPos);
 		// console.log(this.rightControl);
-		console.log(this.rightControlStartPos);
+		//console.log(this.rightControlStartPos);
 		// console.log('!!!!');
 
 		if (this.conf.vertical == true) {
@@ -66,10 +66,10 @@ class sliderModel {
 
 
 		if (parseInt(val) != this.minRangeVal) {
-			console.log(this.scaleHeight);
-			console.log(parseInt(val));
-			console.log(this.maxRangeVal);
-			console.log(this.minRangeVal);
+			// console.log(this.scaleHeight);
+			// console.log(parseInt(val));
+			// console.log(this.maxRangeVal);
+			// console.log(this.minRangeVal);
 
 			if (this.conf.vertical) {
 
@@ -376,8 +376,8 @@ class sliderViewScale extends sliderView {
 		this.slider.append(this.scale);
 		this.scaleWidth = this.scale.offsetWidth;
 		this.scaleHeight = this.scale.offsetHeight;
-		console.log(this.scaleWidth);
-		console.log(this.scaleHeight);
+		// console.log(this.scaleWidth);
+		// console.log(this.scaleHeight);
 
 		//создаем progress bar
 		this.progressBar = document.createElement('div');
@@ -413,53 +413,31 @@ class sliderViewScale extends sliderView {
 				}
 
 				this.step = conf.step;
-				let length = parseFloat(this.scaleWidth);
-				console.log(length);
-
+				let length = parseFloat(this.scaleHeight);
 				let singleIntervalCount = (conf.max - conf.min)//кол-во единичных интервалов
 				let singleLength = length / singleIntervalCount;//ширина единичного интервала
 				let stepLength = singleLength * conf.step;// ширина шага (шаг может быть равен одному или нескольким единичным интервалам)
 
-				console.log('conf.min: ' + conf.min);
-				console.log('conf.max: ' + conf.max);
-				console.log('conf.step: ' + conf.step);
-				console.log('length: ' + length);
-				console.log('singleIntervalCount: ' + singleIntervalCount);
-				console.log('singleLength: ' + singleLength);
-				console.log('stepLength: ' + stepLength);
-				let arr = [];
-				//let innerText = conf.max - conf.step; //значение шага
+				// console.log('conf.min: ' + conf.min);
+				// console.log('conf.max: ' + conf.max);
+				// console.log('conf.step: ' + conf.step);
+				// console.log('length: ' + length);
+				// console.log('singleIntervalCount: ' + singleIntervalCount);
+				// console.log('singleLength: ' + singleLength);
+				// console.log('stepLength: ' + stepLength);
+
 				let innerText = conf.min + conf.step;
 				while (length >= stepLength) { // создаем деления шкалы
 					let elem = document.createElement('div');
-					let elemWidth = 1;
-					console.log(innerText);
-
-					console.log(this.scaleHeight);
-					console.log(innerText);
-					console.log(conf.min);
-					console.log(conf.max);
-
 					let pos = parseFloat(this.scaleHeight) * (innerText - conf.min) / (conf.max - conf.min);
-					console.log(pos);
-					//console.log(length);
 					elem.innerText = innerText;
 					elem.classList.add('rs__mark');
 					elem.classList.add('vertical');
-					//elem.style.height = elemWidth + 'px';
-					//elem.style.height = stepLength - elemWidth; + 'px';
-					//elem.style.marginBottom = stepLength - elemWidth;
 					elem.style.bottom = pos;
-					elem.style.marginLeft = '20px';
 					this.scale.appendChild(elem);
 					length = length - stepLength;
 					innerText = innerText + conf.step;
-					//innerText = innerText - conf.step;
-
-					arr.push(elem);
-
 				}
-				console.log(arr);
 			}
 			this.markList = this.scale.querySelectorAll('.rs__mark');
 
@@ -478,10 +456,15 @@ class sliderViewScale extends sliderView {
 
 				this.step = conf.step;
 				let length = parseFloat(this.scaleWidth);
-
 				let singleIntervalCount = (conf.max - conf.min)//кол-во единичных интервалов
 				let singleLength = length / singleIntervalCount;//ширина единичного интервала
 				let stepLength = singleLength * conf.step;// ширина шага (шаг может быть равен одному или нескольким единичным интервалам)
+
+				console.log(length);
+
+
+
+
 				// console.log('conf.min: ' + conf.min);
 				// console.log('conf.max: ' + conf.max);
 				// console.log('conf.step: ' + conf.step);
@@ -493,16 +476,37 @@ class sliderViewScale extends sliderView {
 				let innerText = conf.min + conf.step; //значение шага
 				while (length >= stepLength) { // создаем деления шкалы
 					let elem = document.createElement('div');
-					let elemWidth = 2;
+					//let pos = parseFloat(this.scaleHeight) * (innerText - conf.min) / (conf.max - conf.min);
+
+					//this.newPos = (parseInt(val) - this.minRangeVal) * this.scaleWidth / (this.maxRangeVal - this.minRangeVal);
+					let pos = (innerText - conf.min) * this.scaleWidth / (conf.max - conf.min);
+
 					elem.innerText = innerText;
 					elem.classList.add('rs__mark');
-					elem.style.width = elemWidth + 'px';
-					elem.style.marginLeft = stepLength - elemWidth;
+					elem.classList.add('horizontal');
+					elem.style.left = pos;
 					this.scale.appendChild(elem);
 					length = length - stepLength;
 					innerText = innerText + conf.step;
-					console.log(innerText);
 				}
+
+
+				// let innerText = conf.min + conf.step;
+				// while (length >= stepLength) { // создаем деления шкалы
+				// 	let elem = document.createElement('div');
+				// 	let pos = parseFloat(this.scaleHeight) * (innerText - conf.min) / (conf.max - conf.min);
+				// 	elem.innerText = innerText;
+				// 	elem.classList.add('rs__mark');
+				// 	elem.classList.add('vertical');
+				// 	elem.style.bottom = pos;
+				// 	this.scale.appendChild(elem);
+				// 	length = length - stepLength;
+				// 	innerText = innerText + conf.step;
+				// }
+
+
+
+
 			}
 			this.markList = this.scale.querySelectorAll('.rs__mark');
 		}
@@ -621,8 +625,10 @@ class sliderViewDoubleControl extends sliderView {
 
 		if (this.conf.vertical == true) { // vertical mode
 			this.leftControl.classList.add('vertical');
+			this.leftTip.classList.add('vertical');
 		} else {//horizontal mode
 			this.leftControl.classList.add('horizontal');
+			this.leftTip.classList.add('horizontal');
 		}
 
 
@@ -656,8 +662,10 @@ class sliderViewDoubleControl extends sliderView {
 
 		if (this.conf.vertical == true) { // vertical mode
 			this.rightControl.classList.add('vertical');
+			this.rightTip.classList.add('vertical');
 		} else {//horizontal mode
 			this.rightControl.classList.add('horizontal');
+			this.rightTip.classList.add('horizontal');
 		}
 
 	}

@@ -45,16 +45,6 @@
 	display: none;
 }
 
-.rs__tip {
-	width: 50px;
-	height: 25px;
-	position: absolute;
-	left: 0;
-	top: -30px;
-	background: green;
-	z-index: 1;
-}
-
 .rs__value {
 	position: absolute;
 	top: -30px;
@@ -80,13 +70,6 @@
 .rs__input {
 	border: 1px solid red;
 	width: 50px;
-}
-
-.rs__mark {
-	//	margin-top: 15px;
-	height: 5px;
-	background-color: #000;
-	position: absolute;
 }
 
 .rs__slider.vertical {
@@ -117,8 +100,42 @@
 	left: 0px;
 }
 
+.rs__mark {
+	//	margin-top: 15px;
+	height: 5px;
+	background-color: #000;
+	position: absolute;
+}
+
 .rs__mark.vertical {
-	//	margin-top: 8px;
+	margin-left: 15px;
+	height: 2px;
 	width: 5px;
 	background-color: #000;
+}
+
+.rs__mark.horizontal {
+	margin-top: 15px;
+	height: 5px;
+	width: 2px;
+	background-color: #000;
+}
+
+.rs__tip {
+	width: 50px;
+	height: 25px;
+	position: absolute;
+
+	background: green;
+	z-index: 1;
+}
+
+.rs__tip.vertical {
+	left: -50px;
+	top: 0;
+}
+
+.rs__tip.horizontal {
+	left: 0;
+	top: -30px;
 }
