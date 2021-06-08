@@ -426,22 +426,17 @@ class sliderViewScale extends sliderView {
 
 		this.slider.addEventListener('click', (e) => {
 			if (e.target.classList.contains('rs__slider') || e.target.classList.contains('rs__progressBar')) {
+				this.leftControl = this.slider.querySelector('.rs__control-min');
+				this.rightControl = this.slider.querySelector('.rs__control-max');
+
 				if (!conf.vertical) {
 					console.log('horizontal');
-					this.leftControl = this.slider.querySelector('.rs__control-min');
-					this.rightControl = this.slider.querySelector('.rs__control-max');
-					this.leftControlPos = this.leftControl.getBoundingClientRect().left
-					this.rightControlPos = this.rightControl.getBoundingClientRect().left
-					this.leftControlDist = Math.abs(this.leftControlPos - e.clientX);
-					this.rightControlDist = Math.abs(this.rightControlPos - e.clientX);
+					this.leftControlDist = Math.abs(this.leftControl.getBoundingClientRect().left - e.clientX);
+					this.rightControlDist = Math.abs(this.rightControl.getBoundingClientRect().left - e.clientX);
 				} else {
 					console.log('vertical');
-					this.leftControl = this.slider.querySelector('.rs__control-min');
-					this.rightControl = this.slider.querySelector('.rs__control-max');
-					this.leftControlPos = this.leftControl.getBoundingClientRect().bottom;
-					this.rightControlPos = this.rightControl.getBoundingClientRect().bottom;
-					this.leftControlDist = Math.abs(this.leftControlPos - e.clientY);
-					this.rightControlDist = Math.abs(this.rightControlPos - e.clientY);
+					this.leftControlDist = Math.abs(this.leftControl.getBoundingClientRect().bottom - e.clientY);
+					this.rightControlDist = Math.abs(this.rightControl.getBoundingClientRect().bottom - e.clientY);
 				}
 
 				let controlData = {};
