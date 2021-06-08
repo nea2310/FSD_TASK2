@@ -1,38 +1,38 @@
-else {//вертикальный режим
-	if (!this.changeMode) { //Если это не переключение режима
-		//режим Double
-		if (!this.rightControl.classList.contains('hidden')) {
-			this.selectedWidth = Math.abs(parseFloat(this.secondControl.style.top) - this.newPos) + "px";
-			if (!this.currentControlFlag) { //перемещатся левый ползунок
-				this.selectedPos = this.newPos + this.shift * 2 + "px";
-			} else {//перемещатся правый ползунок
-				this.selectedPos = this.secondControlPos - this.parentPos + "px";
+else {
+	if (marks) {
+		if (this.markList) {
+			for (let elem of this.markList) {
+				elem.remove();
 			}
-			//Режим Single
-		} else {
-			this.selectedPos = 0;
-			this.selectedWidth = this.newPos + "px";
+		}
+
+		this.step = conf.step;
+		let length = parseFloat(this.scaleWidth);
+
+		let singleIntervalCount = (conf.max - conf.min)//кол-во единичных интервалов
+		let singleLength = length / singleIntervalCount;//ширина единичного интервала
+		let stepLength = singleLength * conf.step;// ширина шага (шаг может быть равен одному или нескольким единичным интервалам)
+		// console.log('conf.min: ' + conf.min);
+		// console.log('conf.max: ' + conf.max);
+		// console.log('conf.step: ' + conf.step);
+		// console.log('length: ' + length);
+		// console.log('singleIntervalCount: ' + singleIntervalCount);
+		// console.log('singleLength: ' + singleLength);
+		// console.log('stepLength: ' + stepLength);
+
+		let innerText = conf.min + conf.step; //значение шага
+		while (length >= stepLength) { // создаем деления шкалы
+			let elem = document.createElement('div');
+			let elemWidth = 2;
+			elem.innerText = innerText;
+			elem.classList.add('rs__mark');
+			elem.style.width = elemWidth + 'px';
+			elem.style.marginLeft = stepLength - elemWidth;
+			this.scale.appendChild(elem);
+			length = length - stepLength;
+			innerText = innerText + conf.step;
+			console.log(innerText);
 		}
 	}
-	//Если это переключение режима
-	else if (this.changeMode) {
-		if (this.switchToSingleMode) {//переключение в Single режим
-			this.selectedPos = 0;
-			this.selectedWidth = this.leftControl.style.top;
-		}
-
-		else if (this.switchToDoubleMode) {//переключение в Double режим
-			this.selectedPos = parseFloat(this.leftControl.style.top);
-			this.selectedWidth = parseFloat(this.rightControl.style.top) - parseFloat(this.leftControl.style.top) + 'px';
-		}
-
-		else if (this.switchToVerticalMode) {//переключение в вертикальный режим
-		}
-
-		else if (this.switchToHorizontalMode) {//переключение в горизонтальный режим
-		}
-	}
-
-	this.progressBarUpdated(this.selectedPos, this.selectedWidth); //Вызываем для обновления прогресс бара в view
-
+	this.markList = this.scale.querySelectorAll('.rs__mark');
 }

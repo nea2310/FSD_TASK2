@@ -66,10 +66,10 @@ class sliderModel {
 
 
 		if (parseInt(val) != this.minRangeVal) {
-			// console.log(this.scaleHeight);
-			// console.log(parseInt(val));
-			// console.log(this.maxRangeVal);
-			// console.log(this.minRangeVal);
+			console.log(this.scaleHeight);
+			console.log(parseInt(val));
+			console.log(this.maxRangeVal);
+			console.log(this.minRangeVal);
 
 			if (this.conf.vertical) {
 
@@ -375,6 +375,9 @@ class sliderViewScale extends sliderView {
 		this.scale.className = 'rs__slider';
 		this.slider.append(this.scale);
 		this.scaleWidth = this.scale.offsetWidth;
+		this.scaleHeight = this.scale.offsetHeight;
+		console.log(this.scaleWidth);
+		console.log(this.scaleHeight);
 
 		//создаем progress bar
 		this.progressBar = document.createElement('div');
@@ -388,46 +391,121 @@ class sliderViewScale extends sliderView {
 		if (conf.vertical) {
 			this.slider.classList.add('vertical');
 			this.scale.classList.add('vertical');
-			this.progressBar.classList.add('vertical')
+			this.progressBar.classList.add('vertical');
+			this.scaleHeight = this.scale.offsetHeight;
 		}
 	}
 	//создаем деления шкалы
 	renderMarks(conf, marks = true) {
-		if (marks) {
-			if (this.markList) {
-				for (let elem of this.markList) {
-					elem.remove();
+
+
+		if (conf.vertical == true) {
+			console.log('VERTICAL');
+
+			this.scale.classList.add('vertical');
+
+
+			if (marks) {
+				if (this.markList) {
+					for (let elem of this.markList) {
+						elem.remove();
+					}
+				}
+
+				this.step = conf.step;
+				let length = parseFloat(this.scaleWidth);
+				console.log(length);
+
+				let singleIntervalCount = (conf.max - conf.min)//кол-во единичных интервалов
+				let singleLength = length / singleIntervalCount;//ширина единичного интервала
+				let stepLength = singleLength * conf.step;// ширина шага (шаг может быть равен одному или нескольким единичным интервалам)
+
+				console.log('conf.min: ' + conf.min);
+				console.log('conf.max: ' + conf.max);
+				console.log('conf.step: ' + conf.step);
+				console.log('length: ' + length);
+				console.log('singleIntervalCount: ' + singleIntervalCount);
+				console.log('singleLength: ' + singleLength);
+				console.log('stepLength: ' + stepLength);
+				let arr = [];
+				//let innerText = conf.max - conf.step; //значение шага
+				let innerText = conf.min + conf.step;
+				while (length >= stepLength) { // создаем деления шкалы
+					let elem = document.createElement('div');
+					let elemWidth = 1;
+					console.log(innerText);
+
+					console.log(this.scaleHeight);
+					console.log(innerText);
+					console.log(conf.min);
+					console.log(conf.max);
+
+					let pos = parseFloat(this.scaleHeight) * (innerText - conf.min) / (conf.max - conf.min);
+					console.log(pos);
+					//console.log(length);
+					elem.innerText = innerText;
+					elem.classList.add('rs__mark');
+					elem.classList.add('vertical');
+					//elem.style.height = elemWidth + 'px';
+					//elem.style.height = stepLength - elemWidth; + 'px';
+					//elem.style.marginBottom = stepLength - elemWidth;
+					elem.style.bottom = pos;
+					elem.style.marginLeft = '20px';
+					this.scale.appendChild(elem);
+					length = length - stepLength;
+					innerText = innerText + conf.step;
+					//innerText = innerText - conf.step;
+
+					arr.push(elem);
+
+				}
+				console.log(arr);
+			}
+			this.markList = this.scale.querySelectorAll('.rs__mark');
+
+
+
+
+
+
+		} else {
+			if (marks) {
+				if (this.markList) {
+					for (let elem of this.markList) {
+						elem.remove();
+					}
+				}
+
+				this.step = conf.step;
+				let length = parseFloat(this.scaleWidth);
+
+				let singleIntervalCount = (conf.max - conf.min)//кол-во единичных интервалов
+				let singleLength = length / singleIntervalCount;//ширина единичного интервала
+				let stepLength = singleLength * conf.step;// ширина шага (шаг может быть равен одному или нескольким единичным интервалам)
+				// console.log('conf.min: ' + conf.min);
+				// console.log('conf.max: ' + conf.max);
+				// console.log('conf.step: ' + conf.step);
+				// console.log('length: ' + length);
+				// console.log('singleIntervalCount: ' + singleIntervalCount);
+				// console.log('singleLength: ' + singleLength);
+				// console.log('stepLength: ' + stepLength);
+
+				let innerText = conf.min + conf.step; //значение шага
+				while (length >= stepLength) { // создаем деления шкалы
+					let elem = document.createElement('div');
+					let elemWidth = 2;
+					elem.innerText = innerText;
+					elem.classList.add('rs__mark');
+					elem.style.width = elemWidth + 'px';
+					elem.style.marginLeft = stepLength - elemWidth;
+					this.scale.appendChild(elem);
+					length = length - stepLength;
+					innerText = innerText + conf.step;
+					console.log(innerText);
 				}
 			}
-
-			this.step = conf.step;
-			let length = parseFloat(this.scaleWidth);
-
-			let singleIntervalCount = (conf.max - conf.min)//кол-во единичных интервалов
-			let singleLength = length / singleIntervalCount;//ширина единичного интервала
-			let stepLength = singleLength * conf.step;// ширина шага (шаг может быть равен одному или нескольким единичным интервалам)
-			// console.log('conf.min: ' + conf.min);
-			// console.log('conf.max: ' + conf.max);
-			// console.log('conf.step: ' + conf.step);
-			// console.log('length: ' + length);
-			// console.log('singleIntervalCount: ' + singleIntervalCount);
-			// console.log('singleLength: ' + singleLength);
-			// console.log('stepLength: ' + stepLength);
-
-			let innerText = conf.min + conf.step; //значение шага
-			while (length >= stepLength) { // создаем деления шкалы
-				let elem = document.createElement('div');
-				let elemWidth = 2;
-				elem.innerText = innerText;
-				elem.classList.add('rs__mark');
-				elem.style.width = elemWidth + 'px';
-				elem.style.marginLeft = stepLength - elemWidth;
-				this.scale.appendChild(elem);
-				length = length - stepLength;
-				innerText = innerText + conf.step;
-			}
+			this.markList = this.scale.querySelectorAll('.rs__mark');
 		}
-		this.markList = this.scale.querySelectorAll('.rs__mark');
 	}
 
 	//Вешаем обработчик клика по шкале
@@ -1272,7 +1350,7 @@ let root = '.rs__wrapper';
 let conf = {
 	min: 1000,
 	max: 10000,
-	from: 2000,
+	from: 2500,
 	to: 3000,
 	step: 1500,
 	vertical: true

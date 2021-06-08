@@ -1,39 +1,50 @@
-if (!this.conf.vertical) { //горизонтальный режим
-	if (!this.changeMode) { //Если это не переключение режима
-		//режим Double
-		if (!this.rightControl.classList.contains('hidden')) {
-			this.selectedWidth = Math.abs(parseFloat(this.secondControl.style.left) - this.newPos) + "px";
-			if (!this.currentControlFlag) { //перемещатся левый ползунок
-				this.selectedPos = this.newPos + this.shift * 2 + "px";
-			} else {//перемещатся правый ползунок
-				this.selectedPos = this.secondControlPos - this.parentPos + "px";
+if (conf.vertical == true) {
+	console.log('VERTICAL');
+
+	this.scale.classList.add('vertical');
+
+
+	if (marks) {
+		if (this.markList) {
+			for (let elem of this.markList) {
+				elem.remove();
 			}
-			//Режим Single
-		} else {
-			this.selectedPos = 0;
-			this.selectedWidth = this.newPos + "px";
 		}
+
+		this.step = conf.step;
+		let length = parseFloat(this.scaleWidth);
+		console.log(length);
+
+		let singleIntervalCount = (conf.max - conf.min)//кол-во единичных интервалов
+		let singleLength = length / singleIntervalCount;//ширина единичного интервала
+		let stepLength = singleLength * conf.step;// ширина шага (шаг может быть равен одному или нескольким единичным интервалам)
+
+		console.log('conf.min: ' + conf.min);
+		console.log('conf.max: ' + conf.max);
+		console.log('conf.step: ' + conf.step);
+		console.log('length: ' + length);
+		console.log('singleIntervalCount: ' + singleIntervalCount);
+		console.log('singleLength: ' + singleLength);
+		console.log('stepLength: ' + stepLength);
+		let arr = [];
+		let innerText = conf.max - conf.step; //значение шага
+		while (length >= stepLength) { // создаем деления шкалы
+			let elem = document.createElement('div');
+			let elemWidth = 1;
+			elem.innerText = innerText;
+			elem.classList.add('rs__mark');
+			elem.classList.add('vertical');
+			//elem.style.height = elemWidth + 'px';
+			//elem.style.height = stepLength - elemWidth; + 'px';
+			elem.style.marginBottom = stepLength - elemWidth;
+			elem.style.marginLeft = '20px';
+			this.scale.appendChild(elem);
+			length = length - stepLength;
+			innerText = innerText - conf.step;
+			arr.push(elem);
+
+		}
+		console.log(arr);
 	}
-	//Если это переключение режима
-	else if (this.changeMode) {
-		if (this.switchToSingleMode) {//переключение в Single режим
-			this.selectedPos = 0;
-			this.selectedWidth = this.leftControl.style.left;
-		}
+	this.markList = this.scale.querySelectorAll('.rs__mark');
 
-		else if (this.switchToDoubleMode) {//переключение в Double режим
-			console.log('SWITCH TO DOUBLE MODE');
-			this.selectedPos = parseFloat(this.leftControl.style.left);
-			this.selectedWidth = parseFloat(this.rightControl.style.left) - parseFloat(this.leftControl.style.left) + 'px';
-		}
-
-		else if (this.switchToVerticalMode) {//переключение в вертикальный режим
-		}
-
-		else if (this.switchToHorizontalMode) {//переключение в горизонтальный режим
-		}
-	}
-
-	this.progressBarUpdated(this.selectedPos, this.selectedWidth); //Вызываем для обновления прогресс бара в view
-
-}

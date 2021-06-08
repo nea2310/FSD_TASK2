@@ -83,14 +83,17 @@
 }
 
 .rs__mark {
-	margin-top: 8px;
+	//	margin-top: 15px;
 	height: 5px;
 	background-color: #000;
+	position: absolute;
 }
 
 .rs__slider.vertical {
 	height: 100%;
 	width: 6px;
+	flex-direction: column;
+	justify-content: center;
 }
 
 .rs__control.vertical {
@@ -112,4 +115,10 @@
 	width: 6px;
 	border: none;
 	left: 0px;
+}
+
+.rs__mark.vertical {
+	//	margin-top: 8px;
+	width: 5px;
+	background-color: #000;
 }
