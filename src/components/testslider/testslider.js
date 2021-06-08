@@ -27,18 +27,27 @@ class sliderModel {
 
 		// console.log('!!!!');
 		// console.log(this.leftControl);
-		// console.log(this.leftControlStartPos);
+		console.log(this.leftControlStartPos);
 		// console.log(this.rightControl);
-		// console.log(this.rightControlStartPos);
+		console.log(this.rightControlStartPos);
 		// console.log('!!!!');
 
-
-		if (this.conf.range == true) {
-			this.progressBarStartPos = this.leftControlStartPos; // начальная позиция прогресс-бара
-			this.progressBarStartWidth = this.rightControlStartPos - this.leftControlStartPos; // начальная ширина прогресс-бара
+		if (this.conf.vertical == true) {
+			if (this.conf.range == true) {
+				this.progressBarStartPos = this.leftControlStartPos; // начальная позиция прогресс-бара
+				this.progressBarStartWidth = this.rightControlStartPos - this.leftControlStartPos; // начальная ширина прогресс-бара
+			} else {
+				this.progressBarStartPos = 0; // начальная позиция прогресс-бара
+				this.progressBarStartWidth = this.leftControlStartPos; // начальная ширина прогресс-бара
+			}
 		} else {
-			this.progressBarStartPos = 0; // начальная позиция прогресс-бара
-			this.progressBarStartWidth = this.leftControlStartPos; // начальная ширина прогресс-бара
+			if (this.conf.range == true) {
+				this.progressBarStartPos = this.leftControlStartPos; // начальная позиция прогресс-бара
+				this.progressBarStartWidth = this.rightControlStartPos - this.leftControlStartPos; // начальная ширина прогресс-бара
+			} else {
+				this.progressBarStartPos = 0; // начальная позиция прогресс-бара
+				this.progressBarStartWidth = this.leftControlStartPos; // начальная ширина прогресс-бара
+			}
 		}
 	}
 
@@ -232,7 +241,7 @@ class sliderModel {
 	computeProgressBar() {
 		if (!this.changeMode) { //Если это не переключение режима
 			if (this.conf.vertical == true) {//вертикальный слайдер
-				this.secondControlPos = this.secondControl.style.top;
+				this.secondControlPos = this.secondControl.style.bottom;
 			} else {// горизонтальный слайдер
 				this.secondControlPos = this.secondControl.style.left;
 			}
@@ -247,8 +256,9 @@ class sliderModel {
 				//Режим Single
 			} else {
 				if (this.conf.vertical == true) {
-					this.selectedPos = this.leftControl.style.top;
-					this.selectedWidth = this.leftControl.parentElement.offsetHeight - parseInt(this.leftControl.style.top);
+					console.log(this.selectedPos);
+					this.selectedPos = 0;
+					this.selectedWidth = this.leftControl.style.bottom;
 				}
 
 				else {
@@ -261,12 +271,12 @@ class sliderModel {
 		else if (this.changeMode) {// если это переключение режима
 			if (this.conf.vertical == true) {// вертикальный слайдер
 				if (this.switchToSingleMode) {//переключение в Single режим
-					this.selectedPos = this.leftControl.style.top;
-					this.selectedWidth = this.leftControl.parentElement.offsetHeight - parseInt(this.leftControl.style.top);
+					this.selectedPos = 0;
+					this.selectedWidth = parseInt(this.leftControl.style.bottom);
 				}
 				else if (this.switchToDoubleMode) {//переключение в Double режим
-					this.selectedPos = this.rightControl.style.top;
-					this.selectedWidth = (parseInt(this.leftControl.style.top) - parseInt(this.rightControl.style.top));
+					this.selectedPos = this.leftControl.style.bottom;
+					this.selectedWidth = (parseInt(this.rightControl.style.bottom) - parseInt(this.leftControl.style.bottom));
 				}
 				else if (this.switchToVerticalMode) {//переключение в вертикальный режим
 				}
@@ -468,7 +478,7 @@ class sliderViewScale extends sliderView {
 			this.progressBar.style.left = pos;
 			this.progressBar.style.width = length;
 		} else {
-			this.progressBar.style.top = pos;
+			this.progressBar.style.bottom = pos;
 			this.progressBar.style.height = length;
 		}
 	}
@@ -625,42 +635,16 @@ class sliderViewDoubleControl extends sliderView {
 	}
 
 	updateRangeMode(isDouble) {
-		if (this.conf.vertical == true) {
-			if (isDouble) {
-				this.leftControl.classList.remove('hidden');
-				if (this.conf.tip) {
-					this.leftTip.classList.remove('hidden')
-				}
-
-			} else {
-				this.leftControl.classList.add('hidden');
-				this.leftTip.classList.add('hidden');
+		if (isDouble) {
+			this.rightControl.classList.remove('hidden');
+			if (this.conf.tip) {
+				this.rightTip.classList.remove('hidden')
 			}
 		} else {
-
-			if (isDouble) {
-				this.rightControl.classList.remove('hidden');
-				if (this.conf.tip) {
-					this.rightTip.classList.remove('hidden')
-				}
-
-			} else {
-				this.rightControl.classList.add('hidden');
-				this.rightTip.classList.add('hidden');
-			}
+			this.rightControl.classList.add('hidden');
+			this.rightTip.classList.add('hidden');
 		}
 	}
-
-
-
-
-
-
-
-
-
-
-
 
 	updateTipMode(isTip) {
 		if (isTip) {
@@ -1212,22 +1196,12 @@ class sliderController {
 		if (e.target.classList.contains('rs__input-from')) {
 			console.log('FROM');
 			this.conf.from = parseInt(val);
-
-			if (this.conf.vertical == true) {
-				this.model.computeControlPosFromVal(val, false, this.viewDoubleControl.rightControl);
-			} else {
-				this.model.computeControlPosFromVal(val, false, this.viewDoubleControl.leftControl);
-			}
+			this.model.computeControlPosFromVal(val, false, this.viewDoubleControl.leftControl);
 			this.viewDoubleControl.updateTipVal(val, true);
 		} else {
 			console.log('TO');
 			this.conf.to = parseInt(val);
-
-			if (this.conf.vertical == true) {
-				this.model.computeControlPosFromVal(val, false, this.viewDoubleControl.leftControl);
-			} else {
-				this.model.computeControlPosFromVal(val, false, this.viewDoubleControl.rightControl);
-			}
+			this.model.computeControlPosFromVal(val, false, this.viewDoubleControl.rightControl);
 			this.viewDoubleControl.updateTipVal(val, false);
 		}
 	}
