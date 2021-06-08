@@ -188,23 +188,20 @@ class sliderModel {
 			/*запрещаем ползункам перепрыгивать друг через друга, если это не single режим*/
 			if (!this.rightControl.classList.contains('hidden')) {
 
-
-				//console.log(this.currentControlFlag);
-				// console.log(this.pos);
-				// console.log(this.secondControlPos);
-				// console.log(this.shift * 2);
-
 				if (this.conf.vertical) {
-					if ((!this.currentControlFlag &&
-						this.pos < this.secondControlPos + this.shift * 2) ||
-						(this.currentControlFlag &&
-							this.pos > this.secondControlPos - this.shift * 2)) {
+					if ((this.currentControlFlag &&
+						this.pos > this.secondControlPos) || (!this.currentControlFlag &&
+							this.pos < this.secondControlPos + this.shift * 2)) {
 						console.log('RETURN');
 						return
 					}
+
+
+
+
 				} else {
 					if ((!this.currentControlFlag &&
-						this.pos > this.secondControlPos - this.shift * 2) ||
+						this.pos > this.secondControlPos) ||
 						(this.currentControlFlag &&
 							this.pos < this.secondControlPos + this.shift * 2)) {
 						console.log('RETURN');
@@ -559,6 +556,8 @@ class sliderViewDoubleControl extends sliderView {
 
 		if (this.conf.vertical == true) { // vertical mode
 			this.leftControl.classList.add('vertical');
+		} else {//horizontal mode
+			this.leftControl.classList.add('horizontal');
 		}
 
 
@@ -592,6 +591,8 @@ class sliderViewDoubleControl extends sliderView {
 
 		if (this.conf.vertical == true) { // vertical mode
 			this.rightControl.classList.add('vertical');
+		} else {//horizontal mode
+			this.rightControl.classList.add('horizontal');
 		}
 
 	}
@@ -1321,7 +1322,7 @@ let conf = {
 	min: 1000,
 	max: 10000,
 	from: 2000,
-	to: 4000,
+	to: 3000,
 	step: 1500,
 	vertical: true
 }
