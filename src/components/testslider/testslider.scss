@@ -25,20 +25,16 @@
 	border: none;
 	height: 6px;
 	left: 15px;
-	//z-index: 2;
 }
 
 .rs__control {
 	width: 25px;
 	height: 25px;
 	position: absolute;
-	//	left: 0;
 	background: green;
 	border-radius: 50%;
 	z-index: 1;
 	opacity: 0.5;
-
-	//margin-bottom: 10px;
 }
 
 .rs__control-max {
@@ -93,7 +89,6 @@
 }
 
 .rs__slider.vertical {
-	//border: 1px solid yellow;
 	height: 100%;
 	width: 6px;
 }
@@ -108,7 +103,6 @@
 
 .rs__wrapper.vertical {
 	height: 400px;
-	//border: 1px solid yellow;
 }
 
 .rs__progressBar.vertical {
@@ -117,6 +111,5 @@
 	position: absolute;
 	width: 6px;
 	border: none;
-	//height: 100%;
 	left: 0px;
 }
