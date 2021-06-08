@@ -25,12 +25,12 @@ class sliderModel {
 		this.leftControlStartPos = this.computeControlPosFromVal(this.leftControlStartVal);// начальное положение левого ползунка на шкале
 		this.rightControlStartPos = this.computeControlPosFromVal(this.rightControlStartVal);// начальное положение правого ползунка на шкале
 
-		console.log('!!!!');
-		console.log(this.leftControl);
-		console.log(this.leftControlStartPos);
-		console.log(this.rightControl);
-		console.log(this.rightControlStartPos);
-		console.log('!!!!');
+		// console.log('!!!!');
+		// console.log(this.leftControl);
+		// console.log(this.leftControlStartPos);
+		// console.log(this.rightControl);
+		// console.log(this.rightControlStartPos);
+		// console.log('!!!!');
 
 
 		if (this.conf.range == true) {
@@ -57,10 +57,10 @@ class sliderModel {
 
 
 		if (parseInt(val) != this.minRangeVal) {
-			console.log(this.scaleHeight);
-			console.log(parseInt(val));
-			console.log(this.maxRangeVal);
-			console.log(this.minRangeVal);
+			// console.log(this.scaleHeight);
+			// console.log(parseInt(val));
+			// console.log(this.maxRangeVal);
+			// console.log(this.minRangeVal);
 
 			if (this.conf.vertical) {
 
@@ -74,7 +74,7 @@ class sliderModel {
 				this.newPos = (parseInt(val) - this.minRangeVal) * this.scaleWidth / (this.maxRangeVal - this.minRangeVal);
 			}
 
-			console.log(this.newPos);
+			//console.log(this.newPos);
 		}
 		else {
 			this.newPos = 0.00001; // начальное положение левого ползунка на шкале
@@ -160,15 +160,23 @@ class sliderModel {
 				this.shift = (this.currentControl.offsetHeight) / 2;
 				this.edge = this.parentElement.offsetHeight;
 				this.secondControlPos = this.secondControl.getBoundingClientRect().top;
-				this.parentPos = this.parentElement.getBoundingClientRect().top;
+				this.parentPos = this.parentElement.getBoundingClientRect().top + this.parentElement.offsetHeight;
+
+				this.newPos = this.parentPos - this.pos - this.shift;
 			} else {
 				e.touches === undefined ? this.pos = e.clientX : this.pos = e.targetTouches[0].clientX;
 				this.shift = this.currentControl.offsetWidth / 2;
 				this.edge = this.parentElement.offsetWidth;
 				this.secondControlPos = this.secondControl.getBoundingClientRect().left;
 				this.parentPos = this.parentElement.getBoundingClientRect().left;
+
+				this.newPos = this.pos - this.parentPos - this.shift;
 			}
-			this.newPos = this.pos - this.parentPos - this.shift;
+			// console.log(this.pos);
+			// console.log(this.parentPos);
+			// console.log(this.shift);
+			// console.log(this.newPos);
+
 
 			if (this.newPos < this.shift * (-1)) {
 				this.newPos = this.shift * (-1); // если здесь поставить this.newPos =0, то по какой-то причине левый ползунок не доходит до самого края шкалы (т.е. вместо elem.style.left=0px ему присваивается 2px)
@@ -217,13 +225,8 @@ class sliderModel {
 
 	computeControlValue() {
 		if (!this.changeMode) {
-			if (!this.conf.vertical) {
-				this.newValue = ((this.newPos + this.shift) / (this.parentElement.offsetWidth / (this.maxRangeVal - this.minRangeVal)) + this.minRangeVal).toFixed(0);
-				this.сontrolValueUpdated(this.currentControl, this.newValue); //Вызываем для обновления панели view
-			} else {
-				this.newValue = ((this.parentElement.offsetHeight - (this.newPos + this.shift)) / (this.parentElement.offsetHeight / (this.maxRangeVal - this.minRangeVal)) + this.minRangeVal).toFixed(0);
-				this.сontrolValueUpdated(this.currentControl, this.newValue); //Вызываем для обновления панели view
-			}
+			this.newValue = ((this.newPos + this.shift) / (this.edge / (this.maxRangeVal - this.minRangeVal)) + this.minRangeVal).toFixed(0);
+			this.сontrolValueUpdated(this.currentControl, this.newValue); //Вызываем для обновления панели view
 		}
 		this.computeProgressBar();
 	}
@@ -620,16 +623,13 @@ class sliderViewDoubleControl extends sliderView {
 
 	//Обновляем позицию ползунка (вызывается через контроллер)
 	updateControlPos(elem, newPos) {
-		console.log(elem);
-		console.log(newPos);
+
 		if (newPos) {
 			if (!this.conf.vertical) {
 				elem.style.left = newPos + 'px';
 			}
 			if (this.conf.vertical) {
 				elem.style.bottom = newPos + 'px';
-				//elem.style.bottom = '139px';
-
 			}
 		}
 
@@ -639,11 +639,7 @@ class sliderViewDoubleControl extends sliderView {
 	//Обновляем значение tip
 
 	updateTipVal(val, isFrom) {
-		if (this.conf.vertical) {
-			isFrom ? this.rightTip.value = val : this.leftTip.value = val;
-		} else {
-			isFrom ? this.leftTip.value = val : this.rightTip.value = val;
-		}
+		isFrom ? this.leftTip.value = val : this.rightTip.value = val;
 	};
 
 	updateVerticalMode(isVertical) {
@@ -1064,12 +1060,7 @@ class sliderViewPanel extends sliderView {
 
 	//Обновление значений инпутов FROM и TO при перемещении ползунков
 	updateFromTo(elem, newValue) {
-
-		if (this.conf.vertical == true) {
-			elem.classList.contains('rs__control-min') ? this.toInput.value = newValue : this.fromInput.value = newValue;
-		} else {
-			elem.classList.contains('rs__control-min') ? this.fromInput.value = newValue : this.toInput.value = newValue;
-		}
+		elem.classList.contains('rs__control-min') ? this.fromInput.value = newValue : this.toInput.value = newValue;
 	}
 }
 
@@ -1266,7 +1257,10 @@ class sliderController {
 
 	//вызываем метод updateСurrentControl в view
 	handleOnСontrolValueUpdated = (elem, newValue) => {
+		//console.log(elem);
 		elem.classList.contains('rs__control-min') ? this.conf.from = parseInt(newValue) : this.conf.to = parseInt(newValue);
+		//	console.log(this.conf.from);
+		//	console.log(this.conf.to);
 		this.viewPanel.updateFromTo(elem, newValue);
 		elem.classList.contains('rs__control-min') ? this.viewDoubleControl.updateTipVal(newValue, true) :
 			this.viewDoubleControl.updateTipVal(newValue, false);
