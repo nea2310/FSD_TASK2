@@ -12,6 +12,13 @@ class sliderModel {
 		this.rightControl = this.slider.querySelector('.rs__control-max');
 
 		this.scale = this.slider.querySelector('.rs__slider');
+
+		if (this.conf.vertical == true) {
+			this.shift = (this.leftControl.offsetHeight) / 2;
+		} else {
+			this.shift = (this.leftControl.offsetWidth) / 2;
+		}
+
 		this.scaleWidth = this.scale.offsetWidth;
 
 		this.scaleHeight = this.scale.offsetHeight; //!
@@ -75,12 +82,12 @@ class sliderModel {
 
 				//	let a = ((parseInt(val) - this.minRangeVal) * 100) / (this.maxRangeVal - this.minRangeVal); // %
 				//console.log(a);
-				this.newPos = this.scaleHeight * ((parseInt(val) - this.minRangeVal)) / (this.maxRangeVal - this.minRangeVal);
+				this.newPos = (this.scaleHeight * ((parseInt(val) - this.minRangeVal)) / (this.maxRangeVal - this.minRangeVal)) - this.shift;
 
 
 
 			} else {
-				this.newPos = (parseInt(val) - this.minRangeVal) * this.scaleWidth / (this.maxRangeVal - this.minRangeVal);
+				this.newPos = ((parseInt(val) - this.minRangeVal) * this.scaleWidth / (this.maxRangeVal - this.minRangeVal)) - this.shift;
 			}
 
 			//console.log(this.newPos);
@@ -166,15 +173,16 @@ class sliderModel {
 
 			if (this.conf.vertical) {
 				e.touches === undefined ? this.pos = e.clientY : this.pos = e.targetTouches[0].clientY;
-				this.shift = (this.currentControl.offsetHeight) / 2;
+				//this.shift = (this.currentControl.offsetHeight) / 2;
 				this.edge = this.parentElement.offsetHeight;
 				this.secondControlPos = this.secondControl.getBoundingClientRect().top;
 				this.parentPos = this.parentElement.getBoundingClientRect().top + this.parentElement.offsetHeight;
 
 				this.newPos = this.parentPos - this.pos - this.shift;
+				//this.newPos = this.parentPos - this.pos;
 			} else {
 				e.touches === undefined ? this.pos = e.clientX : this.pos = e.targetTouches[0].clientX;
-				this.shift = this.currentControl.offsetWidth / 2;
+				// this.shift = this.currentControl.offsetWidth / 2;
 				this.edge = this.parentElement.offsetWidth;
 				this.secondControlPos = this.secondControl.getBoundingClientRect().left;
 				this.parentPos = this.parentElement.getBoundingClientRect().left;
@@ -1356,11 +1364,11 @@ class sliderController {
 let root = '.rs__wrapper';
 
 let conf = {
-	min: 1000,
-	max: 10000,
-	from: 2500,
-	to: 3000,
-	step: 1500,
+	min: 1,
+	max: 10,
+	from: 2,
+	to: 7,
+	step: 1,
 	vertical: true
 }
 
