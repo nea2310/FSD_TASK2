@@ -59,7 +59,7 @@ class sliderModel {
 			}
 		}
 
-		this.computeScaleMarks();
+		this.computeScaleMarks(this.conf);
 
 	}
 
@@ -71,14 +71,14 @@ class sliderModel {
 		this.currentControlFlag = controlData.currentControlFlag;
 	}
 
-	computeScaleMarks() {
+	computeScaleMarks(conf) {
 		/*
 		расчет делений шкалы:
 		(conf.max - conf.min) - кол-во единичных интервалов
 		this.length / (conf.max - conf.min);//ширина единичного интервала; 
 		(this.length / (conf.max - conf.min)) * conf.step;// ширина шага (шаг может быть равен одному или нескольким единичным интервалам)
 		*/
-
+		//	console.log(conf);
 		this.stepLength = (this.length / (conf.max - conf.min)) * conf.step;
 		this.text = conf.min + conf.step;
 		this.marksArr = [];
@@ -1292,7 +1292,9 @@ class sliderController {
 
 	handleStepChanged = (val) => {
 		this.conf.step = parseInt(val);
-		this.viewScale.renderMarks(this.conf);
+		//	console.log(this.conf);
+		this.model.computeScaleMarks(this.conf);
+		this.handleOnScaleMarksUpdated(this.model.marksArr);
 	}
 
 
@@ -1311,6 +1313,12 @@ class sliderController {
 		this.render();
 		this.init();
 	};
+
+
+	// handleScaleReRendering = (scaleMarks) => {
+	// 	this.viewScale.updateScaleMarks(scaleMarks);
+	// };
+
 }
 
 let root = '.rs__wrapper';
@@ -1321,7 +1329,7 @@ let conf = {
 	from: 2,
 	to: 7,
 	step: 1,
-	vertical: true
+	//	vertical: true
 }
 
 new sliderController(conf, root,
