@@ -12,16 +12,18 @@ class sliderModel {
 		this.rightControl = this.slider.querySelector('.rs__control-max');
 
 		this.scale = this.slider.querySelector('.rs__slider');
+		this.scaleWidth = this.scale.offsetWidth;
+		this.scaleHeight = this.scale.offsetHeight; //!
 
 		if (this.conf.vertical == true) {
 			this.shift = (this.leftControl.offsetHeight) / 2;
+			this.length = parseFloat(this.scaleHeight);
 		} else {
 			this.shift = (this.leftControl.offsetWidth) / 2;
+			this.length = parseFloat(this.scaleWidth);
 		}
 
-		this.scaleWidth = this.scale.offsetWidth;
 
-		this.scaleHeight = this.scale.offsetHeight; //!
 
 		this.minRangeVal = conf.min;//минимальное значение диапазон
 		this.maxRangeVal = conf.max;//максимальное значение диапазона
@@ -54,6 +56,38 @@ class sliderModel {
 			} else {
 				this.progressBarStartPos = 0; // начальная позиция прогресс-бара
 				this.progressBarStartWidth = this.leftControlStartPos; // начальная ширина прогресс-бара
+			}
+		}
+
+		/*
+		рассчет делений шкалы:
+		(conf.max - conf.min) - кол-во единичных интервалов
+		this.length / (conf.max - conf.min);//ширина единичного интервала; 
+		(this.length / (conf.max - conf.min)) * conf.step;// ширина шага (шаг может быть равен одному или нескольким единичным интервалам)
+		*/
+		if (conf.vertical == true) {
+			this.stepLength = (this.length / (conf.max - conf.min)) * conf.step;
+			this.text = conf.min + conf.step;
+			this.marksArr = [];
+			while (this.length >= this.stepLength) { // создаем деления шкалы
+				let pos = parseFloat(this.scaleHeight) * (this.text - conf.min) / (conf.max - conf.min);
+				this.marksArr.push({ 'pos': pos, 'text': this.text })
+				this.length = this.length - this.stepLength;
+				this.text = this.text + conf.step;
+			}
+		}
+		else {
+			console.log(this.length);
+			this.stepLength = (this.length / (conf.max - conf.min)) * conf.step;
+			console.log(this.stepLength);
+			this.text = conf.min + conf.step;
+			this.marksArr = [];
+			while (this.length >= this.stepLength) { // создаем деления шкалы
+
+				let pos = (this.text - conf.min) * this.scaleWidth / (conf.max - conf.min);
+				this.marksArr.push({ 'pos': pos, 'text': this.text })
+				this.length = this.length - this.stepLength;
+				this.text = this.text + conf.step;
 			}
 		}
 	}
@@ -375,7 +409,7 @@ class sliderViewScale extends sliderView {
 	// Инициализация
 	init(conf) {
 		this.renderScale(conf);// шкала
-		this.renderMarks(conf);//деления шкалы
+		//	this.renderMarks(conf);//деления шкалы
 	}
 	//создаем шкалу
 	renderScale(conf) {
@@ -404,59 +438,59 @@ class sliderViewScale extends sliderView {
 		}
 	}
 	//создаем деления шкалы
-	renderMarks(conf) {
-		if (conf.vertical == true) {
-			console.log('VERTICAL');
-			this.scale.classList.add('vertical');
-			if (this.markList) {
-				for (let elem of this.markList) {
-					elem.remove();
-				}
-			}
-			this.step = conf.step;
-			let length = parseFloat(this.scaleHeight);
-			let singleIntervalCount = (conf.max - conf.min)//кол-во единичных интервалов
-			let singleLength = length / singleIntervalCount;//ширина единичного интервала
-			let stepLength = singleLength * conf.step;// ширина шага (шаг может быть равен одному или нескольким единичным интервалам)
-			let innerText = conf.min + conf.step;
-			while (length >= stepLength) { // создаем деления шкалы
-				let elem = document.createElement('div');
-				let pos = parseFloat(this.scaleHeight) * (innerText - conf.min) / (conf.max - conf.min);
-				elem.innerText = innerText;
-				elem.classList.add('rs__mark');
-				elem.classList.add('vertical');
-				elem.style.bottom = pos;
-				this.scale.appendChild(elem);
-				length = length - stepLength;
-				innerText = innerText + conf.step;
-			}
-			this.markList = this.scale.querySelectorAll('.rs__mark');
-		} else {
-			if (this.markList) {
-				for (let elem of this.markList) {
-					elem.remove();
-				}
-			}
-			this.step = conf.step;
-			let length = parseFloat(this.scaleWidth);
-			let singleIntervalCount = (conf.max - conf.min)//кол-во единичных интервалов
-			let singleLength = length / singleIntervalCount;//ширина единичного интервала
-			let stepLength = singleLength * conf.step;// ширина шага (шаг может быть равен одному или нескольким единичным интервалам)
-			let innerText = conf.min + conf.step; //значение шага
-			while (length >= stepLength) { // создаем деления шкалы
-				let elem = document.createElement('div');
-				let pos = (innerText - conf.min) * this.scaleWidth / (conf.max - conf.min);
-				elem.innerText = innerText;
-				elem.classList.add('rs__mark');
-				elem.classList.add('horizontal');
-				elem.style.left = pos;
-				this.scale.appendChild(elem);
-				length = length - stepLength;
-				innerText = innerText + conf.step;
-			}
-			this.markList = this.scale.querySelectorAll('.rs__mark');
-		}
-	}
+	// renderMarks(conf) {
+	// 	if (conf.vertical == true) {
+	// 		console.log('VERTICAL');
+	// 		this.scale.classList.add('vertical');
+	// 		if (this.markList) {
+	// 			for (let elem of this.markList) {
+	// 				elem.remove();
+	// 			}
+	// 		}
+	// 		this.step = conf.step;
+	// 		let length = parseFloat(this.scaleHeight);
+	// 		let singleIntervalCount = (conf.max - conf.min)//кол-во единичных интервалов
+	// 		let singleLength = length / singleIntervalCount;//ширина единичного интервала
+	// 		let stepLength = singleLength * conf.step;// ширина шага (шаг может быть равен одному или нескольким единичным интервалам)
+	// 		let innerText = conf.min + conf.step;
+	// 		while (length >= stepLength) { // создаем деления шкалы
+	// 			let elem = document.createElement('div');
+	// 			let pos = parseFloat(this.scaleHeight) * (innerText - conf.min) / (conf.max - conf.min);
+	// 			elem.innerText = innerText;
+	// 			elem.classList.add('rs__mark');
+	// 			elem.classList.add('vertical');
+	// 			elem.style.bottom = pos;
+	// 			this.scale.appendChild(elem);
+	// 			length = length - stepLength;
+	// 			innerText = innerText + conf.step;
+	// 		}
+	// 		this.markList = this.scale.querySelectorAll('.rs__mark');
+	// 	} else {
+	// 		if (this.markList) {
+	// 			for (let elem of this.markList) {
+	// 				elem.remove();
+	// 			}
+	// 		}
+	// 		this.step = conf.step;
+	// 		let length = parseFloat(this.scaleWidth);
+	// 		let singleIntervalCount = (conf.max - conf.min)//кол-во единичных интервалов
+	// 		let singleLength = length / singleIntervalCount;//ширина единичного интервала
+	// 		let stepLength = singleLength * conf.step;// ширина шага (шаг может быть равен одному или нескольким единичным интервалам)
+	// 		let innerText = conf.min + conf.step; //значение шага
+	// 		while (length >= stepLength) { // создаем деления шкалы
+	// 			let elem = document.createElement('div');
+	// 			let pos = (innerText - conf.min) * this.scaleWidth / (conf.max - conf.min);
+	// 			elem.innerText = innerText;
+	// 			elem.classList.add('rs__mark');
+	// 			elem.classList.add('horizontal');
+	// 			elem.style.left = pos;
+	// 			this.scale.appendChild(elem);
+	// 			length = length - stepLength;
+	// 			innerText = innerText + conf.step;
+	// 		}
+	// 		this.markList = this.scale.querySelectorAll('.rs__mark');
+	// 	}
+	// }
 
 	//Вешаем обработчик клика по шкале
 
@@ -509,6 +543,52 @@ class sliderViewScale extends sliderView {
 			this.progressBar.style.bottom = pos;
 			this.progressBar.style.height = length;
 		}
+	}
+
+
+
+	updateScaleMarks(scaleMarks) {
+		// console.log(scaleMarks);
+		// console.log(conf);
+		if (conf.vertical == true) {
+			if (this.markList) {
+				for (let elem of this.markList) {
+					elem.remove();
+				}
+			}
+
+			for (let node of scaleMarks) {
+				let elem = document.createElement('div');
+				elem.innerText = node.text;
+				elem.classList.add('rs__mark');
+				elem.classList.add('vertical');
+				elem.style.bottom = node.pos;
+				this.scale.appendChild(elem);
+			}
+			this.markList = this.scale.querySelectorAll('.rs__mark');
+		} else {
+
+
+			if (this.markList) {
+				for (let elem of this.markList) {
+					elem.remove();
+				}
+			}
+
+			for (let node of scaleMarks) {
+				let elem = document.createElement('div');
+				elem.innerText = node.text;
+				elem.classList.add('rs__mark');
+				elem.classList.add('horizontal');
+				elem.style.left = node.pos;
+				this.scale.appendChild(elem);
+			}
+			this.markList = this.scale.querySelectorAll('.rs__mark');
+
+
+		}
+
+
 	}
 
 
@@ -1113,6 +1193,11 @@ class sliderController {
 
 		this.handleOnprogressBarUpdated(this.model.progressBarStartPos, this.model.progressBarStartWidth); // передаем во view начальное положение прогресс-бара
 
+		this.handleOnScaleMarksUpdated(this.model.marksArr); // передаем во view начальное положение делений шкалы
+
+
+
+
 		this.viewDoubleControl.bindMoveControl(this.handleGetControlData, this.handlecomputeControlPosFromEvent);// вешаем обработчики handleGetControlData и handlecomputeControlPosFromEvent для обработки в view события захвата и перетаскивания ползунка
 		this.viewScale.bindClickOnScale(this.handleGetControlData, this.handlecomputeControlPosFromEvent);// вешаем обработчики handleGetControlData и handlecomputeControlPosFromEvent для обработки в view события клика по шкале
 
@@ -1157,6 +1242,11 @@ class sliderController {
 	//вызываем метод updateСurrentControl в view
 	handleOnprogressBarUpdated = (selectedPos, selectedWidth) => {
 		this.viewScale.updateProgressBar(selectedPos, selectedWidth);
+	}
+
+
+	handleOnScaleMarksUpdated = (scaleMarks) => {
+		this.viewScale.updateScaleMarks(scaleMarks);
 	}
 
 	//вызываем метод updateСurrentControl в view
@@ -1307,7 +1397,7 @@ let conf = {
 	from: 2,
 	to: 7,
 	step: 1,
-	vertical: true
+	//vertical: true
 }
 
 new sliderController(conf, root,
