@@ -408,6 +408,7 @@ class sliderViewScale extends sliderView {
 	}
 	//создаем шкалу
 	renderScale(conf) {
+		console.log(conf);
 		this.scale = document.createElement('div');
 		this.scale.className = 'rs__slider';
 		this.slider.append(this.scale);
@@ -476,8 +477,9 @@ class sliderViewScale extends sliderView {
 	}
 
 	/*красим Progress Bar (вызывается из контроллера)*/
-	updateProgressBar(pos, length) {
+	updateProgressBar(pos, length, conf) {
 
+		console.log(conf);
 		if (!conf.vertical) {
 			this.progressBar.style.left = pos;
 			this.progressBar.style.width = length;
@@ -489,9 +491,9 @@ class sliderViewScale extends sliderView {
 
 
 
-	updateScaleMarks(scaleMarks) {
+	updateScaleMarks(scaleMarks, conf) {
 		// console.log(scaleMarks);
-		// console.log(conf);
+		console.log(conf);
 
 		if (this.markList) {
 			for (let elem of this.markList) {
@@ -1115,9 +1117,9 @@ class sliderController {
 		this.handleOnControlPosUpdated(this.viewDoubleControl.rightControl, this.model.rightControlStartPos); //передаем во view начальное положение левого ползунка
 
 
-		this.handleOnprogressBarUpdated(this.model.progressBarStartPos, this.model.progressBarStartWidth); // передаем во view начальное положение прогресс-бара
+		this.handleOnprogressBarUpdated(this.model.progressBarStartPos, this.model.progressBarStartWidth, this.conf); // передаем во view начальное положение прогресс-бара
 
-		this.handleOnScaleMarksUpdated(this.model.marksArr); // передаем во view начальное положение делений шкалы
+		this.handleOnScaleMarksUpdated(this.model.marksArr, this.conf); // передаем во view начальное положение делений шкалы
 
 
 
@@ -1164,13 +1166,13 @@ class sliderController {
 
 
 	//вызываем метод updateСurrentControl в view
-	handleOnprogressBarUpdated = (selectedPos, selectedWidth) => {
-		this.viewScale.updateProgressBar(selectedPos, selectedWidth);
+	handleOnprogressBarUpdated = (selectedPos, selectedWidth, conf) => {
+		this.viewScale.updateProgressBar(selectedPos, selectedWidth, conf);
 	}
 
 
 	handleOnScaleMarksUpdated = (scaleMarks) => {
-		this.viewScale.updateScaleMarks(scaleMarks);
+		this.viewScale.updateScaleMarks(scaleMarks, this.conf);
 	}
 
 	//вызываем метод updateСurrentControl в view
@@ -1182,11 +1184,13 @@ class sliderController {
 	handleIsVerticalChecked = () => {
 		this.conf.vertical = true;
 		this.viewDoubleControl.updateVerticalMode(true);
+		this.handleWindowReRendering();
 	}
 
 	handleIsVerticalNotChecked = () => {
 		this.conf.vertical = false;
-		this.viewDoubleControl.updateVerticalMode(true);
+		this.viewDoubleControl.updateVerticalMode(false);
+		this.handleWindowReRendering();
 	}
 
 
