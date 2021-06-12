@@ -334,7 +334,7 @@ class sliderModel {
 				}
 			}
 		}
-		this.progressBarUpdated(this.selectedPos, this.selectedWidth); //Вызываем для обновления прогресс бара в view
+		this.progressBarUpdated(this.selectedPos, this.selectedWidth, this.conf); //Вызываем для обновления прогресс бара в view
 	}
 
 
