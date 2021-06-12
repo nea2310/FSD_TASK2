@@ -465,6 +465,9 @@ class sliderViewScale extends sliderView {
 				elem.classList.add('horizontal');
 				elem.style.left = node.pos;
 			}
+			if (!conf.scale) {
+				elem.classList.add('hidden');
+			}
 			this.scale.appendChild(elem);
 		}
 		this.markList = this.scale.querySelectorAll('.rs__mark');
