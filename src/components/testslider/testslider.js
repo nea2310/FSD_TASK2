@@ -408,7 +408,7 @@ class sliderViewScale extends sliderView {
 	}
 	//создаем шкалу
 	renderScale(conf) {
-		console.log(conf);
+		//	console.log(conf);
 		this.scale = document.createElement('div');
 		this.scale.className = 'rs__slider';
 		this.slider.append(this.scale);
@@ -430,7 +430,12 @@ class sliderViewScale extends sliderView {
 			this.slider.classList.add('vertical');
 			this.scale.classList.add('vertical');
 			this.progressBar.classList.add('vertical');
-			this.scaleHeight = this.scale.offsetHeight;
+			//	this.scaleHeight = this.scale.offsetHeight;
+		} else {
+			this.slider.classList.remove('vertical');
+			this.scale.classList.remove('vertical');
+			this.progressBar.classList.remove('vertical');
+			//	this.scaleHeight = this.scale.offsetHeight;
 		}
 	}
 
@@ -479,7 +484,7 @@ class sliderViewScale extends sliderView {
 	/*красим Progress Bar (вызывается из контроллера)*/
 	updateProgressBar(pos, length, conf) {
 
-		console.log(conf);
+		//	console.log(conf);
 		if (!conf.vertical) {
 			this.progressBar.style.left = pos;
 			this.progressBar.style.width = length;
@@ -493,7 +498,7 @@ class sliderViewScale extends sliderView {
 
 	updateScaleMarks(scaleMarks, conf) {
 		// console.log(scaleMarks);
-		console.log(conf);
+		//	console.log(conf);
 
 		if (this.markList) {
 			for (let elem of this.markList) {
