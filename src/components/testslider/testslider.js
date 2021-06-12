@@ -1338,7 +1338,7 @@ let conf = {
 	from: 2,
 	to: 7,
 	step: 1,
-	//	vertical: true
+	//vertical: true
 }
 
 new sliderController(conf, root,
